@@ -80,3 +80,7 @@ append_path () {
         	fi
 	fi
 }
+
+error() {
+	printf "$1\n" "${@:2}" 1>&2
+}
