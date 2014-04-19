@@ -7,7 +7,45 @@ PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin
 
 source "${SHLIBDIR}/lib.bash"
 
-# the module name might be set in the build script(!)
+function usage() {
+	error "
+Usage: $0 [OPTIONS..] [VERSION] [ENV=VALUE...]
+
+VERSION
+        Version of module to compile.
+
+ENV=VALUE
+        Set environment variable ENV to VALUE. This can be used to
+        overwrite default versions.
+
+-? | -h | --help
+        Print usage
+
+-v | --verbose )
+        Verbose output
+
+-j N | --jobs=N
+        Run N parallel make jobs
+
+-f | --force-rebuild
+        Force rebuild of module.
+
+--with-compiler=P/V
+        Use compiler P with version V
+
+--with-mpi=P/V
+        Use MPI implementation P with version V
+
+--with-hdf5=V
+        Use parallel HDF5 version V
+
+--with-hdf5_serial=V
+        Use serial HDF5 version V
+"
+	exit 1
+}
+
+# the module name might already be set in the build script(!)
 if [[ -z $P ]]; then
 	P=$(basename $0)
 	P=${P%.*}
@@ -33,17 +71,51 @@ declare -i  JOBS=3
 DEBUG_ON=''
 FORCE_REBUILD=''
 ENVIRONMENT_ARGS=''
+WITH_ARGS=''
 while (( $# > 0 )); do
 	case $1 in
 	-j )
 		JOBS=$2
 		shift
 		;;
-	-v )
+	--jobs=[0-9]* )
+		JOBS=${1/--jobs=}
+		;;
+	-v | --verbose)
 		DEBUG_ON=':'
 		;;
 	-f | --force-rebuild )
 		FORCE_REBUILD=':'
+		;;
+	-? | -h | --help )
+		usage
+		;;
+	--with-hdf5=*)
+		v=${1/--with-hdf5=}
+		ENVIRONMENT_ARGS="${ENVIRONMENT_ARGS} HDF5=hdf5 HDF5_VERSION=$v"
+		;;
+	--with-hdf5=*)
+		v=${1/--with-hdf5_serial=}
+		ENVIRONMENT_ARGS="${ENVIRONMENT_ARGS} HDF5_SERIAL=hdf5_serial HDF5_SERIAL_VERSION=$v"
+		;;
+	--with-*=* )
+		# --with-mpi=openmpi/1.6.5 ->
+		# MPI=openmpi MPI_VERSION=1.6.5 OPENMPI_VERSION=1.6.5
+		arg=${1/--with-}
+		f=$(echo ${arg/=*} | tr [:lower:] [:upper:])
+		m=${arg/*=}
+		if [[ -z $m ]]; then
+			error "$1: module missing."
+			usage
+		fi
+		p=${m/\/*}
+		_p=$(echo ${p} | tr [:lower:] [:upper:])
+		v=${m/*\/}
+		if [[ -z $v ]] || [[ $p == $v ]]; then
+			error "$1: version missing in module specification."
+			usage
+		fi
+		ENVIRONMENT_ARGS="${ENVIRONMENT_ARGS} ${f}=${p} ${f}_VERSION=$v ${_p}_VERSION=${v}"
 		;;
 	* )
 		if [[ $1 =~ = ]]; then
@@ -84,8 +156,16 @@ module purge
 
 #unset _P _V
 
+function preexec() {
+	echo "$BASH_COMMAND"
+}
 
-[[ $DEBUG_ON ]] && trap 'eval echo \\"$BASH_COMMAND\\"' DEBUG
+if [[ $DEBUG_ON ]]; then
+	#trap 'eval echo \\"$BASH_COMMAND\\"' DEBUG
+	trap 'echo "$BASH_COMMAND"' DEBUG
+        #trap 'preexec' DEBUG
+	#set -o functrace
+fi
 
 function em.set_build_dependencies() {
 	EM_BUILD_DEPENDENCIES=("$@")
@@ -95,13 +175,14 @@ function _load_build_dependencies() {
 	for m in "${EM_BUILD_DEPENDENCIES[@]}"; do
 		[[ -z $m ]] && continue
 		if [[ ! $m =~ "*/*" ]]; then
-		    local _V=${m^^}_VERSION
+		    local _V=$(echo -n $m | tr [:lower:] [:upper:] )_VERSION
 		    m=$m/${!_V}
 		fi
 		if module load "$m" 2>&1 | grep -q "Unable to locate"; then
 			echo "Oops: Module \"$m\" not available"
 			return 1
 		fi
+		echo "Loading module: $m"
 		module load "$m"
 	done
 }
@@ -139,7 +220,7 @@ function _write_runtime_dependencies() {
 	for dep in "${EM_DEPENDENCIES[@]}"; do
 		[[ -z $dep ]] && continue
 		if [[ ! $dep =~ "*/*" ]]; then
-		    local _V=${dep^^}_VERSION
+		    local _V=$(echo -n $dep | tr [:lower:] [:upper:] )_VERSION
 		    dep=$dep/${!_V}
 		fi
 		echo "${dep}" >> "${fname}"
@@ -153,7 +234,7 @@ function _write_build_dependencies() {
 	for dep in "${EM_BUILD_DEPENDENCIES[@]}"; do
 		[[ -z $dep ]] && continue
 		if [[ ! $dep =~ "*/*" ]]; then
-		    local _V=${dep^^}_VERSION
+		    local _V=$(echo -n $dep | tr [:lower:] [:upper:] )_VERSION
 		    dep=$dep/${!_V}
 		fi
 		echo "${dep}" >> "${fname}"
@@ -222,7 +303,7 @@ function _set_env() {
 		TARBALL=${TARBALL}.bz2
 		_UNTAR_FLAGS='xvjf'
 	else
-		printf "${FUNCNAME}: tarball for ${TARBALL} not found."
+		error "tar-ball for $P/$V not found."
 		exit 43
 	fi
 }
@@ -310,7 +391,7 @@ function em.make_all() {
 		mkdir -p "${DOCDIR}"
 		em.install_doc
 	else
- 		echo "Not rebuilding $P-$V ..."
+ 		echo "Not rebuilding $P/$V ..."
 	fi
 	_write_runtime_dependencies
 	_write_build_dependencies
