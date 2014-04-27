@@ -1,3 +1,4 @@
+#!/bin/bash
 
 declare -rx SHLIBDIR=$( cd $(dirname "$BASH_SOURCE") && pwd )
 
@@ -138,10 +139,13 @@ declare -x  DOCDIR=''
 declare -x  EM_FAMILY=''
 declare -x  EM_MODULENAME=''
 
+declare -x  CONFIG_DIR="${EM_BASEDIR}/config"
+declare -x  SCRIPTDIR="${EM_BASEDIR}/scripts"
 declare -x  EM_TMPDIR="${EM_BASEDIR}/tmp"
+
+# these directories are module dependend
 declare -x  EM_SRCDIR=''
 declare -x  EM_BUILDDIR=''
-declare -x  CONFIG_DIR="${EM_BASEDIR}/config"
 
 declare -x  EM_BUILD_DEPENDENCIES
 
@@ -374,6 +378,18 @@ function _cleanup_build() {
 	fi
     );
 }
+
+function em.cleanup_src() {
+    (
+	[[ -d /${EM_SRCDIR} ]] || return 0
+	cd "/${EM_SRCDIR}";
+	if [[ $(pwd) != / ]]; then
+		echo "Cleaning up $(pwd)"
+		rm -rf *
+	fi
+    );
+}
+
 
 function em.make_all() {
 	_set_env

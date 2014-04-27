@@ -1,4 +1,7 @@
 #!/bin/bash
+#
+# Lua cannot be build in a seperate directory!
+#
 
 source "$(dirname $0)/../lib/libem.bash"
 
@@ -12,9 +15,10 @@ function em.configure() {
 function em.build() {
         cd "${EM_SRCDIR}"
 
-	make
+	make -j ${JOBS}
 }
 
 em.add_to_family "core"
 em.set_build_dependencies "${COMPILER}"
 em.make_all
+em.cleanup_src
