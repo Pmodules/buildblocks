@@ -388,12 +388,10 @@ function _cleanup_build() {
 function em.cleanup_src() {
     (
 	[[ -d /${EM_SRCDIR} ]] || return 0
-	cd "/${EM_SRCDIR}";
+	cd "/${EM_SRCDIR}/..";
 	if [[ $(pwd) != / ]]; then
 		echo "Cleaning up $(pwd)"
-		rm -rf *
-		cd ..
-		rmdir "/${EM_SRCDIR}"
+		rm -rf ${EM_SRCDIR##*/}
 	fi
     );
 }
