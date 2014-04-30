@@ -9,10 +9,11 @@ Achim Gsell, Valeri Markushin, Hans Christian Stadler
 
 Scientific Computing, AIT, PSI
 
-2014-04-29 
+2014-04-30
 
 
-* Introduction 
+* DONE Introduction 
+  CLOSED: [2014-04-30 Wed 15:40]
 
 This document describes the requirements for a new implementation of 
 *environment modules* at PSI that should address known problems with the 
@@ -43,13 +44,35 @@ maintaners easier and staightforward.
 
 Since we have a work in progress, we call it *specification*, not evaluation. 
 
-** DONE Must Preserve the Core Functionality of Traditional Modules	 :OK:
+** DONE Must Preserve the Core Functionality of Traditional Modulel 
+   CLOSED: [2014-04-30 Wed 16:15]
 
 The essential (to be specified) tradinional *module* *subcommands* *must* be supported. 
-Both TCL and Lua modules must meet this requirement. 
-It is desirable to support all traditional subcommands. 
+Both the traditional TCL and Lua modules meet this requirement. 
+It is desirable to support all traditional subcommands in extensions of the 
+existing implementations.  
 
-*** IN-PROGRESS The TCL module subcommands
+*** IN-PROGRESS Essential subcommands
+
+#+begin_example
+  add | load
+  avail 
+  rm | del | unload
+  help
+  list 
+  show 
+  swap | switch  
+  use
+  unuse
+  whatis 
+#+end_example
+
+Note that the *swap* subcommand is provided by both the raditional TCL modules 
+and Lmod, but with different semantics. 
+
+
+*** DONE The TCL module subcommands
+    CLOSED: [2014-04-30 Wed 15:45]
 
 #+BEGIN_EXAMPLE
   module help
@@ -96,12 +119,121 @@ Switches:
 #+END_EXAMPLE 
 
 
-*** IN-PROGRESS The Lmod module subcommands
+*** DONE The Lmod module subcommands
+    CLOSED: [2014-04-30 Wed 15:57]
 
 #+BEGIN_EXAMPLE
 
 #+END_EXAMPLE
 
+
+
+#+begin_example
+   module help
+Usage: module [options] sub-command [args ...]
+
+Options:
+  -h -? -H --help               This help message
+  --topic=topic                 help topics: modfuncs envvars
+  -D                            Program tracing written to stderr
+  --debug=dbglvl                Program tracing written to stderr
+  -d --default                  List default modules only when used with avail
+  -q --quiet --expert           Do not print out warnings
+  -t --terse                    Write out in machine readable format for commands: list, avail, spider, savelist
+  --initial_load                loading Lmod for first time in a user shell
+  --latest                      Load latest (ignore default)
+  --ignore_cache                Treat the cache file(s) as out-of-date
+  --novice                      Turn off expert flag
+  -w twidth --width=twidth      Use this as max term width
+  -v --version                  Print version info and quit
+  -r --regexp                   use regular expression match
+  --dumpversion                 Dump version in a machine readable way and quit
+  --localvar=localvarA          local variables needed to be set after this commands execution
+  --check_syntax --checkSyntax  Checking module command syntax: do not load
+  --config                      Report Lmod Configuration
+  --mt                          Report Module Table State
+  --timer                       report run times
+  --force                       force removal of a sticky module or save an empty collection
+
+module [options] sub-command [args ...]
+
+Help sub-commands:
+------------------
+  help                              prints this message
+  help                module [...]  print help message from module(s)
+
+Loading/Unloading sub-commands:
+-------------------------------
+  load | add          module [...]  load module(s)
+  try-load | try-add  module [...]  Add module(s), do not complain if not found
+  del | unload        module [...]  Remove module(s), do not complain if not found
+  swap | sw | switch  m1 m2         unload m1 and load m2
+  purge                             unload all modules
+  refresh                           reload aliases from current list of modules.
+  update                            reload all currently loaded modules.
+
+Listing / Searching sub-commands:
+---------------------------------
+  list                              List loaded modules
+  list                s1 s2 ...     List loaded modules that match the pattern
+  avail | av                        List available modules
+  avail | av          string        List available modules that contain "string".
+  spider                            List all possible modules
+  spider              module        List all possible version of that module file
+  spider              string        List all module that contain the "string".
+  spider              name/version  Detailed information about that version of the module.
+  whatis              module        Print whatis information about module
+  keyword | key       string        Search all name and whatis that contain "string".
+
+Searching with Lmod:
+--------------------
+  All searching (spider, list, avail, keyword) support regular expressions:
+
+  spider -r           '^p'          Finds all the modules that start with `p' or `P'
+  spider -r           mpi           Finds all modules that have "mpi" in their name.
+  spider -r           'mpi$         Finds all modules that end with "mpi" in their name.
+
+Handling a collection of modules:
+--------------------------------
+  save | s                          Save the current list of modules to a user defined "default".
+  save | s            name          Save the current list of modules to "name" collection.
+  restore | r                       Restore modules from the user's "default" or system default.
+  restore | r         name          Restore modules from "name" collection.
+  restore             system        Restore module state to system defaults.
+  savelist                          List of saved collections.
+
+Deprecated commands:
+--------------------
+  reset                             The same as "restore system"
+  getdefault          [name]        load name collection of modules or user's "default" if no name given.
+                                    ===> Use "restore" instead <====
+  setdefault          [name]        Save current list of modules to name if given, otherwise save as the default
+                                    list for you the user.
+                                    ===> Use "save" instead. <====
+
+Miscellaneous sub-commands:
+---------------------------
+  show                modulefile    show the commands in the module file.
+  use [-a]            path          Prepend or Append path to MODULEPATH.
+  unuse               path          remove path from MODULEPATH.
+  tablelist                         output list of active modules as a lua table.
+
+Important Environment Variables:
+--------------------------------
+  LMOD_COLORIZE                     If defined to be "YES" then Lmod prints properties and warning in color.
+
+    ---------------------------------------------------------------------------------------------------------------
+
+The following guides are at http://www.tacc.utexas.edu/tacc-projects/lmod
+
+  User Guide                 - How to use.
+  Advance User Guide         - How to create you own modules.
+  System Administrator Guide - How to install Lmod on your own system.
+    ---------------------------------------------------------------------------------------------------------------
+
+Modules based on Lua: Version 5.3.2 (5.3.2-2-ga7fbd80) 2014-03-21 22:04
+    by Robert McLay mclay@tacc.utexas.edu
+#+end_example
 
 
 ** DONE Must Control the Availability of Modules Subject to Current State and Dependencies 
@@ -125,8 +257,8 @@ Only nonfloating licenses will be taken into account.
 
 ** IN-PROGRESS Settings for Standard and Application Specific Environment Variables 
 
-*** DONE Must Export a Predefined Subset of POSIX Standard and Other Common Environment Variables
-    CLOSED: [2014-04-28 Mon 10:55]
+*** DONE Must Export Environment Variables Specifying Module Version and Prefix    
+    CLOSED: [2014-04-30 Wed 16:42]
 
 The following environment variables *must be set* by all modules, unless there are conflicts:
 #+BEGIN_EXAMPLE
@@ -136,6 +268,60 @@ The following environment variables *must be set* by all modules, unless there a
   <NAME>_HOME
 #+END_EXAMPLE
 
+The last three variables are set to the same value that normally corresponds to PREFIX. 
+
+The conflicts must be resolved by the maintaners of the modules involved. 
+
+
+*** DONE Must Export Family Environment Variables
+    CLOSED: [2014-04-30 Wed 16:37]
+<<Family>>
+
+Some environment modules can be grouped in nonoverlapping families.  
+*For each family, maximum one module can be loaded.* 
+
+Families must have reserved names.  
+The following list of families can be appended if needed:
+#+begin_example
+  COMPILER
+  MPI
+#+end_example 
+
+Each module belonging to a family must set the following 
+environment variables: 
+#+BEGIN_EXAMPLE
+  <FAMILY>=<implementation>
+  <FAMILY>_VERSION=<implementation-version>
+  <FAMILY>_DIR=<implementation-prefix>
+#+END_EXAMPLE
+
+E.g. for modules providing compilers:
+#+BEGIN_EXAMPLE
+  COMPILER
+  COMPILER_VERSION
+  COMPILER_DIR
+#+END_EXAMPLE
+and for modules providing MPI:
+#+begin_example
+  MPI
+  MPI_VERSION
+  MPI_DIR 
+#+end_example
+
+Examples:
+#+BEGIN_EXAMPLE
+  COMPILER=gcc
+  COMPILER_VERSION=4.8.2
+  MPI=openmpi
+  MPI_VERSION=1.8.0
+#+END_EXAMPLE
+
+
+*** WAITING Must Export a Predefined Subset of POSIX Standard and Other Common Environment Variables
+
+**** DONE POSIX and POSIX-like
+     CLOSED: [2014-04-30 Wed 17:15]
+
 Every module that *has effect* on the following POSIX standard environment variables 
 (FIXME) *must explicitly export* them:
 #+BEGIN_EXAMPLE
@@ -143,6 +329,10 @@ Every module that *has effect* on the following POSIX standard environment varia
   LD_LIBRARY_PATH
   MANPATH
 #+END_EXAMPLE  
+
+
+**** WAITING COMPILER Family
+<<COMPILER_EM>>
 
 See [[[Open_Group_Base_Specifications_EM]]] for the list of variables that are 
 frequently exported by widely used command interpreters and applications. 
@@ -158,6 +348,12 @@ In particular, the following variables are considered as *widely used*:
   PATH
 #+END_EXAMPLE 
 
+The flags *should not* be set by the environment modules because 
+the users, who need them, will know better how to set the flags.  
+The compiler default options will use implicitly some flags and 
+the modules should not intefere with this mechanism.     
+
+
 FIXME (non-POSIX, e.g. common GCC shared by many other applications)
 if corresponding path exists:  
 #+BEGIN_EXAMPLE
@@ -170,51 +366,11 @@ if corresponding path exists:
   LD_LIBRARY_PATH
 #+END_EXAMPLE
 
+The difference between _DIR and _PATH: the former means a path to 
+a single directory, the latter can be a column-separated list of paths.    
 
-*** IN-PROGRESS Must Export Family Environment Variables
-<<Family>>
-
-#+BEGIN_EXAMPLE
-  <FAMILY>=<implementation>
-  <FAMILY>_VERSION=<implementation-version>
-  <FAMILY>_DIR=<implementation-prefix>
-#+END_EXAMPLE
-
-Example:
-#+BEGIN_EXAMPLE
-  MPI=openmpi
-  MPI_VERSION=1.8.0
-#+END_EXAMPLE
-
-This would replace [[[ModuleIdentifiers]]] if the following variables are used: 
-#+BEGIN_EXAMPLE
-  COMPILER
-  COMPILER_VERSION
-  COMPILER_DIR
-  MPI
-  MPI_VERSION
-  MPI_DIR 
-#+END_EXAMPLE
-
-
-*** IN-PROGRESS Should Export Module Identifiers
-<<ModuleIdentifiers>>
-
-This may be merged with [[[Family]]].
-
-The goal is to support generic module configuration and scripts.   
-#+BEGIN_EXAMPLE
-  PSI_COMPILER
-  PSI_COMPILER_VERSION
-  PSI_COMPILER_DIR
-  PSI_MPI
-  PSI_MPI_VERSION
-  PSI_MPI_DIR
-#+END_EXAMPLE
-
-
-
-**** IN-PROGRESS Must Export Environment Variables for Compiler Implementations
+*Summary* of the environment variables that must be exported for 
+each module of the COMPILER family: 
 
 #+BEGIN_EXAMPLE
   CC
@@ -223,12 +379,25 @@ The goal is to support generic module configuration and scripts.
   F90
   FC
   FORTRAN
+
+  CPATH
+  C_INCLUDE_PATH
+  CPLUS_INCLUDE_PATH
+  <NAME>_INCLUDE_DIR
+  LIBRARY_PATH
+  <NAME>_LIBRARY_DIR
+  LD_LIBRARY_PATH  
 #+END_EXAMPLE
 
 
-**** IN-PROGRESS Must Export Environment Variables for MPI Implementations
 
-The environment variables for MPI wrappers begin with MPI:
+**** DONE MPI Family
+     CLOSED: [2014-04-30 Wed 17:27]
+<<MPI_EM>>
+
+
+The environment variables for MPI wrappers begin with MPI and must be set 
+by each module of the MPI family: 
 #+BEGIN_EXAMPLE
   MPICC
   MPICXX
@@ -240,8 +409,7 @@ The environment variables for MPI wrappers begin with MPI:
   MPIRUN
 #+END_EXAMPLE
 
-OR/AND  FIXME
-The environment variables for MPI wrappers begin with MPI_ [[[ANL_MPICH2]]]:
+The environment variables for MPI wrappers can also begin with MPI_ [[[ANL_MPICH2]]]:
 #+BEGIN_EXAMPLE
   MPI_CC
   MPI_CXX
@@ -251,13 +419,12 @@ The environment variables for MPI wrappers begin with MPI_ [[[ANL_MPICH2]]]:
   MPI_FORTRAN
   MPI_EXEC
   MPI_RUN
-  MPI_INC
-  MPI_LIBS
 #+END_EXAMPLE
+The variables MPI_INC and MPI_LIBS are used, but should not be set by the 
+environment modules because they can be easily set by the user if needed. 
 
-Note by Achim: names without underscore seems to be more common and more
-commonly uses be autotools and cmake.
-
+The names without underscore seem to be more common, but 
+the underscore is offen used in MPICH2.   
 |-------------------+---------------+---------------|
 | Search term       | "MPICC=mpicc" | "MPI_CC=mpicc" |
 |-------------------+---------------+---------------|
@@ -265,13 +432,23 @@ commonly uses be autotools and cmake.
 | Reference         |               | [[[ANL_MPICH2]]]  |
 |-------------------+---------------+---------------|
 
+The names with MPI_ may be set if the maintaner decides to provide them 
+(for a good reason). 
 
 The environment variables should allow to distiguish between MPI wrappers  
 (e.g. MPICC) and ordinary compilers (e.g. CC). 
 
 
 
-*** IN-PROGRESS Should Export Package- or Vendor-Defined Environment Variables
+*** STOPPED Should Export Module Identifiers
+    CLOSED: [2014-04-30 Wed 16:19]
+<<ModuleIdentifiers>>
+
+This part was merged with [[[Family]]].
+
+
+*** DONE Should Export Package- or Vendor-Defined Environment Variables
+    CLOSED: [2014-04-30 Wed 16:54]
 
 Each module should set the environment variables that make its use easier 
 for the user without additional configuration.  
@@ -283,10 +460,11 @@ The details for specific packages must be discussed with future maintainers.
 Some examples are shown below. 
 
 
-**** TODO Intel Specific Environment Varaibales
+**** DONE Intel Specific Environment Varaibales
+     CLOSED: [2014-04-30 Wed 16:59]
 
-Set the following variavbles for Intel compilers and their dependencies: 
-
+In addition to the above specified variables, that must be set for all compilers
+[[[COMPILER_EM]]], set the following variavbles for Intel compilers (and their dependencies): 
 #+BEGIN_EXAMPLE
    CPATH
    GDBSERVER_MIC
@@ -309,15 +487,38 @@ Set the following variavbles for Intel compilers and their dependencies:
    VTUNE_AMPLIFIER_XE_2013_DIR
 #+END_EXAMPLE
 
+These variables are set by the Intel configuration scripts, e.g. *compilervars.sh*,
+*amplxe-vars.sh*, *advixe-vars.sh*, etc.
 
-**** TODO MPICH2 Specific Environment Varaibales 
-Are there specific environment variables? Or are the more generic
-family variables sufficient?
+The list of Intel specific environment variables must be defined and supported 
+by the maintaner(s) of Intel packages.  Special care should be talen to avoid 
+conflicts with other packages.  Every conflict that may lead to a behaviour,  
+that is different from the native Intel configuration, must be documented. 
 
 
-**** IN-PROGRESS OpenMPI Specific Environment Varaibales 
 
-According to [[[Open_MPI_wrappers]]], the following variables should be set 
+**** WAITING MPICH2 Specific Environment Varaibales 
+
+Are there specific environment variables? 
+Or are the more generic family variables sufficient?
+
+This issue can wait until this MPI implementation is requested. 
+
+
+**** DONE OpenMPI Specific Environment Varaibales 
+     CLOSED: [2014-04-30 Wed 17:33]
+
+The module name for OpenMPI modules is *openmpi* (low case), 
+for example:
+#+begin_example
+  MPI=openmpi
+  MPI_VERSION=1.8.0
+#+end_example
+
+The recommended rules for MPI_PREFIX are discussed below. 
+
+According to [[[MPI_EM]]] and [[[Open_MPI_wrappers]]], 
+the following variables for MPI wrappers must be set by each OpenMPI module   
 #+BEGIN_EXAMPLE
   MPICC=mpicc
   MPICXX=mpic++
@@ -348,7 +549,9 @@ my_app: my_app.c
 #+END_EXAMPLE
 
 
-**** TODO PGI Specific Environment Varaibales
+**** IN-PROGRESS PGI Specific Environment Varaibales
+
+In addition to the configuration scripts, PGI provides its own modulefiles.  
 
 #+BEGIN_EXAMPLE
    LD_LIBRARY_PATH
@@ -362,21 +565,22 @@ my_app: my_app.c
    PGRSH
 #+END_EXAMPLE
 
+The list of PGI specific environment varaibles must be defined by 
+the maintaner. 
+
 
 **** STOPPED System Specific Environment Variables
      CLOSED: [2014-04-29 Tue 16:13]
 
-#+BEGIN_EXAMPLE
-  TMPDIR
-#+END_EXAMPLE
+The environment modules must not set system specific variables, 
+like TMPDIR. 
 
-If /tmp may be not large enough (like on Merlin4), set suitable TMPDIR, e.g.: 
+If /tmp may be not large enough (like on Merlin4), set suitable TMPDIR 
+on the corresponding systems, e.g.: 
 #+BEGIN_EXAMPLE
   TMPDIR=/scratch/tmp
   # where /scratch ->/home/scratch 
 #+END_EXAMPLE
-Note (Achim): TMPDIR *should not* be changed by an environment module.
-Valeri: agreed. 
 
 
 ** IN-PROGRESS Must Support Modules at Multiple Locations (Local and Network Installations)
