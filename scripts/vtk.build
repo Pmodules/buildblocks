@@ -26,8 +26,8 @@ function em.configure() {
 		"${EM_SRCDIR}"
 }
 
-em.add_to_family "compiler"
+em.add_to_family 'Compiler'
 em.set_runtime_dependencies "${COMPILER}"
-em.set_build_dependencies "cmake" "${COMPILER}"
+em.set_build_dependencies 'cmake' "${COMPILER}"
 em.make_all
 

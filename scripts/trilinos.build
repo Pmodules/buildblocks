@@ -71,8 +71,8 @@ function em.install_doc() {
 		"${DOCDIR}"
 }
 
-em.add_to_family "mpi"
+em.add_to_family 'MPI'
 em.set_runtime_dependencies "${COMPILER}" "${MPI}"
-em.set_build_dependencies "cmake" "${COMPILER}" "${MPI}" "mathlib" "parmetis"
+em.set_build_dependencies 'cmake' "${COMPILER}" "${MPI}" 'mathlib' 'parmetis'
 em.make_all
 

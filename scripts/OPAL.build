@@ -10,8 +10,8 @@ function em.configure() {
 		"${EM_SRCDIR}"
 }
 
-em.add_to_family 'core'
-em.load_family 'hdf5'
+em.add_to_family 'Tools'
+em.load_family 'HDF5'
 em.set_runtime_dependencies "${COMPILER}" "${MPI}"
 em.set_build_dependencies 'cmake' "${COMPILER}" "${MPI}" 'hdf5' 'H5hut' 'trilinos' 'ippl' 'gsl'
 em.make_all

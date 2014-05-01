@@ -59,8 +59,6 @@ _P=$(echo $P | tr [:lower:] [:upper:])
 _V=${_P}_VERSION
 unset ${_V}
 
-declare -rx CORE_VERSIONS_DIR="${SHLIBDIR}/../config/core.d"
-
 declare -i  JOBS=3
 
 #while read _name _version; do
@@ -282,22 +280,24 @@ function _set_env() {
 
 	# build module name
 	case ${EM_FAMILY} in
-	    core )
+	    Tools )
 		EM_MODULENAME="${P}/${V}"
 		;;
-	    compiler )
+	    Programming )
+		EM_MODULENAME="${P}/${V}"
+		;;
+	    Compiler )
 		EM_MODULENAME="${COMPILER}/${COMPILER_VERSION}/${P}/${V}"
 		;;
-	    mpi )
+	    MPI )
 		EM_MODULENAME="${COMPILER}/${COMPILER_VERSION}/${MPI}/${MPI_VERSION}/${P}/${V}"
 		;;
-	    hdf5 )
+	    HDF5 )
 		EM_MODULENAME="${COMPILER}/${COMPILER_VERSION}/${MPI}/${MPI_VERSION}/${HDF5}/${HDF5_VERSION}/${P}/${V}"
 		;;
-	    hdf5_serial )
+	    HDF5_serial )
 		EM_MODULENAME="${COMPILER}/${COMPILER_VERSION}/hdf5/${HDF5_SERIAL_VERSION}/${P}/${V}"
 		;;
-
 	esac
 
 	# set PREFIX of module

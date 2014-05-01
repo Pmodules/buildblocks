@@ -31,7 +31,7 @@ function em.install_doc() {
 		"${DOCDIR}"
 }
 
-em.add_to_family 'hdf5'
+em.add_to_family 'HDF5'
 em.set_runtime_dependencies "${COMPILER}" "${MPI}" 'hdf5'
 em.set_build_dependencies   "autoconf" "automake" "libtool" "${COMPILER}" "${MPI}" "vtk" "hdf5"
 em.make_all

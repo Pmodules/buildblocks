@@ -11,5 +11,5 @@ function em.configure() {
 # use system gcc to compile
 declare -rx CC=gcc
 
-em.add_to_family "core"
+em.add_to_family 'Programming'
 em.make_all

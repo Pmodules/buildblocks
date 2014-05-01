@@ -23,7 +23,7 @@ function em.install_doc() {
 		"${DOCDIR}"
 }
 
-em.add_to_family "compiler"
+em.add_to_family 'Compiler'
 em.set_runtime_dependencies "${COMPILER}"
 em.set_build_dependencies "${COMPILER}"
 em.make_all

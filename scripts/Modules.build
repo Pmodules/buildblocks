@@ -3,9 +3,10 @@
 source "$(dirname $0)/../config/environment.bash"
 source "$(dirname $0)/../lib/libem.bash"
 
+
 function em.configure() {
 	"${EM_SRCDIR}"/configure \
-		--prefix="${EM_BINDIR}/core" \
+		--prefix="${EM_BINDIR}/${EM_FAMILY}" \
 		--with-module-path="${MODULEPATH_ROOT}" \
 		|| exit 1
 }
@@ -17,5 +18,5 @@ module() {
 # use system gcc to compile
 declare -rx CC=gcc
 
-em.add_to_family "core"
+em.add_to_family 'Tools'
 em.make_all

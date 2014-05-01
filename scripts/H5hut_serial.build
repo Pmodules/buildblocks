@@ -23,7 +23,7 @@ function em.install() {
 	make -C tools install
 }
 
-em.add_to_family 'hdf5_serial'
+em.add_to_family 'HDF5_serial'
 em.set_runtime_dependencies "${COMPILER}" 'hdf5_serial'
 em.set_build_dependencies   "autoconf" "automake" "libtool" "${COMPILER}" "vtk" "hdf5_serial"
 em.make_all

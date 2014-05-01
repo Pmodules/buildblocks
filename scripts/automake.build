@@ -23,7 +23,7 @@ function em.install_doc() {
 # use system gcc to compile
 declare -rx CC=gcc
 
-em.add_to_family "core"
-em.set_build_dependencies "m4" "autoconf"
+em.add_to_family 'Programming'
+em.set_build_dependencies 'm4' 'autoconf'
 em.make_all
 

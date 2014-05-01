@@ -6,7 +6,7 @@ function em.configure() {
 	"${EM_SRCDIR}/bootstrap" --prefix="${PREFIX}"
 }
 
-em.add_to_family 'core'
+em.add_to_family 'Programming'
 em.set_build_dependencies "${COMPILER}"
 em.make_all
 

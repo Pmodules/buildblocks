@@ -28,7 +28,7 @@ function em.configure() {
 		|| exit 1
 }
 
-em.add_to_family "core"
+em.add_to_family 'Tools'
 em.set_build_dependencies ${build_dependencies}
 em.make_all
 
