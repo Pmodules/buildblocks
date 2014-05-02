@@ -13,6 +13,6 @@ function em.configure() {
 declare -rx CC=gcc
 declare -rx CPP=/usr/bin/cpp
 
-em.add_to_family 'Programming'
+em.add_to_family 'Libraries'
 em.make_all
 
