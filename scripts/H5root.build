@@ -16,7 +16,6 @@ function em.configure() {
 }
 
 em.add_to_family 'Tools'
-em.load_family 'Programming'
 em.set_runtime_dependencies "${COMPILER}" 'root'
 em.set_build_dependencies 'autoconf' 'automake' 'libtool' "${COMPILER}" 'hdf5_serial' 'H5hut_serial' 'root'
 em.make_all

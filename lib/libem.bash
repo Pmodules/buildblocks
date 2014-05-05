@@ -195,26 +195,20 @@ function _load_build_dependencies() {
 	done
 }
 
-function em.load_family() {
+
+function em.add_to_family() {
 	if [[ -z ${1} ]]; then
-		printf "${FUNCNAME}: Missing family argument"
-		exit 42
+		die 42 "${FUNCNAME}: Missing family argument."
 	fi
 	if [[ ! -d ${EM_ETCDIR}/${1} ]]; then
-		printf "${FUNCNAME}: ${1}: family does not exist."
-		exit 42
+		dir 43 "${1}: family does not exist."
 	fi
-
-	for f in "${CONFIG_DIR}/${1}.d/"*.conf; do
+	EM_FAMILY=$1
+	source "${CONFIG_DIR}/versions.conf"
+	for f in "${CONFIG_DIR}/families.d/"*.conf; do
 		source "${f}"
 	done
 	eval ${ENVIRONMENT_ARGS}
-}
-
-function em.add_to_family() {
-	EM_FAMILY=$1
-	source "${CONFIG_DIR}/versions.conf"
-	em.load_family "$1"
 }
 
 function em.set_runtime_dependencies() {
