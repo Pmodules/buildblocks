@@ -5,6 +5,13 @@ source "$(dirname $0)/../lib/libem.bash"
 declare -rx AR=ar
 
 function em.configure() {
+	CC=$MPICC
+	CXX=$MPICXX
+	F77=$MPIF77
+	F90=$MPIF90
+	FC=$MPIFC
+	FORTRAN=$MPIFORTRAN
+
 	BLAS_PREFIX=$MATHLIB_PREFIX
 	LAPACK_PREFIX=$MATHLIB_PREFIX
 

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+source "$(dirname $0)/../lib/lib.bash"
+
+[[ -z $MODULESHOME ]] && die 1 "Module environment not loaded"
+
+while read family rest; do
+	$(dirname $0)/family.build ${family}
+done < "${EM_ETCDIR}/family.conf"

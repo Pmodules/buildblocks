@@ -3,7 +3,12 @@
 source "$(dirname $0)/../lib/libem.bash"
 
 function em.configure() {
-	: # nothing to configure
+	CC=$MPICC
+	CXX=$MPICXX
+	F77=$MPIF77
+	F90=$MPIF90
+	FC=$MPIFC
+	FORTRAN=$MPIFORTRAN
 }
 
 function em.build() {
