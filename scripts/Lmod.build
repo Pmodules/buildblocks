@@ -19,6 +19,7 @@ function em.build() {
 # use system gcc to compile
 declare -rx CC=gcc
 
+em.supported_os ''
 em.add_to_family 'Tools'
 em.set_build_dependencies "lua"
 em.make_all

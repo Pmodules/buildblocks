@@ -18,6 +18,7 @@ function em.build() {
 	make -j ${JOBS}
 }
 
+em.supported_os ''
 em.add_to_family 'Programming'
 em.set_build_dependencies "${COMPILER}"
 em.make_all
