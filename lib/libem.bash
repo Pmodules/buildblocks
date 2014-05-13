@@ -1,12 +1,13 @@
 #!/bin/bash
 
-declare -rx ARGS="$@"
-
-declare -rx SHLIBDIR=$( cd $(dirname "$BASH_SOURCE") && pwd )
-
-declare -r OS=$(uname -s)
-
 PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin
+
+declare -rx	ARGS="$@"
+declare -rx	SHLIBDIR=$( cd $(dirname "$BASH_SOURCE") && pwd )
+declare -r	OS=$(uname -s)
+
+# number of parallel make jobs
+declare -i	JOBS=3
 
 source "${SHLIBDIR}/lib.bash"
 
@@ -48,26 +49,19 @@ ENV=VALUE
 	exit 1
 }
 
+
+# 
 # the module name might already be set in the build script(!)
-if [[ -z $P ]]; then
+#if [[ -z $P ]]; then
 	P=$(basename $0)
 	P=${P%.*}
-fi
+#fi
 
 # unset the version of the module
 _P=$(echo $P | tr [:lower:] [:upper:])
 _V=${_P}_VERSION
-unset ${_V}
-
-declare -i  JOBS=3
-
-#while read _name _version; do
-#	[[ -z ${_name} ]] && continue
-#	[[ -z ${_version} ]] && continue
-#	[[ "${_name:0:1}" == '#' ]] && continue
-#	_NAME=$(echo ${_name} | tr [:lower:] [:upper:])
-#	eval ${_NAME}_VERSION=$_version 
-#done < "${VERSIONS}"
+#unset ${_V}
+#fi
 
 DEBUG_ON=''
 FORCE_REBUILD=''
@@ -143,6 +137,8 @@ declare -x  CONFIG_DIR="${EM_BASEDIR}/config"
 declare -x  SCRIPTDIR="${EM_BASEDIR}/scripts"
 declare -x  EM_TMPDIR="${EM_BASEDIR}/tmp"
 
+declare -x  DEFAULT_VERSIONS_FILE="${CONFIG_DIR}/versions.conf"
+
 # these directories are module dependend
 declare -x  EM_SRCDIR=''
 declare -x  EM_BUILDDIR=''
@@ -204,7 +200,14 @@ function em.add_to_family() {
 		die 43 "${1}: family does not exist."
 	fi
 	EM_FAMILY=$1
-	source "${CONFIG_DIR}/versions.conf"
+	while read _name _version; do
+		[[ -z ${_name} ]] && continue
+		[[ -z ${_version} ]] && continue
+		[[ "${_name:0:1}" == '#' ]] && continue
+		_NAME=$(echo ${_name} | tr [:lower:] [:upper:])
+		eval ${_NAME}_VERSION=$_version 
+	done < "${DEFAULT_VERSIONS_FILE}"
+	#source "${CONFIG_DIR}/versions.conf"
 	for f in "${CONFIG_DIR}/families.d/"*.conf; do
 		source "${f}"
 	done
