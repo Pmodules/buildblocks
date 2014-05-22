@@ -1,0 +1,34 @@
+#!/bin/bash
+
+source "$(dirname $0)/../lib/libem.bash"
+
+function em.configure() {
+	:
+}
+
+function em.build() {
+        cd "${EM_SRCDIR}"
+
+	make -j ${JOBS}
+}
+
+function em.install() {
+        cd "${EM_SRCDIR}"
+	mkdir -p ${PREFIX}/bin
+	install -m 0755 fsstress "${PREFIX}/bin"
+}
+
+#function em.install_doc() {
+#	install -m 0444 \
+#		Copyright \
+#		ChangeLog \
+#		NEWS \
+#		README \
+#		README.1ST \
+#		"${DOCDIR}"
+#}
+
+#em.supported_os 'Linux'
+em.add_to_family 'System'
+em.set_build_dependencies "${COMPILER}"
+em.make_all
