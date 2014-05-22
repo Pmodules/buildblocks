@@ -2,8 +2,18 @@
 
 source "$(dirname $0)/../lib/libem.bash"
 
+function em.pre_configure() {
+	./autogen.sh
+}
+
 function em.configure() {
-	( cd "${EM_SRCDIR}" && ./autogen.sh )
+	CC=$MPICC
+	CXX=$MPICXX
+	F77=$MPIF77
+	F90=$MPIF90
+	FC=$MPIFC
+	FORTRAN=$MPIFORTRAN
+	#( cd "${EM_SRCDIR}" && ./autogen.sh )
 	"${EM_SRCDIR}"/configure \
 		--prefix="${PREFIX}" \
 		--enable-parallel \
