@@ -8,7 +8,8 @@ function em.configure() {
 		|| exit 1
 }
 
-em.set_build_dependencies "${COMPILER}"
-em.add_to_family "core"
+em.add_to_family 'Programming'
+em.set_runtime_dependencies ""
+em.set_build_dependencies   "${COMPILER}"
 em.make_all
 
