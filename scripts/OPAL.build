@@ -3,16 +3,17 @@
 source "$(dirname $0)/../lib/libem.bash"
 
 function em.configure() {
-	cmake \
+	CC=$MPICC CXX=$MPICXX cmake \
 		-DCMAKE_INSTALL_PREFIX="${PREFIX}" \
 		-DCMAKE_BUILD_TYPE=RELEASE \
-		-DENABLE_ML_SOLVER=TRUE \
+		-DENABLE_SAAMG_SOLVER=TRUE \
 		"${EM_SRCDIR}"
 }
 
 em.add_to_family 'Tools'
 em.set_runtime_dependencies "${COMPILER}" "${MPI}"
 em.set_build_dependencies 'cmake' "${COMPILER}" "${MPI}" 'hdf5' 'H5hut' 'trilinos' 'ippl' 'gsl'
+em.set_supported_compilers 'gcc/4.7'
 em.make_all
 
 
