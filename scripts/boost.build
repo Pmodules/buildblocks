@@ -40,6 +40,6 @@ function em.install() {
 }
 
 em.add_to_family 'Compiler'
-em.set_build_dependencies "${COMPILER}" 'python'
+em.set_build_dependencies "${COMPILER}" 'Python'
 em.make_all
 
