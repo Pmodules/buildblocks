@@ -20,17 +20,14 @@ function em.configure() {
 		|| exit 1
 }
 
-function em.install_doc() {
-	install -m 0444 \
-		ACKNOWLEDGMENTS \
-		COPYING \
-		MANIFEST \
-		README.txt \
-		"${DOCDIR}"
-}
 
 em.add_to_family 'MPI'
 em.set_runtime_dependencies "${COMPILER}" "${MPI}"
 em.set_build_dependencies "${COMPILER}" "${MPI}"
+em.set_docfiles \
+		ACKNOWLEDGMENTS \
+		COPYING \
+		MANIFEST \
+		README.txt \
 em.make_all
 
