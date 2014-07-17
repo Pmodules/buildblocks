@@ -40,11 +40,9 @@ function em.install() {
 	install -m 0444 "${EM_SRCDIR}"/SRC/*.h "${PREFIX}/include"
 }
 
-function em.install_doc() {
-	install -m 0444 README "${DOCDIR}"
-}
-
-em.add_to_family 'MPI'
+em.add_to_family 'Compiler'
 em.set_runtime_dependencies "${COMPILER}"
 em.set_build_dependencies "${COMPILER}" 'OpenBLAS'
+em.set_docfiles 'README'
 em.make_all
+em.cleanup_src
