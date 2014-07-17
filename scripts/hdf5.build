@@ -28,6 +28,6 @@ em.set_docfiles \
 		ACKNOWLEDGMENTS \
 		COPYING \
 		MANIFEST \
-		README.txt \
+		README.txt
 em.make_all
 
