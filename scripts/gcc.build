@@ -15,19 +15,13 @@ function em.configure() {
 		|| exit 1
 }
 
-function em.install_doc() {
-	install -m 0444 \
-		COPYING* \
-		NEWS \
-		README \
-		"${DOCDIR}"
-}
 
 # use system gcc to compile
 declare -rx CC=gcc
 
 module use 'Libraries'
 em.add_to_family 'Programming'
-em.set_build_dependencies "gmp" "mpfr" "mpc"
+em.set_build_dependencies 'gmp' 'mpfr' 'mpc'
+em.set_docfiles 'COPYING' 'COPYING.LIB' 'COPYING.RUNTIME' 'COPYING3' 'COPYING3.LIB' 'NEWS' 'README'
 em.make_all
 
