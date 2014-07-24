@@ -12,6 +12,12 @@ declare -i	JOBS=3
 
 source "${SHLIBDIR}/lib.bash"
 
+# while bootstraping the module command is not yet available
+if typeset -f module > /dev/null 2>&1 ; then
+	module purge
+fi
+
+
 function usage() {
 	error "
 Usage: $0 [OPTIONS..] [VERSION] [ENV=VALUE...]
@@ -158,11 +164,6 @@ declare -x LIBRARY_PATH
 declare -x LD_LIBRARY_PATH
 declare -x DYLD_LIBRARY_PATH
 
-# while bootstraping the module command is not yet available
-if typeset -f module > /dev/null 2>&1 ; then
-	module purge
-fi
-
 if [[ $DEBUG_ON ]]; then
 	trap 'echo "$BASH_COMMAND"' DEBUG
 fi
@@ -290,7 +291,7 @@ function _setup_env() {
 	done < "${EM_DEFAULT_VERSIONSFILE}"
 
 	# overwrite environment variables with values we got on the cmd line
-	eval ${ENVIRONMENT_ARGS}
+	eval "${ENVIRONMENT_ARGS}"
 
 	# this allows us to specify the version as PKGNAME_VERSION=1.2.3 on the cmd-line
         if [[ -z $V ]]; then
