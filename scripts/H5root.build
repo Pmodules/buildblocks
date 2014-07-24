@@ -15,7 +15,7 @@ function em.configure() {
 		--with-pic
 }
 
-em.add_to_family 'Tools'
+em.add_to_family 'Compiler'
 em.set_runtime_dependencies "${COMPILER}" 'hdf5_serial' 'root'
 em.set_build_dependencies 'autoconf' 'automake' 'libtool' "${COMPILER}" 'hdf5_serial' 'H5hut_serial' 'root'
 em.make_all
