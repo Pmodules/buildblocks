@@ -125,7 +125,7 @@ done
 
 declare -rx BUILD_BASEDIR=$(abspath $SHLIBDIR/..)
 
-source "${BUILD_BASEDIR}/config/environment.bash"
+source "$(readlink ${BUILD_BASEDIR}/config/environment.bash)"
 
 declare -xr BUILD_CONFIGDIR="${BUILD_BASEDIR}/config"
 declare -xr BUILD_SCRIPTSDIR="${BUILD_BASEDIR}/scripts"
