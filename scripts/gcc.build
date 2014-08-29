@@ -11,7 +11,7 @@ function em.configure() {
 		--with-mpc="${MPC_PREFIX}" \
 		--enable-lto \
 		--disable-multilib \
-		--with-pkgversion="PSI Environment Module $COMPILER $COMPILER_VERSION" \
+		--with-pkgversion="PSI Environment Module" \
 		|| exit 1
 }
 
