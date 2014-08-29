@@ -2,6 +2,8 @@
 
 PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin
 
+declare -r	MODULECMD="${MODULESHOME}/bin/modulecmd"
+
 declare -r	BUILDSCRIPT=$( cd $(dirname "$0") && pwd )/$(basename "$0")
 declare -rx	ARGS="$@"
 declare -rx	SHLIBDIR=$( cd $(dirname "$BASH_SOURCE") && pwd )
@@ -226,6 +228,10 @@ function em.set_docfiles() {
 	MODULE_DOCFILES=("$@")
 }
 
+function is_module_available() {
+	[[ -n $("${MODULECMD}" bash avail "$m" 2>&1 1>/dev/null) ]]
+}
+
 function _load_build_dependencies() {
 	for m in "${MODULE_BUILD_DEPENDENCIES[@]}"; do
 		[[ -z $m ]] && continue
@@ -237,7 +243,14 @@ function _load_build_dependencies() {
 				echo "$m: warning: No version set, loading default ..."
 			fi
 		fi
-		if [[ -z $(module avail "$m" 2>&1) ]]; then
+		if [[ -z $("${MODULECMD}" bash avail "$m" 2>&1 1>/dev/null) ]]; then
+			for rel in $(< "${EM_RELEASES_CONF}"); do
+				module use ${rel/.}
+				if is_module_available "${m}"; then
+					die 1 "${m}: module available in release \"${rel/.}\", add this release with \"module use ${rel/.}\" and re-run build script."
+				fi
+			done
+
 			echo "$m: info: module does not exist, trying to build it..."
 			"${BUILD_SCRIPTSDIR}/${m/\/*}.build" ${ARGS[@]}
 			if [[ -z $(module avail "$m" 2>&1) ]]; then
@@ -299,14 +312,6 @@ function _setup_env() {
 	if [[ -z ${MODULE_FAMILY} ]]; then
 		die 1 "$P: family not set."
 	fi
-
-	while read _name _version; do
-		[[ -z ${_name} ]] && continue
-		[[ -z ${_version} ]] && continue
-		[[ "${_name:0:1}" == '#' ]] && continue
-		_NAME=$(echo ${_name} | tr [:lower:] [:upper:])
-		eval ${_NAME}_VERSION=$_version 
-	done < "${BUILD_VERSIONSFILE}"
 
 	# overwrite environment variables with values we got on the cmd line
 	eval "${ENVIRONMENT_ARGS}"
@@ -465,6 +470,15 @@ function _check_compiler() {
 }
 
 function em.make_all() {
+
+	while read _name _version; do
+		[[ -z ${_name} ]] && continue
+		[[ -z ${_version} ]] && continue
+		[[ "${_name:0:1}" == '#' ]] && continue
+		_NAME=$(echo ${_name} | tr [:lower:] [:upper:])
+		eval ${_NAME}_VERSION=$_version 
+	done < "${BUILD_VERSIONSFILE}"
+
 	# build release - and thereby the PREFIX - depends on other modules
 	_load_build_dependencies
 	
