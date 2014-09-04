@@ -109,6 +109,7 @@ DEBUG_ON=''
 FORCE_REBUILD=''
 ENVIRONMENT_ARGS=''
 WITH_ARGS=''
+DRY_RUN=''
 
 while (( $# > 0 )); do
 	case $1 in
@@ -127,6 +128,9 @@ while (( $# > 0 )); do
 		;;
 	-? | -h | --help )
 		usage
+		;;
+	--dry-run )
+		DRY_RUN='dry-run'
 		;;
 	--release=* )
 		MODULE_RELEASE=${1/--release=}
@@ -153,14 +157,14 @@ while (( $# > 0 )); do
 		m=${arg/*=}
 		if [[ -z $m ]]; then
 			error "$1: module missing."
-			usage
+			die 1
 		fi
 		p=${m/\/*}
 		_p=$(echo ${p} | tr [:lower:] [:upper:])
 		v=${m/*\/}
 		if [[ -z $v ]] || [[ $p == $v ]]; then
 			error "$1: version missing in module specification."
-			usage
+			die 1
 		fi
 		ENVIRONMENT_ARGS="${ENVIRONMENT_ARGS} ${f}=${p} ${f}_VERSION=$v ${_p}_VERSION=${v}"
 		;;
@@ -192,6 +196,7 @@ function is_release () {
 
 function em.set_release() {
 	is_release "$1" || die 1 "$P: unknown release type: $1"
+	[[ "$1" == "deprecated" ]] && die 0 "$P: not rebuilding $1 modules."
 	MODULE_RELEASE=".$1"
 }
 
@@ -244,8 +249,10 @@ function _load_build_dependencies() {
 			fi
 		fi
 		if [[ -z $("${MODULECMD}" bash avail "$m" 2>&1 1>/dev/null) ]]; then
+			debug "${m}: module not available"
 			for rel in $(< "${EM_RELEASES_CONF}"); do
-				module use ${rel/.}
+				debug "${m}: check release \"${rel/.}\""
+				eval $("${MODULES_EXTENSIONSDIR}/use.bash" ${rel/.})
 				if is_module_available "${m}"; then
 					die 1 "${m}: module available in release \"${rel/.}\", add this release with \"module use ${rel/.}\" and re-run build script."
 				fi
@@ -275,6 +282,7 @@ function _load_build_dependencies() {
 
 function _write_runtime_dependencies() {
 	local -r fname="${PREFIX}/.dependencies"
+	info "Writing run-time dependencies to ${fname}"
 	local dep
 	echo -n "" > "${fname}"
 	for dep in "${MODULE_DEPENDENCIES[@]}"; do
@@ -289,6 +297,7 @@ function _write_runtime_dependencies() {
 
 function _write_build_dependencies() {
 	local -r fname="${PREFIX}/.build_dependencies"
+	info "Writing build dependencies to ${fname}"
 	local dep
 	echo -n "" > "${fname}"
 	for dep in "${MODULE_BUILD_DEPENDENCIES[@]}"; do
@@ -404,6 +413,7 @@ function _prep() {
 		(cd "${BUILD_TMPDIR}/src" && tar ${_UNTAR_FLAGS} "${TARBALL}")
 	fi
 
+	install -m 0755 -d "${DOCDIR}"
 	# create build directory
 	mkdir -p "${MODULE_BUILDDIR}"
 
@@ -431,7 +441,9 @@ function em.post_install() {
 }
 
 function em.install_doc() {
-	install -m0444 ${MODULE_DOCFILES[*]} "${BUILDSCRIPT}" "${DOCDIR}"
+	info "Installing documentation to ${DOCDIR}"
+	mkdir -p "${DOCDIR}"
+	install -m0444 "${MODULE_DOCFILES[@]/#/${MODULE_SRCDIR}/}" "${BUILDSCRIPT}" "${DOCDIR}"
 }
 
 function _set_link() {
@@ -480,17 +492,31 @@ function _check_compiler() {
 	die 0 "Package cannot be build with ${COMPILER}/${COMPILER_VERSION}."
 }
 
-function em.make_all() {
+# unfortunatelly we need sometime an OS depended post-install
+function _post_install_linux() {
+	cd "${PREFIX}"
+	# solve multilib problem with LIBRARY_PATH on 64bit Linux
+	[[ -d "lib" ]] && [[ ! -d "lib64" ]] && ln -s lib lib64
+}
 
+function _post_install() {
+	info "Run post-installation for ${OS}"
+	[[ "${OS}" == "Linux" ]] && _post_install_linux
+}
+
+function em.make_all() {
+	echo "${P}:"
 	_setup_env1
 
 	# build release - and thereby the PREFIX - depends on other modules
 	_load_build_dependencies
-	
+
+	# setup module specific environment
 	_setup_env2
 
 	if [[ ! -d "${PREFIX}" ]] || [[ ${FORCE_REBUILD} ]]; then
  		echo "Building $P/$V ..."
+		[[ "${DRY_RUN}" ]] && die 0 ""
 		_check_compiler
 		_prep
 		cd "${MODULE_SRCDIR}"
@@ -500,14 +526,14 @@ function em.make_all() {
 		em.build
 		em.install
 		em.post_install
-		cd "${MODULE_SRCDIR}"
-		mkdir -p "${DOCDIR}"
 		em.install_doc
+		_post_install
+		_write_runtime_dependencies
+		_write_build_dependencies
+		
 	else
  		echo "Not rebuilding $P/$V ..."
 	fi
-	_write_runtime_dependencies
-	_write_build_dependencies
 	_set_link
 	_cleanup_build
 }
