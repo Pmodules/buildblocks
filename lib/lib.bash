@@ -48,7 +48,7 @@ log() {
 }
 
 info() {
-	log 1 "$1\n" "${@:2}"
+	log 2 "$1\n" "${@:2}"
 }
 
 error() {
@@ -57,7 +57,7 @@ error() {
 
 debug() {
 	[[ ${EM_DEBUG} ]] || return 0
-	log "$@"
+	log 2 "$@"
 }
 
 die() {
