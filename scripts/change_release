@@ -1,0 +1,51 @@
+#!/bin/bash
+
+source "$(dirname $0)/../lib/lib.bash"
+
+change_release() {
+	local m=$1
+	local with_modules=()
+	shift
+	shift
+	shift
+	while (( $# > 0 )); do
+		with_modules+=( "--with=$1" )
+		shift
+	done
+	"$(dirname $0)/${m%/*}.build"  "${m#*/}" "${with_modules[@]}" "--release=${to_release}"
+}
+
+from_release=''
+to_release=''
+with_modules=()
+modules=()
+while (( $# > 0 )); do
+	case $1 in
+	--from-release=* )
+		from_release=${1/--from-release=}
+		;;
+	--to-release=* )
+		to_release=${1/--to-release=}
+		;;
+	--with=*/* )
+		with_modules+=( ${1} )
+		;;
+	-* )
+		die 1 "$1: illegal argument"
+		;;
+	*/* )
+		modules+=( $1 )
+		;;
+	* )
+		die 1 "$1: illegal argument"
+		;;
+	esac
+	shift
+done
+
+[[ -z ${from_release} ]] && die 1 "--from-release missing"
+[[ -z ${to_release}   ]] && die 1 "--to-release missing"
+while read -a tokens ; do
+	echo "${tokens[@]}"
+	change_release "${tokens[@]}"
+done < <(module search "${modules[@]}" --no-header --release="${from_release}" "${with_modules[@]}" 2>&1)
