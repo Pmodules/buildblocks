@@ -19,6 +19,8 @@ em.set_docfiles \
 	'README' \
 	'THANKS' \
 	'TODO'
+
+em.set_runtime_dependencies "${COMPILER}"
 em.set_build_dependencies "${COMPILER}"
 em.make_all
 
