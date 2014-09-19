@@ -543,6 +543,7 @@ function em.cleanup_src() {
 		rm -rf ${MODULE_SRCDIR##*/}
 	fi
     );
+	return 0
 }
 
 function _check_compiler() {
@@ -560,11 +561,13 @@ function _post_install_linux() {
 	cd "${PREFIX}"
 	# solve multilib problem with LIBRARY_PATH on 64bit Linux
 	[[ -d "lib" ]] && [[ ! -d "lib64" ]] && ln -s lib lib64
+	return 0
 }
 
 function _post_install() {
-	info "Run post-installation for ${OS}"
+	info "Run post-installation for ${OS} ..."
 	[[ "${OS}" == "Linux" ]] && _post_install_linux
+	info "Post-installation done ..."
 	return 0
 }
 
