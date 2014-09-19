@@ -12,20 +12,23 @@ change_release() {
 		with_modules+=( "--with=$1" )
 		shift
 	done
-	"$(dirname $0)/${m%/*}.build"  "${m#*/}" "${with_modules[@]}" "--release=${to_release}"
+	"$(dirname $0)/${m%/*}.build"  "${m#*/}" "${with_modules[@]}" "--release=${release}"
 }
 
-from_release=''
-to_release=''
+declare usecmd="${PSI_PREFIX}/${PSI_CONFIG_DIR}/init/extensions/use.bash"
+declare searchcmd="${PSI_PREFIX}/${PSI_CONFIG_DIR}/init/extensions/search.bash"
+
+# :FIXME: this does not work ...
+#eval "${usecmd} deprecated"
+#eval "${usecmd} unstable"
+
+release=''
 with_modules=()
 modules=()
 while (( $# > 0 )); do
 	case $1 in
-	--from-release=* )
-		from_release=${1/--from-release=}
-		;;
-	--to-release=* )
-		to_release=${1/--to-release=}
+	--release=* )
+		release=${1/--release=}
 		;;
 	--with=*/* )
 		with_modules+=( ${1} )
@@ -43,9 +46,9 @@ while (( $# > 0 )); do
 	shift
 done
 
-[[ -z ${from_release} ]] && die 1 "--from-release missing"
-[[ -z ${to_release}   ]] && die 1 "--to-release missing"
+#[[ -z ${from_release} ]] && die 1 "--from-release missing"
+[[ -z ${release}   ]] && die 1 "--release missing"
 while read -a tokens ; do
 	echo "${tokens[@]}"
 	change_release "${tokens[@]}"
-done < <(module search "${modules[@]}" --no-header --release="${from_release}" "${with_modules[@]}" 2>&1)
+done < <("${searchcmd}" "${modules[@]}" --no-header -a "${with_modules[@]}" 2>&1)
