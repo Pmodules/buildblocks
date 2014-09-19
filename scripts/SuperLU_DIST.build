@@ -45,3 +45,4 @@ em.set_runtime_dependencies "${COMPILER}" "${MPI} 'OpenBLAS' 'parmetis'"
 em.set_build_dependencies "${COMPILER}" "${MPI}" 'OpenBLAS' 'parmetis'
 em.set_docfiles 'README'
 em.make_all
+em.cleanup_src
