@@ -106,6 +106,7 @@ ENV=VALUE
 P=$(basename $0)
 P=${P%.*}
 _P=$(echo $P | tr [:lower:] [:upper:])
+_P=${_P//-/_}
 _V=${_P}_VERSION
 
 DEBUG_ON=''
@@ -453,13 +454,15 @@ function _setup_env2() {
 	DOCDIR="${PREFIX}/share/doc/$P"
 
 	# set tar-ball and flags for tar
-	TARBALL="${BUILD_DOWNLOADSDIR}/${P/_serial}-$V.tar"
-	if [[ -r $TARBALL.gz ]]; then
-		TARBALL=${TARBALL}.gz
-		_UNTAR_FLAGS='xvzf'
-	elif [[ -r ${TARBALL}.bz2 ]]; then
-		TARBALL=${TARBALL}.bz2
-		_UNTAR_FLAGS='xvjf'
+	TARBALL="${BUILD_DOWNLOADSDIR}/${P/_serial}"
+	if [[ -r "${TARBALL}-${V}.tar.gz" ]]; then
+		TARBALL+="-${V}.tar.gz"
+	elif [[ -r "${TARBALL}-${OS}-${V}.tar.gz" ]]; then
+		TARBALL+="-${OS}-${V}.tar.gz"
+	elif [[ -r "${TARBALL}-${V}.tar.bz2" ]]; then
+		TARBALL+="-${V}.tar.bz2"
+	elif [[ -r "${TARBALL}-${OS}-${V}.tar.bz2" ]]; then
+		TARBALL+="-${OS}-${V}.tar.bz2"
 	else
 		error "tar-ball for $P/$V not found."
 		exit 43
@@ -472,7 +475,7 @@ function _prep() {
 	# untar sources
 	if [[ ! -d ${MODULE_SRCDIR} ]]; then
 		mkdir -p "${BUILD_TMPDIR}/src"
-		(cd "${BUILD_TMPDIR}/src" && tar ${_UNTAR_FLAGS} "${TARBALL}")
+		(cd "${BUILD_TMPDIR}/src" && tar xvf "${TARBALL}")
 	fi
 
 	# create build directory
