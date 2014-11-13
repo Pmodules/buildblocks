@@ -2,12 +2,16 @@
 
 source "$(dirname $0)/../lib/libem.bash"
 
+TCL_VERSION='8.6.3'
+TCL_DIR="${PSI_PREFIX}/Programming/Tcl/${TCL_VERSION}"
+
+PATH="${TCL_DIR}/bin:${PATH}"
 
 function em.configure() {
 	CPPFLAGS="-DUSE_INTERP_ERRORLINE" "${MODULE_SRCDIR}"/configure \
 		--prefix="${PSI_PREFIX}/${MODULE_FAMILY}" \
-		--with-module-path="${MODULEPATH_ROOT}" \
-		--with-static='yes' \
+		--with-module-path="${PSI_PREFIX}/${PSI_MODULES_ROOT}" \
+		--with-tcl="${TCL_DIR}/lib" \
 		|| exit 1
 }
 # fake module command
@@ -19,4 +23,5 @@ module() {
 declare -rx CC=gcc
 
 em.add_to_family 'Tools'
+em.set_runtime_dependencies "Tcl/${TCL_VERSION}"
 em.make_all
