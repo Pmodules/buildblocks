@@ -2,6 +2,8 @@
 
 source "$(dirname $0)/../lib/libem.bash"
 
+module use 'Libraries'
+
 build_dependencies="${COMPILER} libungif tiff"
 
 case ${OS} in
