@@ -13,7 +13,7 @@ function em.configure() {
 
 em.add_to_family 'MPI'
 em.set_runtime_dependencies "${COMPILER}" "${MPI}"
-em.set_build_dependencies 'cmake' "${COMPILER}" "${MPI}" 'hdf5' 'H5hut' 'trilinos' 'ippl' 'gsl'
+em.set_build_dependencies 'cmake' "${COMPILER}" "${MPI}" 'boost' 'hdf5' 'H5hut' 'trilinos' 'ippl' 'gsl'
 em.set_supported_compilers 'gcc/4.7' 'gcc/4.8'
 em.make_all
 
