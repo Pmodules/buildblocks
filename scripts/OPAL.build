@@ -2,6 +2,8 @@
 
 source "$(dirname $0)/../lib/libem.bash"
 
+module use unstable
+
 # add -fopenmp to CC and CXX, if you want to compile with OpenMP
 function em.configure() {
 	CC="$MPICC" CXX="$MPICXX" cmake \
