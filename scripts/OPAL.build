@@ -6,7 +6,7 @@ module use unstable
 
 # add -fopenmp to CC and CXX, if you want to compile with OpenMP
 function em.configure() {
-	CC="$MPICC" CXX="$MPICXX" cmake \
+	cmake \
 		-DCMAKE_INSTALL_PREFIX="${PREFIX}" \
 		-DCMAKE_BUILD_TYPE=RELEASE \
 		-DENABLE_SAAMG_SOLVER=TRUE \
