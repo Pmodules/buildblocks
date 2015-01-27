@@ -4,7 +4,6 @@ PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin
 
 shopt -s expand_aliases
 
-source	"${PSI_PREFIX}/${PSI_CONFIG_DIR}/profile.bash"
 
 declare -r  BUILDSCRIPT=$( cd $(dirname "$0") && pwd )/$(basename "$0")
 declare -rx ARGS="$@"
@@ -152,6 +151,7 @@ fi
 
 # while bootstraping the module command is not yet available
 if [[ ${bootstrap} == no ]]; then
+	source	"${PSI_PREFIX}/${PSI_CONFIG_DIR}/profile.bash"
 	[[ -x ${MODULECMD} ]] || die 1 "${MODULECMD}: no such executable"
 	module use unstable
 	module purge
