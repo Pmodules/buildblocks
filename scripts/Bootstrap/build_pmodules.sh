@@ -3,8 +3,10 @@
 declare -r BASE_DIR=$(cd "$(dirname $0)/../.." && pwd)
 declare -r BOOTSTRAP_DIR="${BASE_DIR}/scripts/Bootstrap"
 
-source "/opt/psi/config/environment.bash"
 source "${BASE_DIR}/config/pmodules_version.conf"
+
+unset PMODULES_HOME
+source "/opt/psi/config/environment.bash"
 
 ${BOOTSTRAP_DIR}/gettext.build --bootstrap
 ${BOOTSTRAP_DIR}/getopt.build --bootstrap
