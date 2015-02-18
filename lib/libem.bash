@@ -165,12 +165,13 @@ _V=${_P}_VERSION
 
 eval "${ENVIRONMENT_ARGS}"
 
-if [[ ${PSI_RELEASES_CONF} ]] && [[ -r "${PSI_PREFIX}/${PSI_RELEASES_CONF}" ]]; then
-        declare -r releases=:$(< "${PSI_PREFIX}/${PSI_RELEASES_CONF}"):
+if [[ -n ${PSI_RELEASES} ]]; then
+        declare -r releases="${PSI_RELEASES}"
 else
 	# set defaults, if file doesn't exist or isn't readable
 	declare -r releases=":unstable:stable:deprecated:"
 fi
+
 is_release () {
 	[[ ${releases} =~ :$1: ]]
 }
@@ -530,7 +531,7 @@ if [[ ${bootstrap} == yes ]]; then
 	    MODULE_SRCDIR="${BUILD_TMPDIR}/src/${P/_serial}-$V"
 	    MODULE_BUILDDIR="${BUILD_TMPDIR}/build/$P-$V"
 	    MODULE_FAMILY='Tools'
-	    MODULE_NAME="Pmodules/0.99.0"
+	    MODULE_NAME="Pmodules/${PMODULES_VERSION}"
 	    # set PREFIX of module
 	    PREFIX="${PSI_PREFIX}/${MODULE_FAMILY}/${MODULE_NAME}"
 	    
