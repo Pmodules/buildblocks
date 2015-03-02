@@ -24,6 +24,9 @@ install -m 0755 "${SRC_DIR}/init_local_env.bash" "${PMODULES_HOME}/bin"
 install -m 0755 "${SRC_DIR}/modsync.bash" "${PMODULES_HOME}/bin"
 install -m 0755 "${SRC_DIR}/dialog.bash" "${PMODULES_HOME}/bin"
 
+install -m 0755 "${SRC_DIR}/environment.bash" "${PMODULES_HOME}/config"
+install -m 0755 "${SRC_DIR}/profile.bash" "${PMODULES_HOME}/config"
+
 install -m 0644 "${SRC_DIR}/bash" "${PMODULES_HOME}/init"
 install -m 0644 "${SRC_DIR}/bash_completion" "${PMODULES_HOME}/init"
 
