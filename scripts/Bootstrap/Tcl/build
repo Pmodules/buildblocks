@@ -1,0 +1,27 @@
+#!/bin/bash
+
+source "$(dirname $0)/../../../lib/libem.bash"
+
+function em.configure() {
+	case ${OS} in
+	Linux )
+		srcdir="${MODULE_SRCDIR}/unix"
+		;;
+	Darwin )
+		srcdir="${MODULE_SRCDIR}/macosx"
+		;;
+	esac
+	"${srcdir}"/configure \
+		--prefix="${PREFIX}" \
+		--enable-shared=no \
+		|| exit 1
+}
+
+function em.post_install() {
+	{ cd "${PREFIX}"/bin && rm -f tclsh && ln -fs tclsh${V%.*} tclsh; };
+}
+
+em.add_to_family 'Programming'
+em.set_docfiles 'license.terms' 'README'
+em.set_build_dependencies "${COMPILER}"
+em.make_all

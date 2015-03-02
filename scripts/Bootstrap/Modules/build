@@ -1,6 +1,6 @@
 #!/bin/bash
 #set -o functrace
-source "$(dirname $0)/../../lib/libem.bash"
+source "$(dirname $0)/../../../lib/libem.bash"
 
 TCL_DIR="${PSI_PREFIX}/Tools/Pmodules/0.99.0"
 

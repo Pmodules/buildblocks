@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source "$(dirname $0)/../../lib/libem.bash"
+source "$(dirname $0)/../../../lib/libem.bash"
 
 function em.configure() {
     "${MODULE_SRCDIR}"/configure \

@@ -195,7 +195,7 @@ function em.add_to_family() {
 	if [[ -z ${1} ]]; then
 		die 42 "${FUNCNAME}: Missing family argument."
 	fi
-	if [[ ! -d ${PSI_PREFIX}/${PSI_MODULES_ROOT}/${1} ]]; then
+	if [[ ! -d ${PSI_PREFIX}/${PSI_TEMPLATES_DIR}/${1} ]]; then
 		die 43 "${1}: family does not exist."
 	fi
 	MODULE_FAMILY=$1
@@ -243,7 +243,7 @@ function _load_build_dependencies() {
 		fi
 		if ! module_is_available "$m"; then
 		        debug "${m}: module not available"
-			local rels=( ${releases//: } )
+			local rels=( ${releases//:/ } )
 			for rel in "${rels[@]}"; do
 				debug "${m}: check release \"${rel}\""
 				eval $("${MODULECMD}" bash use ${rel})

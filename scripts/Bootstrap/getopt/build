@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source "$(dirname $0)/../../lib/libem.bash"
+source "$(dirname $0)/../../../lib/libem.bash"
 
 function em.configure() {
 	:
@@ -9,7 +9,7 @@ function em.configure() {
 function em.build() {
 	case ${OS} in
 		Linux )
-			declare -x LDFLAGS="-lintl -liconv"
+			declare -x LDFLAGS="-lintl"
 			;;
 		Darwin )
 			declare -x LDFLAGS="-lintl -liconv -framework CoreFoundation"

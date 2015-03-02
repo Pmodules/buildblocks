@@ -1,0 +1,29 @@
+#!/bin/bash
+
+source "$(dirname $0)/../../../lib/libem.bash"
+
+function em.configure() {
+	:
+}
+
+function em.build() {
+	cd "${MODULE_SRCDIR}"
+	make
+}
+
+function em.install() {
+	cd "${MODULE_SRCDIR}"
+	install -m 0755 -d "${PREFIX}/bin"
+	install -m 0755 unison "${PREFIX}/bin"
+}
+
+em.add_to_family 'System'
+em.set_docfiles 'BUGS.txt' 'CONTRIB' 'COPYING' 'NEWS' 'README'
+#em.set_build_dependencies "${COMPILER}"
+em.make_all
+
+# Local Variables:
+# mode: sh
+# sh-basic-offset: 8
+# tab-width: 8
+# End:

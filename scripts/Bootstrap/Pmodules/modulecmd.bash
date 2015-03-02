@@ -569,10 +569,10 @@ subcommand_avail() {
 	local dir=''
 	
 	# get number of columns of terminal
-	eval $(resize)
+	cols=$(tput cols)
 
 	output_header() {
-		let i=($COLUMNS-${#dir})/2-2
+		let i=($cols-${#dir})/2-2
 		printf -- "%0.s-" $(seq 1 $i) 1>&2
 		printf -- " %s " "${dir}" 1>&2
 		printf -- "%0.s-" $(seq 1 $i) 1>&2
@@ -618,7 +618,7 @@ subcommand_avail() {
 	human_readable_output() {
 		output_header
 
-		local -i column=$COLUMNS
+		local -i column=$cols
 		local -i colsize=16
 		for ((i=0; i<${#mods[@]}; i+=2)); do
 			if [[ ${userlvl} == 'novice' ]]; then
@@ -637,11 +637,11 @@ subcommand_avail() {
 			local -i len=${#mod}
 			local -i span=$(( len / 16 + 1 ))
 			local -i colsize=$(( span * 16 ))
-			if (( column+len >= COLUMNS )); then
+			if (( column+len >= cols )); then
 			        printf -- "\n" 1>&2
 				column=0
 			fi
-			if (( column+colsize < COLUMNS )); then
+			if (( column+colsize < cols )); then
 			        fmt="%-${colsize}s"
 			else
 				fmt="%-s"
@@ -680,7 +680,7 @@ compute_family_depth () {
 	{
 		local -r family=$1
 		cd "${modulepath_root}"
-		local -r tmp=$(find "${family}" -d -type f -o -type l | head -1)
+		local -r tmp=$(find "${family}" -depth -type f -o -type l | head -1)
 		local -ar tmp2=( ${tmp//\// } )
 		local depth=${#tmp2[@]}
 		let depth-=3
