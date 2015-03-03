@@ -121,13 +121,19 @@ rsync --recursive --links --perms --delete ${PSI_PREFIX}/${PSI_CONFIG_DIR}/ ${PS
     exit 1
 }
 
+echo "Copy template files..."
+rsync --recursive --links --perms --delete ${PSI_PREFIX}/${PSI_TEMPLATES_DIR}/ ${PSI_TEMPLATES_DIR}/ || {
+    echo "Error: copy operation failed!"
+    exit 1
+}
+
 echo "Copy module software..."
-LOCAL_MODHOME=${MODULESHOME#$PSI_PREFIX/}
-mkdir -p ${LOCAL_MODHOME} || {
+DST_PMODULES_HOME=${PMODULES_HOME#$PSI_PREFIX/}
+mkdir -p ${DST_PMODULES_HOME} || {
     echo "Error: creating directory for modules software failed!"
     exit 1
 }
-rsync --recursive --links --perms --delete ${MODULESHOME}/ ${LOCAL_MODHOME}/ || {
+rsync --recursive --links --perms --delete  ${PMODULES_HOME}/ ${DST_PMODULES_HOME}/ || {
     echo "Error: copying modules software failed!"
     exit 1
 }
@@ -138,12 +144,14 @@ mkdir -p $PSI_MODULES_ROOT || {
     exit 1
 }
 
-# echo "Using sudo to set the link $PSI_PREFIX to $ENV_DIR..."
-# sudo bash -c "rm -f $PSI_PREFIX && ln -s $ENV_DIR $PSI_PREFIX" || {
-#     echo "WARNING: The link $PSI_PREFIX could not be set to $ENV_DIR!"
-#     echo "Please set this link manually as root:"
-#     echo "   ln -s $ENV_DIR $PSI_PREFIX"
-# }
+echo "Create directory $PSI_MODULES_ROOT/Tools/Pmodules..."
+mkdir -p "${PSI_MODULES_ROOT}/Tools/Pmodules" || {
+    echo "Error: cannot create directory ${PSI_MODULES_ROOT}/Tools/Pmodules!"
+    exit 1
+}
+
+ln -fs "../../../${PSI_TEMPLATES_DIR}/Tools/Pmodules/modulefile"  "${PSI_MODULES_ROOT}/Tools/Pmodules/${PMODULES_VERSION}"
+cp "${PSI_PREFIX}/${PSI_MODULES_ROOT}/Tools/Pmodules/.release-${PMODULES_VERSION}" "${PSI_MODULES_ROOT}/Tools/Pmodules"
 
 echo "Local module environment created at $ENV_DIR."
 echo "To use this environment, execute"
