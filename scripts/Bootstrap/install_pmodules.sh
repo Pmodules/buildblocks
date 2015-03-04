@@ -13,6 +13,7 @@ sed_cmd="s:@PMODULES_HOME@:${PMODULES_HOME}:g;"
 sed_cmd+="s:@PMODULES_VERSION@:${PMODULES_VERSION}:g;"
 sed_cmd+="s:@MODULES_VERSION@:${MODULES_VERSION}:g"
 sed "${sed_cmd}" "${SRC_DIR}/modulecmd.in" > "${SRC_DIR}/modulecmd"
+sed "${sed_cmd}" "${SRC_DIR}/modmanage.in" > "${SRC_DIR}/modmanage.bash"
 
 install -d -m 0755 "${PMODULES_HOME}/bin"
 install -d -m 0755 "${PMODULES_HOME}/config"
@@ -20,8 +21,8 @@ install -d -m 0755 "${PMODULES_HOME}/init"
 install -d -m 0755 "${PMODULES_HOME}/lib"
 
 install -m 0755 "${SRC_DIR}/modulecmd" "${PMODULES_HOME}/bin"
-install -m 0755 "${SRC_DIR}/init_local_env.bash" "${PMODULES_HOME}/bin"
-install -m 0755 "${SRC_DIR}/modsync.bash" "${PMODULES_HOME}/bin"
+install -m 0755 "${SRC_DIR}/modmanage" "${PMODULES_HOME}/bin"
+install -m 0755 "${SRC_DIR}/modmanage.bash" "${PMODULES_HOME}/bin"
 install -m 0755 "${SRC_DIR}/dialog.bash" "${PMODULES_HOME}/bin"
 
 install -m 0644 "${SRC_DIR}/bash" "${PMODULES_HOME}/init"

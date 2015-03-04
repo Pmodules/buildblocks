@@ -1,0 +1,4 @@
+#!/bin/bash
+
+declare -r bindir=$( cd $(dirname $0) && pwd -P )
+"${bindir}/bash" -c "${bindir}/modmanage.bash" 
