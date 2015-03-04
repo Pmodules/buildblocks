@@ -183,6 +183,7 @@ function init_pmodules_environment() {
 	     "${dst}/${PMODULES_VERSION}" || die 1 "Error: setting sym-link failed!"
 	$DRY cp "${src}/.release-${PMODULES_VERSION}" "${dst}" || die 1 "Error: setting release failed!"
 	echo
+	
 	if [[ -n "${ENV_USER}" ]]; then
 	        echo "Changing user of new module environment to '${ENV_USER}'..."
 		$DRY chown -R "${ENV_USER}" "${target_dir}" || die 1 "Error: changing owner failed!"
