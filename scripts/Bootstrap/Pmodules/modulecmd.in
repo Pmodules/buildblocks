@@ -47,7 +47,7 @@ Switches:
         -c|--create             create caches for avail and apropos
         -i|--icase              ignored
         -u|--userlvl <lvl>      set user level to (nov[ice],exp[ert],adv[anced])
-  Available SubCommands and Args:
+Available SubCommands and Args:
         + add|load              modulefile [modulefile ...]
         + rm|unload             modulefile [modulefile ...]
         + switch|swap           [modulefile1] modulefile2
