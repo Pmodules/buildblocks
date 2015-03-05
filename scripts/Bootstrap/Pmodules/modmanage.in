@@ -2,11 +2,10 @@
 
 shopt -s expand_aliases
 
-declare -r bindir=$(cd $(dirname "$0") && pwd -P)
+declare -r bindir=$(cd $(dirname "$0") && pwd)
+declare -r libdir=$(cd "${bindir}/../lib" && pwd)
 
-get_options() {
-	"${bindir}/getopt" "$@"
-}
+source "${libdir}/libpmodules.bash"
 
 print_version() {
 	echo "
@@ -31,42 +30,6 @@ Available SubCommands and Args:
 "
 }
      
-log() {
-        local -ri fd=$1
-        local -r fmt="$2\n"
-        shift 2
-        printf -- "$fmt" "$@" >> /dev/fd/$fd
-}
-
-info() {
-        log 2 "$1\n" "${@:2}"
-}
-
-error() {
-        log 2 "$1\n" "${@:2}"
-}
-
-debug() {
-        [[ ${PSI_DEBUG} ]] || return 0
-        log 2 "$@"
-}
-
-die() {
-        local -ri ec=$1
-        shift
-        local cout
-        if (( ec == 0)); then
-                cout='1'
-        else
-                cout='2'
-        fi      
-        if [[ -n $@ ]]; then
-                local -r fmt=$1
-                shift
-                log $cout "$fmt" "$@"
-        fi
-        exit $ec
-}
 
 declare force='no'
 declare dry_run='no'
@@ -94,9 +57,71 @@ subcommand_help() {
 	fi
 }
 
+#
+# Derive the relative module installation path
+# from the relative modulefile path
+#
+# $1: relative module file path
+#
+get_module_prefix() {
+	local -a comp=( ${1//\// } )    # split rel.path into components
+	local path="${comp[0]}"		# result path
+	local -i i
+	for ((i=1; i<${#comp[@]}; i+=2)); do
+		path+="/${comp[$((-i-1))]}/${comp[$((-i))]}"
+	done
+	echo "${path}"
+}
+
+#
+# Derive the relative module release file path
+# from the relative module file path
+#
+# $1: relative module file path
+#
+get_releasefile_name() {
+	echo "$(dirname "$1")/.release-$(basename "$1")"
+}
+
+#
+# Sync a module from one Pmodules environment to another:
+# - sync module installation
+# - sync modulefile
+# - sync release file
+#
+# $1: relative modulefile path
+# $2: source prefix of Pmodule environment
+# $3: target prefix of Pmodule environment
+#
+sync_module() {
+	local -r rel_modulefile=$1
+	local -r src_prefix=$2
+	local -r target_prefix=$3
+
+	local -r rel_module_prefix=$( get_module_prefix "${rel_modulefile}" )
+	local -r rel_releasefile=$( get_releasefile_name "${rel_modulefile}" )
+
+	mkdir -p "${target_prefix}/${rel_module_prefix}" || return $?
+	$DRY rsync --links --perms --recursive --delete \
+	      "${src_prefix}/${rel_module_prefix}/" \
+	      "${target_prefix}/${rel_module_prefix}/" || return $?
+	
+	local dir=$( dirname "${target_prefix}/${PSI_MODULES_ROOT}/${rel_modulefile}" )
+	mkdir -p "${dir}" || return $?
+	$DRY rsync --links --perms --recursive \
+	      "${src_prefix}/${PSI_MODULES_ROOT}/${rel_modulefile}" \
+	      "${target_prefix}/${PSI_MODULES_ROOT}/${rel_modulefile}" \
+	    || return $?
+
+	$DRY rsync --links --perms --recursive \
+	      "${src_prefix}/${PSI_MODULES_ROOT}/${rel_releasefile}" \
+	      "${target_prefix}/${PSI_MODULES_ROOT}/${rel_releasefile}" \
+	    || return $?
+}
+
 subcommand_init() {
 	local src=''
-	local target_dirs=()
+	local target_prefixes=()
 	local user=''
 	local opts=''
 	opts=$(get_options -o h -l src: -l user: -l help -- "$@")
@@ -124,115 +149,87 @@ subcommand_init() {
 				exit 1
 				;;
 			* )
-				target_dirs+=( "$1" )
+				target_prefixes+=( "$1" )
 				;;
 		esac
 		shift
 	done
-	(( ${#target_dirs[@]} != 0 )) || die 1 "Error: no target directory specified!"
+	(( ${#target_prefixes[@]} != 0 )) || die 1 "Error: no target directory specified!"
 
 	if [[ -n "${src}" ]]; then
 		[[ -d "${src}" ]] || die 1 "Error: ${src}: source directory does not exist!"
-		[[ -r "${src}/config/profile.bash" ]] || die 1 "Error: ${src}: shell profile does not exist or is not readable!"
+		[[ -r "${src}/config/profile.bash" ]] || \
+		    die 1 "Error: ${src}: shell profile does not exist or is not readable!"
 		source "${src}/config/profile.bash"
 	fi
 	local -i euid=$(id -u)
 	if (( euid == 0 )); then
-		[[ -n "$ENV_USER" ]] || die 1 "Error: --user parameter is required!"
-		id -u "$ENV_USER" > /dev/null 2>&1 || die 1 "Error: Unable to retrieve user id of user '$ENV_USER'"
+	        [[ -n "$ENV_USER" ]] || \
+		    die 1 "Error: --user parameter is required!"
+		id -u "$ENV_USER" > /dev/null 2>&1 || \
+		    die 1 "Error: Unable to retrieve user id of user '$ENV_USER'"
 	else
-		[[ -z "$ENV_USER" ]] || die 1 "Error: --user option is only allowed if running as root!"
+		[[ -z "$ENV_USER" ]] || \
+		    die 1 "Error: --user option is only allowed if running as root!"
 	fi
-
-	[[ -n "${PSI_PREFIX}" ]] &&
-	    [[ -n "${PSI_CONFIG_DIR}" ]] &&
-	    [[ -n "${PSI_MODULES_ROOT}" ]] &&
-	    [[ -n "${PSI_TEMPLATES_DIR}" ]] &&
-	    [[ -n "${PMODULES_HOME}" ]] &&
-	    [[ -n "${PMODULES_VERSION}" ]] || die 1 "
-Error: the module environment you are going to use as source has not been
-initialized properly!"
-
-	[[ -d "${PSI_PREFIX}" ]] &&
-	    [[ -d "${PSI_PREFIX}/${PSI_CONFIG_DIR}" ]] &&
-	    [[ -d "${PSI_PREFIX}/${PSI_MODULES_ROOT}" ]] &&
-	    [[ -d "${PSI_PREFIX}/${PSI_TEMPLATES_DIR}" ]] &&
-	    [[ -d "${PMODULES_HOME}" ]] || die 1 "
-Error: the module environment '$PSI_PREFIX' has not been initialized properly!"
-
+	
+	check_pmodules_env || die 1 "Giving up ..."
+	
 	echo "
 Attempting to create a minimal module environment from the
 environment at '${PSI_PREFIX}'
 "
 
-	function init_pmodules_environment() {
-		local -r target_dir=$1
+	init_pmodules_environment() {
+		local -r target_prefix=$1
 		local src=''
 		local dst=''
-		echo "Initializing target directory '${target_dir}' ..."
-		if [[ -d "${target_dir}" ]]  && [[ ${force} == no ]]; then
-		    echo "Warning: ${target_dir} already exists."
-		    read -p "Do you really want to re-run the initialization? (y/N) " ans
-		    case ${ans} in
-			    y|Y )
-				    :
-				    ;;
-			    * )
-				    exit 1
-				    ;;
-		    esac
+		echo "Initializing target directory '${target_prefix}' ..."
+		echo
+		if [[ -d "${target_prefix}" ]]  && [[ ${force} == no ]]; then
+			echo "Warning: ${target_prefix} already exists."
+			get_YN_answer "Do you really want to re-run the initialization? (y/N) " \
+				      die 1 "Abort ..."
 		fi
 
-		dst="${target_dir}"
-		echo "Creating target directory '${dst}'..."
-		$DRY mkdir -p "${dst}" || die 1 "Error: make directory failed!"
+		echo "Creating target directory '${target_prefix}'..."
+		$DRY mkdir -p "${target_prefix}" || die 1 "Error: make directory failed!"
 		echo
 
 		src="${PSI_PREFIX}/${PSI_CONFIG_DIR}/"
-		dst="${target_dir}/${PSI_CONFIG_DIR}/"
+		dst="${target_prefix}/${PSI_CONFIG_DIR}/"
 		echo "Synching configuration from '${src}' to '${dst}'..."
 		$DRY rsync --recursive --links --perms --delete \
 		     "${src}" "${dst}" || die 1 "Error: synch operation failed!"
 		echo
 		
 		src="${PSI_PREFIX}/${PSI_TEMPLATES_DIR}/"
-		dst="${target_dir}/${PSI_TEMPLATES_DIR}/"
+		dst="${target_prefix}/${PSI_TEMPLATES_DIR}/"
 		echo "Synching template files from '${src}' to '${dst}'..."
 		$DRY rsync --recursive --links --perms --delete \
 		     "${src}" "${dst}" || die 1 "Error: synch operation failed!"
 		echo
-		
-		src="${PMODULES_HOME}/"
-		dst="${target_dir}/${PMODULES_HOME#$PSI_PREFIX/}/"
-		echo "Synching Pmodules software from '${src}' to '${dst}'..."
-		$DRY mkdir -p "${dst}" || die 1 "Error: creating target directory failed!"
-		$DRY rsync --recursive --links --perms --delete \
-		     "${src}" "${dst}" || die 1 "Error: synch operation failed!"
-		echo
-		
-		src="${PSI_PREFIX}/${PSI_MODULES_ROOT}/Tools/Pmodules"
-		dst="${target_dir}/${PSI_MODULES_ROOT}/Tools/Pmodules"
-		echo "Setting up modulefile for Pmodules in '${dst}'..."
-		$DRY mkdir -p "${dst}" || die 1 "Error: make directory failed!"
-		$DRY ln -fs "../../../${PSI_TEMPLATES_DIR}/Tools/Pmodules/modulefile" \
-		     "${dst}/${PMODULES_VERSION}" || die 1 "Error: setting sym-link failed!"
-		$DRY cp "${src}/.release-${PMODULES_VERSION}" "${dst}" || die 1 "Error: setting release failed!"
+
+		echo "Syncing Pmodules ..."
+		sync_module "Tools/Pmodules/${PMODULES_VERSION}" \
+			    "${PSI_PREFIX}" \
+			    "${target_prefix}" || die 1 "Error: sync Pmodules failed!"
 		echo
 		
 		if [[ -n "${ENV_USER}" ]]; then
 	            echo "Changing user of new module environment to '${ENV_USER}'..."
-		    $DRY chown -R "${ENV_USER}" "${target_dir}" || die 1 "Error: changing owner failed!"
+		    $DRY chown -R "${ENV_USER}" "${target_prefix}" || die 1 "Error: changing owner failed!"
 		    echo
 		fi
-		echo "New minimal module environment created at '${target_dir}'."
+		echo "New minimal module environment created at '${target_prefix}'."
 		echo "To use this environment, execute"
-		echo "   ln -s ${target_dir} /opt/psi as root (delete the /opt/psi link if it already exists)"
-		echo "   source ${target_dir}/$PSI_CONFIG_DIR/profile.bash"
+		echo "   sudo ln -fs ${target_prefix} /opt/psi"
+		echo "   source /opt/psi/${PSI_CONFIG_DIR}/profile.bash"
 	}
 
 	umask 022
-	for target_dir in "${target_dirs[@]}"; do
-		init_pmodules_environment "${target_dir}"
+	for target_prefix in "${target_prefixes[@]}"; do
+		init_pmodules_environment "${target_prefix}"
 	done
 
 }
