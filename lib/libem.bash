@@ -31,9 +31,9 @@ if [[ -z "${BUILD_CONFIGDIR}/families.d/"*.conf ]]; then
 	die 1 "Default family configuration not set in ${BUILD_CONFIGDIR}/families.d"
 fi
 
-for f in "${BUILD_CONFIGDIR}/families.d/"*.conf; do
-	source "${f}"
-done
+#for f in "${BUILD_CONFIGDIR}/families.d/"*.conf; do
+#	source "${f}"
+#done
 
 declare -x  PREFIX=''
 declare -x  DOCDIR=''
