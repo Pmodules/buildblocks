@@ -11,7 +11,7 @@ function em.configure() {
 }
 
 em.add_to_family 'Tools'
-em.set_docfiles 'Copyright' 'ChangeLog' 'NEWS' 'README' 'README.1ST'
+em.set_docfiles 'Copyright' 'ChangeLog' 'NEWS' 'README'
 em.set_build_dependencies "${COMPILER}"
 em.make_all
 
