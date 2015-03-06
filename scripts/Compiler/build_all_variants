@@ -1,0 +1,19 @@
+#!/bin/bash
+
+declare -r basedir=$(dirname $0)
+source '../../config/Pmodules.conf'
+
+declare -r recipe="${basedir}/$1/build"
+shift
+
+if [[ ! -x "${recipe}" ]]; then
+	echo "Error: no recipe to build '$1'!"
+	exit 1
+fi
+
+for cc in "${COMPILER_VERSIONS[@]}"; do
+	"${recipe}" "$@" --with=$cc || {
+		echo "Oops: build failed for:"
+		echo "        compile: $cc"
+	}
+done
