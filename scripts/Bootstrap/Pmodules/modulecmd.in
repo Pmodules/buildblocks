@@ -879,7 +879,7 @@ subcommand_search() {
 			--release=* )
 				_val=${1/--release=}
 				if is_release "${_val}"; then
-				    use_releases+="${_val}:"
+				        use_releases+="${_val}:"
 				else
 					echo "${_val}: illegal release name." 1>&2
 					exit 1
