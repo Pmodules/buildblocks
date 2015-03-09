@@ -1,0 +1,24 @@
+#!/bin/bash
+
+source "$(dirname $0)/../../../lib/libem.bash"
+
+function em.configure() {
+	cmake \
+		-DCMAKE_INSTALL_PREFIX="${PREFIX}" \
+		-DCMAKE_BUILD_TYPE=RELEASE \
+		-DGMX_MPI=on \
+		-DGMX_BUILD_OWN_FFTW=on \
+		"${MODULE_SRCDIR}" \
+		|| exit 1
+}
+
+
+em.add_to_family 'MPI'
+em.set_runtime_dependencies "${COMPILER}" "${MPI}"
+em.set_build_dependencies "${COMPILER}" "${MPI}" cmake
+em.set_docfiles \
+		AUTHORS \
+		COPYING \
+		README
+em.make_all
+
