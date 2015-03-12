@@ -27,6 +27,9 @@ Switches:
 Available SubCommands and Args:
         init [--src=<src>] [--user=<user>] --dst=<dst>
                 Initialize a new minimal Pmodule environment.
+
+        install <module> [--with=<dep>...]
+                Install matching modules
 "
 }
      
@@ -43,6 +46,13 @@ init [--src=<src>] [--user=<user>] <dst>
                 Initialize a new minimal Pmodule environment in directory
                 <dst>. The <user> parameter must only be present if
                  ${prog} is executed as root.
+" 1>&2
+}
+
+subcommand_help_install() {
+	echo "
+install <module> [--with=<dep>...]
+                Install matching modules
 " 1>&2
 }
 
@@ -240,6 +250,46 @@ environment at '${PSI_PREFIX}'
 
 }
 
+subcommand_install() {
+	local opts=''
+	local -a with=()
+	local -a releases=()
+	local -a module_pattern=()
+
+	opts=$(get_options -o h -l with: -l release: -l help -- "$@")
+	if [[ $? != 0 ]]; then
+		subcommand_help_install
+		exit 1
+	fi
+	eval set --  "${opts}"
+	while (($# > 0)); do
+		case $1 in
+			--release )
+				releases+=( "$2" )
+				echo $2
+				shift
+				;;
+			--with )
+				with+=( "$2" )
+				shift
+				;;
+			-- )
+				:
+				;;
+			-* | -h | --help )
+				echo "$1: illegal option" 1>&2
+				subcommand_help_init
+				exit 1
+				;;
+			* )
+				module_pattern+=( "$1" )
+				;;
+		esac
+		shift
+	done
+	${PMODULES_HOME}/bin/modulecmd bash search "${module_pattern[@]}" "${with[@]/#/--with}" "${releases[@]/#/--release=}" --no-header
+}
+
 while (($# > 0)); do
 	case $1 in
 		-h | -H | -\? | --help | -help )
@@ -261,7 +311,7 @@ while (($# > 0)); do
 			echo "$1: unknown switch.\n" 1>&2
 			exit 1
 			;;
-		init|help )
+		init|install|help )
 			subcommand="subcommand_$1"
 			shift
 			sargs=( $* )
