@@ -90,6 +90,33 @@ prepend_path () {
 	fi
 }
 
+#
+# Replace or remove a directory in a path variable.
+#
+# To remove a dir:
+#	replace_path PATH <pattern>
+#
+# To replace a dir:
+#	replace_path PATH <pattern> /replacement/path
+#
+# Args:
+#	$1 name of the shell variable to set (e.g. PATH)
+#	$2 a grep pattern identifying the element to be removed/replaced
+#	$3 the replacement string (use "" for removal)
+#
+# Based on solution published here:
+# https://stackoverflow.com/questions/273909/how-do-i-manipulate-path-elements-in-shell-scripts 
+#
+function replace_path () {
+	local -r path=$1
+	local -r removepat=$2
+	local -r replacestr=$3
+
+	local -r removestr=$(echo "${!path}" | tr ":" "\n" | grep -m 1 "^$removepat\$")
+    	export $path=$(echo "${!path}" | tr ":" "\n" | sed "s:^${removestr}\$:${replacestr}:" |
+                   sed '/^\s*$/d' | tr "\n" ":" | sed -e 's|^:||' -e 's|:$||')
+}
+
 #############################################################################
 # setup environment
 #
@@ -99,18 +126,20 @@ fi
 
 if [[ -z ${MODULEPATH} ]]; then
 	declare -x MODULEPATH=''
+	for f in ${PSI_DEFAULT_FAMILIES}; do
+		append_path MODULEPATH "${PSI_PREFIX}/${PSI_MODULES_ROOT}/$f"
+		append_path PSI_LOADEDFAMILIES "${f}"
+	done
 fi
 
 if [[ -z ${PSI_LOADEDFAMILIES} ]]; then
 	declare -x PSI_LOADEDFAMILIES=''
 fi
-for f in ${PSI_DEFAULT_FAMILIES}; do
-	append_path MODULEPATH "${PSI_PREFIX}/${PSI_MODULES_ROOT}/$f"
-	append_path PSI_LOADEDFAMILIES "${f}"
-done
 
-append_path PATH    "${PMODULES_HOME}/bin"
-append_path MANPATH "${PMODULES_HOME}/share/man"
+replace_path PATH    "${PMODULES_HOME%/*}/.*"
+replace_path MANPATH "${PMODULES_HOME%/*}/.*"
+append_path  PATH    "${PMODULES_HOME}/bin"
+append_path  MANPATH "${PMODULES_HOME}/share/man"
 
 #############################################################################
 # initialize bash completion
@@ -122,10 +151,12 @@ fi
 #############################################################################
 # legacy...
 #
-declare -x MODULE_VERSION=${PMODULES_VERSION}
-declare -x MODULE_VERSION_STACK="${PMODULE_VERSION}"
-declare -x MODULESHOME="${PMODULES_HOME}"
-
+#declare -x MODULE_VERSION=${PMODULES_VERSION}
+#declare -x MODULE_VERSION_STACK="${PMODULE_VERSION}"
+#declare -x MODULESHOME="${PMODULES_HOME}"
+unset MODULE_VERSION
+unset MODULE_VERSION_STACK
+unset MODULESHOME
 
 # Local Variables:
 # mode: sh
