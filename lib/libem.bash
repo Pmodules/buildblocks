@@ -2,6 +2,9 @@
 
 PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin
 
+# disable auto-echo feature of 'cd'
+unset CDPATH
+
 shopt -s expand_aliases
 
 
@@ -434,58 +437,56 @@ function _setup_env2() {
 
 }
 
-if [[ ${bootstrap} == yes ]]; then
-    # redefine function for bootstrapping
-    function _setup_env2() {
-	    if [[ -z ${MODULE_FAMILY} ]]; then
+# redefine function for bootstrapping
+function _setup_env2_bootstrap() {
+	if [[ -z ${MODULE_FAMILY} ]]; then
 		die 1 "$P: family not set."
-	    fi
+	fi
 
-            if [[ -z $V ]]; then
+        if [[ -z $V ]]; then
 		V=$(eval echo \$${_P}_VERSION)
-	    fi
+	fi
 
-	    # oops, we need a version
-	    if [[ -z $V ]]; then
+	# oops, we need a version
+	if [[ -z $V ]]; then
 		die 1 "$P: Missing version."
-	    fi
-	    MODULE_SRCDIR="${BUILD_TMPDIR}/src/${P/_serial}-$V"
-	    MODULE_BUILDDIR="${BUILD_TMPDIR}/build/$P-$V"
-	    MODULE_FAMILY='Tools'
-	    MODULE_NAME="Pmodules/${PMODULES_VERSION}"
-	    # set PREFIX of module
-	    PREFIX="${PSI_PREFIX}/${MODULE_FAMILY}/${MODULE_NAME}"
-	    
-	    MODULE_RELEASE='unstable'
-	    info "${MODULE_NAME}: will be released as \"${MODULE_RELEASE}\""
+	fi
+	MODULE_SRCDIR="${BUILD_TMPDIR}/src/${P/_serial}-$V"
+	MODULE_BUILDDIR="${BUILD_TMPDIR}/build/$P-$V"
+	MODULE_FAMILY='Tools'
+	MODULE_NAME="Pmodules/${PMODULES_VERSION}"
+	# set PREFIX of module
+	PREFIX="${PSI_PREFIX}/${MODULE_FAMILY}/${MODULE_NAME}"
+	
+	MODULE_RELEASE='unstable'
+	info "${MODULE_NAME}: will be released as \"${MODULE_RELEASE}\""
 
-	    # directory for README's, license files etc
-	    DOCDIR="${PREFIX}/share/doc/$P"
+	# directory for README's, license files etc
+	DOCDIR="${PREFIX}/share/doc/$P"
 
-	    # set tar-ball and flags for tar
-	    TARBALL="${BUILD_DOWNLOADSDIR}/${P/_serial}"
-	    if [[ -r "${TARBALL}-${V}.tar.gz" ]]; then
-		    TARBALL+="-${V}.tar.gz"
-	    elif [[ -r "${TARBALL}-${OS}-${V}.tar.gz" ]]; then
-		    TARBALL+="-${OS}-${V}.tar.gz"
-	    elif [[ -r "${TARBALL}-${V}.tar.bz2" ]]; then
-		    TARBALL+="-${V}.tar.bz2"
-	    elif [[ -r "${TARBALL}-${OS}-${V}.tar.bz2" ]]; then
-		    TARBALL+="-${OS}-${V}.tar.bz2"
-	    else
-		    error "tar-ball for $P/$V not found."
-		    exit 43
-	    fi
-	    C_INCLUDE_PATH="${PREFIX}/include"
-	    CPLUS_INCLUDE_PATH="${PREFIX}/include"
-	    CPP_INCLUDE_PATH="${PREFIX}/include"
-	    LIBRARY_PATH="${PREFIX}/lib"
-	    LD_LIBRARY_PATH="${PREFIX}/lib"
-	    DYLD_LIBRARY_PATH="${PREFIX}/lib"
+	# set tar-ball and flags for tar
+	TARBALL="${BUILD_DOWNLOADSDIR}/${P/_serial}"
+	if [[ -r "${TARBALL}-${V}.tar.gz" ]]; then
+	        TARBALL+="-${V}.tar.gz"
+	elif [[ -r "${TARBALL}-${OS}-${V}.tar.gz" ]]; then
+	        TARBALL+="-${OS}-${V}.tar.gz"
+	elif [[ -r "${TARBALL}-${V}.tar.bz2" ]]; then
+	        TARBALL+="-${V}.tar.bz2"
+	elif [[ -r "${TARBALL}-${OS}-${V}.tar.bz2" ]]; then
+	        TARBALL+="-${OS}-${V}.tar.bz2"
+	else
+	        error "tar-ball for $P/$V not found."
+	        exit 43
+	fi
+	C_INCLUDE_PATH="${PREFIX}/include"
+	CPLUS_INCLUDE_PATH="${PREFIX}/include"
+	CPP_INCLUDE_PATH="${PREFIX}/include"
+	LIBRARY_PATH="${PREFIX}/lib"
+	LD_LIBRARY_PATH="${PREFIX}/lib"
+	DYLD_LIBRARY_PATH="${PREFIX}/lib"
 
-	    PATH+=":${PREFIX}/bin"
-    }
-fi
+	PATH+=":${PREFIX}/bin"
+}
 
 function _prep() {
 
@@ -600,7 +601,11 @@ function em.make_all() {
 	_setup_env1
 	_load_build_dependencies
 	# setup module specific environment
-	_setup_env2
+	if [[ ${bootstrap} == no ]]; then
+		_setup_env2
+	else
+		_setup_env2_bootstrap
+	fi
 
 	if [[ ! -d "${PREFIX}" ]] || [[ ${force_rebuild} == 'yes' ]]; then
  		echo "Building $P/$V ..."
