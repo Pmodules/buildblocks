@@ -21,7 +21,6 @@ function em.post_install() {
 	{ cd "${PREFIX}"/bin && rm -f tclsh && ln -fs tclsh${V%.*} tclsh; };
 }
 
-em.add_to_family 'Programming'
+em.add_to_family 'Tools'
 em.set_docfiles 'license.terms' 'README'
-em.set_build_dependencies "${COMPILER}"
 em.make_all

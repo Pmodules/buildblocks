@@ -9,5 +9,4 @@ function em.configure() {
 }
 
 em.add_to_family 'Tools'
-em.set_build_dependencies "${COMPILER}"
 em.make_all
