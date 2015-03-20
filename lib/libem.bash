@@ -268,9 +268,11 @@ function _write_build_dependencies() {
 	done
 }
 
-# setup general environment
-function _setup_env1() {
-	local varname=''
+##############################################################################
+# 
+# cleanup environment
+#
+em.cleanup_env() {
 
 	C_INCLUDE_PATH=''
 	CPLUS_INCLUDE_PATH=''
@@ -284,7 +286,14 @@ function _setup_env1() {
 	CXXFLAGS=''
 	LIBS=''
 	LDFLAGS=''
-	
+}
+
+##############################################################################
+#
+# load default versions
+#
+ _setup_env1() {
+	local varname=''
 	while read _name _version; do
 		[[ -z ${_name} ]] && continue
 		[[ -z ${_version} ]] && continue
@@ -668,6 +677,8 @@ force_rebuild='no'
 ENVIRONMENT_ARGS=''
 dry_run='no'
 bootstrap='no'
+
+em.cleanup_env
 
 # array collecting all modules specified on the command line via '--with=module'
 with_modules=()
