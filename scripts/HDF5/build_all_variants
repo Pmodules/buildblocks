@@ -19,6 +19,7 @@ for cc in "${COMPILER_VERSIONS[@]}"; do
 				echo "        compile: $cc"
 				echo "        mpi:     $mpi"
 				echo "        hdf5:    $hdf5"
+				exit 1
 			}
 		done
 	done
