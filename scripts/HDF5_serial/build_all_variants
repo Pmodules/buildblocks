@@ -17,6 +17,7 @@ for cc in "${COMPILER_VERSIONS[@]}"; do
 			echo "Oops: build failed for:"
 			echo "        compiler:      $cc"
 			echo "        HDF5 (serial): $hdf"
+			exit 1
 			}
 	done
 done
