@@ -393,7 +393,7 @@ function _setup_env2() {
 			MODULE_RPREFIX+="/${COMPILER}/${COMPILER_VERSION}"
 			
 			MODULE_NAME="${COMPILER}/${COMPILER_VERSION}/"
-			MODULE_NAME+="hdf5_serial/${HDF5_VERSION}/"
+			MODULE_NAME+="hdf5_serial/${HDF5_SERIAL_VERSION}/"
 			MODULE_NAME+="${P}/${V}"
 			;;
 		* )
@@ -632,6 +632,7 @@ function _post_install() {
 }
 
 function em.make_all() {
+	local building='no'
 	echo "${P}:"
 	_setup_env1
 	_load_build_dependencies
@@ -643,6 +644,7 @@ function em.make_all() {
 	fi
 
 	if [[ ! -d "${PREFIX}" ]] || [[ ${force_rebuild} == 'yes' ]]; then
+		building='yes'
  		echo "Building $P/$V ..."
 		[[ ${dry_run} == yes ]] && die 0 ""
 		_check_compiler
@@ -667,7 +669,8 @@ function em.make_all() {
 	if [[ ${bootstrap} == 'no' ]]; then
 		_set_link
 	fi
-	em.cleanup_build
+	[[ ${building} == yes ]] && em.cleanup_build
+	return 0
 }
 
 ##############################################################################
