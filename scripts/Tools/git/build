@@ -6,7 +6,7 @@ function em.configure() {
 	cd "${MODULE_SRCDIR}"
 	"${MODULE_SRCDIR}"/configure \
 		--prefix="${PREFIX}" \
-		--with-tcltk="${PMODULES_HOME}" \
+		--with-tcltk \
 		|| exit 1
 }
 
