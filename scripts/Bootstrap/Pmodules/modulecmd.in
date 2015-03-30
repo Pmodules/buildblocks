@@ -12,6 +12,8 @@ declare -rx TCL_LIBRARY="${PMODULES_DIR}/lib/tcl8.6"
 declare -rx PSI_LIBMODULES="${PMODULES_DIR}/lib/libmodules.tcl"
 
 declare -r modulepath_root="${PSI_PREFIX}/${PSI_MODULES_ROOT}"
+
+# :FIXME: this is not save, if a component contains spaces.
 declare -ra modulepath=( ${MODULEPATH//:/ } )
 
 source "${PMODULES_DIR}/lib/libpmodules.bash"
@@ -24,9 +26,10 @@ fi
 
 declare output_function='human_readable_output'
 declare verbosity='silent'
-declare userlvl='expert'
+declare userlvl=${PMODULES_USERLVL:-'novice'}
 declare sw_force='no'
 declare sw_create='no'
+declare ignore_case=''
 
 
 print_version() {
@@ -50,22 +53,22 @@ Switches:
         -h|--human              readable format avail and list format
         -v|--verbose            enable  verbose messages
         -s|--silent             disable verbose messages
-        -c|--create             create caches for avail and apropos
+        -c|--create             create caches for avail and apropos [not yet implemented]
         -i|--icase              ignored
         -u|--userlvl <lvl>      set user level to (nov[ice],exp[ert],adv[anced])
 Available SubCommands and Args:
-        + add|load              modulefile [modulefile ...]
+        + add|load [switches ]  modulefile [modulefile ...]
         + rm|unload             modulefile [modulefile ...]
         + switch|swap           [modulefile1] modulefile2
         + display|show          modulefile [modulefile ...]
-        + avail                 [modulefile [modulefile ...]]
+        + avail [ switches ]    [modulefile [modulefile ...]]
         + search [ switches ]   [ args ]
-        + use [-a|--append]     [dir|family|release ...]
+        + use [ switches ]      [dir|family|release ...]
         + unuse                 dir|family|release [dir|family|release ...]
         + update
         + refresh
         + purge
-        + list
+        + list [ switches ]
         + clear
         + help                  [modulefile|subcommand]
         + whatis                [modulefile [modulefile ...]]
@@ -76,7 +79,6 @@ Available SubCommands and Args:
         + initswitch            modulefile1 modulefile2
         + initlist
         + initclear
-	+ sync [ switches ]
 " 1>&2
 
 }
@@ -326,13 +328,6 @@ initclear	Clear all of the modulefiles from the shell's initialization files.
 " 1>&2
 }
 
-subcommand_help_sync() {
-	echo "
-sync [--from=DIR] [--to=DIR] [--dryrun] [--delete] 
-		Synchronize two Pmodules hierarchies.
-" 1>&2
-}
-
 append_path () {
         local -r P=$1
         local -r d=$2
@@ -372,38 +367,35 @@ remove_path() {
 	eval ${P}="${new_path:1}"
 }
 
-module_is_available() {
-	is_loadable() {
-		release=$( get_release "$1" )			
-		[[ :${PSI_USED_RELEASES}: =~ ${release} ]] && return 0
-		return 1
-	}
-
-	[[ -f $1 ]] && return 0
-	for dir in "${modulepath[@]}"; do
-		if [[ -d ${dir}/$1 ]]; then
-			while read fname; do
-				is_loadable "${fname}" && return 0			
-			done < <(find "${dir}" -type l -o -type f  \! -name ".*")
-		else
-			[[ -f ${dir}/$1 ]] || continue
- 			[[ -r ${dir}/$1 ]] || continue
-		        is_loadable "${dir}/$1" && return 0
-		fi
-	done
-	return 1
-}
-
+#
+# get release of module
+# Note:
+# - the release of a modulefile outside ${PSI_PREFIX} is 'stable'
+# - the release of a modulefile inside ${PSI_PREFIX} without a 
+#   coresponding release file is 'unstable'
+#
+# Args:
+# 	$1: absolute modulefile name
+#
 get_release() {
 	local -r modulefile=$1
+
+	# is modulefile outside ${PSI_PREFIX}?
+	if [[ ! ${modulefile} =~ ${PSI_PREFIX} ]]; then
+		echo 'stable'
+		return 0
+	fi
+
+	# we are inside ${PSI_PREFIX}
 	local -r releasefile="${modulefile%/*}/.release-${modulefile##*/}"
 	if [[ -r ${releasefile} ]]; then
+		# read releasefile, remove empty lines, spaces etc
 		local -r data=$( < "${releasefile}" )
-		local -r release=$( echo ${data} )
+		echo ${data}
 	else	
-		local -r release='unstable'
+		echo 'unstable'
 	fi
-	echo ${release}
+	return 0
 }
 
 if [[ -n ${PSI_RELEASES} ]]; then
@@ -474,12 +466,69 @@ subcommand_generic1plus() {
 # $1: module to load
 #
 subcommand_load() {
+	local release='unstable'
+
+	#
+	# Test whether a given module can be loaded according to the 
+	# accepted releases.
+	#
+	# Note:
+	#	The variable 'release' of the parent function will be set.
+	#
+	# $1: absolute name of modulefile
+	#
+	is_loadable() {
+		release=$( get_release "$1" )			
+		[[ :${PSI_USED_RELEASES}: =~ ${release} ]] && return 0
+		return 1
+	}
+
+	#
+	# Test whether a given module is available.
+	# :FIXME: Check module shebang?
+	#
+	# Notes:
+	#	$1: module name
+	#
+	module_is_available() {
+		# return OK, if this is a file
+		# :FIXME: more checks are required if $1 is in ${PSI_PREFIX}!
+		# 
+		[[ -f $1 ]] && return 0
+
+		# check modulepath
+		for dir in "${modulepath[@]}"; do
+			# :FIXME: make this sense, if dir is not in ${PSI_PREFIX}
+			if [[ -d ${dir}/$1 ]]; then
+				# module specified without version, like 'hdf5'
+				while read fname; do
+					is_loadable "${fname}" && return 0			
+				done < <(find "${dir}" -type l -o -type f  \! -name ".*")
+			else
+				# module specified with name/version, like 'hdf5/1.8.14'
+				[[ -f ${dir}/$1 ]] || continue
+ 				[[ -r ${dir}/$1 ]] || continue
+		        	is_loadable "${dir}/$1" && return 0
+			fi
+		done
+		return 1
+	}
+
+	#
+	# output load 'hints'
+	#
+	# Note:
+	#	The variable 'm' from the parent function will be used
+	#	but not changed.
+	#
+	# Args:
+	#	none
 	output_load_hints() {
 		local -ra rels=( ${available_releases//:/ } )
 		for rel in "${rels[@]}"; do
 			eval $( subcommand_use "${rel}" )
 			if module_is_available "${m}"; then
-				echo    "${m}: is ${rel}! If you really want to load this module, run" 1>&2 
+				echo    "${m}: is ${rel}! If you want to load this module, run" 1>&2 
 				echo -e "\tmodule use ${rel}" 1>&2
 				echo    "before running" 1>&2
 				echo -e "\tmodule load ${m}" 1>&2
@@ -521,9 +570,12 @@ subcommand_load() {
 	if [[ "${m}" == "" ]]; then
 		echo "No module specified." 1>&2
 	elif module_is_available "${m}"; then
+		if [[ ${userlvl} != expert ]] && [[ ${release} != stable ]]; then
+			echo "Warning: the module '${m}' is ${release}." 1>&2
+		fi
 		"${modulecmd}" "${shell}" load "${m}"
 	else
-		if [[ ${userlvl} = 'novice' ]]; then
+		if [[ ${userlvl} == 'novice' ]]; then
 			output_load_hints
 		else
 			echo "${m}: module unavailable" 1>&2
@@ -1020,40 +1072,6 @@ subcommand_initclear() {
 	subcommand_generic0 initclear "$@"
 }
 
-subcommand_sync() {
-	local _srcdir
-	local _dstdir
-	local _dryrun='no'
-	local _delete='no'
-	local _args=()
-	while (( $# > 0 )); do
-		case $1 in
-			--from=* )
-				_srcdir=${1/--from=}
-				_args+=( $1 )
-				;;
-			--to=* )
-				_dstdir=${1/--to=}
-				_args+=( $1 )
-				;;
-			--dry-run )
-				_dryrun='yes'
-				_args+=( --dryrun )
-				;;
-			--delete )
-				_delete='yes'
-				_args+=( $1 )
-				;;
-			* )
-				echo "$1: invalid argument." 1>&2
-				exit 1
-				;;
-		esac
-		shift
-	done
-	${PMODULES_HOME}/bin/modsync.bash "${_args[@]}"
-}
-
 case $1 in
 	bash )
 		declare shell=$1
@@ -1097,7 +1115,7 @@ while (( $# > 0 )); do
 			sw_create='yes'
 			;;
 		-i | --icase )
-			# ignored
+			ignore_case='-i'
 			;;
 		-u | --userlvl )
 			case $2 in
@@ -1175,27 +1193,6 @@ while (( $# > 0 )); do
 	esac
 	shift
 done
-
-#for ((i=0; i<$#; i++)); do
-#	case "${sargs[i]}" in
-#		-a | --append )
-#			if [[ ${subcommand} != use ]]; then
-#			        echo "${subcommand}: unsupported switch '$1'" 1>&2
-#				exit 1
-#			fi
-#			;;
-#		-* )
-#			echo "${subcommand}: unsupported switch '$1'" 1>&2
-#			exit 1
-#			;;
-#		[a-zA-Z0-9] )
-#			:
-#			;;
-#		* )
-#			echo "$1: illegal module name" 1>&2
-#			;;
-#	esac
-#done
 
 $subcommand "${sargs[@]}"
 
