@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [[  -z ${bindir} ]]; then
+        local bindir=$(dirname "${BASH_SOURCE}")
+	bindir=$(cd "${bindir}"/.. && pwd)"/bin"
+fi
+
 log() {
         local -ri fd=$1
         local -r fmt="$2\n"
@@ -8,11 +13,11 @@ log() {
 }
 
 info() {
-        log 2 "$1\n" "${@:2}"
+        log 2 "$1" "${@:2}"
 }
 
 error() {
-        log 2 "$1\n" "${@:2}"
+        log 2 "$1" "${@:2}"
 }
 
 debug() {
@@ -23,16 +28,10 @@ debug() {
 die() {
         local -ri ec=$1
         shift
-        local cout
-        if (( ec == 0)); then
-                cout='1'
-        else
-                cout='2'
-        fi      
         if [[ -n $@ ]]; then
                 local -r fmt=$1
                 shift
-                log $cout "$fmt" "$@"
+                log 2 "$fmt" "$@"
         fi
         exit $ec
 }
@@ -52,6 +51,20 @@ get_YN_answer() {
 		* )
 			return 1;;
 	esac
+}
+
+#
+# return normalized abolute pathname
+# $1: filename
+get_abspath() {
+	local -r fname=$1
+	[[ -r "${fname}" ]] || return 1
+	if [[ -d ${fname} ]]; then
+		echo $(cd "${fname}" && pwd)
+	else
+		local -r dname=$(dirname "${fname}")
+		echo $(cd "${dname}" && pwd)/$(basename "${fname}")
+	fi
 }
 
 get_options() {
@@ -83,6 +96,45 @@ Error: the module environment '${src_prefix}' has not been initialized properly!
 check_pmodules_env() {
 	check_pmodules_env_vars
 	check_pmodules_directories "${PSI_PREFIX}"
+}
+
+append_path () {
+        local -r P=$1
+        local -r d=$2
+
+        if ! echo ${!P} | egrep -q "(^|:)${d}($|:)" ; then
+                if [[ -z ${!P} ]]; then
+                        eval $P=${d}
+                else
+                        eval $P=${!P}:${d}
+                fi
+        fi
+}
+
+prepend_path () {
+        local -r P=$1
+        local -r d=$2
+
+        if ! echo ${!P} | egrep -q "(^|:)${d}($|:)" ; then
+                if [[ -z ${!P} ]]; then
+                        eval $P=${d}
+                else
+                        eval $P=${d}:${!P}
+                fi
+        fi
+}
+
+remove_path() {
+        local -r P=$1
+        local -r d=$2
+	local new_path=''
+	local -r _P=( ${!P//:/ } )
+	# loop over all entries in path
+	for entry in "${_P[@]}"; do
+		[[ "${entry}" != "${d}" ]] && new_path+=":${entry}"
+	done
+	# remove leading ':'
+	eval ${P}="${new_path:1}"
 }
 
 
