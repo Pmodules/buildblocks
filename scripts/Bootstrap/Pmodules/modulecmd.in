@@ -28,8 +28,8 @@ declare -ra modulepath=( ${MODULEPATH//:/ } )
 declare verbosity_lvl=${PMODULES_VERBOSITY:-'verbose'}
 
 shopt -s nullglob
-declare -a FAMILIES=()
-declare -A HIERARCHY_DEPTHS
+declare -a FAMILIES='()'
+declare -A HIERARCHY_DEPTHS='()'
 
 save_env() {
 	local s=''
@@ -187,12 +187,13 @@ USAGE:
 subcommand_help_search() {
 	echo "
 USAGE:
-        module search [switches] STRING...
+        module search [switches] string...
 		Search installed modules. If an argument is given, search
 		for modules whose name match the argument.
 
 SWITCHES: 
-        --no-header	Suppress output of a header.
+        --no-header
+		Suppress output of a header.
 
         --release=RELEASE
 		Search for modules within this release. You can specify this
@@ -480,8 +481,7 @@ subcommand_generic1() {
 	while (( $# > 0 )); do
 		case $1 in
 			-- )
-				shift
-				;;
+					;;
 			* )
 				if (( ${#args[@]} == 0 )); then
 				        args+=( "$1" )
@@ -490,6 +490,7 @@ subcommand_generic1() {
 				fi
 				;;
 		esac
+		shift
 	done
 	if (( ${#args[@]} == 0 )); then
 	        die 3 "${CMD} ${subcommand}: missing argument"
@@ -530,16 +531,15 @@ subcommand_generic1or2() {
 	while (( $# > 0 )); do
 		case $1 in
 			-- )
-				shift
 				;;
 			* )
-				if (( ${#args[@]} < 2 )); then
-				        args+=( "$1" )
-				else
+				if (( ${#args[@]} > 2 )); then
 					die 3 "${CMD} ${subcommand}: only one or two arguments are allowed"
 				fi
+				args+=( "$1" )
 				;;
 		esac
+		shift
 	done
 	if (( ${#args[@]} == 0 )); then
 	        die 3 "${CMD} ${subcommand}: missing argument"
@@ -727,7 +727,7 @@ subcommand_load() {
 	for m in "${args[@]}"; do		
 		if is_available "${m}"; then
 		        if [[ ${verbosity_lvl} != silent ]] && [[ ${release} != stable ]]; then
-			        info "Warning: the module '${m}' is ${release}."
+			        info "Warning: the ${release} module '${m}' has been loaded."
 			fi
 			"${modulecmd}" "${shell}" ${opts} load "${m}"
 		else
@@ -818,7 +818,7 @@ subcommand_avail() {
 					out=''
 					;;
 				* )
-					out=${release}
+					out="${release}"
 					;;
 			esac
 			printf "%-20s\t%s\n" "${mod}" "${out}" 1>&2
@@ -911,7 +911,7 @@ subcommand_avail() {
 			-- )
 				;;
 			* )
-				pattern+=( $1 )
+				pattern+=( "$1" )
 				;;
 		esac
 		shift
@@ -1257,19 +1257,19 @@ subcommand_search() {
 				_print_header='no'
 				;;
 			--release )
-				is_release "$1" || die 1 "${CMD} search: illegal release name -- $1"
-				use_releases+="$1:"
+				is_release "$2" || die 1 "${CMD} search: illegal release name -- $2"
+				use_releases+="$2:"
 				shift
 				;;
 			--with )
 				if [[ -z $2 ]] || [[ "$2" =~ "-*" ]]; then
-				    die 1 "${CMD} search: with what?"
+				        die 1 "${CMD} search: with what?"
 				fi
 				with_modules+=" && / ${2//\//\\/}/"
 				shift
 				;;
 			-a | --all-releases )
-				use_releases=${available_releases}
+				use_releases="${available_releases}"
 				;;
 			--src )
 				src_prefix=$1
@@ -1282,7 +1282,7 @@ subcommand_search() {
 			-- )
 				;;
 			* )
-				modules+=( $1 )
+				modules+=( "$1" )
 				;;
 		esac
 		shift
@@ -1327,7 +1327,7 @@ subcommand_help() {
 			* )
 				[[ -z ${arg} ]] || \
 				    die 1 "${CMD} help: only one argument allowed."
-				arg=$1
+				arg="$1"
 				;;
 		esac
 		shift
@@ -1406,12 +1406,12 @@ subcommand_initclear() {
 }
 
 if [[ -n ${PMODULES_ENV} ]]; then
-	eval "$(base64 -D <<< ${PMODULES_ENV} 2>/dev/null)"
+	eval "$(base64 -D <<< "${PMODULES_ENV}" 2>/dev/null)"
 fi
 
 case $1 in
 	bash )
-		declare shell=$1
+		declare shell="$1"
 		;;
 	* )
 		die 1 "${CMD}: unsupported shell -- $1"
@@ -1431,13 +1431,16 @@ while (( $# > 0 )); do
 			die 1
 			;;
 		-f | --force | -s | --silent | -v | --verbose | -w | --warn )
-			opts+=( $1 )
+			opts+=( "$1" )
 			;;
 		-t | --terse | -l | --long | -h | --human )
 			opts+=( $1 )
 			;;
 		-a | --appent | -p | --prepend )
-			opts+=( $1 )
+			opts+=( "$1" )
+			;;
+		--debug )
+			set -x
 			;;
 		-* )
 			die 1 "$1: unknown switch."
@@ -1445,43 +1448,45 @@ while (( $# > 0 )); do
 		add|load )
 			subcommand='subcommand_load'
 			shift
-			sargs=( $* )
+			sargs=( "$@" )
 			shift $#
 			;;
 		rm|unload )
 			subcommand='subcommand_unload'
 			shift
-			sargs=( $* )
+			sargs=( "$@" )
 			shift $#
 			;;
 		switch|swap )
 			subcommand='subcommand_swap'
 			shift
-			sargs=( $* )
+			sargs=( "$@" )
 			shift $#
 			;;
 		display|show )
 			subcommand='subcommand_show'
 			shift
-			sargs=( $* )
+			sargs=( "$@" )
 			shift $#
 			;;
 		apropos|keyword )
 			subcommand='subcommand_apropos'
 			shift
-			sargs=( $* )
+			sargs=( "$@" )
 			shift $#
 			;;
 		avail|search|use|unuse|update|refresh|purge|list|clear|whatis|help )
 			subcommand=subcommand_$1
 			shift
-			sargs=( $* )
-			shift $#
+			if (( $# > 0 )); then
+			    sargs=( "$@" )
+			    shift $#
+			fi
 			;;
 		initadd|initprepend|initrm|initswitch|initlist|initclear )
 			subcommand=subcommand_$1
 			shift
-			sargs=( $* )
+			sargs=( "$@" )
 			shift $#
 			;;
 		* )
