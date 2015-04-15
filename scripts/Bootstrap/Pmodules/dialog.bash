@@ -173,11 +173,13 @@ function preselect() { # "$1": prefix for preselected modules
     [[ -z "$1" ]] && return
     local -a mpc # module path components
     local -i i
-    local uid
+    local uid n
     pushd "$1/$PSI_MODULES_ROOT" > /dev/null || exit 1;
     trap "popd" EXIT
 
     for m in $(find . -follow -type f); do
+        n=${m##*/}
+        [[ "${n:0:1}" == "." ]] && continue
         uid=""
         mpc=( ${m//\// } )
         for ((i=2; i<${#mpc[@]}-2; i+=2)); do
@@ -343,7 +345,9 @@ function module_picker() {
 [[ ${DIALOG_LIB:+"is_lib"} == "is_lib" ]] || {
     if [[ -x ${PMODULES_HOME}/bin/modulecmd ]]; then
         module_picker "${1:-$PSI_PREFIX}" "${2:-/afs/psi.ch/sys/psi.x86_64_slp6}"
+        exit $?
     else
         echo "ERROR: module environment configuration: ${PMODULES_HOME}/bin/modulecmd is not an executable!"
+        exit 1
     fi
 }
