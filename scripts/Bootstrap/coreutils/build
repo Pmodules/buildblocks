@@ -1,0 +1,12 @@
+#!/bin/bash
+
+source "$(dirname $0)/../../../lib/libem.bash"
+
+function em.configure() {
+    "${MODULE_SRCDIR}"/configure \
+		      --prefix="${PREFIX}" \
+	|| exit 1
+}
+
+em.add_to_family 'Tools'
+em.make_all

@@ -124,7 +124,7 @@ save_env() {
 		s+="$( typeset -p $1 );"
 		shift
 	done
-	echo export PMODULES_ENV=$( base64 <<< "$s" )	
+	echo export PMODULES_ENV=$( "${PMODULES_HOME}/bin/base64" --wrap=0 <<< "$s" )	
 }
 
 #module purge

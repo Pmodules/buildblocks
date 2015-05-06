@@ -37,7 +37,7 @@ save_env() {
 		s+="$( typeset -p $1 );"
 		shift
 	done
-	echo export PMODULES_ENV=$( base64 <<< "$s" )	
+	echo export PMODULES_ENV=$( "${PMODULES_HOME}/bin/base64" --wrap=0 <<< "$s" )	
 }
 
 export_env() {
@@ -425,14 +425,12 @@ get_release() {
 
 : ${PMODULES_DEFINED_RELEASES:=':unstable:stable:deprecated:'}
 
-declare used_releases=":${USED_RELEASES}:"
-
 is_release() {
 	[[ ${PMODULES_DEFINED_RELEASES} =~ :$1: ]]
 }
 
 is_used_release() {
-	[[ ${used_releases} =~ :$1: ]]
+	[[ ":${USED_RELEASES}:" =~ :$1: ]]
 }
 
 declare used_families=":${PMODULES_USED_GROUPS}:"
@@ -992,7 +990,7 @@ subcommand_use() {
 		done
 		
 		info "\nUsed releases:"
-		for r in ${used_releases//:/ }; do
+		for r in ${USED_RELEASES//:/ }; do
 			info "\t${r}"
 		done
 		info "\nUnused releases:"
@@ -1435,7 +1433,7 @@ subcommand_initclear() {
 }
 
 if [[ -n ${PMODULES_ENV} ]]; then
-	eval "$(base64 -D <<< "${PMODULES_ENV}" 2>/dev/null)"
+	eval "$("${PMODULES_HOME}/bin/base64" -d <<< "${PMODULES_ENV}" 2>/dev/null)"
 fi
 
 case $1 in
