@@ -48,7 +48,7 @@ export_env() {
 	done
 }
 
-trap 'save_env FAMILIES HIERARCHY_DEPTHS USED_RELEASES PSI_DEFAULT_FAMILIES PSI_DEFINED_RELEASES PSI_DEFAULT_RELEASES' EXIT
+trap 'save_env FAMILIES HIERARCHY_DEPTHS USED_RELEASES PMODULES_DEFAULT_GROUPS PMODULES_DEFINED_RELEASES PMODULES_DEFAULT_RELEASES' EXIT
 
 print_version() {
 	echo "
@@ -423,19 +423,19 @@ get_release() {
 	return 0
 }
 
-: ${PSI_DEFINED_RELEASES:=':unstable:stable:deprecated:'}
+: ${PMODULES_DEFINED_RELEASES:=':unstable:stable:deprecated:'}
 
 declare used_releases=":${USED_RELEASES}:"
 
 is_release() {
-	[[ ${PSI_DEFINED_RELEASES} =~ :$1: ]]
+	[[ ${PMODULES_DEFINED_RELEASES} =~ :$1: ]]
 }
 
 is_used_release() {
 	[[ ${used_releases} =~ :$1: ]]
 }
 
-declare used_families=":${PSI_LOADEDFAMILIES}:"
+declare used_families=":${PMODULES_USED_GROUPS}:"
 
 is_used_family() {
 	[[ ${used_families} =~ :$1: ]]
@@ -656,7 +656,7 @@ subcommand_load() {
 	# Args:
 	#	none
 	output_load_hints() {
-		local -ra rels=( ${PSI_DEFINED_RELEASES//:/ } )
+		local -ra rels=( ${PMODULES_DEFINED_RELEASES//:/ } )
 		for rel in "${rels[@]}"; do
 			eval $( subcommand_use "${rel}" )
 			if is_available "${m}"; then
@@ -804,9 +804,10 @@ subcommand_avail() {
 	cols=$(tput cols)
 
 	output_header() {
-		let i=($cols-${#dir})/2-2
+		local -r caption=${dir/${modulepath_root}\/}
+		let i=($cols-${#caption})/2-2
 		printf -- "%0.s-" $(seq 1 $i) 1>&2
-		printf -- " %s " "${dir}" 1>&2
+		printf -- " %s " "${caption}" 1>&2
 		printf -- "%0.s-" $(seq 1 $i) 1>&2
 		printf -- "\n" 1>&2
 	}
@@ -978,11 +979,11 @@ subcommand_use() {
 	print_info() {
 		local f
 		local r
-		info "Used families:"
+		info "Used groups:"
 		for f in ${used_families//:/ }; do
 			info "\t${f}"
 		done
-		info "\nFamilies you may use in addition:"
+		info "\nUnused groups:"
 		for family in "${FAMILIES[@]}"; do
 			local -i depth=${HIERARCHY_DEPTHS[$family]}
 			if ! is_used_family "${family}" && (( depth == 0 )); then
@@ -994,8 +995,8 @@ subcommand_use() {
 		for r in ${used_releases//:/ }; do
 			info "\t${r}"
 		done
-		info "\nReleases you may use in addition:"
-		for r in ${PSI_DEFINED_RELEASES//:/ }; do
+		info "\nUnused releases:"
+		for r in ${PMODULES_DEFINED_RELEASES//:/ }; do
 			if ! is_used_release $r; then
 				info "\t${r}"
 			fi
@@ -1032,7 +1033,7 @@ subcommand_use() {
 				if (( ${HIERARCHY_DEPTHS[$arg]} != 0 )); then
 					die 3 "${CMD} ${0##_}: cannot add family ${arg} to module path"
 				fi
-				append_path PSI_LOADEDFAMILIES "${arg}"
+				append_path PMODULES_USED_GROUPS "${arg}"
 			       	dirs_to_add+=( ${modulepath_root}/${arg} )
 			elif [[ ${arg} =~ ^${modulepath_root} ]]; then
 				die 3 "${CMD} ${0##_}: illegal directory: ${arg}"
@@ -1046,7 +1047,7 @@ subcommand_use() {
 			fi
 			shift
 		done
-		echo "export PSI_LOADEDFAMILIES=${PSI_LOADEDFAMILIES}"
+		echo "export PMODULES_USED_GROUPS=${PMODULES_USED_GROUPS}"
 		[[ ${#dirs_to_add[@]} == 0 ]] && return
 
 		for dir in "${dirs_to_add[@]}"; do
@@ -1172,18 +1173,18 @@ subcommand_clear() {
 		esac
 	done
 	LOADEDMODULES=''
-	PSI_LOADEDFAMILIES=''
+	PMODULES_USED_GROUPS=''
 	MODULEPATH=''
 	_LMFILES_=''
-	for f in ${PSI_DEFAULT_FAMILIES}; do
+	for f in ${PMODULES_DEFAULT_GROUPS}; do
 		append_path MODULEPATH "${PSI_PREFIX}/${PSI_MODULES_ROOT}/$f"
-		append_path PSI_LOADEDFAMILIES "${f}"
+		append_path PMODULES_USED_GROUPS "${f}"
 	done
 	USED_RELEASES=''
-	for r in ${PSI_DEFAULT_RELEASES//:/ }; do
+	for r in ${PMODULES_DEFAULT_RELEASES//:/ }; do
 		append_path USED_RELEASES "${r}"
 	done
-	export_env LOADEDMODULES PSI_LOADEDFAMILIES MODULEPATH _LMFILES_
+	export_env LOADEDMODULES PMODULES_USED_GROUPS MODULEPATH _LMFILES_
 }
 
 #
@@ -1298,7 +1299,7 @@ subcommand_search() {
 				shift
 				;;
 			-a | --all-releases )
-				use_releases="${PSI_DEFINED_RELEASES}"
+				use_releases="${PMODULES_DEFINED_RELEASES}"
 				;;
 			--src )
 				src_prefix=$2

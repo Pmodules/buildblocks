@@ -11,6 +11,6 @@ declare -x PSI_CONFIG_DIR=$(basename $(cd $(dirname "${BASH_SOURCE}") && pwd))
 declare -x PSI_MODULES_ROOT='modulefiles'
 declare -x PSI_TEMPLATES_DIR='templates'
 
-declare -x PSI_DEFAULT_FAMILIES='Tools Programming'
-declare -x PSI_DEFAULT_RELEASES='stable'
-declare -x PSI_DEFINED_RELEASES=':unstable:stable:deprecated:'
+declare -x PMODULES_DEFAULT_GROUPS='Tools Programming'
+declare -x PMODULES_DEFAULT_RELEASES='stable'
+declare -x PMODULES_DEFINED_RELEASES=':unstable:stable:deprecated:'

@@ -46,9 +46,9 @@ proc set-family { family } {
 	if { [module-info mode load] } {
 		debug "mode is load"
 		append-path MODULEPATH ${::MODULE_ROOT_PATH}/${family}/${Implementation}
-		append-path PSI_LOADEDFAMILIES ${family}
+		append-path PMODULES_USED_GROUPS ${family}
 		debug "mode=load: new MODULEPATH=$env(MODULEPATH)"
-		debug "mode=load: new PSI_LOADEDFAMILIES=$env(PSI_LOADEDFAMILIES)"
+		debug "mode=load: new PMODULES_USED_GROUPS=$env(PMODULES_USED_GROUPS)"
 	} elseif { [module-info mode remove] } {
 		# remove orphan modules
 		debug "remove orphan modules"
@@ -64,14 +64,14 @@ proc set-family { family } {
 			}
 		}
 		remove-path MODULEPATH ${::MODULE_ROOT_PATH}/${family}/${Implementation}
-		remove-path PSI_LOADEDFAMILIES ${family}
+		remove-path PMODULES_USED_GROUPS ${family}
 		debug "mode=remove: $env(MODULEPATH)"
-		debug "mode=remove: $env(PSI_LOADEDFAMILIES)"
+		debug "mode=remove: $env(PMODULES_USED_GROUPS)"
 	}
 	if { [module-info mode switch2] } {
 		debug "mode=switch2"
 		append-path MODULEPATH ${::MODULE_ROOT_PATH}/${family}/[module-info name]
-		append-path PSI_LOADEDFAMILIES ${family}
+		append-path PMODULES_USED_GROUPS ${family}
 	}
 }
 
