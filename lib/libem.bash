@@ -307,6 +307,37 @@ em.cleanup_env() {
 
 }
 
+#
+# find tarball 
+# $1: download directory
+# $2: name without version
+# $3: version
+#
+function find_tarball() {
+	local -r dir=$1
+	local -r name=$2
+	local -r version=$3
+
+	TARBALL=""
+	local ext
+	for ext in tar tar.gz tgz tar.bz2 tar.xz; do
+		local fname="${dir}/${name}-${OS}-${version}.${ext}"
+		if [[ -r "${fname}" ]]; then
+			TARBALL="${fname}"
+			break
+		fi
+		local fname="${dir}/${name}-${version}.${ext}"
+		if [[ -r "${fname}" ]]; then
+			TARBALL="${fname}"
+			break
+		fi
+	done
+	if [[ -z ${TARBALL} ]]; then
+		error "tar-ball for $P/$V not found."
+		exit 43
+	fi
+}
+
 #setup module specific environment
 function _setup_env2() {
 	if [[ -z ${MODULE_FAMILY} ]]; then
@@ -456,19 +487,7 @@ function _setup_env2() {
 	DOCDIR="${PREFIX}/share/doc/$P"
 
 	# set tar-ball and flags for tar
-	TARBALL="${BUILD_DOWNLOADSDIR}/${P/_serial}"
-	if [[ -r "${TARBALL}-${V}.tar.gz" ]]; then
-		TARBALL+="-${V}.tar.gz"
-	elif [[ -r "${TARBALL}-${OS}-${V}.tar.gz" ]]; then
-		TARBALL+="-${OS}-${V}.tar.gz"
-	elif [[ -r "${TARBALL}-${V}.tar.bz2" ]]; then
-		TARBALL+="-${V}.tar.bz2"
-	elif [[ -r "${TARBALL}-${OS}-${V}.tar.bz2" ]]; then
-		TARBALL+="-${OS}-${V}.tar.bz2"
-	else
-		error "tar-ball for $P/$V not found."
-		exit 43
-	fi
+	find_tarball "${BUILD_DOWNLOADSDIR}" "${P/_serial}" "${V}"
 
 }
 
@@ -500,19 +519,8 @@ function _setup_env2_bootstrap() {
 	DOCDIR="${PREFIX}/share/doc/$P"
 
 	# set tar-ball and flags for tar
-	TARBALL="${BUILD_DOWNLOADSDIR}/${P/_serial}"
-	if [[ -r "${TARBALL}-${V}.tar.gz" ]]; then
-	        TARBALL+="-${V}.tar.gz"
-	elif [[ -r "${TARBALL}-${OS}-${V}.tar.gz" ]]; then
-	        TARBALL+="-${OS}-${V}.tar.gz"
-	elif [[ -r "${TARBALL}-${V}.tar.bz2" ]]; then
-	        TARBALL+="-${V}.tar.bz2"
-	elif [[ -r "${TARBALL}-${OS}-${V}.tar.bz2" ]]; then
-	        TARBALL+="-${OS}-${V}.tar.bz2"
-	else
-	        error "tar-ball for $P/$V not found."
-	        exit 43
-	fi
+	find_tarball "${BUILD_DOWNLOADSDIR}" "${P/_serial}" "${V}"
+
 	C_INCLUDE_PATH="${PREFIX}/include"
 	CPLUS_INCLUDE_PATH="${PREFIX}/include"
 	CPP_INCLUDE_PATH="${PREFIX}/include"
