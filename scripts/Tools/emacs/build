@@ -37,6 +37,9 @@ function em.configure() {
 }
 
 function em.post_install() {
+	if [[ -d "${MODULE_BUILDDIR}/nextstep/Emacs.app" ]]; then
+		cp -a "${MODULE_BUILDDIR}/nextstep/Emacs.app" "${PREFIX}"
+	fi
 	mkdir -p "${PREFIX}/bin"
 	cat > "${PREFIX}/bin/Emacs" <<\EOF
 #!/bin/bash
