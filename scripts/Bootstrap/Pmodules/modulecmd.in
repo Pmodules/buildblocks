@@ -1017,6 +1017,14 @@ subcommand_use() {
 		local subcommand_switches=''
 		while (( $# > 0)); do
 			arg=$1
+			# if is release
+			# ...
+			# elif is group
+			# ...
+			# elif matches modulepath root
+			# ...
+			# elif is directory
+			# ...
 			if [[ ${arg} == -a ]] || [[ ${arg} == --append ]]; then
 			        subcommand_switches='--append'
 			elif [[ ${arg} == -p ]] || [[ ${arg} == --prepend ]]; then
@@ -1026,7 +1034,7 @@ subcommand_use() {
 			        append_path USED_RELEASES "${arg}"
 			elif [[ ! ${arg} =~ */* ]] && [[ -d ${modulepath_root}/${arg} ]]; then
 				if (( ${HIERARCHY_DEPTHS[$arg]} != 0 )); then
-					die 3 "${CMD} ${0##_}: cannot add family ${arg} to module path"
+					die 3 "${CMD} ${0##_}: cannot add group ${arg} to module path"
 				fi
 				append_path PMODULES_USED_GROUPS "${arg}"
 			       	dirs_to_add+=( ${modulepath_root}/${arg} )
@@ -1038,7 +1046,7 @@ subcommand_use() {
 			elif [[ ${arg} =~ "-*" ]]; then
 				die 3 "${CMD} ${0##_}: illegal switch: ${arg}"
 			else
-				die 3 "${CMD} ${0##_}: neither a directory, release or family: ${arg}"
+				die 3 "${CMD} ${0##_}: neither a directory, release or group: ${arg}"
 			fi
 			shift
 		done
@@ -1071,13 +1079,27 @@ subcommand_unuse() {
 			continue
 		fi
 		arg=$1
+		# if is release
+		# ...
+		# elif is group
+		# ...
+		# elif matches modulepath root
+		# ...
+		# elif is directory
+		# ...
 		if is_release "${arg}"; then
 			remove_path USED_RELEASES "${arg}"
 		elif [[ ! ${arg} =~ */* ]] &&  [[ -d ${modulepath_root}/${arg} ]]; then
+			if (( ${HIERARCHY_DEPTHS[$arg]} != 0 )); then
+				die 3 "${CMD} ${0##_}: cannot remove group ${arg} from module path"
+			fi
+			remove_path PMODULES_USED_GROUPS "${arg}"
 			dirs_to_remove+=( ${modulepath_root}/${arg} )
 		elif [[ -d ${arg} ]]; then
 			local normalized_dir=$(cd "${arg}" && pwd)
 			dirs_to_remove+=( ${normalized_dir} )
+		elif [[ ${arg} =~ ^${modulepath_root} ]]; then
+			die 3 "${CMD} ${0##_}: illegal directory: ${arg}"
 		elif [[ ${arg} =~ "-*" ]]; then
 		        die 3 "${CMD} ${0##*_}: illegal option: ${arg}"
 		else
@@ -1085,6 +1107,7 @@ subcommand_unuse() {
 		fi
 		shift
 	done
+	echo "export PMODULES_USED_GROUPS=${PMODULES_USED_GROUPS}"
 	[[ ${#dirs_to_remove[@]} == 0 ]] && return
 	for dir in "${dirs_to_remove[@]}"; do
 		subcommand_generic1 unuse "${dir}"
@@ -1216,7 +1239,7 @@ subcommand_search() {
 			local depth=${HIERARCHY_DEPTHS[$family]}
 			# get all potential directories of family $f with module-files 
 			local mpaths=( $(find \
-					     "${module_hierarchy_root}/${family}" \
+					     "${module_hierarchy_root}/${family}/" \
 					     -type d \
 					     -mindepth ${depth} -maxdepth ${depth} \
 					     2>/dev/null))
