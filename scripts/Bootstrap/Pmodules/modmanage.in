@@ -163,15 +163,15 @@ sync_module() {
 	fi
 
 	# if modulefile is a sym-link, sync link target file
-	if [[ -L "${src_modulefile}" ]]; then
-	        local canonical_fname=$(readlink -f "${src_modulefile}")
-		local src_template=$(dirname "${canonical_fname}")
-		local modulename=$(basename "${src_template}")
-		local target_template="${target_prefix}/${PSI_TEMPLATES_DIR}/${modulename}"
-		$DRY rsync  --links --perms --recursive --delete \
-		     "${src_template}/" \
-		     "${target_template}"
-	fi
+	#if [[ -L "${src_modulefile}" ]]; then
+	#	local canonical_fname=$(readlink -f "${src_modulefile}")
+	#	local src_template=$(dirname "${canonical_fname}")
+	#	local modulename=$(basename "${src_template}")
+	#	local target_template="${target_prefix}/${PSI_TEMPLATES_DIR}/${modulename}"
+	#	$DRY rsync  --links --perms --recursive --delete \
+	#	     "${src_template}/" \
+	#	     "${target_template}"
+	#fi
 }
 
 #
