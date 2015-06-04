@@ -1,8 +1,8 @@
 #!/bin/bash
 
-source "$(dirname $0)/../../../lib/libem.bash"
+source "$(dirname $0)/../../../lib/libpmodules.bash"
 
-function em.configure() {
+pmodules.configure() {
 	cd "${MODULE_SRCDIR}"
 	"${MODULE_SRCDIR}"/configure \
 		--prefix="${PREFIX}" \
@@ -10,15 +10,15 @@ function em.configure() {
 		|| exit 1
 }
 
-function em.build() {
+pmodules.build() {
         cd "${MODULE_SRCDIR}"
         make
 }
 
-em.add_to_family 'Tools'
-em.set_runtime_dependencies 'Tcl' 'Tk'
-em.set_docfiles 'COPYING' 'README'
-em.make_all
+pmodules.add_to_group 'Tools'
+pmodules.set_runtime_dependencies 'Tcl' 'Tk'
+pmodules.set_docfiles 'COPYING' 'README'
+pmodules.make_all
 
 # Local Variables:
 # mode: sh

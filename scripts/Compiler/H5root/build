@@ -1,12 +1,12 @@
 #!/bin/bash
 
-source $(dirname $0)/../../../lib/libem.bash
+source $(dirname $0)/../../../lib/libpmodules.bash
 
-function em.pre_configure() {
+pmodules.pre_configure() {
 	./autogen.sh
 }
 
-function em.configure() {
+pmodules.configure() {
 	"${MODULE_SRCDIR}"/configure \
 		--prefix="${PREFIX}" \
 		--enable-h5hut \
@@ -15,8 +15,8 @@ function em.configure() {
 		--with-pic
 }
 
-em.add_to_family 'Compiler'
-em.set_runtime_dependencies "${COMPILER}" 'hdf5_serial' 'root'
-em.set_build_dependencies 'autoconf' 'automake' 'libtool' "${COMPILER}" 'hdf5_serial' 'H5hut_serial' 'root'
-em.make_all
+pmodules.add_to_group 'Compiler'
+pmodules.set_runtime_dependencies "${COMPILER}" 'hdf5_serial' 'root'
+pmodules.set_build_dependencies 'autoconf' 'automake' 'libtool' "${COMPILER}" 'hdf5_serial' 'H5hut_serial' 'root'
+pmodules.make_all
 

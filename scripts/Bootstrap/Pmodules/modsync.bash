@@ -3,7 +3,7 @@
 declare -r DEFAULT_SRC="/afs/psi.ch/sys/psi.@sys"
 declare -r DEFAULT_DST="/opt/psi.local"
 
-function usage() {
+usage() {
     echo "
 $0 [--from=<source>] [--to=<destination>] [--dryrun] [--delete]
     --from    source module installation (default: $DEFAULT_SRC)
@@ -17,13 +17,13 @@ $0 [--from=<source>] [--to=<destination>] [--dryrun] [--delete]
               (destination cleanup)" >&2
 }
 
-function die() {
+die() {
     echo "$1" >&2
     exit 1
 }
 
 # check if directory $1 is a valid prefix
-function is_module_prefix() {
+is_module_prefix() {
     if [[ -d "$1" ]] &&
        [[ -d "$1/$PMODULES_CONFIG_DIR" ]] &&
        [[ -d "$1/$PMODULES_MODULEFILES_DIR" ]]
@@ -34,7 +34,7 @@ function is_module_prefix() {
 }
 
 # set the source and destination module installations
-function get_options() {
+get_options() {
     local src_dir="$DEFAULT_SRC"
     local dst_dir="$DEFAULT_DST"
     local dryrun=false
@@ -82,7 +82,7 @@ function get_options() {
 # Derive the relative module installation path
 #    from the relative module file path
 # $1 relative module file path
-function get_modpath() {
+get_modpath() {
     local -a comp=( ${1//\// } )    # split rel.path into components
     local -a path		    # result path
     local -i i
@@ -98,14 +98,14 @@ function get_modpath() {
 # Derive the relative module release file path
 #    from the relative module file path
 # $1 relative module file path
-function get_release_path() {
+get_release_path() {
     echo "$(dirname "$1")/.release-$(basename "$1")"
 }
 
 # $1 dryrun=(true|false)
 # $2 relative module file path of destination module to be deleted
 # $3 destination prefix
-function delete_module() {
+delete_module() {
     if [[ "$1" != "false" ]]; then
         echo "(dryrun) delete: $2 at $3" 1>&2
         return 0
@@ -126,7 +126,7 @@ function delete_module() {
 # $2 relative module file path of source module to be copied to the destination
 # $3 source prefix
 # $4 destination prefix
-function copy_module() {
+copy_module() {
     if [[ "$1" != "false" ]]; then
         echo "(dryrun) copy: $2 from $3 to $4" 1>&2
         return 0
@@ -147,7 +147,7 @@ function copy_module() {
 # destination module installations
 # --from=<source>        default: /afs/psi.ch/sys/psi.@sys
 # --to=<destination>     default: /opt/psi.local
-function sync_modules() {
+sync_modules() {
     local -a options=( $(get_options "$@") )
     [[ -z "$options" ]] && exit 1
     local src_dir="${options[0]}"
@@ -177,7 +177,7 @@ function sync_modules() {
     local -a selected_modules
 
     # Redefine module_out to append modules to the selected_modules variable
-    function module_out() {
+    module_out() {
         local -a args=(${modlist[$1]})
         local path=""
         IFS=/
@@ -191,7 +191,7 @@ function sync_modules() {
     local -a destination_modules=( $(cd "$dst_dir/$PMODULES_MODULEFILES_DIR"; find -L . -type f | while read f; do echo ${f#./}; done) )
 
     # redefine set difference, the version in dialog.bash only handles integers
-    function set_difference() {  #  $1 \ $2
+    set_difference() {  #  $1 \ $2
         local -a operand1=($1)
         local -a operand2=($2)
         local -A members

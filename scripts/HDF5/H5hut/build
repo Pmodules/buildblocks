@@ -1,12 +1,12 @@
 #!/bin/bash
 
-source "$(dirname $0)/../../../lib/libem.bash"
+source "$(dirname $0)/../../../lib/libpmodules.bash"
 
-function em.pre_configure() {
+pmodules.pre_configure() {
 	./autogen.sh
 }
 
-function em.configure() {
+pmodules.configure() {
 	CC=$MPICC
 	CXX=$MPICXX
 	F77=$MPIF77
@@ -23,20 +23,20 @@ function em.configure() {
 		|| exit 1
 }
 
-function em.build() {
+pmodules.build() {
 	make -C src
 	make -C tools 
 }
 
-function em.install() {
+pmodules.install() {
 	make -C src install
 	make -C tools install
 }
 
 
-em.add_to_family 'HDF5'
-em.set_runtime_dependencies "${COMPILER}" "${MPI}" 'hdf5'
-em.set_build_dependencies   "autoconf" "automake" "libtool" "${COMPILER}" "${MPI}" "hdf5"
-em.set_docfiles 'AUTHORS' 'COPYING'
-em.make_all
+pmodules.add_to_group 'HDF5'
+pmodules.set_runtime_dependencies "${COMPILER}" "${MPI}" 'hdf5'
+pmodules.set_build_dependencies   "autoconf" "automake" "libtool" "${COMPILER}" "${MPI}" "hdf5"
+pmodules.set_docfiles 'AUTHORS' 'COPYING'
+pmodules.make_all
 

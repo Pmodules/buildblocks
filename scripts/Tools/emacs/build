@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source "$(dirname $0)/../../../lib/libem.bash"
+source "$(dirname $0)/../../../lib/libpmodules.bash"
 
 module use 'Libraries'
 
@@ -14,7 +14,7 @@ Darwin )
 	CXX=''
 	COMPILER=''
 	COMPILER_VERSION=''
-	function em.post_install() {
+	pmodules.post_install() {
 		mkdir -p "${PREFIX}"
 		cp -rv "${MODULE_BUILDDIR}"/nextstep/Emacs.app "${PREFIX}"
 	}
@@ -28,7 +28,7 @@ Linux )
 	;;
 esac
 
-function em.configure() {
+pmodules.configure() {
 	"${MODULE_SRCDIR}"/configure \
 		--prefix="${PREFIX}" \
 		${configure_args} \
@@ -36,7 +36,7 @@ function em.configure() {
 	install -m 0755 -d "${PREFIX}"
 }
 
-function em.post_install() {
+pmodules.post_install() {
 	if [[ -d "${MODULE_BUILDDIR}/nextstep/Emacs.app" ]]; then
 		cp -a "${MODULE_BUILDDIR}/nextstep/Emacs.app" "${PREFIX}"
 	fi
@@ -69,7 +69,7 @@ EOF
 	chmod 0755 "${PREFIX}/bin/Emacsclient"
 }
 
-em.add_to_family 'Tools'
-em.set_build_dependencies ${build_dependencies}
-em.make_all
+pmodules.add_to_group 'Tools'
+pmodules.set_build_dependencies ${build_dependencies}
+pmodules.make_all
 

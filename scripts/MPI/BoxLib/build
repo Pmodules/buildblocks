@@ -1,18 +1,18 @@
 #!/bin/bash
 
-source "$(dirname $0)/../../../lib/libem.bash"
+source "$(dirname $0)/../../../lib/libpmodules.bash"
 
-function em.configure() {
+pmodules.configure() {
 	CC=$MPICC CXX=$MPICXX cmake \
 		-DCMAKE_INSTALL_PREFIX="${PREFIX}" \
 		-DCMAKE_BUILD_TYPE=RELEASE \
 		"${MODULE_SRCDIR}"
 }
 
-em.add_to_family 'MPI'
-em.set_runtime_dependencies "${COMPILER}" "${MPI}"
-em.set_build_dependencies 'cmake' "${COMPILER}" "${MPI}"
-em.set_docfiles 'license.txt' 'README.txt'
-em.make_all
+pmodules.add_to_group 'MPI'
+pmodules.set_runtime_dependencies "${COMPILER}" "${MPI}"
+pmodules.set_build_dependencies 'cmake' "${COMPILER}" "${MPI}"
+pmodules.set_docfiles 'license.txt' 'README.txt'
+pmodules.make_all
 
 

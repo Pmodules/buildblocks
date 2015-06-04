@@ -1,8 +1,8 @@
 #!/bin/bash
 
-source "$(dirname $0)/../../../lib/libem.bash"
+source "$(dirname $0)/../../../lib/libpmodules.bash"
 
-function em.configure() {
+pmodules.configure() {
 	"${MODULE_SRCDIR}"/configure \
 		--prefix="${PREFIX}" \
 		--with-gif=no \
@@ -10,10 +10,10 @@ function em.configure() {
 		|| exit 1
 }
 
-em.add_to_family 'Tools'
-em.set_docfiles 'Copyright' 'ChangeLog' 'NEWS' 'README'
-em.set_build_dependencies "${COMPILER}"
-em.make_all
+pmodules.add_to_group 'Tools'
+pmodules.set_docfiles 'Copyright' 'ChangeLog' 'NEWS' 'README'
+pmodules.set_build_dependencies "${COMPILER}"
+pmodules.make_all
 
 # Local Variables:
 # mode: sh

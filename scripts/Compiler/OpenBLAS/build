@@ -1,8 +1,8 @@
 #!/bin/bash
 
-source "$(dirname $0)/../../../lib/libem.bash"
+source "$(dirname $0)/../../../lib/libpmodules.bash"
 
-function em.configure() {
+pmodules.configure() {
 	cat <<EOF > "${MODULE_SRCDIR}/make.inc"
 SHELL = /bin/sh
 PLAT = 
@@ -25,12 +25,12 @@ COMMON_PROF = -pg
 EOF
 }
 
-function em.build() {
+pmodules.build() {
 	cd "${MODULE_SRCDIR}"
 	make
 }
 
-function em.install() {
+pmodules.install() {
 	make PREFIX="${PREFIX}" install
 	# We have to build shared libs and remove them here.
 	# Building with NOSHARED gives an error during install -
@@ -40,10 +40,10 @@ function em.install() {
 	#( cd "${PREFIX}/lib"; ln -fs
 }
 
-em.add_to_family 'Compiler'
-em.set_runtime_dependencies "${COMPILER}"
-em.set_build_dependencies "${COMPILER}"
-em.set_docfiles 'LICENSE' 'README.md'
-em.set_supported_compilers 'gcc'
-em.make_all
-em.cleanup_src
+pmodules.add_to_group 'Compiler'
+pmodules.set_runtime_dependencies "${COMPILER}"
+pmodules.set_build_dependencies "${COMPILER}"
+pmodules.set_docfiles 'LICENSE' 'README.md'
+pmodules.set_supported_compilers 'gcc'
+pmodules.make_all
+pmodules.cleanup_src

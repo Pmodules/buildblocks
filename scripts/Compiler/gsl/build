@@ -1,15 +1,15 @@
 #!/bin/bash
 
-source "$(dirname $0)/../../../lib/libem.bash"
+source "$(dirname $0)/../../../lib/libpmodules.bash"
 
-function em.configure() {
+pmodules.configure() {
 	"${MODULE_SRCDIR}"/configure \
 		--prefix="${PREFIX}" \
 		|| exit 1
 }
 
-em.add_to_family 'Compiler'
-em.set_docfiles \
+pmodules.add_to_group 'Compiler'
+pmodules.set_docfiles \
 	'AUTHORS' \
 	'BUGS' \
 	'COPYING' \
@@ -20,9 +20,9 @@ em.set_docfiles \
 	'THANKS' \
 	'TODO'
 
-em.set_runtime_dependencies "${COMPILER}"
-em.set_build_dependencies "${COMPILER}"
-em.make_all
+pmodules.set_runtime_dependencies "${COMPILER}"
+pmodules.set_build_dependencies "${COMPILER}"
+pmodules.make_all
 
 # Local Variables:
 # mode: sh

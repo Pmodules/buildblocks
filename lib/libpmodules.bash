@@ -56,7 +56,7 @@ declare -x  DYLD_LIBRARY_PATH
 
 ##############################################################################
 #
-function usage() {
+usage() {
 	error "
 Usage: $0 [OPTIONS..] [VERSION] [ENV=VALUE...]
 
@@ -104,28 +104,24 @@ is_release () {
 
 ##############################################################################
 #
-# test whether a module is loaded or not
+# set supported OS
 #
-# $1: module name
+# $1: OS (as printed by 'uname -s')
 #
-em.is_loaded() {
-        [[ :${LOADEDMODULES}: =~ :$1: ]]
-}
-
-function em.set_release() {
-	is_release "$1" || die 1 "$P: unknown release type: $1"
-	[[ "$1" == "deprecated" ]] && die 0 "$P: is deprecated, we don't rebuild it."
-	MODULE_RELEASE="$1"
-}
-
-function em.supported_os() {
+pmodules.supported_os() {
 	for os in "$@"; do
 		[[ ${os} == ${OS} ]] && return 0
 	done
 	die 0 "${P}: Not available for ${OS}."
 }
 
-function em.add_to_group() {
+##############################################################################
+#
+# install module in given group
+#
+# $1: group
+#
+pmodules.add_to_group() {
 	if [[ -z ${1} ]]; then
 		die 42 "${FUNCNAME}: Missing group argument."
 	fi
@@ -135,31 +131,36 @@ function em.add_to_group() {
 	MODULE_GROUP=$1
 }
 
-em.add_to_family() {
-	em.add_to_group "$@"
-}
-
-function em.set_build_dependencies() {
+##############################################################################
+#
+# install module in given group
+#
+# $1: group
+#
+pmodules.set_build_dependencies() {
 	MODULE_BUILD_DEPENDENCIES=("$@")
 }
 
-function em.set_runtime_dependencies() {
-	MODULE_DEPENDENCIES=("$@")
-}
-
-function em.set_supported_compilers() {
-	MODULE_SUPPORTED_COMPILERS=("$@")
-}
-
-function em.set_docfiles() {
+pmodules.set_docfiles() {
 	MODULE_DOCFILES=("$@")
 }
 
-function module_is_available() {
+module_is_available() {
 	[[ -n $("${MODULECMD}" bash avail "$1" 2>&1 1>/dev/null) ]]
 }
 
-function _load_build_dependencies() {
+##############################################################################
+#
+# test whether a module is loaded or not
+#
+# $1: module name
+#
+is_loaded() {
+        [[ :${LOADEDMODULES}: =~ :$1: ]]
+}
+
+
+load_build_dependencies() {
 	for m in "${MODULE_BUILD_DEPENDENCIES[@]}"; do
 		[[ -z $m ]] && continue
 		if [[ ! $m =~ "*/*" ]]; then
@@ -170,7 +171,7 @@ function _load_build_dependencies() {
 				echo "$m: warning: No version set, loading default ..."
 			fi
 		fi
-		em.is_loaded "$m" && continue
+		is_loaded "$m" && continue
 		if ! module_is_available "$m"; then
 		        debug "${m}: module not available"
 			local rels=( ${releases//:/ } )
@@ -240,12 +241,12 @@ function _load_build_dependencies() {
 }
 
 if [[ ${bootstrap} == yes ]]; then
-    function _load_build_dependencies() {
+    load_build_dependencies() {
 	    :
     }
 fi
 
-function _write_runtime_dependencies() {
+write_runtime_dependencies() {
 	local -r fname="${PREFIX}/.dependencies"
 	info "Writing run-time dependencies to ${fname}"
 	local dep
@@ -260,7 +261,7 @@ function _write_runtime_dependencies() {
 	done
 }
 
-function _write_build_dependencies() {
+write_build_dependencies() {
 	local -r fname="${PREFIX}/.build_dependencies"
 	info "Writing build dependencies to ${fname}"
 	local dep
@@ -279,7 +280,7 @@ function _write_build_dependencies() {
 # 
 # cleanup environment
 #
-em.cleanup_env() {
+pmodules.cleanup_env() {
 
 	C_INCLUDE_PATH=''
 	CPLUS_INCLUDE_PATH=''
@@ -320,7 +321,7 @@ em.cleanup_env() {
 # $2: name without version
 # $3: version
 #
-function find_tarball() {
+find_tarball() {
 	local -r dir=$1
 	local -r name=$2
 	local -r version=$3
@@ -346,7 +347,7 @@ function find_tarball() {
 }
 
 #setup module specific environment
-function _setup_env2() {
+setup_env2() {
 	if [[ -z ${MODULE_GROUP} ]]; then
 		die 1 "$P: group not set."
 	fi
@@ -499,7 +500,7 @@ function _setup_env2() {
 }
 
 # redefine function for bootstrapping
-function _setup_env2_bootstrap() {
+setup_env2_bootstrap() {
 	if [[ -z ${MODULE_GROUP} ]]; then
 		die 1 "$P: group not set."
 	fi
@@ -538,7 +539,7 @@ function _setup_env2_bootstrap() {
 	PATH+=":${PREFIX}/bin"
 }
 
-function _prep() {
+prep() {
 
 	# untar sources
 	if [[ ! -d ${MODULE_SRCDIR} ]]; then
@@ -551,34 +552,34 @@ function _prep() {
 
 }
 
-function em.pre_configure() {
+pmodules.pre_configure() {
 	:
 }
 
-function em.configure() {
+pmodules.configure() {
 	${MODULE_SRCDIR}/configure \
 		--prefix="${PREFIX}"
 }
 
-function em.build() {
+pmodules.build() {
 	make -j${JOBS}
 }
 
-function em.install() {
+pmodules.install() {
 	make install
 }
 
-function em.post_install() {
+pmodules.post_install() {
 	:
 }
 
-function em.install_doc() {
+pmodules.install_doc() {
 	info "Installing documentation to ${DOCDIR}"
 	install -m 0755 -d "${DOCDIR}"
 	install -m0444 "${MODULE_DOCFILES[@]/#/${MODULE_SRCDIR}/}" "${BUILDSCRIPT}" "${DOCDIR}"
 }
 
-function _set_legacy_link() {
+set_legacy_link() {
 	local -r link_name="${PMODULES_ROOT}/${PMODULES_MODULEFILES_DIR}/${MODULE_GROUP}/${MODULE_NAME}"
 	local -r dir_name=${link_name%/*}
 	local -r release_file="${dir_name}/.release-${MODULE_NAME##*/}"
@@ -598,7 +599,7 @@ function _set_legacy_link() {
 	echo "${MODULE_RELEASE}" > "${release_file}"
 }
 
-function _set_link() {
+set_link() {
 	local -r link_name="${PMODULES_ROOT}/${MODULE_GROUP}/${PMODULES_MODULEFILES_DIR}/${MODULE_NAME}"
 	local -r dir_name=${link_name%/*}
 	local -r release_file="${dir_name}/.release-${MODULE_NAME##*/}"
@@ -618,7 +619,7 @@ function _set_link() {
 	echo "${MODULE_RELEASE}" > "${release_file}"
 }
 
-function em.cleanup_build() {
+pmodules.cleanup_build() {
 	[[ -n "${MODULE_BUILDDIR}" ]]     \
 		|| die 1 "Oops: internal error: MODULE_BUILDDIR is set to empty string..."
 	[[ "${MODULE_BUILDDIR}" == "/" ]] \
@@ -629,7 +630,7 @@ function em.cleanup_build() {
 	rm -rf  "/${MODULE_BUILDDIR}"
 }
 
-function em.cleanup_src() {
+pmodules.cleanup_src() {
     (
 	[[ -d /${MODULE_SRCDIR} ]] || return 0
 	cd "/${MODULE_SRCDIR}/..";
@@ -641,7 +642,7 @@ function em.cleanup_src() {
 	return 0
 }
 
-function _check_compiler() {
+check_compiler() {
 	test -z ${MODULE_SUPPORTED_COMPILERS} && return 0
 	for cc in ${MODULE_SUPPORTED_COMPILERS[@]}; do
 		if [[ ${COMPILER}/${COMPILER_VERSION} =~ ${cc} ]]; then
@@ -652,62 +653,62 @@ function _check_compiler() {
 }
 
 # unfortunatelly we need sometime an OS depended post-install
-function _post_install_linux() {
+post_install_linux() {
 	cd "${PREFIX}"
 	# solve multilib problem with LIBRARY_PATH on 64bit Linux
 	[[ -d "lib" ]] && [[ ! -d "lib64" ]] && ln -s lib lib64
 	return 0
 }
 
-function _post_install() {
+post_install() {
 	info "Run post-installation for ${OS} ..."
-	[[ "${OS}" == "Linux" ]] && _post_install_linux
+	[[ "${OS}" == "Linux" ]] && post_install_linux
 	info "Post-installation done ..."
 	return 0
 }
 
-function em.make_all() {
+pmodules.make_all() {
 	local building='no'
 	echo "${P}:"
 	_setup_env1
-	_load_build_dependencies
+	load_build_dependencies
 	# setup module specific environment
 	if [[ ${bootstrap} == no ]]; then
-		_setup_env2
+		setup_env2
 	else
-		_setup_env2_bootstrap
+		setup_env2_bootstrap
 	fi
 
 	if [[ ! -d "${PREFIX}" ]] || [[ ${force_rebuild} == 'yes' ]]; then
 		building='yes'
  		echo "Building $P/$V ..."
 		[[ ${dry_run} == yes ]] && die 0 ""
-		_check_compiler
-		_prep
+		check_compiler
+		prep
 		cd "${MODULE_SRCDIR}"
-		em.pre_configure
+		pmodules.pre_configure
 		cd "${MODULE_BUILDDIR}"
-		em.configure
-		em.build
-		em.install
-		em.post_install
-		em.install_doc
-		_post_install
+		pmodules.configure
+		pmodules.build
+		pmodules.install
+		pmodules.post_install
+		pmodules.install_doc
+		post_install
 		if [[ ${bootstrap} == 'no' ]]; then
-			_write_runtime_dependencies
-			_write_build_dependencies
+			write_runtime_dependencies
+			write_build_dependencies
 		fi
-		[[ ${enable_cleanup_build} == yes ]] && em.cleanup_build
-		[[ ${enable_cleanup_src} == yes ]] && em.cleanup_src
+		[[ ${enable_cleanup_build} == yes ]] && pmodules.cleanup_build
+		[[ ${enable_cleanup_src} == yes ]] && pmodules.cleanup_src
 		
 	else
  		echo "Not rebuilding $P/$V ..."
 	fi
 	if [[ ${bootstrap} == 'no' ]]; then
 		if [[ -d "${PMODULES_ROOT}/${PMODULES_MODULEFILES_DIR}" ]]; then
-			_set_legacy_link
+			set_legacy_link
 		fi
-		_set_link
+		set_link
 	fi
 	return 0
 }
@@ -722,7 +723,7 @@ bootstrap='no'
 enable_cleanup_build='yes'
 enable_cleanup_src='no'
 
-em.cleanup_env
+pmodules.cleanup_env
 
 # array collecting all modules specified on the command line via '--with=module'
 with_modules=()

@@ -1,12 +1,12 @@
 #!/bin/bash
 #set -o functrace
-source "$(dirname $0)/../../../lib/libem.bash"
+source "$(dirname $0)/../../../lib/libpmodules.bash"
 
 TCL_DIR="${PMODULES_ROOT}/Tools/Pmodules/${PMODULES_VERSION}"
 
 PATH="${TCL_DIR}/bin:${PATH}"
 
-function em.configure() {
+pmodules.configure() {
 	case ${OS} in
 		Linux )
 			declare -x LIBS="-lz -lpthread"
@@ -25,7 +25,7 @@ function em.configure() {
 		|| exit 1
 }
 
-function em.post_install() {
+pmodules.post_install() {
 	rm -v    ${PREFIX}/Modules/bin/add.modules
 	rm -v    ${PREFIX}/Modules/bin/mkroot
 	rm -rfv  ${PREFIX}/Modules/modulefiles
@@ -47,8 +47,8 @@ module() {
 # use system gcc to compile
 declare -rx CC=gcc
 
-em.add_to_family 'Tools'
-em.make_all
+pmodules.add_to_group 'Tools'
+pmodules.make_all
 
 # Local Variables:
 # mode: sh

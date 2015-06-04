@@ -1,8 +1,8 @@
 #!/bin/bash
 
-source "$(dirname $0)/../../../lib/libem.bash"
+source "$(dirname $0)/../../../lib/libpmodules.bash"
 
-function em.configure() {
+pmodules.configure() {
 	cd "${MODULE_SRCDIR}"
 	./configure \
 		--prefix="${PREFIX}" \
@@ -13,16 +13,16 @@ function em.configure() {
 		--with-liblinear=included
 }
 
-function em.build() {
+pmodules.build() {
 	cd "${MODULE_SRCDIR}"
 	make -j "${JOBS}"
 }
 
-function em.install() {
+pmodules.install() {
 	cd "${MODULE_SRCDIR}"
 	make install
 }
 
-em.add_to_family 'System'
-em.set_build_dependencies "${COMPILER}"
-em.make_all
+pmodules.add_to_group 'System'
+pmodules.set_build_dependencies "${COMPILER}"
+pmodules.make_all

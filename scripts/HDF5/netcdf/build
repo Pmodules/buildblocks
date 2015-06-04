@@ -1,12 +1,12 @@
 #!/bin/bash
 
-source "$(dirname $0)/../../../lib/libem.bash"
+source "$(dirname $0)/../../../lib/libpmodules.bash"
 
-function em.pre_configure() {
+pmodules.pre_configure() {
 	:
 }
 
-function em.configure() {
+pmodules.configure() {
 	CC=$MPICC
 	CXX=$MPICXX
 	F77=$MPIF77
@@ -20,9 +20,9 @@ function em.configure() {
 		|| exit 1
 }
 
-em.add_to_family 'HDF5'
-em.set_runtime_dependencies "${COMPILER}" "${MPI}" 'hdf5'
-em.set_build_dependencies   "${COMPILER}" "${MPI}" 'hdf5'
-em.set_docfiles 'COPYRIGHT' 'README.md' 'RELEASE_NOTES.md'
-em.make_all
+pmodules.add_to_group 'HDF5'
+pmodules.set_runtime_dependencies "${COMPILER}" "${MPI}" 'hdf5'
+pmodules.set_build_dependencies   "${COMPILER}" "${MPI}" 'hdf5'
+pmodules.set_docfiles 'COPYRIGHT' 'README.md' 'RELEASE_NOTES.md'
+pmodules.make_all
 

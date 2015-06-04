@@ -1,8 +1,8 @@
 #!/bin/bash
 
-source "$(dirname $0)/../../../lib/libem.bash"
+source "$(dirname $0)/../../../lib/libpmodules.bash"
 
-function em.configure() {
+pmodules.configure() {
 	CC=$MPICC
 	CXX=$MPICXX
 	F77=$MPIF77
@@ -21,13 +21,13 @@ function em.configure() {
 }
 
 
-em.add_to_family 'MPI'
-em.set_runtime_dependencies "${COMPILER}" "${MPI}"
-em.set_build_dependencies "${COMPILER}" "${MPI}"
-em.set_docfiles \
+pmodules.add_to_group 'MPI'
+pmodules.set_runtime_dependencies "${COMPILER}" "${MPI}"
+pmodules.set_build_dependencies "${COMPILER}" "${MPI}"
+pmodules.set_docfiles \
 		ACKNOWLEDGMENTS \
 		COPYING \
 		MANIFEST \
 		README.txt
-em.make_all
+pmodules.make_all
 

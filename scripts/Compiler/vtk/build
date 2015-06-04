@@ -6,11 +6,11 @@
 #   and remove these strings.
 #
 
-source "$(dirname $0)/../../../lib/libem.bash"
+source "$(dirname $0)/../../../lib/libpmodules.bash"
 
 case ${OS} in
 Darwin )
-	em.pre_configure() {
+	pmodules.pre_configure() {
 		# for the time being: on Mac OS X we need GL/gl.h from MacPorts:
 		append_path C_INLCUDE_PATH '/opt/local/include'
 		append_path CPLUS_INCLUDE_PATH '/opt/local/include'
@@ -18,7 +18,7 @@ Darwin )
 	;;
 esac
 
-function em.configure() {
+pmodules.configure() {
 	cmake -DCMAKE_INSTALL_PREFIX:PATH=$PREFIX \
 		-DVTK_INSTALL_INCLUDE_DIR:PATH=include \
 		-DVTK_INSTALL_LIB_DIR:PATH=lib \
@@ -26,8 +26,8 @@ function em.configure() {
 		"${MODULE_SRCDIR}"
 }
 
-em.add_to_family 'Compiler'
-em.set_runtime_dependencies "${COMPILER}"
-em.set_build_dependencies 'cmake' "${COMPILER}"
-em.make_all
+pmodules.add_to_group 'Compiler'
+pmodules.set_runtime_dependencies "${COMPILER}"
+pmodules.set_build_dependencies 'cmake' "${COMPILER}"
+pmodules.make_all
 

@@ -34,7 +34,7 @@ set -o errexit
 
 trap "error_handler" ERR
 
-function error_handler() {
+error_handler() {
 	local -i ec=$?
 
 	exit ${ec}

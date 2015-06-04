@@ -1,14 +1,14 @@
 #!/bin/bash
 
-source "$(dirname $0)/../../../lib/libem.bash"
+source "$(dirname $0)/../../../lib/libpmodules.bash"
 
-function em.configure() {
+pmodules.configure() {
 	"${MODULE_SRCDIR}"/configure \
 		--prefix="${PREFIX}" \
 		|| exit 1
 }
 
-em.supported_os 'Linux'
-em.add_to_family 'System'
-em.set_build_dependencies "${COMPILER}"
-em.make_all
+pmodules.supported_os 'Linux'
+pmodules.add_to_group 'System'
+pmodules.set_build_dependencies "${COMPILER}"
+pmodules.make_all

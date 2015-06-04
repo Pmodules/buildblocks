@@ -1,8 +1,8 @@
 #!/bin/bash
 
-source "$(dirname $0)/../../../lib/libem.bash"
+source "$(dirname $0)/../../../lib/libpmodules.bash"
 
-function em.configure() {
+pmodules.configure() {
 	"${MODULE_SRCDIR}"/configure \
 		--prefix="${PREFIX}" \
 		|| exit 1
@@ -11,8 +11,8 @@ function em.configure() {
 # use system gcc to compile
 declare -rx CC=gcc
 
-em.add_to_family 'Programming'
-em.set_docfiles \
+pmodules.add_to_group 'Programming'
+pmodules.set_docfiles \
 	AUTHORS \
 	COPYING \
 	ChangeLog \
@@ -20,8 +20,8 @@ em.set_docfiles \
 	NEWS \
 	README \
 	THANKS
-em.set_build_dependencies 'm4' 'autoconf'
-em.make_all
+pmodules.set_build_dependencies 'm4' 'autoconf'
+pmodules.make_all
 
 # Local Variables:
 # mode: sh

@@ -1,26 +1,26 @@
 #!/bin/bash
 
-source "$(dirname $0)/../../../lib/libem.bash"
+source "$(dirname $0)/../../../lib/libpmodules.bash"
 
-function em.configure() {
+pmodules.configure() {
 	:
 }
 
-function em.build() {
+pmodules.build() {
 	cd "${MODULE_SRCDIR}"
 	make
 }
 
-function em.install() {
+pmodules.install() {
 	cd "${MODULE_SRCDIR}"
 	install -m 0755 -d "${PREFIX}/bin"
 	install -m 0755 unison "${PREFIX}/bin"
 }
 
-em.add_to_family 'System'
-em.set_docfiles 'BUGS.txt' 'CONTRIB' 'COPYING' 'NEWS' 'README'
-#em.set_build_dependencies "${COMPILER}"
-em.make_all
+pmodules.add_to_group 'System'
+pmodules.set_docfiles 'BUGS.txt' 'CONTRIB' 'COPYING' 'NEWS' 'README'
+#pmodules.set_build_dependencies "${COMPILER}"
+pmodules.make_all
 
 # Local Variables:
 # mode: sh

@@ -1,19 +1,19 @@
 #!/bin/bash
 
-source "$(dirname $0)/../../../lib/libem.bash"
+source "$(dirname $0)/../../../lib/libpmodules.bash"
 
-em.configure() {
+pmodules.configure() {
 	cp "${BUILDSCRIPT_DIR}/Makefile" "${MODULE_BUILDDIR}"		|| exit 1
 	cp "${MODULE_SRCDIR}/irat.inc" "${MODULE_BUILDDIR}"	|| exit 1
 }
 
-em.install() {
+pmodules.install() {
 	mkdir -p "${PREFIX}/bin"
 	cp "${MODULE_BUILDDIR}/cpmd.x" "${PREFIX}/bin"
 }
 
-em.add_to_group 'MPI'
-em.set_runtime_dependencies "${COMPILER}" "${MPI}"
-em.set_build_dependencies "${COMPILER}" "${MPI}"
-em.make_all
+pmodules.add_to_group 'MPI'
+pmodules.set_runtime_dependencies "${COMPILER}" "${MPI}"
+pmodules.set_build_dependencies "${COMPILER}" "${MPI}"
+pmodules.make_all
 

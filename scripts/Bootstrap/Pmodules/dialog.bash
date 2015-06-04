@@ -13,7 +13,7 @@ declare -A fmmap        # module name to family member mapping
 declare -a relmap       # module info index to release mapping
 declare tempfile        # temporary dialog results
 
-function set_difference() {  #  $1 \ $2
+set_difference() {  #  $1 \ $2
     local -a operand1=($1)
     local -a operand2=($2)
     local -A members
@@ -27,7 +27,7 @@ function set_difference() {  #  $1 \ $2
     echo ${!members[@]}
 }
 
-function set_merge() {  # $1 U $2  (where $1 and $2 are disjoint)
+set_merge() {  # $1 U $2  (where $1 and $2 are disjoint)
     if [[ -z "$1" ]]; then
         echo "$2"
     elif [[ -z "$2" ]]; then
@@ -37,7 +37,7 @@ function set_merge() {  # $1 U $2  (where $1 and $2 are disjoint)
     fi
 }
 
-function set_union() { # $1 U $2 (sorted)
+set_union() { # $1 U $2 (sorted)
     local -a operand1=($1)
     local -a operand2=($2)
     local -A members
@@ -49,7 +49,7 @@ function set_union() { # $1 U $2 (sorted)
 }
 
 # unique id for a module
-function unique_id() { # $1: module info index
+unique_id() { # $1: module info index
     local -a minfo=( ${modlist[$1]} )
     if (( ${#minfo[@]} < 4 )); then
         echo ${minfo[0]}
@@ -58,7 +58,7 @@ function unique_id() { # $1: module info index
     fi
 }
 
-function mod_path() {   # $1: module info index
+mod_path() {   # $1: module info index
     local -i i
     local -a m=(${modlist[$1]})
     local res="$PMODULES_ROOT/${fmmap[${m[0]%%/*}]}/${m[0]}"
@@ -68,7 +68,7 @@ function mod_path() {   # $1: module info index
     echo "$res"
 }
 
-function calc_deps() {  # $1: module info index
+calc_deps() {  # $1: module info index
     local dpath="$(mod_path $1)/.dependencies"
     [[ ! -r "$dpath" ]] && return
     local -a d=( $(< "$dpath") ) # dependencies as versioned module names
@@ -96,7 +96,7 @@ function calc_deps() {  # $1: module info index
     echo "${deps[@]}"
 }
 
-function update_deps() { # $1: 1-add dependency, -1-remove dependency   $2: set of module info indices
+update_deps() { # $1: 1-add dependency, -1-remove dependency   $2: set of module info indices
     [[ -z "$2" ]] && return
     local -a q=($2)     # work queue
     local deps=""       # set of dependencies
@@ -117,7 +117,7 @@ function update_deps() { # $1: 1-add dependency, -1-remove dependency   $2: set 
 }
 
 # "$1": source module environment
-function find_modules() {
+find_modules() {
     # construct modlist/modmap/uidmap/depcnt/fmmap/relmap arrays from module search output
     local -a mc         # module info components
     local -i i=0
@@ -144,7 +144,7 @@ function find_modules() {
 }
 
 # "$1": source module environment
-function find_families() {
+find_families() {
     # construct fdmap
     local -a t  # tcl file components
     local l s n
@@ -159,7 +159,7 @@ function find_families() {
     done < <(grep -R set-family "$1/*/${PMODULES_MODULEFILES_DIR}")
 }
 
-function select_uid() { # $1: module uid
+select_uid() { # $1: module uid
     local -a uidc=($1) # uid components
     local name=${uidc[-1]%%/*} # module name
     local midx=${uidmap["$1"]} # module info index
@@ -168,7 +168,7 @@ function select_uid() { # $1: module uid
     update_deps 1 "$midx"
 }
 
-function preselect() { # "$1": prefix for preselected modules
+preselect() { # "$1": prefix for preselected modules
     # module paths must not contain white space
     [[ -z "$1" ]] && return
     local -a mpc # module path components
@@ -193,7 +193,7 @@ function preselect() { # "$1": prefix for preselected modules
     trap - EXIT
 }
 
-function is_dependency() { # $1: module name
+is_dependency() { # $1: module name
     local -a map=(${modmap[$1]})
     local -i m
     for ((m=0; m<${#map[@]}; m++)); do
@@ -202,7 +202,7 @@ function is_dependency() { # $1: module name
     return 1
 }
 
-function dialog_1() {
+dialog_1() {
     local -a input
     local marker
     local m
@@ -220,15 +220,15 @@ function dialog_1() {
     return $?
 }
 
-function module_id() { # $@: module info components
+module_id() { # $@: module info components
     echo "$1 ${@:4}"
 }
 
-function module_release() { # $@: module info components
+module_release() { # $@: module info components
     echo "$2"
 }
 
-function dialog_2() {   # $1: module name
+dialog_2() {   # $1: module name
     local -a map=(${modmap[$1]})
     local -a sel=(${selected[$1]})
     local -i j          # mapping index
@@ -250,14 +250,14 @@ function dialog_2() {   # $1: module name
 }
 
 # final dialog output
-function module_out() { # $1: module info index
+module_out() { # $1: module info index
     local -a args=(${modlist[$1]})
     echo "${args[@]}"
 }
 
 # "$1": prefix for preselected modules (destination module environment)
 # "$2": prefix for selectable modules (source module environment)
-function module_picker() {
+module_picker() {
     find_families "$2"
     find_modules "$2"
     preselect "$1"

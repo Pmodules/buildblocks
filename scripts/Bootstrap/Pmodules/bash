@@ -108,7 +108,7 @@ prepend_path () {
 # Based on solution published here:
 # https://stackoverflow.com/questions/273909/how-do-i-manipulate-path-elements-in-shell-scripts 
 #
-function replace_path () {
+replace_path () {
 	local -r path=$1
 	local -r removepat=$2
 	local -r replacestr=$3

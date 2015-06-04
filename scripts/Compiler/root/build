@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source "$(dirname $0)/../../../lib/libem.bash"
+source "$(dirname $0)/../../../lib/libpmodules.bash"
 
 case ${OS} in
 Darwin )
@@ -12,7 +12,7 @@ Darwin )
 	;;
 esac
 
-function em.configure() {
+pmodules.configure() {
 	"${MODULE_SRCDIR}"/configure \
 		--disable-ldap \
 		--disable-mysql \
@@ -27,11 +27,11 @@ function em.configure() {
 		|| exit 1
 }
 
-function em.build() {
+pmodules.build() {
 	make -j 4
 }
 
-function em.install() {
+pmodules.install() {
 	make clean
 
 	rm -f  Makefile
@@ -66,7 +66,7 @@ function em.install() {
 	mv "${PREFIX}/README"  "${DOCDIR}"
 }
 
-em.add_to_family 'Compiler'
-em.set_runtime_dependencies "${COMPILER}"
-em.set_build_dependencies "${COMPILER}"
-em.make_all
+pmodules.add_to_group 'Compiler'
+pmodules.set_runtime_dependencies "${COMPILER}"
+pmodules.set_build_dependencies "${COMPILER}"
+pmodules.make_all

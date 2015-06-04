@@ -1,8 +1,8 @@
 #!/bin/bash
 
-source "$(dirname $0)/../../../lib/libem.bash"
+source "$(dirname $0)/../../../lib/libpmodules.bash"
 
-function em.configure() {
+pmodules.configure() {
 	case ${OS} in
 	Linux )
 		srcdir="${MODULE_SRCDIR}/unix"
@@ -18,7 +18,7 @@ function em.configure() {
 		|| exit 1
 }
 
-function em.post_install() {
+pmodules.post_install() {
 	:
 	#{ cd "${PREFIX}"/bin && rm -f tclsh && ln -fs tclsh${V%.*} tclsh; };
 }
@@ -26,7 +26,7 @@ function em.post_install() {
 # use system's cc
 declare CC=cc
 
-em.add_to_family 'Programming'
-em.set_build_dependencies 'Tcl'
-em.set_docfiles 'license.terms' 'README'
-em.make_all
+pmodules.add_to_group 'Programming'
+pmodules.set_build_dependencies 'Tcl'
+pmodules.set_docfiles 'license.terms' 'README'
+pmodules.make_all

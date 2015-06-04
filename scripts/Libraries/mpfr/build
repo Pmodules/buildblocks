@@ -1,8 +1,8 @@
 #!/bin/bash
 
-source "$(dirname $0)/../../../lib/libem.bash"
+source "$(dirname $0)/../../../lib/libpmodules.bash"
 
-function em.configure() {
+pmodules.configure() {
 	"${MODULE_SRCDIR}"/configure \
 		--prefix="${PREFIX}" \
 		--with-gmp=$GMP_PREFIX \
@@ -15,6 +15,6 @@ declare -rx CC=gcc
 
 module use 'Libraries'
 
-em.add_to_family 'Libraries'
-em.set_build_dependencies 'gmp'
-em.make_all
+pmodules.add_to_group 'Libraries'
+pmodules.set_build_dependencies 'gmp'
+pmodules.make_all

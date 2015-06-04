@@ -1,8 +1,8 @@
 #!/bin/bash
 
-source "$(dirname $0)/../../../lib/libem.bash"
+source "$(dirname $0)/../../../lib/libpmodules.bash"
 
-function em.configure() {
+pmodules.configure() {
 	(cd "${MODULE_SRCDIR}" && ./autogen.sh)
 	"${MODULE_SRCDIR}"/configure \
 		--prefix="${PREFIX}" \
@@ -13,18 +13,18 @@ function em.configure() {
 		|| exit 1
 }
 
-function em.build() {
+pmodules.build() {
 	make -C src
 	make -C tools 
 }
 
-function em.install() {
+pmodules.install() {
 	make -C src install
 	make -C tools install
 }
 
-em.add_to_family 'HDF5_serial'
-em.set_runtime_dependencies "${COMPILER}" 'hdf5_serial'
-em.set_build_dependencies   "autoconf" "automake" "libtool" "${COMPILER}" "vtk" "hdf5_serial"
-em.make_all
+pmodules.add_to_group 'HDF5_serial'
+pmodules.set_runtime_dependencies "${COMPILER}" 'hdf5_serial'
+pmodules.set_build_dependencies   "autoconf" "automake" "libtool" "${COMPILER}" "vtk" "hdf5_serial"
+pmodules.make_all
 

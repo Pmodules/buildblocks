@@ -1,8 +1,8 @@
 #!/bin/bash
 
-source "$(dirname $0)/../../../lib/libem.bash"
+source "$(dirname $0)/../../../lib/libpmodules.bash"
 
-function em.configure() {
+pmodules.configure() {
 	unset F90
 	"${MODULE_SRCDIR}"/configure \
 		--prefix="${PREFIX}" \
@@ -12,8 +12,8 @@ function em.configure() {
 }
 
 
-em.add_to_family 'Compiler'
-em.set_runtime_dependencies "${COMPILER}"
-em.set_build_dependencies "${COMPILER}"
-em.set_docfiles 'COPYRIGHT' 'README'
-em.make_all
+pmodules.add_to_group 'Compiler'
+pmodules.set_runtime_dependencies "${COMPILER}"
+pmodules.set_build_dependencies "${COMPILER}"
+pmodules.set_docfiles 'COPYRIGHT' 'README'
+pmodules.make_all

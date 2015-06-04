@@ -2,13 +2,13 @@
 
 P='OPAL'
 
-source "$(dirname $0)/../../../lib/libem.bash"
+source "$(dirname $0)/../../../lib/libpmodules.bash"
 
 
 module use unstable
 
 # add -fopenmp to CC and CXX, if you want to compile with OpenMP
-function em.configure() {
+pmodules.configure() {
 	cmake \
 		-DCMAKE_INSTALL_PREFIX="${PREFIX}" \
 		-DCMAKE_BUILD_TYPE=RELEASE \
@@ -16,9 +16,9 @@ function em.configure() {
 		"${MODULE_SRCDIR}"
 }
 
-em.add_to_family 'MPI'
-em.set_runtime_dependencies "${COMPILER}" "${MPI}"
-em.set_build_dependencies 'cmake' "${COMPILER}" "${MPI}" 'boost' 'hdf5' 'H5hut' 'trilinos' 'ippl' 'gsl'
-em.set_supported_compilers 'gcc/4.7' 'gcc/4.8'
-em.make_all
+pmodules.add_to_group 'MPI'
+pmodules.set_runtime_dependencies "${COMPILER}" "${MPI}"
+pmodules.set_build_dependencies 'cmake' "${COMPILER}" "${MPI}" 'boost' 'hdf5' 'H5hut' 'trilinos' 'ippl' 'gsl'
+pmodules.set_supported_compilers 'gcc/4.7' 'gcc/4.8'
+pmodules.make_all
 

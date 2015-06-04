@@ -1,12 +1,12 @@
 #!/bin/bash
 
-source "$(dirname $0)/../../../lib/libem.bash"
+source "$(dirname $0)/../../../lib/libpmodules.bash"
 
-function em.configure() {
+pmodules.configure() {
 	:
 }
 
-function em.build() {
+pmodules.build() {
 	case ${OS} in
 		Linux )
 			declare -x LDFLAGS="-lintl"
@@ -20,20 +20,20 @@ function em.build() {
 	make -e
 }
 
-function em.install() {
+pmodules.install() {
 	cd "${MODULE_SRCDIR}"
 	declare -x DESTDIR="${PREFIX}"
 	declare -x prefix=''
 	make -e install
 }
 
-function em.cleanup_build() {
+pmodules.cleanup_build() {
 	cd "${MODULE_SRCDIR}"
 	make -e realclean
 }
 
-em.add_to_family 'Tools'
-em.make_all
+pmodules.add_to_group 'Tools'
+pmodules.make_all
 
 # Local Variables:
 # mode: sh

@@ -1,21 +1,20 @@
 #!/bin/bash
 
-source "$(dirname $0)/../../../lib/libem.bash"
+source "$(dirname $0)/../../../lib/libpmodules.bash"
 
 # :TODO: detect compiler
 TOOLSET=gcc
 
-function em.configure() {
+pmodules.configure() {
 	cd "${MODULE_SRCDIR}"
 	"${MODULE_SRCDIR}"/bootstrap.sh \
 		--prefix="${PREFIX}" \
-		--with-toolset=${TOOLSET} \
 		--with-libraries=all \
 		--with-python-root="${PYTHON_PREFIX}" \
 		|| exit 1
 }
 
-function em.build() {
+pmodules.build() {
 	cd "${MODULE_SRCDIR}"
 	./b2 \
 		--build-type=minimal \
@@ -28,7 +27,7 @@ function em.build() {
 		stage
 }
 
-function em.install() {
+pmodules.install() {
 	cd "${MODULE_SRCDIR}"
 	./b2 \
 		--build-type=minimal \
@@ -41,8 +40,8 @@ function em.install() {
 		install
 }
 
-em.add_to_family 'Compiler'
-em.set_runtime_dependencies "${COMPILER}"
-em.set_build_dependencies "${COMPILER}" 'Python'
-em.make_all
+pmodules.add_to_group 'Compiler'
+pmodules.set_runtime_dependencies "${COMPILER}"
+pmodules.set_build_dependencies "${COMPILER}" 'Python'
+pmodules.make_all
 

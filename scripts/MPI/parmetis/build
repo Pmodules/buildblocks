@@ -1,8 +1,8 @@
 #!/bin/bash
 
-source "$(dirname $0)/../../../lib/libem.bash"
+source "$(dirname $0)/../../../lib/libpmodules.bash"
 
-function em.configure() {
+pmodules.configure() {
 	CC=$MPICC
 	CXX=$MPICXX
 	F77=$MPIF77
@@ -11,7 +11,7 @@ function em.configure() {
 	FORTRAN=$MPIFORTRAN
 }
 
-function em.build() {
+pmodules.build() {
 	local -ri MAJOR_VERSION=${V%%.*}
 	if (( MAJOR_VERSION == 3 )) ; then
 		cd "${MODULE_SRCDIR}"
@@ -39,15 +39,15 @@ function em.build() {
 	fi
 }
 
-function em.install() {
+pmodules.install() {
 	:
 }
 
 
-em.add_to_family 'MPI'
-em.set_runtime_dependencies "${COMPILER}" "${MPI}"
-em.set_build_dependencies "${COMPILER}" "${MPI}"
-em.set_docfiles 'CHANGES' 'INSTALL' 'LICENSE.txt' 'README' 'VERSION' 
-em.make_all
-em.cleanup_src
+pmodules.add_to_group 'MPI'
+pmodules.set_runtime_dependencies "${COMPILER}" "${MPI}"
+pmodules.set_build_dependencies "${COMPILER}" "${MPI}"
+pmodules.set_docfiles 'CHANGES' 'INSTALL' 'LICENSE.txt' 'README' 'VERSION' 
+pmodules.make_all
+pmodules.cleanup_src
 

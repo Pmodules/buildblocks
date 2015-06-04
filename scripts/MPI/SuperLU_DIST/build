@@ -1,8 +1,8 @@
 #!/bin/bash
 
-source "$(dirname $0)/../../../lib/libem.bash"
+source "$(dirname $0)/../../../lib/libpmodules.bash"
 
-function em.configure() {
+pmodules.configure() {
 	cat <<EOF > "${MODULE_SRCDIR}/make.inc"
 PLAT		= 
 DSuperLUroot 	= \${PREFIX}
@@ -27,22 +27,22 @@ CDEFS        = -DAdd__
 EOF
 }
 
-function em.build() {
+pmodules.build() {
 	cd "${MODULE_SRCDIR}"
 	mkdir -p "${PREFIX}/lib"
 	make
 }
 
-function em.install() {
+pmodules.install() {
 	make install
 	mkdir -p "${PREFIX}/include"
 	install -m 0444 "${MODULE_SRCDIR}"/SRC/*.h "${PREFIX}/include"
 }
 
 
-em.add_to_family 'MPI'
-em.set_runtime_dependencies "${COMPILER}" "${MPI} 'OpenBLAS' 'parmetis'"
-em.set_build_dependencies "${COMPILER}" "${MPI}" 'OpenBLAS' 'parmetis'
-em.set_docfiles 'README'
-em.make_all
-em.cleanup_src
+pmodules.add_to_group 'MPI'
+pmodules.set_runtime_dependencies "${COMPILER}" "${MPI} 'OpenBLAS' 'parmetis'"
+pmodules.set_build_dependencies "${COMPILER}" "${MPI}" 'OpenBLAS' 'parmetis'
+pmodules.set_docfiles 'README'
+pmodules.make_all
+pmodules.cleanup_src

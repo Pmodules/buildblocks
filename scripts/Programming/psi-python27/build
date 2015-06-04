@@ -1,19 +1,19 @@
 #!/bin/bash
 
-source "$(dirname $0)/../../../lib/libem.bash"
+source "$(dirname $0)/../../../lib/libpmodules.bash"
 
-function em.configure() {
+pmodules.configure() {
 	:
 }
 
-function em.build() {
+pmodules.build() {
 	:
 }
 
-function em.install() {
+pmodules.install() {
 	cd "${MODULE_SRCDIR}"
 	rsync --exclude=".info" --delete --verbose --archive . "${PREFIX}"
 }
 
-em.add_to_family 'Programming'
-em.make_all
+pmodules.add_to_group 'Programming'
+pmodules.make_all

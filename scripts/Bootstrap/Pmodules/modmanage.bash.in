@@ -476,7 +476,7 @@ subcommand_sync() {
 
 	# Redefine module_out to append modules to the selected_modules variable
         local -a selected_modules
-	function module_out() {
+	module_out() {
 		local -a args=(${modlist[$1]})
 		local path=""
 		IFS=/
@@ -495,7 +495,7 @@ subcommand_sync() {
 	local -a destination_modules=( $(cd "${dst_prefix}/${PMODULES_MODULEFILES_DIR}"; find -L . -type f | while read f; do n=${f##*/}; [[ "${n:0:1}" == "." ]] || echo ${f#./}; done) )
 
 	# redefine set difference, the version in dialog.bash only handles integers
-	function set_difference() {  #  $1 \ $2
+	set_difference() {  #  $1 \ $2
 		local -a operand1=($1)
 		local -a operand2=($2)
 		local -A members

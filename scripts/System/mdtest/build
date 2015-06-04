@@ -1,24 +1,24 @@
 #!/bin/bash
 
-source "$(dirname $0)/../../../lib/libem.bash"
+source "$(dirname $0)/../../../lib/libpmodules.bash"
 
-function em.configure() {
+pmodules.configure() {
 	:
 }
 
-function em.build() {
+pmodules.build() {
         cd "${MODULE_SRCDIR}"
 
 	make -j ${JOBS}
 }
 
-function em.install() {
+pmodules.install() {
         cd "${MODULE_SRCDIR}"
 	mkdir -p ${PREFIX}/bin
 	install -m 0755 mdtest "${PREFIX}/bin"
 }
 
-#em.supported_os 'Linux'
-em.add_to_family 'System'
-em.set_build_dependencies "${COMPILER}" "${MPI}"
-em.make_all
+#pmodules.supported_os 'Linux'
+pmodules.add_to_group 'System'
+pmodules.set_build_dependencies "${COMPILER}" "${MPI}"
+pmodules.make_all
