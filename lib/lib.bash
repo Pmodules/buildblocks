@@ -77,8 +77,12 @@ die() {
 	exit $ec
 }
 
+#abspath () {
+#	(cd "$1" && pwd)
+#}
+
 abspath () {
-	(cd "$1" && pwd)
+	readlink -f "$1"
 }
 
 append_path () {

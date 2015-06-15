@@ -1028,7 +1028,7 @@ subcommand_use() {
 			# ...
 			# elif is directory
 			# ...
-			local modulfiles_dir="${PMODULES_ROOT}/${arg}/${PMODULES_MODULEFILES_DIR}"
+			local modulefiles_dir="${PMODULES_ROOT}/${arg}/${PMODULES_MODULEFILES_DIR}"
 			if [[ ${arg} == -a ]] || [[ ${arg} == --append ]]; then
 			        subcommand_switches='--append'
 			elif [[ ${arg} == -p ]] || [[ ${arg} == --prepend ]]; then
@@ -1091,7 +1091,7 @@ subcommand_unuse() {
 		# ...
 		# elif is directory
 		# ...
-		local modulfiles_dir="${PMODULES_ROOT}/${arg}/${PMODULES_MODULEFILES_DIR}"
+		local modulefiles_dir="${PMODULES_ROOT}/${arg}/${PMODULES_MODULEFILES_DIR}"
 		if is_release "${arg}"; then
 			remove_path UsedReleases "${arg}"
 		elif [[ ! ${arg} =~ */* ]] &&  [[ -d ${modulefiles_dir} ]]; then
@@ -1099,7 +1099,7 @@ subcommand_unuse() {
 				die 3 "${CMD} ${0##_}: cannot remove group ${arg} from module path"
 			fi
 			remove_path PMODULES_USED_GROUPS "${arg}"
-			dirs_to_remove+=( ${modulefiles_dir}/${arg} )
+			dirs_to_remove+=( ${modulefiles_dir} )
 		elif [[ -d ${arg} ]]; then
 			local normalized_dir=$(cd "${arg}" && pwd)
 			dirs_to_remove+=( ${normalized_dir} )

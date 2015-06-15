@@ -6,20 +6,25 @@ PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin
 unset CDPATH
 
 shopt -s expand_aliases
+declare -rx ARGS="$@"
+
 
 
 declare -r  BUILDSCRIPT_DIR=$( cd $(dirname "$0") && pwd )
 declare -r  BUILDSCRIPT="${BUILDSCRIPT_DIR}"/$(basename "$0")
-declare -rx ARGS="$@"
 declare -rx SHLIBDIR=$( cd $(dirname "$BASH_SOURCE") && pwd )
+source "${SHLIBDIR}/lib.bash"
+
+declare -rx BUILD_BASEDIR=$(abspath $SHLIBDIR/..)
+
+
+
+
+
 declare -r OS=$(uname -s)
 
 # number of parallel make jobs
 declare -i  JOBS=3
-
-source "${SHLIBDIR}/lib.bash"
-
-declare -rx BUILD_BASEDIR=$(abspath $SHLIBDIR/..)
 
 source "$(readlink ${BUILD_BASEDIR}/config/environment.bash)"
 
@@ -29,7 +34,7 @@ declare -xr BUILD_TMPDIR="${BUILD_BASEDIR}/tmp"
 declare -xr BUILD_DOWNLOADSDIR="${BUILD_BASEDIR}/Downloads"
 declare -xr BUILD_VERSIONSFILE="${BUILD_CONFIGDIR}/versions.conf"
 
-#source "${BUILD_CONFIGDIR}/Pmodules.conf"
+source "${BUILD_CONFIGDIR}/Pmodules.conf"
 
 declare -x  PREFIX=''
 declare -x  DOCDIR=''
