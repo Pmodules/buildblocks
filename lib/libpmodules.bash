@@ -133,18 +133,44 @@ pmodules.add_to_group() {
 
 ##############################################################################
 #
-# install module in given group
+# set build-/runtime dependencies
 #
-# $1: group
+# $@: dependencies
 #
 pmodules.set_build_dependencies() {
 	MODULE_BUILD_DEPENDENCIES=("$@")
 }
 
+pmodules.set_runtime_dependencies() {
+	MODULE_DEPENDENCIES=("$@")
+}
+
+##############################################################################
+#
+# set documentation file to be installed
+#
+# $@: documentation files relative to source
+#
 pmodules.set_docfiles() {
 	MODULE_DOCFILES=("$@")
 }
 
+##############################################################################
+#
+# set supported compilers
+#
+# $@: compilers
+#
+pmodules.set_supported_compilers() {
+	MODULE_SUPPORTED_COMPILERS=("$@")
+}
+
+##############################################################################
+#
+# test availablity of a module
+#
+# $@: module
+#
 module_is_available() {
 	[[ -n $("${MODULECMD}" bash avail "$1" 2>&1 1>/dev/null) ]]
 }
