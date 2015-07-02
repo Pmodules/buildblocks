@@ -840,6 +840,10 @@ if [[ ${bootstrap} == no ]]; then
 			die 44 "$m: module not available!"
 		fi
 	done
+else
+	source "${BUILD_BASEDIR}/scripts/Bootstrap/Pmodules_version.conf"
+	unset PMODULES_HOME
+	source "/opt/psi/config/environment.bash"
 fi
 
 P=$(basename $(dirname "${BUILDSCRIPT}"))
