@@ -1,17 +1,17 @@
 #!/bin/tcsh
 
-setenv PSI_PREFIX "/opt/psi"
+setenv PMODULES_ROOT "/opt/psi"
 
-if ( "$PMODULES_VERSION" == "" ) then
-	setenv PMODULES_VERSION "0.99.1"
+if ( ! $?PMODULES_VERSION ) then
+	setenv PMODULES_VERSION "@PMODULES_VERSION@"
 endif
-setenv PMODULES_HOME "$PSI_PREFIX/Tools/Pmodules/$PMODULES_VERSION"
+setenv PMODULES_HOME "$PMODULES_ROOT/Tools/Pmodules/$PMODULES_VERSION"
+setenv PMODULES_DIR "${PMODULES_HOME}"
 
-setenv PSI_CONFIG_DIR "config"
-setenv PSI_MODULES_ROOT 'modulefiles'
-setenv PSI_TEMPLATES_DIR 'templates'
+setenv PMODULES_CONFIG_DIR 'config'
+setenv PMODULES_MODULEFILES_DIR 'modulefiles'
+setenv PMODULES_TEMPLATES_DIR 'templates'
 
-setenv PSI_DEFAULT_FAMILIES 'Tools Programming'
-
-setenv PSI_RELEASES ':unstable:stable:deprecated:'
-setenv PSI_USED_RELEASES 'stable'
+setenv PMODULES_DEFAULT_GROUPS 'Tools Programming'
+setenv PMODULES_DEFINED_RELEASES ':unstable:stable:deprecated:'
+setenv PMODULES_DEFAULT_RELEASES 'stable'

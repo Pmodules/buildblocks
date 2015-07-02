@@ -8,6 +8,10 @@ source "${BOOTSTRAP_DIR}/Pmodules_version.conf"
 unset PMODULES_HOME
 source "/opt/psi/config/environment.bash"
 
+if [[ -n ${PMODULES_DIR} ]] && [[ "${PMODULES_DIR}" != "/" ]] && [[ -d "${PMODULES_DIR}" ]]; then
+	rm -rf "${PMODULES_DIR}"
+fi
+
 ${BOOTSTRAP_DIR}/coreutils/build --bootstrap --disable-cleanup        || { echo "compiling 'coreutils' failed!"; exit 1; }
 ${BOOTSTRAP_DIR}/gettext/build   --bootstrap --disable-cleanup        || { echo "compiling 'gettext' failed!"; exit 1; }
 ${BOOTSTRAP_DIR}/getopt/build    --bootstrap --disable-cleanup        || { echo "compiling 'getopt' failed!"; exit 1; }

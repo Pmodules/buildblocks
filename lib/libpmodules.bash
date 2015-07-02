@@ -1,7 +1,5 @@
 #!/bin/bash
 
-PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin
-
 # disable auto-echo feature of 'cd'
 unset CDPATH
 
@@ -19,9 +17,15 @@ declare -rx BUILD_BASEDIR=$(abspath $SHLIBDIR/..)
 
 
 
-
+PATH=/usr/bin:/bin:/usr/sbin:/sbin
 
 declare -r OS=$(uname -s)
+if [[ "${OS}" == "Darwin" ]]; then
+	# :FIXME: why do we need this?
+	[[ -d "/opt/X11/bin" ]] && PATH+=':/opt/X11/bin'
+fi
+
+
 
 # number of parallel make jobs
 declare -i  JOBS=3

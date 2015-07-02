@@ -1,4 +1,4 @@
-#!@PMODULES_HOME@/bin/bash
+#!@PMODULES_HOME@/bin/bash --noprofile --norc
 #
 
 #set -o nounset
@@ -31,21 +31,33 @@ shopt -s nullglob
 declare -a Groups='()'
 declare -A HierarchyDepths='()'
 
-save_env() {
-	local s=''
-	while (( $# > 0 )); do
-		s+="$( typeset -p $1 );"
-		shift
-	done
-	echo export PMODULES_ENV=$( "${PMODULES_HOME}/bin/base64" --wrap=0 <<< "$s" )	
-}
-
 export_env() {
 	local s=''
+	if [[ "${shell}" == "bash" ]]; then
+		while (( $# > 0 )); do
+			echo -n "export $1=\"${!1}\";"
+			shift
+		done
+		return
+	elif [[ "${shell}" == "tcsh" ]]; then
+		while (( $# > 0 )); do
+			echo "setenv $1 ${!1}"
+			shift
+		done
+		return
+	fi
+}
+
+save_env() {
+	local s=''
+	local tmp
 	while (( $# > 0 )); do
-		echo -n "export $1=${!1};"
+		tmp="$( typeset -p $1 2> /dev/null)"
+		[[ -n "${tmp}" ]] && s+="${tmp};"
 		shift
 	done
+	declare -g PMODULES_ENV=$( "${PMODULES_HOME}/bin/base64" --wrap=0 <<< "$s" )
+	export_env PMODULES_ENV
 }
 
 trap 'save_env Groups HierarchyDepths UsedReleases PMODULES_DEFAULT_GROUPS PMODULES_DEFINED_RELEASES PMODULES_DEFAULT_RELEASES' EXIT
@@ -1055,7 +1067,9 @@ subcommand_use() {
 			fi
 			shift
 		done
-		echo "export PMODULES_USED_GROUPS=${PMODULES_USED_GROUPS}"
+		#echo "export PMODULES_USED_GROUPS=${PMODULES_USED_GROUPS}"
+		declare -g PMODULES_USED_GROUPS="${PMODULES_USED_GROUPS}"
+		export_env PMODULES_USED_GROUPS
 		[[ ${#dirs_to_add[@]} == 0 ]] && return
 
 		for dir in "${dirs_to_add[@]}"; do
@@ -1113,7 +1127,9 @@ subcommand_unuse() {
 		fi
 		shift
 	done
-	echo "export PMODULES_USED_GROUPS=${PMODULES_USED_GROUPS}"
+	#echo "export PMODULES_USED_GROUPS=${PMODULES_USED_GROUPS}"
+	declare -g PMODULES_USED_GROUPS="${PMODULES_USED_GROUPS}"
+	export_env PMODULES_USED_GROUPS
 	[[ ${#dirs_to_remove[@]} == 0 ]] && return
 	for dir in "${dirs_to_remove[@]}"; do
 		subcommand_generic1 unuse "${dir}"
@@ -1180,12 +1196,16 @@ subcommand_list() {
 }
 
 pmodules_init() {
+	declare -g PMODULES_DEFAULT_GROUPS=''
+	declare -g PMODULES_DEFAULT_RELEASES=''
+
 	source "${PMODULES_ROOT}/${PMODULES_CONFIG_DIR}/environment.bash"
 
 	declare -g LOADEDMODULES=''
 	declare -g PMODULES_USED_GROUPS=''
 	declare -g MODULEPATH=''
 	declare -g _LMFILES_=''
+
 	for group in ${PMODULES_DEFAULT_GROUPS}; do
 		append_path MODULEPATH "${PMODULES_ROOT}/${group}/${PMODULES_MODULEFILES_DIR}"
 		append_path PMODULES_USED_GROUPS "${group}"
@@ -1478,6 +1498,9 @@ fi
 
 case $1 in
 	bash )
+		declare shell="$1"
+		;;
+	tcsh )
 		declare shell="$1"
 		;;
 	* )
