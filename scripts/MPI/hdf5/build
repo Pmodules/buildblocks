@@ -15,6 +15,7 @@ pmodules.configure() {
 		--enable-shared \
 		--enable-parallel \
 		--enable-cxx \
+		--enable-fortran \
 		--enable-unsupported \
 		--with-pic \
 		|| exit 1
