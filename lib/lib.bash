@@ -98,3 +98,18 @@ append_path () {
 	fi
 }
 
+read_versions() {
+	local -r fname="$1"
+	local varname=''
+	while read _name _version; do
+		[[ -z ${_name} ]] && continue
+		[[ -z ${_version} ]] && continue
+		[[ "${_name:0:1}" == '#' ]] && continue
+		var_name=$(echo ${_name} | tr [:lower:] [:upper:])_VERSION
+		# don't set version, if already set
+		if [[ -z ${!var_name} ]]; then
+			eval ${var_name}="${_version}"
+		fi
+	done < "${fname}"
+}
+
