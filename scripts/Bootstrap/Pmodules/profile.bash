@@ -1,4 +1,8 @@
 #!/bin/bash
+#
+#############################################################################
+#              D O   N O T   C H A N G E   T H I S   F I L E !              #
+#############################################################################
 
 #############################################################################
 # read Pmodules configuration
@@ -27,8 +31,8 @@ if [[ -z ${PMODULES_VERSION} ]]; then
 	echo "Oops: ${PMODULES_VERSION}: Pmodules version not set." 1>&2
 	return 1
 fi
-if [[ -z ${PMODULES_HOME} ]]; then
-	echo "Oops: ${PMODULES_HOME}: Pmodules home not set." 1>&2
+if [[ -z ${PMODULES_HOME} ]]; then 
+	echo "Oops: Pmodules home not set." 1>&2
 	return 1
 fi
 if [[ ! -d ${PMODULES_HOME} ]]; then
