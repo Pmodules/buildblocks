@@ -1,0 +1,4 @@
+#!/bin/bash --noprofile
+
+declare -r bindir=$( cd $(dirname $0) && pwd -P )
+"${bindir}/bash" --noprofile --norc "${bindir}/../libexec/modulecmd.bash" "$@"
