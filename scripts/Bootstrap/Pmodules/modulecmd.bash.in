@@ -8,22 +8,21 @@ unset CDPATH
 # used inside output text only
 declare -r  CMD='module'
 
-declare -r  bindir=$(cd $(dirname "$0") && pwd)
-declare -r  prefix=$(dirname "${bindir}")
+declare -r  mydir=$(cd $(dirname "$0") && pwd)
+declare -r  prefix=$(dirname "${mydir}")
+declare -r  bindir="${prefix}/bin"
 declare -r  libdir="${prefix}/lib"
+declare -r  libexecdir="${prefix}/libexec"
 
 source "${libdir}/libpmodules.bash"
 
 declare -r  version='@PMODULES_VERSION@'
-declare -r  modulecmd="${bindir}/modulecmd.tcl"
+declare -r  modulecmd="${libexecdir}/modulecmd.tcl"
 
 declare -rx TCL_LIBRARY="${libdir}/tcl8.6"
 
-# required by pre 0.99.3 modulefiles
+# required for pre 0.99.3 modulefiles
 declare -rx PSI_LIBMODULES="${TCL_LIBRARY}/libmodules.tcl"
-
-# :FIXME: this is not save, if a component contains spaces.
-declare -ra modulepath=( ${MODULEPATH//:/ } )
 
 declare verbosity_lvl=${PMODULES_VERBOSITY:-'verbose'}
 
@@ -572,6 +571,13 @@ subcommand_load() {
 	local moduledir=''
 	local m=''
 
+	local saved_IFS=${IFS}; 
+	IFS=':'
+	local -a modulepath=(${MODULEPATH})
+	IFS=${saved_IFS}
+	local -r saved_MODULEPATH=${MODULEPATH}
+	local -a saved_modulepath=${modulepath}
+
 	#
 	# Test whether a given module can be loaded according to the 
 	# accepted releases.
@@ -627,9 +633,8 @@ subcommand_load() {
 					[[ "${m}" =~ "${dir}" ]] && return 0
 				done
 				return 4
-			else
-				return 0
 			fi
+			return 0
 		fi
 
 		# check whether $m is in our modulepath
@@ -696,6 +701,7 @@ subcommand_load() {
 		done < <(subcommand_search  "${m}" -a --no-header 2>&1)
 		info "${CMD} load: module unavailable -- ${m}"
 		if (( n > 0 )); then
+			# :FIXME: output group
 			info "\nBut the following modules chain(s) are available in the hierarchy:"
 			for ((i=n-1; i >=0; i--)); do
 				if [[ "${loadable[i]}" == "no" ]]; then
@@ -738,7 +744,27 @@ subcommand_load() {
 	if (( ${#args[@]} == 0 )); then
 		die 2 "${CMD} load: No module specified."
 	fi
-	for m in "${args[@]}"; do		
+	for m in "${args[@]}"; do
+		# restore original MODULEPATH; it might have been overwritten
+		MODULEPATH=${saved_MODULEPATH}
+		modulepath=${saved_modulepath}
+		if [[ "$m" =~ ":" ]]; then
+			local save_ifs=${IFS}
+			IFS=':'
+			local -a toks=($m)
+			IFS=${save_ifs}
+			[[ ${#toks[@]} > 2 ]] && die 3 "${CMD} load: illegal module name."
+			local group=${toks[0]}
+			m=${toks[1]}
+			[[ -z ${HierarchyDepths[${group}]} ]] && die 3 "${CMD} load: illegal group name."
+			local -i depth=${HierarchyDepths[${group}]}
+			if (( depth == 0 )); then
+				MODULEPATH="${PMODULES_ROOT}/${group}/${PMODULES_MODULEFILES_DIR}"
+				modulepath=( ${MODULEPATH} )
+			else
+				:
+			fi
+		fi 
 		if is_available "${m}"; then
 		        if [[ ${verbosity_lvl} != silent ]] && [[ ${release} != stable ]]; then
 			        info "Warning: the ${release} module '${m}' has been loaded."
@@ -937,6 +963,10 @@ subcommand_avail() {
 	if (( ${#pattern[@]} == 0 )); then
 	        pattern+=( '' )
 	fi
+	local saved_IFS=${IFS}; 
+	IFS=':'
+	local -a modulepath=(${MODULEPATH})
+	IFS=${saved_IFS}
 	for string in "${pattern[@]}"; do
 		for dir in "${modulepath[@]}"; do
 			mods=( $( get_available_modules "${dir}" "${string}" ) )
@@ -969,7 +999,7 @@ get_hierarchy_depth () {
 		cd "${root}"
 		local _group
 		for _group in "${Groups[@]}"; do
-			local  tmp=$(find "${_group}/modulefiles" -depth -type f -o -type l | head -1)
+			local  tmp=$(find "${_group}/${PMODULES_MODULEFILES_DIR}" -depth -type f -o -type l | head -1)
 			local -a tmp2=( ${tmp//\// } )
 			local depth=${#tmp2[@]}
 			let depth-=4
@@ -986,6 +1016,11 @@ subcommand_use() {
 	        get_groups "${PMODULES_ROOT}"
 		get_hierarchy_depth "${PMODULES_ROOT}"
 	fi
+	local saved_IFS=${IFS}; 
+	IFS=':'
+	local -a modulepath=(${MODULEPATH})
+	IFS=${saved_IFS}
+
 	print_info() {
 		local f
 		local r
@@ -1585,6 +1620,11 @@ while (( $# > 0 )); do
 	esac
 	shift
 done
+
+if (( ${#Groups[@]} == 0 )); then
+        get_groups "${PMODULES_ROOT}"
+	get_hierarchy_depth "${PMODULES_ROOT}"
+fi
 
 $subcommand "${sargs[@]}" "${opts[@]}"
 
