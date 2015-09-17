@@ -1,6 +1,4 @@
-#!/bin/bash
-
-source "$(dirname $0)/../../../lib/libpmodules.bash"
+#!/usr/bin/env pbuild
 
 pmodules.configure() {
 	case ${OS} in

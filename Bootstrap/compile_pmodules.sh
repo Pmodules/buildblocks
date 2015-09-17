@@ -1,7 +1,7 @@
 #!/bin/bash
 
-declare -r BASE_DIR=$(cd "$(dirname $0)/../.." && pwd)
-declare -r BOOTSTRAP_DIR="${BASE_DIR}/scripts/Bootstrap"
+declare -r BASE_DIR=$(cd "$(dirname $0)/.." && pwd)
+declare -r BOOTSTRAP_DIR="${BASE_DIR}/Bootstrap"
 
 source "${BASE_DIR}/lib/lib.bash"
 

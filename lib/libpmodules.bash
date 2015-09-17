@@ -6,9 +6,12 @@ unset CDPATH
 shopt -s expand_aliases
 declare -rx ARGS="$@"
 
+if [[ -z ${BUILD_BLOCK} ]]; then
+	# legacy support for 'old-style' build-blocks
+	declare -r  BUILD_BLOCK_DIR=$( cd $(dirname "$0") && pwd )
+	declare -r  BUILD_BLOCK="${BUILD_BLOCK_DIR}"/$(basename "$0")
+fi
 
-declare -r  BUILDSCRIPT_DIR=$( cd $(dirname "$0") && pwd )
-declare -r  BUILDSCRIPT="${BUILDSCRIPT_DIR}"/$(basename "$0")
 declare -rx SHLIBDIR=$( cd $(dirname "$BASH_SOURCE") && pwd )
 source "${SHLIBDIR}/lib.bash"
 
@@ -115,7 +118,7 @@ is_release () {
 #
 # $1: OS (as printed by 'uname -s')
 #
-pmodules.supported_os() {
+pbuild::supported_os() {
 	for os in "$@"; do
 		[[ ${os} == ${OS} ]] && return 0
 	done
@@ -128,7 +131,7 @@ pmodules.supported_os() {
 #
 # $1: group
 #
-pmodules.add_to_group() {
+pbuild::add_to_group() {
 	if [[ -z ${1} ]]; then
 		std::die 42 "${FUNCNAME}: Missing group argument."
 	fi
@@ -144,11 +147,11 @@ pmodules.add_to_group() {
 #
 # $@: dependencies
 #
-pmodules.set_build_dependencies() {
+pbuild::set_build_dependencies() {
 	MODULE_BUILD_DEPENDENCIES=("$@")
 }
 
-pmodules.set_runtime_dependencies() {
+pbuild::set_runtime_dependencies() {
 	MODULE_DEPENDENCIES=("$@")
 }
 
@@ -158,7 +161,7 @@ pmodules.set_runtime_dependencies() {
 #
 # $@: documentation files relative to source
 #
-pmodules.set_docfiles() {
+pbuild::set_docfiles() {
 	MODULE_DOCFILES=("$@")
 }
 
@@ -168,7 +171,7 @@ pmodules.set_docfiles() {
 #
 # $@: compilers
 #
-pmodules.set_supported_compilers() {
+pbuild::set_supported_compilers() {
 	MODULE_SUPPORTED_COMPILERS=("$@")
 }
 
@@ -313,7 +316,7 @@ write_build_dependencies() {
 # 
 # cleanup environment
 #
-pmodules.cleanup_env() {
+pbuild::cleanup_env() {
 
 	C_INCLUDE_PATH=''
 	CPLUS_INCLUDE_PATH=''
@@ -585,31 +588,31 @@ prep() {
 
 }
 
-pmodules.pre_configure() {
+pbuild::pre_configure() {
 	:
 }
 
-pmodules.configure() {
+pbuild::configure() {
 	${MODULE_SRCDIR}/configure \
 		--prefix="${PREFIX}"
 }
 
-pmodules.build() {
+pbuild::build() {
 	make -j${JOBS}
 }
 
-pmodules.install() {
+pbuild::install() {
 	make install
 }
 
-pmodules.post_install() {
+pbuild::post_install() {
 	:
 }
 
-pmodules.install_doc() {
+pbuild::install_doc() {
 	std::info "Installing documentation to ${DOCDIR}"
 	install -m 0755 -d "${DOCDIR}"
-	install -m0444 "${MODULE_DOCFILES[@]/#/${MODULE_SRCDIR}/}" "${BUILDSCRIPT}" "${DOCDIR}"
+	install -m0444 "${MODULE_DOCFILES[@]/#/${MODULE_SRCDIR}/}" "${BUILD_BLOCK}" "${DOCDIR}"
 }
 
 set_legacy_link() {
@@ -652,7 +655,7 @@ set_link() {
 	echo "${MODULE_RELEASE}" > "${release_file}"
 }
 
-pmodules.cleanup_build() {
+pbuild::cleanup_build() {
 	[[ -n "${MODULE_BUILDDIR}" ]]     \
 		|| std::die 1 "Oops: internal error: MODULE_BUILDDIR is set to empty string..."
 	[[ "${MODULE_BUILDDIR}" == "/" ]] \
@@ -663,7 +666,7 @@ pmodules.cleanup_build() {
 	rm -rf  "/${MODULE_BUILDDIR}"
 }
 
-pmodules.cleanup_src() {
+pbuild::cleanup_src() {
     (
 	[[ -d /${MODULE_SRCDIR} ]] || return 0
 	cd "/${MODULE_SRCDIR}/..";
@@ -700,7 +703,7 @@ post_install() {
 	return 0
 }
 
-pmodules.make_all() {
+pbuild::make_all() {
 	local building='no'
 	echo "${P}:"
 	_setup_env1
@@ -726,25 +729,25 @@ pmodules.make_all() {
 
 		if [[ ! -e "${MODULE_BUILDDIR}/.configure" ]]; then
 			cd "${MODULE_SRCDIR}"
-			pmodules.pre_configure
+			pbuild::pre_configure
 			cd "${MODULE_BUILDDIR}"
-			pmodules.configure
+			pbuild::configure
 			touch "${MODULE_BUILDDIR}/.configure"
 		fi
 		[[ "${target}" == "configure" ]] && return 0
 
 		if [[ ! -e "${MODULE_BUILDDIR}/.compile" ]]; then
 			cd "${MODULE_BUILDDIR}"
-			pmodules.build
+			pbuild::build
 			touch "${MODULE_BUILDDIR}/.compile"
 		fi
 		[[ "${target}" == "compile" ]] && return 0
 
 		if [[ ! -e "${MODULE_BUILDDIR}/.install" ]]; then
 			cd "${MODULE_BUILDDIR}"
-			pmodules.install
-			pmodules.post_install
-			pmodules.install_doc
+			pbuild::install
+			pbuild::post_install
+			pbuild::install_doc
 			post_install
 			if [[ ${bootstrap} == 'no' ]]; then
 				write_runtime_dependencies
@@ -754,8 +757,8 @@ pmodules.make_all() {
 		fi
 		[[ "${target}" == "install" ]] && return 0
 		
-		[[ ${enable_cleanup_build} == yes ]] && pmodules.cleanup_build
-		[[ ${enable_cleanup_src} == yes ]] && pmodules.cleanup_src
+		[[ ${enable_cleanup_build} == yes ]] && pbuild::cleanup_build
+		[[ ${enable_cleanup_src} == yes ]] && pbuild::cleanup_src
 		
 	else
  		echo "Not rebuilding $P/$V ..."
@@ -767,6 +770,74 @@ pmodules.make_all() {
 		set_link
 	fi
 	return 0
+}
+
+#
+# legacy functions, should be removed asap
+#
+pmodules.supported_os() {
+	pbuild::supported_os "$@"
+}
+
+pmodules.add_to_group() {
+	pbuild::add_to_group "@"
+}
+
+pmodules.set_build_dependencies() {
+	pbuild::set_build_dependencies "$@"
+}
+
+pmodules.set_runtime_dependencies() {
+	pbuild::set_runtime_dependencies "$@"
+}
+
+pmodules.set_docfiles() {
+	pbuild::set_docfiles "$@"
+}
+
+pmodules.set_supported_compilers() {
+	pbuild::set_supported_compilers "$@"
+}
+
+pmodules.cleanup_env() {
+	pbuild::cleanup_env "$@"
+}
+
+pmodules.pre_configure() {
+	pbuild::pre_configure "$@"
+}
+
+pmodules.configure() {
+	pbuild::configure "$@"
+}
+
+pmodules.build() {
+	pbuild::build "$@"
+}
+
+pmodules.install() {
+	pbuild::install "$@"
+}
+
+pmodules.post_install() {
+	pbuild::post_install "$@"
+}
+
+pmodules.install_doc() {
+	pbuild::install_doc "$@"
+}
+
+pmodules.cleanup_build() {
+	pbuild::cleanup_build "$@"
+}
+		
+pmodules.cleanup_src() {
+	pbuild::cleanup_src "$@"
+}
+
+
+pmodules.make_all() {
+	pbuild::make_all "$@"
 }
 
 ##############################################################################
@@ -781,7 +852,7 @@ enable_cleanup_src='no'
 
 target='all'
 
-pmodules.cleanup_env
+pbuild::cleanup_env
 
 # array collecting all modules specified on the command line via '--with=module'
 with_modules=()
@@ -856,10 +927,10 @@ fi
 
 # while bootstraping the module command is not yet available
 if [[ ${bootstrap} == no ]]; then
-	if [[ -r "${BUILDSCRIPT_DIR}/with_modules-$V" ]]; then
-		with_modules+=( $(cat "${BUILDSCRIPT_DIR}/with_modules-$V") )
-	elif [[ -r "${BUILDSCRIPT_DIR}/with_modules" ]]; then
-		with_modules+=( $(cat "${BUILDSCRIPT_DIR}/with_modules") )
+	if [[ -r "${BUILD_BLOCK_DIR}/with_modules-$V" ]]; then
+		with_modules+=( $(cat "${BUILD_BLOCK_DIR}/with_modules-$V") )
+	elif [[ -r "${BUILD_BLOCK_DIR}/with_modules" ]]; then
+		with_modules+=( $(cat "${BUILD_BLOCK_DIR}/with_modules") )
 	fi
 
         source	"${PMODULES_ROOT}/${PMODULES_CONFIG_DIR}/profile.bash"
@@ -880,11 +951,11 @@ if [[ ${bootstrap} == no ]]; then
 else
 	unset PMODULES_HOME
 	unset PMODULES_VERSION
-	read_versions "${BUILD_BASEDIR}/scripts/Bootstrap/Pmodules_version.conf"
+	read_versions "${BUILD_BASEDIR}/Bootstrap/Pmodules_version.conf"
 	source "/opt/psi/config/environment.bash"
 fi
 
-P=$(basename $(dirname "${BUILDSCRIPT}"))
+P=$(basename $(dirname "${BUILD_BLOCK}"))
 P=${P%.*}
 _P=$(echo $P | tr [:lower:] [:upper:])
 _P=${_P//-/_}
