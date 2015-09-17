@@ -49,7 +49,7 @@ trap "std::error_handler" ERR
 std::error_handler() {
 	local -i ec=$?
 
-	[[ typeset -F _exit >/dev/null 2>&1 ]] && _exit "${ec}"
+	typeset -F _exit 1>/dev/null 2>&1 && _exit "${ec}"
 	exit ${ec}
 }
 
