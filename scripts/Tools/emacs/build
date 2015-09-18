@@ -1,6 +1,4 @@
-#!/bin/bash
-
-source "$(dirname $0)/../../../lib/libpmodules.bash"
+#!/usr/bin/env modbuild
 
 module use 'Libraries'
 
@@ -14,10 +12,6 @@ Darwin )
 	CXX=''
 	COMPILER=''
 	COMPILER_VERSION=''
-	pmodules.post_install() {
-		mkdir -p "${PREFIX}"
-		cp -rv "${MODULE_BUILDDIR}"/nextstep/Emacs.app "${PREFIX}"
-	}
 	;;
 Linux )
 	# with 24.5 configure complains about missing libjpeg even it
@@ -28,7 +22,7 @@ Linux )
 	;;
 esac
 
-pmodules.configure() {
+pbuild::configure() {
 	"${MODULE_SRCDIR}"/configure \
 		--prefix="${PREFIX}" \
 		${configure_args} \
@@ -36,40 +30,17 @@ pmodules.configure() {
 	install -m 0755 -d "${PREFIX}"
 }
 
-pmodules.post_install() {
-	if [[ -d "${MODULE_BUILDDIR}/nextstep/Emacs.app" ]]; then
-		cp -a "${MODULE_BUILDDIR}/nextstep/Emacs.app" "${PREFIX}"
-	fi
+pbuild::post_install() {
 	mkdir -p "${PREFIX}/bin"
-	cat > "${PREFIX}/bin/Emacs" <<\EOF
-#!/bin/bash
-
-declare -r OS=$(uname -s)
-
-if [[ "${OS}" == "Darwin" ]]; then
-	open "${EMACS_DIR}/Emacs.app" --args "$@"
-else
-	"${EMACS_DIR}/bin/emacs" "$@"
-fi
-EOF
-
-	cat > "${PREFIX}/bin/Emacsclient" <<\EOF
-#!/bin/bash
-
-declare -r OS=$(uname -s)
-
-if [[ "${OS}" == "Darwin" ]]; then
-	"${EMACS_DIR}/Emacs.app/Contents/MacOS/bin/emacsclient" -c "$@"
-else
-	"${EMACS_DIR}/bin/emacsclient" -c "$@" &
-fi
-EOF
-
-	chmod 0755 "${PREFIX}/bin/Emacs"
-	chmod 0755 "${PREFIX}/bin/Emacsclient"
+	install -m 0755 "${BUILD_BLOCK_DIR}/Emacs" "${PREFIX}/bin"
+	install -m 0755 "${BUILD_BLOCK_DIR}/Emacsclient" "${PREFIX}/bin"
 }
 
-pmodules.add_to_group 'Tools'
-pmodules.set_build_dependencies ${build_dependencies}
-pmodules.make_all
+pbuild::post_install_Darwin() {
+	cp -a "${MODULE_BUILDDIR}/nextstep/Emacs.app" "${PREFIX}"
+}
+
+pbuild::add_to_group 'Tools'
+pbuild::set_build_dependencies ${build_dependencies}
+pbuild::make_all
 
