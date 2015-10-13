@@ -1,10 +1,11 @@
 #!/usr/bin/env modbuild
 
+
 pbuild::configure() {
-	"${MODULE_SRCDIR}/bootstrap" --prefix="${PREFIX}"
+	"${MODULE_SRCDIR}/bootstrap" --prefix="${PREFIX}" --system-curl --verbose
 }
 
 pbuild::add_to_group 'Programming'
-pbuild::set_build_dependencies "${COMPILER}"
+#pbuild::set_build_dependencies "${COMPILER}"
 pbuild::make_all
 
