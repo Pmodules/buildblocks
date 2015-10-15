@@ -1,0 +1,8 @@
+:Linux:Darwin:	stable		gcc/4.7.4
+:Linux:Darwin:	stable		gcc/4.8.3
+:Linux:Darwin:	stable		gcc/4.8.4
+:Linux:Darwin:	unstable	gcc/4.8.5
+:Linux:Darwin:	stable		gcc/4.9.2
+:Linux:Darwin:	unstable	gcc/4.9.3
+:Linux:		stable		intel/15.2
+:Linux:		stable		intel/15.3

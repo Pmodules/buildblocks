@@ -1,0 +1,4 @@
+:Linux:Darwin:	unstable	gcc/4.8.5
+:Linux:Darwin:	unstable	gcc/4.9.3
+:Linux:Darwin:	unstable	gcc/5.2.0
+:Linux:		unstable	intel/15.3
