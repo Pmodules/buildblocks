@@ -1,5 +1,10 @@
 #!/usr/bin/env modbuild
 
+module use Libraries
+
+INSTANTCLIENT_INCLUDE_DIR='/usr/include/oracle/12.1/client64'
+INSTANTCLIENT_LIBRARY_DIR='/usr/lib/oracle/12.1/client64/lib'
+
 case ${OS} in
 Darwin )
 	# cocoa doesn't work with GCC!?
@@ -10,6 +15,11 @@ Darwin )
 	;;
 esac
 
+# enabled by default
+# 	fftw3
+#	oracle
+#	xml
+#
 pbuild::configure() {
 	"${MODULE_SRCDIR}"/configure \
 		--disable-asimage \
@@ -17,11 +27,13 @@ pbuild::configure() {
 		--disable-mysql \
 		--disable-opengl \
 		--disable-python \
-		--enable-fftw3 \
+		--enable-mathmore \
 		--with-cc=${CC} \
 		--with-cxx=${CXX} \
 		--with-f77=${F77} \
 		--with-ld=${CXX} \
+		--with-oracle-incdir=${INSTANTCLIENT_INCLUDE_DIR} \
+		--with-oracle-libdir=${INSTANTCLIENT_LIBRARY_DIR} \
 		${config_args} \
 		|| exit 1
 }
@@ -61,8 +73,13 @@ pbuild::install() {
 	mkdir -p "${PREFIX}"
 	cp -rv * "${PREFIX}"
 	mkdir -p "${DOCDIR}"
-	mv "${PREFIX}/LICENSE" "${DOCDIR}"
-	mv "${PREFIX}/README"  "${DOCDIR}"
+	mv -f "${PREFIX}/LICENSE" "${DOCDIR}"
+	rm -f "${DOCDIR}/README"
+	mv -f "${PREFIX}/README"  "${DOCDIR}"
+}
+
+pbuild::postinstall() {
+	cp -av "${INSTANTCLIENT_LIBRARY_DIR}/"libocci.so* "${PREFIX}"/lib
 }
 
 module use unstable
