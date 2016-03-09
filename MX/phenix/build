@@ -1,0 +1,20 @@
+#!/usr/bin/env modbuild
+
+pbuild::configure() {
+	:
+}
+
+pbuild::build() {
+	:
+}
+
+pbuild::install() {
+	cd "${MODULE_SRCDIR}"
+	./install --prefix="${PREFIX%/*}"
+}
+
+
+pbuild::add_to_group 'MX'
+pbuild::set_build_dependencies ''
+pbuild::make_all
+
