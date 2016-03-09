@@ -22,12 +22,12 @@ esac
 #
 pbuild::configure() {
 	"${MODULE_SRCDIR}"/configure \
-		--disable-asimage \
+		--enable-asimage \
+		--enable-mathmore \
 		--disable-ldap \
 		--disable-mysql \
 		--disable-opengl \
 		--disable-python \
-		--enable-mathmore \
 		--with-cc=${CC} \
 		--with-cxx=${CXX} \
 		--with-f77=${F77} \
@@ -44,6 +44,17 @@ pbuild::build() {
 
 pbuild::install() {
 	make clean
+
+	mkdir -p "${PREFIX}"
+	cp -rv * "${PREFIX}"
+	mkdir -p "${DOCDIR}"
+	rsync --archive --verbose	 "${PREFIX}/LICENSE"	"${DOCDIR}/LICENSE"
+	rsync --archive --verbose	 "${PREFIX}/man/"	"${PREFIX}/share/man/"
+	rsync --archive --verbose	 "${PREFIX}/README/"	"${DOCDIR}/README/" 
+
+	rm -rf	 "${PREFIX}/LICENSE"
+	rm -rf	 "${PREFIX}/man/"
+	rm -rf	 "${PREFIX}/README"
 
 	rm -f  Makefile
 	rm -rf config.*
@@ -67,15 +78,7 @@ pbuild::install() {
 	rm -rf tutorials
 	rm -rf rootx
 
-	mkdir -p share
-	mv man share
 
-	mkdir -p "${PREFIX}"
-	cp -rv * "${PREFIX}"
-	mkdir -p "${DOCDIR}"
-	mv -f "${PREFIX}/LICENSE" "${DOCDIR}"
-	rm -f "${DOCDIR}/README"
-	mv -f "${PREFIX}/README"  "${DOCDIR}"
 }
 
 pbuild::postinstall() {
