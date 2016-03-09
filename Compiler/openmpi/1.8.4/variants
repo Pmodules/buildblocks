@@ -1,6 +1,0 @@
-stable		gcc/4.7.4
-stable		gcc/4.8.3
-stable		gcc/4.8.4
-unstable	gcc/4.8.5
-stable		gcc/4.9.2
-unstable	gcc/4.9.3
