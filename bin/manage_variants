@@ -1,0 +1,16 @@
+#!/bin/bash
+
+declare buildblock=$1
+declare variants=$2
+
+
+declare -r OS=$(uname -s)
+
+while read versions release oss dependencies; do
+      	 [[ "${oss}" =~ "${OS}" ]] || continue
+	 versions_a=( ${versions//,/ } )
+	 dependencies_a=( ${dependencies//,/ } )
+	 for version in "${versions_a[@]}"; do
+	         "${buildblock}"  "${version}" --release=${release} "${dependencies_a[@]/#/--with=}"
+	 done
+done < "${variants}"
