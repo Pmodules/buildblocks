@@ -1,0 +1,19 @@
+#!/usr/bin/env modbuild
+
+pbuild::pre_configure() {
+	./autogen.sh
+}
+
+pbuild::configure() {
+	"${MODULE_SRCDIR}"/configure \
+		--prefix="${PREFIX}"
+}
+
+declare JOBS=1
+pbuild::compile_in_sourcetree
+
+pbuild::add_to_group 'Compiler'
+pbuild::set_runtime_dependencies "${COMPILER}" 'hdf5_serial' 'root'
+pbuild::set_build_dependencies 'autoconf' 'automake' 'libtool' "${COMPILER}" 'hdf5_serial' 'H5hut_serial' 'gsl' 'root' 'boost'
+pbuild::make_all
+
