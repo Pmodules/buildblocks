@@ -33,7 +33,7 @@ pbuild::install() {
 
 pbuild::add_to_group 'Tools'
 pbuild::set_runtime_dependencies 'Tcl' 'Tk'
-pbuild::set_docfiles 'COPYING' 'README'
+pbuild::set_docfiles 'COPYING' 'README.md'
 pbuild::make_all
 
 # Local Variables:
