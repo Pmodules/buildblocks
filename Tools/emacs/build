@@ -2,12 +2,11 @@
 
 module use 'Libraries'
 
-build_dependencies="${COMPILER} libungif tiff"
+build_dependencies="libungif tiff"
 
 case ${OS} in
 Darwin )
-	configure_args='--with-ns'
-	build_dependencies="libungif tiff"
+	configure_args='--with-ns --with-jpeg=no'
 	CC=''
 	CXX=''
 	COMPILER=''
