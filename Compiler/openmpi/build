@@ -7,8 +7,11 @@ pbuild::configure() {
 		--enable-mpi-cxx-seek \
 		--enable-mpi-f90 \
 		--enable-mpi-profile \
+		--enable-orterun-prefix-by-default \
 		--enable-shared \
 		--enable-smp-locks \
+		--with-sge=yes \
+		--with-slurm=yes \
 		|| exit 1
 }
 
