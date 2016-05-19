@@ -1,0 +1,17 @@
+#%Module1.0
+
+module-whatis		"Toolkit for the TLS and SSL protocol"
+module-url		"https://openssl.org/"
+module-license		"Apache style"
+module-maintainer	"Achim Gsell <achim.gsell@psi.ch>"
+
+module-help	"
+OpenSSL is an open source project that provides a robust, commercial-grade,
+and full-featured toolkit for the Transport Layer Security (TLS) and Secure
+Sockets Layer (SSL) protocols. It is also a general-purpose cryptography
+library. For more information about the team and community around the
+project, or to start making your own contributions, start with the community
+page. To get the latest news, download the source, and so on, please see the
+sidebar or the buttons at the top of every page.
+"
+

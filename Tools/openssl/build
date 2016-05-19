@@ -1,0 +1,25 @@
+#!/usr/bin/env modbuild
+
+case ${OS} in
+Darwin )
+	target='darwin64-x86_64-cc'
+	;;
+Linux )
+	target='linux-x86_64'
+	;;
+esac
+
+pbuild::configure() {
+	"${MODULE_SRCDIR}"/configure \
+		--prefix="${PREFIX}" \
+		${target} \
+		|| exit 1
+}
+
+# use system gcc to compile
+declare -rx CC=gcc
+
+pbuild::add_to_group 'Tools'
+pbuild::compile_in_sourcetree
+pbuild::make_all
+
