@@ -3,6 +3,7 @@
 pbuild::patch_sources_Darwin() {
 	if [[ "${V_MAJOR}" == "4" ]]; then
 		patch -p1 < "${BUILD_BLOCK_DIR}/${V_MAJOR}/non-dead-strip.patch"
+		patch -p1 < "${BUILD_BLOCK_DIR}/${V_MAJOR}/configure-as.patch"
 	fi
 }
 
