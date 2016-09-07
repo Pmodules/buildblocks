@@ -1,5 +1,9 @@
 #!/usr/bin/env modbuild
 
+if [[ ${V_MAJOR} == 1 ]]; then
+	pbuild::compile_in_sourcetree
+fi
+
 pbuild::pre_configure() {
 	./autogen.sh
 }
