@@ -1,0 +1,25 @@
+H5hut/1.99.13        stable     gcc/4.7.4 openmpi/1.6.5 hdf5/1.8.12
+H5hut/1.99.13        stable     gcc/4.7.4 openmpi/1.6.5 hdf5/1.8.14
+H5hut/1.99.13        stable     gcc/4.7.4 openmpi/1.8.2 hdf5/1.8.12
+H5hut/1.99.13        stable     gcc/4.7.4 openmpi/1.8.2 hdf5/1.8.14
+H5hut/1.99.13        stable     gcc/4.7.4 openmpi/1.8.4 hdf5/1.8.12
+H5hut/1.99.13        stable     gcc/4.7.4 openmpi/1.8.4 hdf5/1.8.14
+H5hut/1.99.13        stable     gcc/4.8.3 openmpi/1.6.5 hdf5/1.8.12
+H5hut/1.99.13        stable     gcc/4.8.3 openmpi/1.6.5 hdf5/1.8.14
+H5hut/1.99.13        stable     gcc/4.8.3 openmpi/1.8.2 hdf5/1.8.12
+H5hut/1.99.13        stable     gcc/4.8.3 openmpi/1.8.2 hdf5/1.8.14
+H5hut/1.99.13        stable     gcc/4.8.3 openmpi/1.8.4 hdf5/1.8.12
+H5hut/1.99.13        stable     gcc/4.8.3 openmpi/1.8.4 hdf5/1.8.14
+H5hut/1.99.13        stable     gcc/4.8.4 openmpi/1.6.5 hdf5/1.8.12
+H5hut/1.99.13        stable     gcc/4.8.4 openmpi/1.6.5 hdf5/1.8.14
+H5hut/1.99.13        stable     gcc/4.8.4 openmpi/1.8.2 hdf5/1.8.12
+H5hut/1.99.13        stable     gcc/4.8.4 openmpi/1.8.2 hdf5/1.8.14
+H5hut/1.99.13        stable     gcc/4.8.4 openmpi/1.8.4 hdf5/1.8.12
+H5hut/1.99.13        stable     gcc/4.8.4 openmpi/1.8.4 hdf5/1.8.14
+H5hut/1.99.13        stable     gcc/4.8.5 openmpi/1.8.8 hdf5/1.8.12 b:libtool b:autoconf b:automake
+H5hut/1.99.13        stable     gcc/4.9.2 openmpi/1.6.5 hdf5/1.8.12
+H5hut/1.99.13        stable     gcc/4.9.2 openmpi/1.6.5 hdf5/1.8.14
+H5hut/1.99.13        stable     gcc/4.9.2 openmpi/1.8.2 hdf5/1.8.12
+H5hut/1.99.13        stable     gcc/4.9.2 openmpi/1.8.2 hdf5/1.8.14
+H5hut/1.99.13        stable     gcc/4.9.2 openmpi/1.8.4 hdf5/1.8.12
+H5hut/1.99.13        stable     gcc/4.9.2 openmpi/1.8.4 hdf5/1.8.14
