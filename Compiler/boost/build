@@ -19,7 +19,7 @@ pbuild::build() {
 		--layout=system \
 		--without-mpi \
 		variant=release \
-		link=shared \
+		link=shared,static \
 		threading=multi \
 		stage
 }
@@ -32,7 +32,7 @@ pbuild::install() {
 		--layout=system \
 		--without-mpi \
 		variant=release \
-		link=shared \
+		link=shared,static \
 		threading=multi \
 		install
 }

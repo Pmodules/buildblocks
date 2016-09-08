@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# loop over all modules
+#     get release of module
+#     if stable: all runtime dependencies must be stable
+#     if unstable: all runtime dependencies must be stable or unstable
+#     if deprecated: release of runtime dependencies does not matter

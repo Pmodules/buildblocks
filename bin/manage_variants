@@ -20,7 +20,7 @@ while read -a toks; do
 	release=${toks[1]}
 	dependencies=( ${toks[@]:2} )
 
-	"${buildblock}"  "${module#*/}" --release=${release} "${dependencies[@]/#/--with=}"
+	"${buildblock}"  "${module#*/}" "${dependencies[@]/#/--with=}"
 	if [[ $? != 0 ]]; then
 		echo "Failed building:  ${module} --release=${release} ${dependencies[@]/#/--with=}" 1>&2
 		exit 42
