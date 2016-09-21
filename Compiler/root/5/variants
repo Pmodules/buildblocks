@@ -1,0 +1,9 @@
+root/5.34.19         stable     gcc/4.7.4 
+root/5.34.19         stable     gcc/4.8.3 
+root/5.34.19         stable     gcc/4.8.4 
+root/5.34.19         stable     gcc/4.9.2 
+root/5.34.26         stable     gcc/4.7.4 
+root/5.34.26         stable     gcc/4.8.3 
+root/5.34.26         stable     gcc/4.8.4 
+root/5.34.26         stable     gcc/4.9.2 
+root/5.34.36         unstable   gcc/4.8.5 b:gsl/1.15 b:Python/2.7.11 
