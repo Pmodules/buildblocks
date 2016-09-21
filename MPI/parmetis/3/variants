@@ -9,6 +9,7 @@ parmetis/3.2.0	stable		gcc/4.8.4 openmpi/1.6.5
 parmetis/3.2.0	stable		gcc/4.8.4 openmpi/1.8.2
 parmetis/3.2.0	stable		gcc/4.8.4 openmpi/1.8.4
 parmetis/3.2.0	stable		gcc/4.8.5 openmpi/1.8.8
+parmetis/3.2.0	stable		gcc/4.8.5 openmpi/1.10.2
 parmetis/3.2.0	stable		gcc/4.9.2 openmpi/1.6.5
 parmetis/3.2.0	stable		gcc/4.9.2 openmpi/1.8.2
 parmetis/3.2.0	stable		gcc/4.9.2 openmpi/1.8.4
