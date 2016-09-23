@@ -3,7 +3,6 @@
 module-whatis		"Object-Oriented Solver Framework"
 module-url		"http://trilinos.sandia.gov/"
 module-license		"BSD-like"
-module-licensefile	"Copyright.txt"
 module-maintainer	"Achim Gsell <achim.gsell@psi.ch>"
 
 module-help		"
