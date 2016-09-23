@@ -10,7 +10,7 @@ pbuild::pre_configure() {
 
 pbuild::configure() {
 	if (( V_MAJOR >= 2 )); then
-		config_args+=" --enable-python"
+		: config_args+=" --enable-python"
 	fi
 
 	"${MODULE_SRCDIR}"/configure \
