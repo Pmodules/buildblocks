@@ -1,17 +1,17 @@
 #!/usr/bin/env modbuild
 
-case ${OS} in
-Darwin )
-	target='darwin64-x86_64-cc'
-	;;
-Linux )
-	target='linux-x86_64'
-	;;
-esac
 
 pbuild::configure() {
+	case ${OS} in
+	Darwin )
+		target='darwin64-x86_64-cc'
+		;;
+	Linux )
+		target='linux-x86_64'
+		;;
+	esac
 	export CFLAGS=-fPIC
-	"${MODULE_SRCDIR}"/config shared --prefix="${PREFIX}" \
+	"${MODULE_SRCDIR}"/Configure shared --prefix="${PREFIX}" ${target} \
 		|| exit 1
 }
 
