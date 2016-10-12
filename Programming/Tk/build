@@ -25,6 +25,5 @@ pbuild::post_install() {
 declare CC=cc
 
 pbuild::add_to_group 'Programming'
-pbuild::set_build_dependencies 'Tcl'
 pbuild::set_docfiles 'license.terms' 'README'
 pbuild::make_all
