@@ -19,7 +19,6 @@ pbuild::set_docfiles \
 	README \
 	THANKS
 
-pbuild::set_build_dependencies "m4"
 pbuild::make_all
 
 # Local Variables:
