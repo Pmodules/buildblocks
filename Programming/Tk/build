@@ -1,5 +1,7 @@
 #!/usr/bin/env modbuild
 
+SOURCE_URL="ftp://ftp.tcl.tk/pub/tcl/tcl8_6/tk$V-src.tar.gz"
+
 pbuild::configure() {
 	case ${OS} in
 	Linux )
