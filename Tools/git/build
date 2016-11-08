@@ -1,5 +1,7 @@
 #!/usr/bin/env modbuild
 
+SOURCE_URL="ftp://www.kernel.org/pub/software/scm/$P/$P-$V.tar.gz"
+
 case ${OS} in
 Darwin )
 	export NO_APPLE_COMMON_CRYPTO=1
@@ -32,7 +34,6 @@ pbuild::install() {
 }
 
 pbuild::add_to_group 'Tools'
-pbuild::set_runtime_dependencies 'Tcl' 'Tk'
 pbuild::set_docfiles 'COPYING' 'README.md'
 pbuild::make_all
 
