@@ -1,5 +1,7 @@
 #!/usr/bin/env modbuild
 
+SOURCE_URL="http://www.open-mpi.org/software/ompi/v${V_MAJOR}.${V_MINOR}/downloads/openmpi-$V.tar.gz"
+
 pbuild::configure() {
 	"${MODULE_SRCDIR}"/configure \
 		--prefix="${PREFIX}" \
@@ -16,7 +18,5 @@ pbuild::configure() {
 }
 
 pbuild::add_to_group 'Compiler'
-#pbuild::set_runtime_dependencies "${COMPILER}"
-#pbuild::set_build_dependencies "${COMPILER}"
 pbuild::set_docfiles 'AUTHORS' 'LICENSE' 'NEWS' 'README'
 pbuild::make_all
