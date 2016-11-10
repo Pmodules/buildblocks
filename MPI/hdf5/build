@@ -1,8 +1,10 @@
 #!/usr/bin/env modbuild
 
+SOURCE_URL="https://support.hdfgroup.org/ftp/HDF5/current/src/hdf5-1.8.17.tar.bz2"
+
 pbuild::configure() {
 	CC=$MPICC
-	CXX=$MPICXX
+	export CXX=$MPICXX
 	F77=$MPIF77
 	F90=$MPIF90
 	FC=$MPIFC
