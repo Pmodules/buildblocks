@@ -1,2 +1,5 @@
+atlas/3.10.3	unstable	gcc/4.8.5
 atlas/3.10.2	deprecated	gcc/4.9.2
-atlas/3.10.3	unstable	gcc/4.9.3
+atlas/3.10.3	unstable	gcc/4.9.4
+atlas/3.10.3	unstable	gcc/5.4.0
+atlas/3.10.3	unstable	gcc/6.2.0
