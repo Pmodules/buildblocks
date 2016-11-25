@@ -4,18 +4,20 @@ SOURCE_URL="https://www.python.org/ftp/python/$V/$P-$V.tgz"
 
 export LDFLAGS=""
 export CPPFLAGS=""
-
 pbuild::configure() {
 	export LDFLAGS="-L${OPENSSL_LIBRARY_DIR}"
-	export CPPFLAGS="-I${OPENSSL_INCLUDE_DIR} -I${OPENSSL_INCLUDE_DIR}/openssl"
+	export CPPFLAGS="-fPIC -I${OPENSSL_INCLUDE_DIR} -I${OPENSSL_INCLUDE_DIR}/openssl"
+	export LD_LIBRARY_PATH+=":${PREFIX}/lib"
 	"${MODULE_SRCDIR}"/configure \
 		--prefix="${PREFIX}" \
+		--enable-shared \
 		|| exit 1
 }
 
 pbuild::post_install() {
 	export LDFLAGS="-L${OPENSSL_LIBRARY_DIR}"
 	export CPPFLAGS="-I${OPENSSL_INCLUDE_DIR} -I${OPENSSL_INCLUDE_DIR}/openssl"
+	export LD_LIBRARY_PATH+=":${PREFIX}/lib"
 	ln -fs "${PREFIX}/bin/python${V%%.*}" "${PREFIX}/bin/python"
 	ln -fs "${PREFIX}/include/python${V%.*}m" "${PREFIX}/include/python"
 	ln -fs "${PREFIX}/include/python${V%.*}m" "${PREFIX}/include/python${V%.*}"
