@@ -1,4 +1,16 @@
-H5hut/2.0.0rc1	unstable	b:automake/1.14 b:autoconf/2.69 b:libtool/2.4.2 gcc/5.3.0 openmpi/1.10.2 hdf5/1.8.16 b:Python/2.7.11 b:parmetis/4.0.3
-H5hut/2.0.0rc2	unstable	b:automake/1.14 b:autoconf/2.69 b:libtool/2.4.2 gcc/4.8.5 openmpi/1.10.2 hdf5/1.8.16 b:Python/2.7.11 b:parmetis/4.0.3
-H5hut/2.0.0rc2	unstable	b:automake/1.14 b:autoconf/2.69 b:libtool/2.4.2 gcc/4.8.5 openmpi/1.10.2 hdf5/1.8.17 b:Python/2.7.11 b:parmetis/4.0.3
-H5hut/2.0.0rc2	unstable	b:automake/1.14 b:autoconf/2.69 b:libtool/2.4.2 gcc/6.2.0 openmpi/1.10.2 hdf5/1.8.17 b:Python/2.7.11 b:parmetis/4.0.3
+H5hut/2.0.0rc1	unstable	gcc/5.3.0 openmpi/1.10.2 hdf5/1.8.16 b:automake/1.14 b:autoconf/2.69 b:libtool/2.4.2 b:Python/2.7.11 b:parmetis/4.0.3
+
+H5hut/2.0.0rc2	unstable	gcc/4.8.5 openmpi/1.10.4 hdf5/1.8.17 b:automake/1.14 b:autoconf/2.69 b:libtool/2.4.2 b:Python/2.7.12 b:parmetis/4.0.3
+H5hut/2.0.0rc2	unstable	gcc/4.9.4 openmpi/1.10.4 hdf5/1.8.17 b:automake/1.14 b:autoconf/2.69 b:libtool/2.4.2 b:Python/2.7.12 b:parmetis/4.0.3
+H5hut/2.0.0rc2	unstable	gcc/5.4.0 openmpi/1.10.4 hdf5/1.8.17 b:automake/1.14 b:autoconf/2.69 b:libtool/2.4.2 b:Python/2.7.12 b:parmetis/4.0.3
+H5hut/2.0.0rc2	unstable	gcc/6.2.0 openmpi/1.10.4 hdf5/1.8.17 b:automake/1.14 b:autoconf/2.69 b:libtool/2.4.2 b:Python/2.7.12 b:parmetis/4.0.3
+
+H5hut/2.0.0rc3	unstable	gcc/4.8.5 openmpi/1.10.4 hdf5/1.8.17 b:automake/1.14 b:autoconf/2.69 b:libtool/2.4.2 b:Python/2.7.12 b:parmetis/4.0.3
+H5hut/2.0.0rc3	unstable	gcc/4.9.4 openmpi/1.10.4 hdf5/1.8.17 b:automake/1.14 b:autoconf/2.69 b:libtool/2.4.2 b:Python/2.7.12 b:parmetis/4.0.3
+H5hut/2.0.0rc3	unstable	gcc/5.4.0 openmpi/1.10.4 hdf5/1.8.17 b:automake/1.14 b:autoconf/2.69 b:libtool/2.4.2 b:Python/2.7.12 b:parmetis/4.0.3
+H5hut/2.0.0rc3	unstable	gcc/6.2.0 openmpi/1.10.4 hdf5/1.8.17 b:automake/1.14 b:autoconf/2.69 b:libtool/2.4.2 b:Python/2.7.12 b:parmetis/4.0.3
+
+H5hut/2.0.0rc3	unstable	gcc/4.8.5 openmpi/1.10.4 hdf5/1.8.18 b:automake/1.14 b:autoconf/2.69 b:libtool/2.4.2 b:Python/2.7.12 b:parmetis/4.0.3
+H5hut/2.0.0rc3	unstable	gcc/4.9.4 openmpi/1.10.4 hdf5/1.8.18 b:automake/1.14 b:autoconf/2.69 b:libtool/2.4.2 b:Python/2.7.12 b:parmetis/4.0.3
+H5hut/2.0.0rc3	unstable	gcc/5.4.0 openmpi/1.10.4 hdf5/1.8.18 b:automake/1.14 b:autoconf/2.69 b:libtool/2.4.2 b:Python/2.7.12 b:parmetis/4.0.3
+H5hut/2.0.0rc3	unstable	gcc/6.2.0 openmpi/1.10.4 hdf5/1.8.18 b:automake/1.14 b:autoconf/2.69 b:libtool/2.4.2 b:Python/2.7.12 b:parmetis/4.0.3
