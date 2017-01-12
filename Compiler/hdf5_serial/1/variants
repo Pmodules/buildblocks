@@ -29,7 +29,7 @@ hdf5_serial/1.8.17	stable		gcc/5.4.0
 hdf5_serial/1.8.17	stable		gcc/6.1.0
 hdf5_serial/1.8.17	stable		gcc/6.2.0
 
-hdf5_serial/1.8.18	unstable	gcc/4.8.5 
-hdf5_serial/1.8.18	unstable	gcc/4.9.4 
-hdf5_serial/1.8.18	unstable	gcc/5.4.0 
-hdf5_serial/1.8.18	unstable	gcc/6.2.0
+hdf5_serial/1.8.18	stable		gcc/4.8.5 
+hdf5_serial/1.8.18	stable		gcc/4.9.4 
+hdf5_serial/1.8.18	stable		gcc/5.4.0 
+hdf5_serial/1.8.18	stable		gcc/6.2.0
