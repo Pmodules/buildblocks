@@ -11,8 +11,6 @@ pbuild::configure() {
 }
 
 pbuild::add_to_group 'OPAL'
-pbuild::set_runtime_dependencies "${COMPILER}" "${MPI}"
-pbuild::set_build_dependencies 'cmake' "${COMPILER}" "${MPI}" 'boost' 'hdf5' 'H5hut' 'trilinos' 'gsl' 'boost' 'OPAL'
-pbuild::set_supported_compilers 'gcc/4.8'
+pbuild::set_supported_compilers 'gcc/4.8' 'gcc/5.4'
 pbuild::make_all
 
