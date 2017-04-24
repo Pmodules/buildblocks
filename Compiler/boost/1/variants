@@ -16,3 +16,4 @@ boost/1.62.0         stable	gcc/4.9.4 Python/2.7.12
 boost/1.62.0         stable	gcc/5.4.0 Python/2.7.12 
 boost/1.62.0         stable	gcc/6.2.0 Python/2.7.12 
 boost/1.62.0         unstable	gcc/6.3.0 Python/2.7.12 
+boost/1.63.0         stable     gcc/6.3.0 Python/2.7.12

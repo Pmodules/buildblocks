@@ -1,7 +1,36 @@
 #!/usr/bin/env modbuild
 
+declare -a config_args=()
+
+pbuild::set_docfiles \
+	CHANGES \
+	CONTRIBUTORS \
+	LICENSE \
+	README
+
+pbuild::configure() {
+        cmake \
+                -DCMAKE_INSTALL_PREFIX="${PREFIX}" \
+                -DCMAKE_BUILD_TYPE=RELEASE \
+                "${config_args[@]}" \
+                "${MODULE_SRCDIR}"
+}
+
+pbuild::install() {
+	local -r _include_srcdir="${MODULE_SRCDIR}/include/gtest"
+	local -r _include_dstdir="${PREFIX}/include"
+	if [[ -e "${_include_dstdir}" ]]; then
+		chmod -R u+w "${_include_dstdir}"
+	fi
+	mkdir -p "${_include_dstdir}"
+	cp -rv "${_include_srcdir}"/* "${_include_dstdir}"
+	
+
+	local -r _lib_dstdir="${PREFIX}/lib"
+	mkdir -p "${_lib_dstdir}"
+	cp -v *.a "${_lib_dstdir}"
+}
+
 pbuild::add_to_group 'Programming'
-pbuild::set_runtime_dependencies ""
-pbuild::set_build_dependencies   "${COMPILER}"
 pbuild::make_all
 

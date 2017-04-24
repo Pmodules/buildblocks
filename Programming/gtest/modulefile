@@ -1,0 +1,10 @@
+#%Module1.0
+
+module-whatis		"Google's C++ test framework"
+module-url		"https://github.com/google/googletest/"
+module-license	 	"See ${PREFIX}/share/doc/gtest/LICENSE"
+module-maintainer	"Achim Gsell <achim.gsell@psi.ch>"
+
+module-help	"
+See https://github.com/google/googletest/blob/master/googletest/docs/Primer.md
+"
