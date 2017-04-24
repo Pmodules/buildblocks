@@ -30,6 +30,6 @@ pbuild::install() {
 	cp -v *.a "${_lib_dstdir}"
 }
 
-pbuild::add_to_group 'Programming'
+pbuild::add_to_group 'Compiler'
 pbuild::make_all
 
