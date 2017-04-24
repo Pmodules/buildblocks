@@ -1,10 +1,19 @@
 #!/usr/bin/env modbuild
 
+declare -ra vers=( ${V//./ } )
+
+conf=()
+if (( ${vers[0]} >= 1 && ${vers[1]} >= 1 )); then
+	conf+=("-DDKS_FULL=ON")
+fi
+
 pbuild::configure() {
 	export CXX=mpicxx
 	export CC=mpicc
 	cmake \
-		-DCMAKE_INSTALL_PREFIX="${PREFIX}"  "${MODULE_SRCDIR}" \
+		-DCMAKE_INSTALL_PREFIX="${PREFIX}" \
+		"${conf[@]}" \
+		"${MODULE_SRCDIR}" \
 		|| exit 1
 }
 
