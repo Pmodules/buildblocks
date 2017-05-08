@@ -1,5 +1,7 @@
 #!/usr/bin/env modbuild
 
+SOURCE_URL="https://ftp.gnu.org/gnu/gcc/$P-$V/$P-$V.tar.bz2"
+
 pbuild::patch_sources_Darwin() {
 	if (( V_MAJOR == 4 && V_MINOR <= 8 )) || \
 	   (( V_MAJOR == 4 && V_MINOR == 9 && V_PATCHLVL < 4)); then
@@ -12,18 +14,44 @@ pbuild::patch_sources_Darwin() {
 }
 
 pbuild::configure() {
-	"${MODULE_SRCDIR}"/configure \
-		--prefix="${PREFIX}" \
-		--enable-languages=c,c++,objc,obj-c++,lto,fortran \
-		--with-gmp="${GMP_PREFIX}" \
-		--with-mpfr="${MPFR_PREFIX}" \
-		--with-mpc="${MPC_PREFIX}" \
-		--enable-lto \
-		--disable-multilib \
-		--with-build-config=bootstrap-debug \
-		--with-pkgversion="PSI Environment Module" \
-		--with-build-config=bootstrap-debug \
-		|| exit 1
+	local -a conf_args=()
+	conf_args+=( "--enable-languages=c,c++,objc,obj-c++,lto,fortran" )
+	conf_args+=( "--with-gmp=${GMP_PREFIX}" )
+	conf_args+=( "--with-mpfr=${MPFR_PREFIX}" )
+	conf_args+=( "--with-mpc=${MPC_PREFIX}" )
+	conf_args+=( "--enable-lto" )
+	conf_args+=( "--disable-multilib" )
+	conf_args+=( "--with-build-config=bootstrap-debug" )
+	conf_args+=( "--with-pkgversion='PSI Environment Module'" )
+	conf_args+=( "--with-build-config=bootstrap-debug" )
+
+	case "${OS}" in
+	Darwin )
+		local -r prefix='/opt/local'
+		"${MODULE_SRCDIR}"/configure \
+			--prefix="${PREFIX}" \
+			"${conf_args[@]}" \
+			--with-as=${prefix}/bin/as \
+			--with-ld=${prefix}/bin/ld \
+			--with-ar=${prefix}/bin/ar \
+			AR_FOR_TARGET=${prefix}/bin/ar \
+			AS_FOR_TARGET=${prefix}/bin/as \
+			LD_FOR_TARGET=${prefix}/bin/ld \
+			NM_FOR_TARGET=${prefix}/bin/nm \
+			OBJDUMP_FOR_TARGET=${prefix}/bin/objdump \
+			RANLIB_FOR_TARGET=${prefix}/bin/ranlib \
+			STRIP_FOR_TARGET=${prefix}/bin/strip \
+			OTOOL=${prefix}/bin/otool \
+			OTOOL64=${prefix}/bin/otool \
+			|| exit 1
+		;;
+	Linux )
+		"${MODULE_SRCDIR}"/configure \
+			--prefix="${PREFIX}" \
+			"${conf_args[@]}" \
+			|| exit 1
+		;;
+	esac
 }
 
 # use system gcc to compile
