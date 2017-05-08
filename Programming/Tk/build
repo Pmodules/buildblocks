@@ -9,6 +9,8 @@ pbuild::configure() {
 		;;
 	Darwin )
 		srcdir="${MODULE_SRCDIR}/macosx"
+		C_INCLUDE_PATH+=":/opt/local/include"
+		LIBRARY_PATH+=":/opt/local/lib"
 		;;
 	esac
 	"${srcdir}"/configure \
