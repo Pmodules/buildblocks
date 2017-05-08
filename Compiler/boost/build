@@ -1,6 +1,7 @@
 #!/usr/bin/env modbuild
 
-SOURCE_URL="https://sourceforge.net/projects/boost/files/$P/$V/boost_${V_MAJOR}_${V_MINOR}_${V_PATCHLVL}.tar.gz"
+SOURCE_URL="https://netcologne.dl.sourceforge.net/project/boost/boost/$V/boost_${V_MAJOR}_${V_MINOR}_${V_PATCHLVL}.tar.gz"
+
 BOOST_BUILD_PATH="${MODULE_BUILDDIR}"
 
 pbuild::configure() {
