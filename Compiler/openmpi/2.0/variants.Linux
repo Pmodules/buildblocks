@@ -5,6 +5,5 @@ openmpi/2.0.1   stable		gcc/4.9.4
 openmpi/2.0.1   stable		gcc/5.4.0
 openmpi/2.0.1   stable		gcc/6.2.0
 openmpi/2.0.1	stable		gcc/6.3.0
-openmpi/2.1.0	stable		gcc/7.1.0
 
 openmpi/2.0.0	stable		intel/16.3
