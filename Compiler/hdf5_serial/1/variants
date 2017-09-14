@@ -41,3 +41,6 @@ hdf5_serial/1.10.1	stable		gcc/7.2.0
 
 hdf5_serial/1.10.1	unstable	intel/17.1
 hdf5_serial/1.10.1	stable		intel/17.4
+
+hdf5_serial/1.10.1	unstable	pgi/17.3
+hdf5_serial/1.10.1	unstable	pgi/17.7
