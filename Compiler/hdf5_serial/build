@@ -1,6 +1,11 @@
 #!/usr/bin/env modbuild
 
 pbuild::configure() {
+	test "$(basename "$CPP")" = "pgprepro" && {
+		CPP=cpp
+		CXX=g++
+		echo "INFO: substituted pgprepro with cpp, and pgc++ with g++!"
+	}
 	"${MODULE_SRCDIR}"/configure \
 		--prefix="${PREFIX}" \
 		--enable-shared \
