@@ -1,0 +1,29 @@
+#!/usr/bin/env modbuild
+#
+# Notes:
+#   On Mac OS X VTK does not compile out of the box with self-compiled GCC.
+#   grep for "long-branch" and "pascal-string" in the cmake configuration
+#   and remove these strings.
+#
+
+SOURCE_URL="http://bitbucket.org/eigen/eigen/get/${V_MAJOR}.${V_MINOR}.${V_PATCHLVL}.tar.bz2"
+
+pbuild::configure() {
+	export BOOST_ROOT="${BOOST_PREFIX}"
+	config_args=()
+	config_args+=( "-DUMFPACK_INCLUDES=${UMFPACK_INCLUDE_DIR}" )
+	config_args+=( "-DUMFPACK_LIBRARIES=${UMFPACK_LIBRARY_DIR}" )
+	config_args+=( "-DGMP_INCLUDES=${GMP_INCLUDE_DIR}" )
+	config_args+=( "-DGMP_LIBRARIES=${GMP_LIBRARY_DIR}" )
+	config_args+=( "-DMPFR_INCLUDES=${MPFR_INCLUDE_DIR}" )
+	config_args+=( "-DMPFR_LIBRARIES=${MPFR_LIBRARY_DIR}" )
+	config_args+=( "-DSUPERLU_INCLUDES=${SUPERLU_INCLUDE_DIR}" )
+	config_args+=( "-DSUPERLU_LIBRARIES=${SUPERLU_LIBRARY_DIR}" )
+	cmake -DCMAKE_INSTALL_PREFIX:PATH=$PREFIX \
+		"${config_args[@]}" \
+		"${MODULE_SRCDIR}"
+}
+
+pbuild::add_to_group 'Compiler'
+pbuild::make_all
+

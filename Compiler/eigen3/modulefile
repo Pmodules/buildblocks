@@ -1,0 +1,11 @@
+#%Module1.0
+
+module-whatis		"a C++ template library for linear algebra:"
+module-url		"http://eigen.tuxfamily.org/"
+module-license		"Mozilla Public License Version 2.0"
+module-maintainer	"Achim Gsell <achim.gsell@psi.ch>"
+
+module-help		"
+Eigen is a C++ template library for linear algebra: matrices, vectors,
+numerical solvers, and related algorithms.
+"
