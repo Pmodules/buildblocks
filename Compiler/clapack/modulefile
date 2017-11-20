@@ -1,0 +1,10 @@
+#%Module1.0
+
+module-whatis		"CLAPACK - f2c'ed version of LAPACK"
+module-url		"http://www.netlib.org/clapack/"
+module-license		"See: $PREFIX/share/doc/COPYING"
+module-maintainer	"Achim Gsell <achim.gsell@psi.ch>"
+
+module-help		"
+
+"
