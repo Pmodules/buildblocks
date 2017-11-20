@@ -3,13 +3,15 @@
 SOURCE_URL="https://root.cern.ch/download/root_v${V_MAJOR}.${V_MINOR}.${V_PATCHLVL}.source.tar.gz"
 
 declare -a EXTRA_LIBS=()
-config_args=''
+config_args=()
 
 case ${OS} in
 Darwin )
 	# cocoa doesn't work with GCC!?
-	config_args+=' -Dcocoa=OFF'
-	config_args+=' -Dx11=ON'
+	config_args+=( '-Dcocoa=OFF' )
+	config_args+=( '-Dx11=ON' )
+	config_args+=( '-DCMAKE_OSX_SYSROOT=/' )
+	config_args+=( "-DCMAKE_OSX_DEPLOYMENT_TARGET=''" )
 	;;
 Linux )
 	INSTANTCLIENT_INCLUDE_DIR='/usr/lib/oracle/12.1/client64/include'
@@ -18,10 +20,10 @@ Linux )
 	CXX_INCLUDE_PATH+=":${INSTANTCLIENT_INCLUDE_DIR}"
 	CPLUS_INCLUDE_PATH+=":${INSTANTCLIENT_INCLUDE_DIR}"
 	LIBRARY_DIR+=":${INSTANTCLIENT_LIBRARY_DIR}"
-	config_args+=" -Doracle=ON"
-	config_args+=" -DORACLE_PATH_INCLUDES=${INSTANTCLIENT_INCLUDE_DIR}"
-	config_args+=" -DORACLE_PATH_LIB=${INSTANTCLIENT_LIBRARY_DIR}"
-	config_args+=" -DORACLE_OCI_VERSION=10G_R2"
+	config_args+=( "-Doracle=ON" )
+	config_args+=( "-DORACLE_PATH_INCLUDES=${INSTANTCLIENT_INCLUDE_DIR}" )
+	config_args+=( "-DORACLE_PATH_LIB=${INSTANTCLIENT_LIBRARY_DIR}" )
+	config_args+=( "-DORACLE_OCI_VERSION=10G_R2" )
 	;;
 *)
 	std:die 1 "${OS} is not supported"
@@ -34,7 +36,7 @@ pbuild::patch_sources_Linux() {
 
 pbuild::configure() {
 	cmake "${MODULE_SRCDIR}" \
-		${config_args} \
+		"${config_args[@]}" \
 		-DCMAKE_INSTALL_PREFIX="${PREFIX}" \
 		|| exit 1
 	sed -i.bak "s:${MODULE_SRCDIR//\/\///}/root.exe:${MODULE_BUILDDIR//\/\///}/bin/root.exe:" CMakeFiles/hsimple.dir/build.make 
