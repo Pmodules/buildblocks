@@ -16,7 +16,7 @@
 
 `MODULEFILES_DIR`: top-level directory where the modulefiles are installed relative to the group: `$PMODULES_ROOT/$GRP/modulefiles`.
 
-`$RELEASE`: release of module either '`unstable`', '`stable`'   or '`deprecated`'
+`$RELEASE`: release of module, the value is either '`unstable`', '`stable`'   or '`deprecated`'
 
 ## Download
 
