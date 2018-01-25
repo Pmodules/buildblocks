@@ -1,0 +1,22 @@
+#!/usr/bin/env modbuild
+#
+
+SOURCE_URL="http://www.netlib.org/$P/$P-$V-CMAKE.tgz"
+
+pbuild::configure() {
+	cmake -DCMAKE_INSTALL_PREFIX:PATH=$PREFIX \
+		"${MODULE_SRCDIR}" \
+		|| exit 1
+}
+
+pbuild::install() {
+	mkdir -p "${PREFIX}/include"
+	mkdir -p "${PREFIX}/lib"
+	install -m 0644 "${MODULE_BUILDDIR}/F2CLIBS/libf2c/libf2c.a" "${PREFIX}/lib"
+	install -m 0644 "${MODULE_BUILDDIR}/SRC/liblapack.a" "${PREFIX}/lib"
+}
+
+pbuild::add_to_group 'Compiler'
+pbuild::set_docfiles 'COPYING'
+pbuild::make_all
+

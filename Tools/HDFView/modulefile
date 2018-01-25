@@ -1,0 +1,20 @@
+#%Module1.0
+
+module-whatis		"viewer for HDF files"
+module-url		"https://www.hdfgroup.org/downloads/hdfview/"
+module-license		"see \$HDFVIEW_DIR/share/doc/COPYING"
+module-maintainer	"Achim Gsell <achim.gsell@psi.ch>"
+
+module-help		"
+HDFView is a visual tool written in Java for browsing and editing HDF
+(HDF5 and HDF4) files. Using HDFView, you can:
+
+ - View a file hierarchy in a tree structure
+ - Create new files, add or delete groups and datasets
+ - View and modify the content of a dataset
+ - Add, delete and modify attributes
+
+HDFView uses the Java HDF Object Package, which implements HDF4 and HDF5
+data objects in an object-oriented form.
+"
+

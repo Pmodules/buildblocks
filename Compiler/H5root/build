@@ -1,6 +1,8 @@
 #!/usr/bin/env modbuild
 
-pbuild::pre_configure() {
+SOURCE_URL="http://amas.web.psi.ch/Downloads/$P/$P-$V.tar.bz2"
+
+pbuild::post_prep() {
 	./autogen.sh
 }
 
@@ -9,8 +11,42 @@ pbuild::configure() {
 		--prefix="${PREFIX}"
 }
 
-declare JOBS=1
-pbuild::compile_in_sourcetree
+pbuild::post_install() {
+	# Unfortunatelly we need some fancy post-installation.
+	# Otherwise it wouldn't be possible to load the modules
+	# for H5root and OPAL at the same time. The problem is
+	# the JIT compiler of ROOT and the fact, that we need
+	# a serial HDF5 for H5root but a parallel for OPAL.
+	#
+	# Since ROOT's JIT compiler uses the environment variable
+	# CPLUS_INCLUDE_PATH to search for header files, the 
+	# content of it is cruciale. In other words: it must be 
+	# guaranteed that the header files of the serial compiled
+	# HDF5 are used by ROOT's JIT compiler. Since we have no
+	# influence on the order he modules are loaded, we cannot
+	# guarantee this without checking and - if required - 
+	# changing the search path. 
+	#
+	# The simplest solution for this problem is to install
+	# all required header files of HDF5 and H5hut into the
+	# include directory of the H5root module and to use a
+	# wrapper script to set the right search path.
+	
+	# rename H5root binary, this will be called by a wrapper
+	# script.
+	mv "${PREFIX}/bin/H5root" "${PREFIX}/bin/H5root.bin"
+
+	# install wrapper script and set the right paths
+	local sed_cmd="s:@PREFIX@:${PREFIX}:g;"
+	sed_cmd+="s:@HDF5_PREFIX@:${HDF5_SERIAL_PREFIX}:g;"
+	sed_cmd+="s:@ROOT_PREFIX@:${ROOT_PREFIX}:g;"
+	sed "${sed_cmd}" "${BUILD_BLOCK_DIR}/${V_MAJOR}/H5root" > "${PREFIX}/bin/H5root"
+	chmod 0755 "${PREFIX}/bin/H5root"
+
+	# install serial HDF5 and H5hut header files
+	cp -av "${HDF5_SERIAL_INCLUDE_DIR}/"*	"${PREFIX}/include/"
+	cp -av "${H5HUT_INCLUDE_DIR}/"*		"${PREFIX}/include/"
+}
 
 pbuild::add_to_group 'Compiler'
 pbuild::make_all

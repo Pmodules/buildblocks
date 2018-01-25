@@ -1,5 +1,7 @@
 #!/usr/bin/env modbuild
 
+SOURCE_URL='http://amas.web.psi.ch/Downloads/OPAL/OPAL-1.6.0rc6.tar.bz2'
+
 config_args=()
 
 case ${OS} in
@@ -15,7 +17,7 @@ esac
 pbuild::configure() {
 	cmake \
 		-DCMAKE_INSTALL_PREFIX="${PREFIX}" \
-		-DCMAKE_BUILD_TYPE=RELEASE \
+		-DCMAKE_BUILD_TYPE=Release \
 		-DENABLE_SAAMG_SOLVER=TRUE \
 		"${config_args[@]}" \
 		"${MODULE_SRCDIR}"

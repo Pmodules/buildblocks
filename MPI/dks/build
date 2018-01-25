@@ -6,6 +6,13 @@ conf=()
 if (( ${vers[0]} >= 1 && ${vers[1]} >= 1 )); then
 	conf+=("-DDKS_FULL=ON")
 fi
+if (( ${vers[0]} >= 1 && ${vers[1]} >= 1 && ${vers[2]} >= 2 )); then
+	# if we want to link OPAL with static cuda libraries, we
+	# cannot use DKS_FULL=ON. This must be fixed in DKS.
+	conf=()
+	conf+=("-DENABLE_OPAL=ON")
+	conf+=("-DSTATIC_CUDA=1")
+fi
 
 pbuild::configure() {
 	export CXX=mpicxx

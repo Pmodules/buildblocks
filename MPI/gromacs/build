@@ -1,20 +1,20 @@
 #!/usr/bin/env modbuild
 
+SOURCE_URL="http://ftp.gromacs.org/pub/$P/$P-$V.tar.gz"
+
 pbuild::configure() {
 	cmake \
 		-DCMAKE_INSTALL_PREFIX="${PREFIX}" \
 		-DCMAKE_BUILD_TYPE=RELEASE \
 		-DGMX_MPI=on \
 		-DGMX_GPU=off \
+		-DGMX_SIMD=SSE2 \
 		-DGMX_BUILD_OWN_FFTW=on \
 		"${MODULE_SRCDIR}" \
 		|| exit 1
 }
 
-
 pbuild::add_to_group 'MPI'
-pbuild::set_runtime_dependencies "${COMPILER}" "${MPI}"
-pbuild::set_build_dependencies "${COMPILER}" "${MPI}" cmake
 pbuild::set_docfiles \
 		AUTHORS \
 		COPYING \

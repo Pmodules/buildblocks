@@ -1,0 +1,23 @@
+#%Module1.0
+
+module-whatis		"an accelerator modeling code th"
+module-url		"http://www.aps.anl.gov/Accelerator_Systems_Division/Accelerator_Operations_Physics/elegant.html"
+module-license		"See: http://www.aps.anl.gov/epics/license/index.php"
+module-maintainer	"Achim Gsell <achim.gsell@psi.ch>"
+
+module-help	"
+elegant is an accelerator modeling code that performs many functions. Its
+basic function is 6D tracking, which it performs using matrices (up to
+second order), symplectic integration, numerical integration, or a user-
+defined mixture. It computes Twiss parameters, transport matrices, radiation
+integrals, correction matrices, amplification factors, and floor coordinates.
+It also performs optimization, including optimization of radiation integrals,
+floor coordinates, transport matrices, and beam properties from tracking. A
+number of time-dependent elements are supported, such as rf cavities, kickers,
+and ramping machines. The code provides simulation of various collective
+effects, such as wakes and coherent synchrotron radiation.
+"
+
+setenv        RPN_DEFNS         $PREFIX/RPN-DEFNS
+setenv        HOST_ARCH         linux-x86_64
+setenv        EPICS_HOST_ARCH   linux-x86_64

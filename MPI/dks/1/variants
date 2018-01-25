@@ -4,3 +4,4 @@ dks/1.0.1	unstable	gcc/5.4.0 openmpi/1.10.4 boost/1.62.0 cuda/8.0.44 b:cmake/3.6
 dks/1.0.2	unstable	gcc/5.4.0 openmpi/1.10.4 boost/1.62.0 cuda/8.0.44 b:cmake/3.6.3
 dks/1.1.0	unstable	gcc/5.4.0 openmpi/1.10.4 boost/1.62.0 cuda/8.0.44 b:cmake/3.6.3
 dks/1.1.1	unstable	gcc/5.4.0 openmpi/1.10.4 boost/1.62.0 cuda/8.0.44 b:cmake/3.6.3
+dks/1.1.2	unstable	gcc/5.4.0 openmpi/1.10.4 boost/1.62.0 cuda/8.0.44 b:cmake/3.6.3

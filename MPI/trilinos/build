@@ -1,6 +1,6 @@
 #!/usr/bin/env modbuild
 
-SOURCE_URL="http://trilinos.csbsju.edu/download/files/trilinos-$V-Source.tar.bz2"
+SOURCE_URL="http://trilinos.csbsju.edu/download/files/trilinos-${V_PKG}-Source.tar.bz2"
 
 declare -rx AR=ar
 
@@ -27,10 +27,8 @@ pbuild::configure() {
 
 	PARMETIS_INCLUDE_DIRS=$PARMETIS_PREFIX/include
 	PARMETIS_LIBRARIES=$PARMETIS_PREFIX/lib/libparmetis.a
-
-	METIS_INCLUDE_DIRS=$PARMETIS_PREFIX/include/metis
-	METIS_LIBRARIES=$PARMETIS_PREFIX/lib/libmetis.a
-
+	METIS_INCLUDE_DIRS="${PARMETIS_PREFIX}/include/metis"
+	METIS_LIBRARIES="${PARMETIS_PREFIX}/lib/libmetis.a"
 
 	cmake \
            -D CMAKE_BUILD_TYPE:STRING=Release \
@@ -70,7 +68,7 @@ pbuild::configure() {
            "${MODULE_SRCDIR}" || exit 1
 }
 
-pbuild::add_to_group 'MPI'
+pbuild::add_to_group 'HDF5'
 pbuild::set_docfiles Copyright.txt LICENSE README RELEASE_NOTES
 pbuild::make_all
 

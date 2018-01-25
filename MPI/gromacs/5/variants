@@ -1,0 +1,3 @@
+gromacs/5.0.4	unstable	gcc/4.8.4 openmpi/1.8.4
+gromacs/5.0.5	unstable	gcc/4.9.2 openmpi/1.8.4
+gromacs/5.1.2	unstable	gcc/4.9.3 openmpi/1.10.0

@@ -1,3 +1,4 @@
+parmetis/4.0.3	stable		gcc/4.8.2 openmpi/1.6.5  b:cmake/3.4.1
 parmetis/4.0.3	stable		gcc/4.8.5 openmpi/1.10.2 b:cmake/3.4.1
 parmetis/4.0.3	stable		gcc/4.9.4 openmpi/1.10.2 b:cmake/3.4.1
 parmetis/4.0.3	stable		gcc/5.3.0 openmpi/1.10.2 b:cmake/3.4.1

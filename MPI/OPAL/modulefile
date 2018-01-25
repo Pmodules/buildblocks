@@ -1,7 +1,7 @@
 #%Module1.0
 
 # OPAL_PREFIX is also used by OpenMPI!
-module-dont-setenv { OPAL_PREFIX }
+set dont-setenv { OPAL_PREFIX }
 
 module-whatis	     	"Object Oriented Particle Accelerator Library"
 module-url		"http://amas.psi.ch/OPAL"

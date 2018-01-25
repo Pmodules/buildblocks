@@ -1,5 +1,7 @@
 #!/usr/bin/env modbuild
 
+SOURCE_URL="file://$PMODULES_DISTFILESDIR/$P-V.tar.bz2"
+
 pbuild::configure() {
 	cat <<EOF > "${MODULE_SRCDIR}/SuiteSparse_config/SuiteSparse_config.mk"
 CF = \$(CFLAGS) \$(CPPFLAGS) \$(TARGET_ARCH) -O3 -fexceptions -fPIC -DNTIMER

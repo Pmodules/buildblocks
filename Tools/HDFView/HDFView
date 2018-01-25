@@ -1,0 +1,5 @@
+#!/bin/sh
+
+declare -r bindir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+exec "${bindir}/../libexec/hdfview.sh" 1> /dev/null 2>&1 &

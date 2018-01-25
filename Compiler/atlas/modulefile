@@ -4,7 +4,7 @@ module-whatis		"efficient BLAS and partial LAPACK implementation"
 module-url		"http://math-atlas.sourceforge.net/"
 module-license		"BSD-style license"
 module-maintainer	"Achim Gsell <achim.gsell@psi.ch>"
-mdoule-help		"
+module-help		"
 The ATLAS (Automatically Tuned Linear Algebra Software) project is an
 ongoing research effort focusing on applying empirical techniques in
 order to provide portable performance. At present, it provides C and

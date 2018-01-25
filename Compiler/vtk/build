@@ -2,7 +2,7 @@
 #
 # Notes:
 #   On Mac OS X VTK does not compile out of the box with self-compiled GCC.
-#   grep vor "long-branch" and "pascal-string" in the cmake configuration
+#   grep for "long-branch" and "pascal-string" in the cmake configuration
 #   and remove these strings.
 #
 

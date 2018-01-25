@@ -1,1 +1,2 @@
 SuperLU/5.2.1	unstable	gcc/4.8.5 b:OpenBLAS/0.2.19 b:cmake/3.6.3
+SuperLU/5.2.1	unstable	gcc/5.4.0 b:OpenBLAS/0.2.19 b:cmake/3.6.3
