@@ -1,5 +1,7 @@
 #!/usr/bin/env modbuild
 
+SOURCE_URL="https://ftp.gnu.org/gnu/emacs/$P-$V.tar.xz"
+
 case ${OS} in
 Darwin )
 	configure_args='--with-ns --with-jpeg=no'
