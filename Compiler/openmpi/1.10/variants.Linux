@@ -11,10 +11,17 @@ openmpi/1.10.2	stable		gcc/5.4.0
 openmpi/1.10.2	stable		gcc/6.1.0
 openmpi/1.10.2	stable		gcc/6.2.0
 
+openmpi/1.10.2	unstable	intel/15.3
+
 openmpi/1.10.4	stable		gcc/4.8.5
 openmpi/1.10.4	stable		gcc/4.9.4
 openmpi/1.10.4	stable		gcc/5.4.0
 openmpi/1.10.4	stable		gcc/6.2.0
 openmpi/1.10.4	unstable	gcc/6.3.0
 
-openmpi/1.10.2	unstable	intel/15.3
+openmpi/1.10.7	unstable	gcc/4.8.5 b:cuda/8.0.44
+openmpi/1.10.7	unstable	gcc/4.9.4 b:cuda/8.0.44
+openmpi/1.10.7	unstable	gcc/5.4.0 b:cuda/8.0.44
+openmpi/1.10.7	unstable	gcc/6.2.0 b:cuda/8.0.44
+openmpi/1.10.7	unstable	gcc/6.3.0 b:cuda/8.0.44
+openmpi/1.10.7	unstable	gcc/7.2.0 b:cuda/8.0.44
