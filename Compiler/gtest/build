@@ -2,6 +2,13 @@
 
 declare -a config_args=()
 
+case "${OS}" in
+Darwin )
+	#config_args+=( '-DCMAKE_OSX_SYSROOT=/' )
+	#config_args+=( "-DCMAKE_OSX_DEPLOYMENT_TARGET=''" )
+	;;
+esac
+
 pbuild::set_docfiles \
 	CHANGES \
 	CONTRIBUTORS \
