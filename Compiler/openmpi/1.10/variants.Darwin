@@ -8,3 +8,6 @@ openmpi/1.10.4	stable		gcc/4.9.3
 openmpi/1.10.4	stable		gcc/4.9.4
 openmpi/1.10.4	stable		gcc/5.4.0
 openmpi/1.10.4	stable		gcc/6.2.0
+
+openmpi/1.10.7	stable		clang-macos/9.0.0
+openmpi/1.10.7	stable		gcc/7.3.0
