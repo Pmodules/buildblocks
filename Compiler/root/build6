@@ -31,7 +31,9 @@ Linux )
 esac
 
 pbuild::patch_sources_Linux() {
-	patch -p1 < "${BUILD_BLOCK_DIR}/${V_MAJOR}/cmake_oracle12.patch"
+	if (( V_MAJOR == 6 && V_MINOR < 12)); then
+		patch -p1 < "${BUILD_BLOCK_DIR}/${V_MAJOR}/cmake_oracle12.patch"
+	fi
 }
 
 pbuild::configure() {
