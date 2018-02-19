@@ -1,6 +1,7 @@
 openmpi/2.1.1   stable          gcc/6.4.0
 openmpi/2.1.0	stable		gcc/7.1.0
 openmpi/2.1.1	stable		gcc/7.2.0
+openmpi/2.1.2	stable		gcc/7.3.0
 
 openmpi/2.1.1   unstable        intel/17.1
 openmpi/2.1.1   stable          intel/17.4
