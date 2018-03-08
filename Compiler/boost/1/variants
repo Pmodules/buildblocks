@@ -24,3 +24,5 @@ boost/1.63.0         stable     gcc/6.3.0 Python/2.7.12
 boost/1.64.0         unstable   gcc/5.4.0 Python/2.7.12
 
 boost/1.66.0         unstable   gcc/7.3.0 b:Python/2.7.12
+boost/1.66.0         unstable   clang-macos/9.0.0 b:Python/2.7.12
+boost/1.66.0         unstable   intel/17.4 b:Python/2.7.12
