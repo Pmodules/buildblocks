@@ -1,5 +1,7 @@
 #!/usr/bin/env modbuild
 
+SOURCE_URL="https://github.com/google/googletest/archive/release-1.7.0.tar.gz"
+
 declare -a config_args=()
 
 case "${OS}" in
