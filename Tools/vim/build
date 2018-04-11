@@ -1,0 +1,23 @@
+#!/usr/bin/env modbuild
+
+SOURCE_URL="ftp://ftp.vim.org/pub/vim/unix/$P-$V.tar.bz2"
+
+
+pbuild::configure() {
+	cd "${MODULE_SRCDIR}"
+	"${MODULE_SRCDIR}"/configure \
+		--prefix="${PREFIX}" \
+		|| exit 1
+}
+
+
+pbuild::add_to_group 'Tools'
+pbuild::compile_in_sourcetree
+#pbuild::set_docfiles 'COPYING' 'README.md'
+pbuild::make_all
+
+# Local Variables:
+# mode: sh
+# sh-basic-offset: 8
+# tab-width: 8
+# End:
