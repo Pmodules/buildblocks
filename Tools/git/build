@@ -15,6 +15,7 @@ pbuild::configure() {
 	"${MODULE_SRCDIR}"/configure \
 		--prefix="${PREFIX}" \
 		--with-tcltk \
+		--with-perl="${PERL_PREFIX}/bin/perl" \
 		|| exit 1
 }
 
