@@ -1,0 +1,17 @@
+#!/usr/bin/env modbuild
+
+SOURCE_URL="http://www.cpan.org/src/5.0/$P-$V.tar.gz"
+
+pbuild::configure() {
+	"${MODULE_SRCDIR}"/configure.gnu \
+		--prefix="${PREFIX}" \
+		|| exit 1
+}
+
+pbuild::post_build() {
+	make test
+}
+
+pbuild::compile_in_sourcetree
+pbuild::add_to_group 'Programming'
+pbuild::make_all
