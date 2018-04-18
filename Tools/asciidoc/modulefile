@@ -1,0 +1,18 @@
+#%Module1.0
+
+module-whatis		"translater for asciidoc formatted documents"
+module-url		"http://www.methods.co.nz/asciidoc/index.html"
+module-license		"GPL v2"
+module-maintainer	"Achim Gsell <achim.gsell@psi.ch>"
+
+module-help		"
+AsciiDoc is a text document format for writing notes, documentation,
+articles, books, ebooks, slideshows, web pages, man pages and blogs.
+AsciiDoc files can be translated to many formats including HTML, PDF,
+EPUB, man page.
+
+AsciiDoc is highly configurable: both the AsciiDoc source file syntax
+and the backend output markups (which can be almost any type of SGML/XML
+markup) can be customized and extended by the user.
+"
+

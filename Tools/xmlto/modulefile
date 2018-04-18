@@ -1,0 +1,18 @@
+#%Module1.0
+
+module-whatis		"script to convert XML to other formats"
+module-url		"https://pagure.io/xmlto"
+module-license		"GPL v2"
+module-maintainer	"Achim Gsell <achim.gsell@psi.ch>"
+
+module-help		"
+Utility xmlto is a simple shell script for converting XML files to various
+formats. It serves as easy to use command line frontend to make fine output
+without remembering many long options and searching for the syntax of the
+backends.
+
+At the moment it supports conersion from docbook, xhtml1 and fo format to
+various output formats(awt, fo, htmlhelp, javahelp, mif, pdf, svg, xhtml,
+dvi, html, html-nochunks, man , pcl, ps, txt, xhtml-nochunks) 
+"
+

@@ -1,0 +1,26 @@
+#!/usr/bin/env modbuild
+
+SOURCE_URL="https://releases.pagure.org/$P/$P-$V.tar.bz2"
+
+pbuild::configure() {
+	"${MODULE_SRCDIR}"/configure \
+		--prefix="${PREFIX}" \
+		|| exit 1
+}
+
+pbuild::compile_in_sourcetree
+pbuild::add_to_group 'Tools'
+pbuild::set_docfiles	\
+	AUTHORS		\
+	COPYING		\
+	FAQ		\
+	NEWS		\
+	README		\
+	THANKS 
+pbuild::make_all
+
+# Local Variables:
+# mode: sh
+# sh-basic-offset: 8
+# tab-width: 8
+# End:

@@ -31,7 +31,7 @@ pbuild::post_install() {
 	pip${V_MAJOR} install pandas
 	pip${V_MAJOR} install sympy
 	pip${V_MAJOR} install nose
-	pip${V_MAJOR} install mpi4py
+	#pip${V_MAJOR} install mpi4py
 }
 
 pbuild::add_to_group 'Programming'
