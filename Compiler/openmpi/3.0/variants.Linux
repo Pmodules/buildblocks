@@ -4,4 +4,5 @@ openmpi/3.0.0   stable          gcc/7.3.0
 openmpi/3.0.0   stable          intel/17.4
 
 openmpi/3.0.1	stable		gcc/7.3.0
+openmpi/3.0.1	stable		gcc/8.1.0
 openpmi/3.0.1   unstable        intel/18.2
