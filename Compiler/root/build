@@ -14,21 +14,24 @@ Darwin )
 Linux )
 	INSTANTCLIENT_INCLUDE_DIR='/usr/include/oracle/12.1/client64'
 	INSTANTCLIENT_LIBRARY_DIR='/usr/lib/oracle/12.1/client64/lib'
-	EXTRA_LIBS+=( "${INSTANTCLIENT_LIBRARY_DIR}/libclntshcore.so" )
-	EXTRA_LIBS+=( "${INSTANTCLIENT_LIBRARY_DIR}/libclntshcore.so.12.1" )
-	EXTRA_LIBS+=( "${INSTANTCLIENT_LIBRARY_DIR}/libclntsh.so" )
-	EXTRA_LIBS+=( "${INSTANTCLIENT_LIBRARY_DIR}/libclntsh.so.12.1" )
-	EXTRA_LIBS+=( "${INSTANTCLIENT_LIBRARY_DIR}/libipc1.so" )
-	EXTRA_LIBS+=( "${INSTANTCLIENT_LIBRARY_DIR}/libmql1.so" )
-	EXTRA_LIBS+=( "${INSTANTCLIENT_LIBRARY_DIR}/libnnz12.so" )
-	EXTRA_LIBS+=( "${INSTANTCLIENT_LIBRARY_DIR}/libocci.so" )
-	EXTRA_LIBS+=( "${INSTANTCLIENT_LIBRARY_DIR}/libocci.so.12.1" )
-	EXTRA_LIBS+=( "${INSTANTCLIENT_LIBRARY_DIR}/libociei.so" )
-	EXTRA_LIBS+=( "${INSTANTCLIENT_LIBRARY_DIR}/libocijdbc12.so" )
-	EXTRA_LIBS+=( "${INSTANTCLIENT_LIBRARY_DIR}/libons.so" )
-	EXTRA_LIBS+=( "${INSTANTCLIENT_LIBRARY_DIR}/liboramysql12.so" )
-	config_args+=" --with-oracle-incdir=${INSTANTCLIENT_INCLUDE_DIR}"
-	config_args+=" --with-oracle-libdir=${INSTANTCLIENT_LIBRARY_DIR}"
+	if [[ -e ${INSTANTCLIENT_INCLUDE_DIR} ]] && \
+           [[ -e ${INSTANTCLIENT_LIBRARY_DIR} ]]; then
+		EXTRA_LIBS+=( "${INSTANTCLIENT_LIBRARY_DIR}/libclntshcore.so" )
+		EXTRA_LIBS+=( "${INSTANTCLIENT_LIBRARY_DIR}/libclntshcore.so.12.1" )
+		EXTRA_LIBS+=( "${INSTANTCLIENT_LIBRARY_DIR}/libclntsh.so" )
+		EXTRA_LIBS+=( "${INSTANTCLIENT_LIBRARY_DIR}/libclntsh.so.12.1" )
+		EXTRA_LIBS+=( "${INSTANTCLIENT_LIBRARY_DIR}/libipc1.so" )
+		EXTRA_LIBS+=( "${INSTANTCLIENT_LIBRARY_DIR}/libmql1.so" )
+		EXTRA_LIBS+=( "${INSTANTCLIENT_LIBRARY_DIR}/libnnz12.so" )
+		EXTRA_LIBS+=( "${INSTANTCLIENT_LIBRARY_DIR}/libocci.so" )
+		EXTRA_LIBS+=( "${INSTANTCLIENT_LIBRARY_DIR}/libocci.so.12.1" )
+		EXTRA_LIBS+=( "${INSTANTCLIENT_LIBRARY_DIR}/libociei.so" )
+		EXTRA_LIBS+=( "${INSTANTCLIENT_LIBRARY_DIR}/libocijdbc12.so" )
+		EXTRA_LIBS+=( "${INSTANTCLIENT_LIBRARY_DIR}/libons.so" )
+		EXTRA_LIBS+=( "${INSTANTCLIENT_LIBRARY_DIR}/liboramysql12.so" )
+		config_args+=" --with-oracle-incdir=${INSTANTCLIENT_INCLUDE_DIR}"
+		config_args+=" --with-oracle-libdir=${INSTANTCLIENT_LIBRARY_DIR}"
+	fi
 	;;
 *)
 	;;
