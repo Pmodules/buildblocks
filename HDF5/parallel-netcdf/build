@@ -1,0 +1,28 @@
+#!/usr/bin/env modbuild
+
+SOURCE_URL="http://cucis.ece.northwestern.edu/projects/PnetCDF/Release/$P-$V.tar.gz"
+
+pbuild::pre_configure() {
+	:
+}
+
+pbuild::configure() {
+	"${SRC_DIR}"/configure \
+		--prefix="${PREFIX}" \
+		--with-mpi="${OPENMPI_DIR}" \
+		--with-pic \
+		--disable-shared \
+		|| exit 1
+}
+
+pbuild::add_to_group 'HDF5'
+pbuild::set_docfiles \
+	AUTHORS  \
+	COPYING \
+	COPYRIGHT \
+	CREDITS \
+	ChangeLog \
+	NEWS \
+	RELEASE_NOTES
+pbuild::make_all
+

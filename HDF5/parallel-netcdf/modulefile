@@ -1,0 +1,21 @@
+#%Module1.0
+
+module-whatis		"parallel netCDF"
+module-url		"https://trac.mcs.anl.gov/projects/parallel-netcdf/wiki/WikiStart"
+module-license		"BSD-like, see \${PARALLEL_NETCDF_DIR}/share/doc/parallel-netcdf/COPYRIGHT"
+module-maintainer	"Achim Gsell <achim.gsell@psi.ch>"
+
+module-help		"
+PnetCDF is a high-performance parallel I/O library for accessing files in
+format compatibility with Unidata's NetCDF, specifically the formats of
+CDF-1, 2, and 5. The CDF-5 file format, an extension of CDF-2, supports
+unsigned data types and uses 64-bit integers to allow users to define
+large dimensions, attributes, and variables (> 2B array elements).
+
+In addition to the conventional netCDF read and write APIs, PnetCDF also
+provides a new set of nonblocking APIs. Nonblocking APIs allow users to
+post multiple read and write requests first, and later let PnetCDF to
+aggregate the requests into a large MPI-IO request, hence to achieve a
+better performance. See nonblocking I/O for further description and example
+programs. 
+"
