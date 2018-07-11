@@ -3,7 +3,7 @@
 SOURCE_URL="https://releases.pagure.org/$P/$P-$V.tar.bz2"
 
 pbuild::configure() {
-	"${MODULE_SRCDIR}"/configure \
+	"${SRC_DIR}"/configure \
 		--prefix="${PREFIX}" \
 		|| exit 1
 }

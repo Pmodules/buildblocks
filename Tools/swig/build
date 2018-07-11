@@ -3,7 +3,7 @@
 SOURCE_URL="https://sourceforge.net/projects/swig/files/$P/$P-$V/$P-$V.tar.gz"
 
 pbuild::configure() {
-	"${MODULE_SRCDIR}"/configure \
+	"${SRC_DIR}"/configure \
 		--prefix="${PREFIX}" \
 		|| exit 1
 }

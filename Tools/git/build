@@ -11,8 +11,8 @@ Darwin )
 esac
 
 pbuild::configure() {
-	cd "${MODULE_SRCDIR}"
-	"${MODULE_SRCDIR}"/configure \
+	cd "${SRC_DIR}"
+	"${SRC_DIR}"/configure \
 		--prefix="${PREFIX}" \
 		--with-tcltk \
 		--with-perl="${PERL_PREFIX}/bin/perl" \
@@ -20,14 +20,14 @@ pbuild::configure() {
 }
 
 pbuild::build() {
-        cd "${MODULE_SRCDIR}"
+        cd "${SRC_DIR}"
         make
 
 	make -C contrib/subtree prefix="${prefix}"
 }
 
 pbuild::install() {
-        cd "${MODULE_SRCDIR}"
+        cd "${SRC_DIR}"
         make install
         make install-doc
 	make -C contrib/subtree prefix="${PREFIX}" install

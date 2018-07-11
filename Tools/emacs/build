@@ -20,7 +20,7 @@ Linux )
 esac
 
 pbuild::configure() {
-	"${MODULE_SRCDIR}"/configure \
+	"${SRC_DIR}"/configure \
 		--prefix="${PREFIX}" \
 		${configure_args} \
 		|| exit 1
@@ -29,12 +29,12 @@ pbuild::configure() {
 
 pbuild::post_install() {
 	mkdir -p "${PREFIX}/bin"
-	install -m 0755 "${BUILD_BLOCK_DIR}/Emacs" "${PREFIX}/bin"
-	install -m 0755 "${BUILD_BLOCK_DIR}/Emacsclient" "${PREFIX}/bin"
+	install -m 0755 "${BUILDBLOCK_DIR}/Emacs" "${PREFIX}/bin"
+	install -m 0755 "${BUILDBLOCK_DIR}/Emacsclient" "${PREFIX}/bin"
 }
 
 pbuild::post_install_Darwin() {
-	cp -a "${MODULE_BUILDDIR}/nextstep/Emacs.app" "${PREFIX}"
+	cp -a "${BUILD_DIR}/nextstep/Emacs.app" "${PREFIX}"
 }
 
 pbuild::add_to_group 'Tools'
