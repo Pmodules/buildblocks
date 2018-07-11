@@ -1,7 +1,7 @@
 #!/usr/bin/env modbuild
 
 pbuild::configure() {
-	cd "${MODULE_SRCDIR}"
+	cd "${SRC_DIR}"
 	./configure \
 		--prefix="${PREFIX}" \
 		--with-libpcap=included \
@@ -12,12 +12,12 @@ pbuild::configure() {
 }
 
 pbuild::build() {
-	cd "${MODULE_SRCDIR}"
+	cd "${SRC_DIR}"
 	make -j "${JOBS}"
 }
 
 pbuild::install() {
-	cd "${MODULE_SRCDIR}"
+	cd "${SRC_DIR}"
 	make install
 }
 

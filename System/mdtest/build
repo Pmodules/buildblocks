@@ -5,13 +5,13 @@ pbuild::configure() {
 }
 
 pbuild::build() {
-        cd "${MODULE_SRCDIR}"
+        cd "${SRC_DIR}"
 
 	make -j ${JOBS}
 }
 
 pbuild::install() {
-        cd "${MODULE_SRCDIR}"
+        cd "${SRC_DIR}"
 	mkdir -p ${PREFIX}/bin
 	install -m 0755 mdtest "${PREFIX}/bin"
 }
