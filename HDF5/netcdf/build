@@ -13,7 +13,7 @@ pbuild::configure() {
 	F90=$MPIF90
 	FC=$MPIFC
 	FORTRAN=$MPIFORTRAN
-	"${MODULE_SRCDIR}"/configure \
+	"${SRC_DIR}"/configure \
 		--prefix="${PREFIX}" \
 		--enable-netcdf-4 \
 		--with-pic \

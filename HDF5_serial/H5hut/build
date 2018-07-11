@@ -5,8 +5,8 @@ SOURCE_URL="http://amas.web.psi.ch/Downloads/$P/$P-$V.tar.gz"
 #	--enable-vtkconverter \
 
 pbuild::configure() {
-	# (cd "${MODULE_SRCDIR}" && ./autogen.sh)
-	"${MODULE_SRCDIR}"/configure \
+	# (cd "${SRC_DIR}" && ./autogen.sh)
+	"${SRC_DIR}"/configure \
 		--prefix="${PREFIX}" \
 		--enable-debug \
 		--with-hdf5="${HDF5_SERIAL_PREFIX}" \

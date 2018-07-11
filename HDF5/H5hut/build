@@ -23,7 +23,7 @@ pbuild::configure() {
 			;;
 	esac
 
-	"${MODULE_SRCDIR}"/configure \
+	"${SRC_DIR}"/configure \
 		--prefix="${PREFIX}" \
 		--enable-parallel \
 		--enable-debug \
