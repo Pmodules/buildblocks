@@ -21,7 +21,7 @@ pbuild::configure() {
 	config_args+=( "-DSUPERLU_LIBRARIES=${SUPERLU_LIBRARY_DIR}" )
 	cmake -DCMAKE_INSTALL_PREFIX:PATH=$PREFIX \
 		"${config_args[@]}" \
-		"${MODULE_SRCDIR}"
+		"${SRC_DIR}"
 }
 
 pbuild::add_to_group 'Compiler'

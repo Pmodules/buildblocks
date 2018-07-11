@@ -43,7 +43,7 @@ esac
 #	xml
 #
 pbuild::configure() {
-	"${MODULE_SRCDIR}"/configure \
+	"${SRC_DIR}"/configure \
 		--enable-asimage \
 		--enable-mathmore \
 		--disable-ldap \

@@ -8,7 +8,7 @@ pbuild::configure() {
 		CXX=g++
 		echo "INFO: substituted pgprepro with cpp, and pgc++ with g++!"
 	}
-	"${MODULE_SRCDIR}"/configure \
+	"${SRC_DIR}"/configure \
 		--prefix="${PREFIX}" \
 		--enable-shared \
 		--enable-cxx \

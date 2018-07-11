@@ -2,11 +2,11 @@
 
 SOURCE_URL="https://netcologne.dl.sourceforge.net/project/boost/boost/$V/boost_${V_MAJOR}_${V_MINOR}_${V_PATCHLVL}.tar.gz"
 
-BOOST_BUILD_PATH="${MODULE_BUILDDIR}"
+BOOST_BUILD_PATH="${BUILD_DIR}"
 
 pbuild::configure() {
-	cd "${MODULE_SRCDIR}"
-	"${MODULE_SRCDIR}"/bootstrap.sh \
+	cd "${SRC_DIR}"
+	"${SRC_DIR}"/bootstrap.sh \
 		--prefix="${PREFIX}" \
 		--with-libraries=all \
 		--with-python-root="${PYTHON_PREFIX}" \
@@ -14,10 +14,10 @@ pbuild::configure() {
 }
 
 pbuild::build() {
-	cd "${MODULE_SRCDIR}"
+	cd "${SRC_DIR}"
 	./b2 \
 		--build-type=minimal \
-		--build-dir="${MODULE_BUILDDIR}" \
+		--build-dir="${BUILD_DIR}" \
 		--layout=system \
 		--without-mpi \
 		variant=release \
@@ -27,10 +27,10 @@ pbuild::build() {
 }
 
 pbuild::install() {
-	cd "${MODULE_SRCDIR}"
+	cd "${SRC_DIR}"
 	./b2 \
 		--build-type=minimal \
-		--build-dir="${MODULE_BUILDDIR}" \
+		--build-dir="${BUILD_DIR}" \
 		--layout=system \
 		--without-mpi \
 		variant=release \
