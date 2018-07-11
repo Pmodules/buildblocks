@@ -8,7 +8,7 @@ pbuild::configure() {
 	export LDFLAGS="-L${OPENSSL_LIBRARY_DIR}"
 	export CPPFLAGS="-fPIC -I${OPENSSL_INCLUDE_DIR} -I${OPENSSL_INCLUDE_DIR}/openssl"
 	export LD_LIBRARY_PATH+=":${PREFIX}/lib"
-	"${MODULE_SRCDIR}"/configure \
+	"${SRC_DIR}"/configure \
 		--prefix="${PREFIX}" \
 		--enable-shared \
 		|| exit 1
@@ -22,7 +22,7 @@ pbuild::post_install() {
 	ln -fs "${PREFIX}/include/python${V%.*}m" "${PREFIX}/include/python"
 	ln -fs "${PREFIX}/include/python${V%.*}m" "${PREFIX}/include/python${V%.*}"
 	PATH+=":${PREFIX}/bin"
-	cd "${BUILD_BLOCK_DIR}"
+	cd "${BUILDBLOCK_DIR}"
 	"${PREFIX}/bin/python" 'get-pip.py'
 	pip${V_MAJOR} install numpy
 	pip${V_MAJOR} install scipy

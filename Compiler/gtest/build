@@ -22,11 +22,11 @@ pbuild::configure() {
                 -DCMAKE_INSTALL_PREFIX="${PREFIX}" \
                 -DCMAKE_BUILD_TYPE=RELEASE \
                 "${config_args[@]}" \
-                "${MODULE_SRCDIR}"
+                "${SRC_DIR}"
 }
 
 pbuild::install() {
-	local -r _include_srcdir="${MODULE_SRCDIR}/include/gtest"
+	local -r _include_srcdir="${SRC_DIR}/include/gtest"
 	local -r _include_dstdir="${PREFIX}/include/gtest"
 	if [[ -e "${_include_dstdir}" ]]; then
 		chmod -R u+w "${_include_dstdir}"

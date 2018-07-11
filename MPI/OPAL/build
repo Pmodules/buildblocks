@@ -22,7 +22,7 @@ pbuild::configure() {
 		-DCMAKE_BUILD_TYPE=Release \
 		-DENABLE_SAAMG_SOLVER=TRUE \
 		"${config_args[@]}" \
-		"${MODULE_SRCDIR}"
+		"${SRC_DIR}"
 }
 
 pbuild::add_to_group 'MPI'

@@ -5,7 +5,7 @@ pbuild::pre_configure() {
 }
 
 pbuild::configure() {
-	"${MODULE_SRCDIR}"/configure \
+	"${SRC_DIR}"/configure \
 		--prefix="${PREFIX}"
 }
 

@@ -3,7 +3,7 @@
 SOURCE_URL="http://www.mpfr.org/$P-$V/$P-$V.tar.gz"
 
 pbuild::configure() {
-	"${MODULE_SRCDIR}"/configure \
+	"${SRC_DIR}"/configure \
 		--prefix="${PREFIX}" \
 		--with-gmp=$GMP_PREFIX \
 		--disable-shared \

@@ -1,26 +1,25 @@
 #!/usr/bin/env modbuild
 
-SOURCE_URL="lammps-2017.8.tar.gz"
-
+pbuild::add_to_group 'MPI'
+pbuild::set_download_url https://gitlab.psi.ch/Pmodules/download/raw/master/$P-$V.tar.gz
+pbuild::set_docfiles \
+		LICENSE \
+		README
 pbuild::compile_in_sourcetree
 
 pbuild::configure() {
-	cp -v "${BUILD_BLOCK_DIR}/files/Makefile.PSI" "${MODULE_BUILDDIR}/src/MAKE/MINE"
+	cp -v "${BUILDBLOCK_DIR}/files/Makefile.PSI" "${BUILD_DIR}/src/MAKE/MINE"
 }
 
-pbuild::build() {
+pbuild::compile() {
 	make -C src PSI
 }
 
 pbuild::install() {
 	install -m 0755 -d "${PREFIX}/bin"
-	install -m 0755  "${MODULE_BUILDDIR}/src/lmp_PSI" "${PREFIX}/bin/lmp_omp"
+	install -m 0755  "${BUILD_DIR}/src/lmp_PSI" "${PREFIX}/bin/lmp_omp"
 	strip "${PREFIX}/bin/lmp_omp"
 }
 
-pbuild::add_to_group 'MPI'
-pbuild::set_docfiles \
-		LICENSE \
-		README
 pbuild::make_all
 

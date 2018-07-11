@@ -12,17 +12,17 @@ case $OS in
 esac
 
 pbuild::configure() {
-	cp -v "${BUILD_BLOCK_DIR}/${target}" "${MODULE_BUILDDIR}/configure"
+	cp -v "${BUILDBLOCK_DIR}/${target}" "${BUILD_DIR}/configure"
 	./configure.sh "${target}" || exit 1
 }
 
-pbuild::build() {
+pbuild::compile() {
 	make
 }
 
 pbuild::install() {
 	mkdir -p "${PREFIX}/bin"
-	cp "${MODULE_SRCDIR}/bin/cpmd.x" "${PREFIX}/bin"
+	cp "${SRC_DIR}/bin/cpmd.x" "${PREFIX}/bin"
 }
 
 pbuild::add_to_group 'MPI'

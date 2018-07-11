@@ -18,11 +18,19 @@ boost/1.62.0         stable	gcc/4.8.5 Python/2.7.12
 boost/1.62.0         stable	gcc/4.9.4 Python/2.7.12 
 boost/1.62.0         stable	gcc/5.4.0 Python/2.7.12 
 boost/1.62.0         stable	gcc/6.2.0 Python/2.7.12 
-boost/1.62.0         unstable	gcc/6.3.0 Python/2.7.12 
-boost/1.62.0         unstable	gcc/7.1.0 Python/2.7.12 
+boost/1.62.0         stable	gcc/6.3.0 Python/2.7.12 
+boost/1.62.0         stable	gcc/7.1.0 Python/2.7.12 
 boost/1.63.0         stable     gcc/6.3.0 Python/2.7.12
-boost/1.64.0         unstable   gcc/5.4.0 Python/2.7.12
+boost/1.64.0         stable	gcc/5.4.0 Python/2.7.12
 
-boost/1.66.0         unstable   gcc/7.3.0 b:Python/2.7.12
-boost/1.66.0         unstable   clang-macos/9.0.0 b:Python/2.7.12
-boost/1.66.0         unstable   intel/17.4 b:Python/2.7.12
+boost/1.66.0         stable	gcc/5.5.0 b:Python/2.7.12
+boost/1.66.0         stable	gcc/6.4.0 b:Python/2.7.12
+boost/1.66.0         stable	gcc/7.3.0 b:Python/2.7.12
+boost/1.66.0         stable	clang-macos/9.0.0 b:Python/2.7.12
+boost/1.66.0         stable	intel/17.4 b:Python/2.7.12
+
+boost/1.67.0         stable	gcc/5.5.0 b:Python/2.7.14
+boost/1.67.0         stable	gcc/6.4.0 b:Python/2.7.14
+boost/1.67.0         stable	gcc/7.3.0 b:Python/2.7.14
+boost/1.67.0         stable	clang-macos/9.0.0 b:Python/2.7.14
+boost/1.67.0         stable	intel/17.4 b:Python/2.7.14

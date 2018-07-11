@@ -4,8 +4,8 @@ SOURCE_URL="ftp://ftp.vim.org/pub/vim/unix/$P-$V.tar.bz2"
 
 
 pbuild::configure() {
-	cd "${MODULE_SRCDIR}"
-	"${MODULE_SRCDIR}"/configure \
+	cd "${SRC_DIR}"
+	"${SRC_DIR}"/configure \
 		--prefix="${PREFIX}" \
 		--enable-pythoninterp=dynamic \
 		--enable-python3interp=dynamic \

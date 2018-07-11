@@ -1,0 +1,19 @@
+#%Module1.0
+
+module-whatis		"Models-3 Input/Output Applications Programming Interface"
+module-url		"https://www.cmascenter.org/ioapi/"
+module-license		"GNU GPLv2"
+module-maintainer	"Achim Gsell <achim.gsell@psi.ch>"
+
+module-help		"
+The Models-3 Input/Output Applications Programming Interface (I/O API) is
+a selective and direct-access programming interface to the data: you tell
+the system what variables and dates and times you're talking about and it
+figures all the stuff about record numbers, etc., for itself. Also, you
+don't have to read the data in consecutive order, or to write it in order,
+either -- you just ask for what you want, and the I/O API finds it for you
+(although there are moderate performance penalties for writing data out-of-
+order). The files are self-describing files -- that is, the file headers
+have all the dimensioning and descriptive information needed about the data
+in them. 
+"

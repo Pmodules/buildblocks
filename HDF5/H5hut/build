@@ -23,7 +23,7 @@ pbuild::configure() {
 			;;
 	esac
 
-	"${MODULE_SRCDIR}"/configure \
+	"${SRC_DIR}"/configure \
 		--prefix="${PREFIX}" \
 		--enable-parallel \
 		--enable-debug \
@@ -34,7 +34,7 @@ pbuild::configure() {
 		|| exit 1
 }
 
-pbuild::build() {
+pbuild::compile() {
 	make -C src
 	make -C tools 
 }

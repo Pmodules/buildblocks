@@ -1,0 +1,28 @@
+#!/bin/bash
+
+declare buildblock=$1
+declare variants=$2
+
+declare -r OS=$(uname -s)
+
+# File format example
+# openmpi/1.10.2	unstable	gcc/4.8.5
+declare -a toks=()
+declare version=''
+declare release=''
+declare -a dependencies=()
+
+while read -a toks; do
+	# skip comment and empty line
+	(( ${#toks[@]} == 0 )) && continue
+	[[ "${toks[0]:0:1}" == "#" ]] && continue
+	module=${toks[0]}
+	release=${toks[1]}
+	dependencies=( ${toks[@]:2} )
+
+	"${buildblock}"  "${module#*/}" "${dependencies[@]/#/--with=}"
+	if [[ $? != 0 ]]; then
+		echo "Failed building:  ${module} --release=${release} ${dependencies[@]/#/--with=}" 1>&2
+		exit 42
+	fi
+done < "${variants}"

@@ -1,6 +1,6 @@
 #!/usr/bin/env modbuild
 
-SOURCE_URL="https://support.hdfgroup.org/ftp/HDF5/current${V_MAJOR}${V_MINOR}/src/hdf5-$V.tar.bz2"
+SOURCE_URL="https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-${V_MAJOR}.${V_MINOR}/hdf5-$V/src/hdf5-$V.tar.bz2"
 
 pbuild::configure() {
 	test "$(basename "$CPP")" = "pgprepro" && {
@@ -8,7 +8,7 @@ pbuild::configure() {
 		CXX=g++
 		echo "INFO: substituted pgprepro with cpp, and pgc++ with g++!"
 	}
-	"${MODULE_SRCDIR}"/configure \
+	"${SRC_DIR}"/configure \
 		--prefix="${PREFIX}" \
 		--enable-shared \
 		--enable-cxx \

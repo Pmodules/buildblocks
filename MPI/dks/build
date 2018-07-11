@@ -22,7 +22,7 @@ pbuild::configure() {
 	cmake \
 		-DCMAKE_INSTALL_PREFIX="${PREFIX}" \
 		"${conf[@]}" \
-		"${MODULE_SRCDIR}" \
+		"${SRC_DIR}" \
 		|| exit 1
 }
 

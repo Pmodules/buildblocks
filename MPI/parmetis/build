@@ -25,14 +25,14 @@ pbuild::configure() {
 	if (( MAJOR_VERSION == 4 )) ; then
 		cmake \
 			-DCMAKE_INSTALL_PREFIX="${PREFIX}" \
-			-DMETIS_PATH="${MODULE_SRCDIR}/metis" \
-			-DGKLIB_PATH="${MODULE_SRCDIR}/metis/GKlib" \
-			"${MODULE_SRCDIR}" \
+			-DMETIS_PATH="${SRC_DIR}/metis" \
+			-DGKLIB_PATH="${SRC_DIR}/metis/GKlib" \
+			"${SRC_DIR}" \
 			|| exit 1
 	fi
 }
 
-pbuild::build() {
+pbuild::compile() {
 	CC=$MPICC
 	CXX=$MPICXX
 	F77=$MPIF77
@@ -40,7 +40,7 @@ pbuild::build() {
 	FC=$MPIFC
 	FORTRAN=$MPIFORTRAN
 	if (( MAJOR_VERSION == 3 )) ; then
-		cd "${MODULE_SRCDIR}"
+		cd "${SRC_DIR}"
 		make -e -j3 || exit 1
 
 		mkdir -p $PREFIX/include/metis
@@ -54,7 +54,7 @@ pbuild::build() {
 		make install
 
 		LIBMETIS_A=$(find . -name libmetis.a)
-		METIS_H=$(find "${MODULE_SRCDIR}" -name metis.h)
+		METIS_H=$(find "${SRC_DIR}" -name metis.h)
 
 		install -m 0644 $METIS_H    $PREFIX/include
 		install -m 0644 $LIBMETIS_A $PREFIX/lib

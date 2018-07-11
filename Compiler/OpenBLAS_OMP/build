@@ -1,14 +1,14 @@
 #!/usr/bin/env modbuild
 
 pbuild::configure() {
-	cat <<EOF > "${MODULE_SRCDIR}/make.inc"
+	cat <<EOF > "${SRC_DIR}/make.inc"
 SHELL = /bin/sh
 PLAT = 
 DRVOPTS  = \$(OPTS)
 LOADER   = \$(FORTRAN) -pthread
 ARCHFLAGS= -ru
 EOF
-	cat <<EOF > "${MODULE_SRCDIR}/Makefile.rule"
+	cat <<EOF > "${SRC_DIR}/Makefile.rule"
 VERSION = 0.2.9
 TARGET = CORE2
 CC = gcc
@@ -23,8 +23,8 @@ COMMON_PROF = -pg
 EOF
 }
 
-pbuild::build() {
-	cd "${MODULE_SRCDIR}"
+pbuild::compile() {
+	cd "${SRC_DIR}"
 	make
 }
 

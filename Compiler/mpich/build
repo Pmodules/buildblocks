@@ -4,7 +4,7 @@ SOURCE_URL="http://www.mpich.org/static/downloads/$V/$P-$V.tar.gz"
 
 pbuild::configure() {
 	unset F90
-	"${MODULE_SRCDIR}"/configure \
+	"${SRC_DIR}"/configure \
 		--prefix="${PREFIX}" \
 		--enable-cxx \
 		--enable-fortran \

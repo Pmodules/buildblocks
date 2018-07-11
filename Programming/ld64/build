@@ -11,12 +11,12 @@ DYLD_SOURCE_URL="http://opensource.apple.com/tarballs/dyld/dyld-${DYLD_VERSION}.
 pbuild::patch_sources () {
 	find_patchdir() {
 		local -a patchdirs=()
-		patchdirs+=( "${BUILD_BLOCK_DIR}/${V}/patches.${OS}" )
-		patchdirs+=( "${BUILD_BLOCK_DIR}/${V}/patches" )
-		patchdirs+=( "${BUILD_BLOCK_DIR}/${V%.*}/patches.${OS}" )
-		patchdirs+=( "${BUILD_BLOCK_DIR}/${V%.*}/patches" )
-		patchdirs+=( "${BUILD_BLOCK_DIR}/${V%.*.*}/patches.${OS}" )
-		patchdirs+=( "${BUILD_BLOCK_DIR}/${V%.*.*}/patches" )
+		patchdirs+=( "${BUILDBLOCK_DIR}/${V}/patches.${OS}" )
+		patchdirs+=( "${BUILDBLOCK_DIR}/${V}/patches" )
+		patchdirs+=( "${BUILDBLOCK_DIR}/${V%.*}/patches.${OS}" )
+		patchdirs+=( "${BUILDBLOCK_DIR}/${V%.*}/patches" )
+		patchdirs+=( "${BUILDBLOCK_DIR}/${V%.*.*}/patches.${OS}" )
+		patchdirs+=( "${BUILDBLOCK_DIR}/${V%.*.*}/patches" )
 
 		for patchdir in "${patchdirs[@]}"; do
 			 [[ -e "${patchdir}" ]] && return 0;
@@ -32,8 +32,8 @@ pbuild::patch_sources () {
 }
 
 pbuild::post_prep() {
-	local -r DYLD_SRC_DIR="${PMODULES_TMPDIR}/dyld-${DYLD_VERSION}/src"
-	local -r CCTOOLS_SRC_DIR="${PMODULES_TMPDIR}/cctools-${CCTOOLS_VERSION}/src"
+	local -r DYLD_SRC_DIR="${TEMP_DIR}/dyld-${DYLD_VERSION}/src"
+	local -r CCTOOLS_SRC_DIR="${TEMP_DIR}/cctools-${CCTOOLS_VERSION}/src"
 
         local source_file=''
         pbuild::get_source source_file "${DYLD_SOURCE_URL}" "${PMODULES_DISTFILESDIR}" ||
@@ -44,21 +44,21 @@ pbuild::post_prep() {
                 std::die 4 "cctools/${CCTOOLS_VERSION}: sourcecode not found."
         pbuild::unpack "${source_file}" "${CCTOOLS_SRC_DIR}"
 
-	cd "${MODULE_SRCDIR}"
+	cd "${SRC_DIR}"
 	mkdir -p "include/mach-o"
 	rsync --archive "../../cctools-${CCTOOLS_VERSION}/src/include/mach-o/" "include/mach-o/"
 	rsync --archive "../../dyld-${DYLD_VERSION}/src/include/mach-o/" "include/mach-o/"
 	mkdir -p "include/llvm-c"
-	cp -v "${BUILD_BLOCK_DIR}/files/Disassembler.h" "include/llvm-c/"
-	cp -v "${BUILD_BLOCK_DIR}/files/lto.h" "include/llvm-c/"
+	cp -v "${BUILDBLOCK_DIR}/files/Disassembler.h" "include/llvm-c/"
+	cp -v "${BUILDBLOCK_DIR}/files/lto.h" "include/llvm-c/"
 }
 
 pbuild::configure() {
-	cp -v "${BUILD_BLOCK_DIR}/files/Makefile-${V_MAJOR}" "${MODULE_SRCDIR}/Makefile"
+	cp -v "${BUILDBLOCK_DIR}/files/Makefile-${V_MAJOR}" "${SRC_DIR}/Makefile"
 }
 
-pbuild::build() {
-	cd "${MODULE_SRCDIR}"
+pbuild::compile() {
+	cd "${SRC_DIR}"
 	which $CC
 	make OTHER_CXXFLAGS="-std=c++11 -I$PWD/include" OTHER_LDFLAGS="-L/Applications/Xcode.app/Contents/Frameworks -lLTO"
 }

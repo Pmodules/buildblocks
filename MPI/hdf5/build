@@ -27,7 +27,7 @@ pbuild::configure() {
 	#config_args+=( "--enable-threadsafe" )
 	config_args+=( "--with-pic" )
 
-	"${MODULE_SRCDIR}"/configure \
+	"${SRC_DIR}"/configure \
 		--prefix="${PREFIX}" \
 		"${config_args[@]}" \
 		|| exit 1

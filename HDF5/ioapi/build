@@ -1,0 +1,60 @@
+#!/usr/bin/env modbuild
+
+pbuild::supported_os 'Darwin'
+
+pbuild::set_download_url "https://gitlab.psi.ch/Pmodules/download/raw/master/$P-$V.tar.gz"
+
+pbuild::add_to_group 'HDF5'
+pbuild::compile_in_sourcetree
+pbuild::add_patch 'files/Makefile.pncf.sed.patch'
+
+pbuild::add_docfile README.txt
+pbuild::add_docfile V32-CHANGES.txt
+pbuild::add_docfile VERSION.txt
+pbuild::add_docfile HTML/gpl.txt
+
+declare	config_args=()
+declare BIN=''
+
+pbuild::post_prep() {
+	find "${SRC_DIR}" -name "*.mod" -exec rm {} \;
+	find "${SRC_DIR}" -name "*.o" -exec rm {} \;
+}
+
+pbuild::pre_configure_Darwin() {
+	cp -av "${BUILDBLOCK_DIR}/files/Makeinclude.OSX_x86_gfortmpi" "ioapi"
+	BIN='OSX_x86_gfortmpi'
+}
+
+pbuild::pre_configure() {
+	cp Makefile.template Makefile
+	config_args+=( "BASEDIR=${SRC_DIR}" )
+	config_args+=( "CPLMODE=pncf" )
+	config_args+=( "INSTALL=${PREFIX}" )
+	config_args+=( "NCFLIBS=-lpnetcdf -lnetcdf -lnetcdff -lgfortran" )
+	config_args+=( "BIN=${BIN}" )
+}
+
+pbuild::configure() {
+	make "${config_args[@]}" configure
+}
+
+pbuild::compile() {
+	make "${config_args[@]}" all
+}
+
+pbuild::install() {
+	mkdir -p "${PREFIX}"
+	make "${config_args[@]}" install
+}
+
+pbuild::post_install() {
+	cd "${PREFIX}"
+	mkdir -p lib
+	mv -v "${BIN}"/*.a	'lib'
+	mv -v "${BIN}"/*.mod	'lib'
+	mv -v "${BIN}"		'bin'
+}
+
+pbuild::make_all
+

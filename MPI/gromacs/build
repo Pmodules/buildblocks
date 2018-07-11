@@ -10,7 +10,7 @@ pbuild::configure() {
 		-DGMX_GPU=off \
 		-DGMX_SIMD=SSE2 \
 		-DGMX_BUILD_OWN_FFTW=on \
-		"${MODULE_SRCDIR}" \
+		"${SRC_DIR}" \
 		|| exit 1
 }
 

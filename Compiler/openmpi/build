@@ -8,7 +8,7 @@ pbuild::configure() {
 		config_args+=( "--with-cuda=${CUDA_HOME}" )
 	fi
 
-	"${MODULE_SRCDIR}"/configure \
+	"${SRC_DIR}"/configure \
 		--prefix="${PREFIX}" \
 		--enable-mpi-cxx \
 		--enable-mpi-cxx-seek \

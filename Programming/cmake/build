@@ -11,7 +11,7 @@ Darwin )
 esac
 
 pbuild::configure() {
-	"${MODULE_SRCDIR}/bootstrap" --prefix="${PREFIX}" ${bootstrap_flags} --verbose
+	"${SRC_DIR}/bootstrap" --prefix="${PREFIX}" ${bootstrap_flags} --verbose
 }
 
 pbuild::add_to_group 'Programming'

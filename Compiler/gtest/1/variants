@@ -1,3 +1,5 @@
 gtest/1.7.0	stable		b:cmake b:gcc/5.4.0
+gtest/1.7.0	stable		b:cmake b:gcc/5.5.0
+gtest/1.7.0	stable		b:cmake b:gcc/6.4.0
 gtest/1.7.0	stable		b:cmake b:gcc/7.3.0
 gtest/1.7.0	stable		b:cmake b:clang-macos/9.0.0

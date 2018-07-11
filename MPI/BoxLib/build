@@ -4,7 +4,7 @@ pbuild::configure() {
 	CC=$MPICC CXX=$MPICXX cmake \
 		-DCMAKE_INSTALL_PREFIX="${PREFIX}" \
 		-DCMAKE_BUILD_TYPE=RELEASE \
-		"${MODULE_SRCDIR}"
+		"${SRC_DIR}"
 }
 
 pbuild::add_to_group 'MPI'

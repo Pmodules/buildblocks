@@ -77,7 +77,7 @@ pbuild::configure() {
            -DTrilinos_ENABLE_Tpetra:BOOL=ON \
            -DTrilinos_ENABLE_TESTS:BOOL=OFF \
 	   "${config_args[@]}" \
-           "${MODULE_SRCDIR}" || exit 1
+           "${SRC_DIR}" || exit 1
 }
 
 pbuild::add_to_group 'HDF5'

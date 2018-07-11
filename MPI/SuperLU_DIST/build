@@ -12,7 +12,7 @@ pbuild::configure() {
 		die 3 "Oops: unknown compiler: ${COMPILER}"
 		;;
 	esac
-	cat <<EOF > "${MODULE_SRCDIR}/make.inc"
+	cat <<EOF > "${SRC_DIR}/make.inc"
 PLAT		= 
 DSuperLUroot 	= \${PREFIX}
 DSUPERLULIB   	= \$(DSuperLUroot)/lib/libsuperlu_dist.a
@@ -36,8 +36,8 @@ CDEFS        = -DAdd__
 EOF
 }
 
-pbuild::build() {
-	cd "${MODULE_SRCDIR}"
+pbuild::compile() {
+	cd "${SRC_DIR}"
 	mkdir -p "${PREFIX}/lib"
 	make
 }
@@ -45,7 +45,7 @@ pbuild::build() {
 pbuild::install() {
 	make install
 	mkdir -p "${PREFIX}/include"
-	install -m 0444 "${MODULE_SRCDIR}"/SRC/*.h "${PREFIX}/include"
+	install -m 0444 "${SRC_DIR}"/SRC/*.h "${PREFIX}/include"
 }
 
 

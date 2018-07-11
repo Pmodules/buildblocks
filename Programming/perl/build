@@ -3,7 +3,7 @@
 SOURCE_URL="http://www.cpan.org/src/5.0/$P-$V.tar.gz"
 
 pbuild::configure() {
-	"${MODULE_SRCDIR}"/configure.gnu \
+	"${SRC_DIR}"/configure.gnu \
 		--prefix="${PREFIX}" \
 		|| exit 1
 }

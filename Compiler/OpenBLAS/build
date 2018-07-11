@@ -17,20 +17,20 @@ pbuild::configure() {
 		die 3 "Oops: unknown compiler: ${COMPILER}"
 		;;
 	esac
-	cat <<EOF > "${MODULE_SRCDIR}/make.inc"
+	cat <<EOF > "${SRC_DIR}/make.inc"
 SHELL = /bin/sh
 PLAT = 
 DRVOPTS  = \$(NOOPT)
 ARCHFLAGS= -ru
 EOF
-	echo "USE_SIMPLE_THREADED_LEVEL3 = 1" >> "${MODULE_SRCDIR}/Makefile.rule"
-	echo "NO_AVX = 1" >> "${MODULE_SRCDIR}/Makefile.rule"
-	echo "NO_AVX2 = 1" >> "${MODULE_SRCDIR}/Makefile.rule"
-	echo "USE_THREAD = 0" >> "${MODULE_SRCDIR}/Makefile.rule"
-	sed -i.bak "s/MACOSX_DEPLOYMENT_TARGET=.*/MACOSX_DEPLOYMENT_TARGET=$MACOSX_DEPLOYMENT_TARGET/" "${MODULE_SRCDIR}/Makefile.system"
+	echo "USE_SIMPLE_THREADED_LEVEL3 = 1" >> "${SRC_DIR}/Makefile.rule"
+	echo "NO_AVX = 1" >> "${SRC_DIR}/Makefile.rule"
+	echo "NO_AVX2 = 1" >> "${SRC_DIR}/Makefile.rule"
+	echo "USE_THREAD = 0" >> "${SRC_DIR}/Makefile.rule"
+	sed -i.bak "s/MACOSX_DEPLOYMENT_TARGET=.*/MACOSX_DEPLOYMENT_TARGET=$MACOSX_DEPLOYMENT_TARGET/" "${SRC_DIR}/Makefile.system"
 }
 
-pbuild::build() {
+pbuild::compile() {
 	make -j3
 }
 

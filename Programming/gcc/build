@@ -5,11 +5,11 @@ SOURCE_URL="https://ftp.gnu.org/gnu/gcc/$P-$V/$P-$V.tar.gz"
 pbuild::patch_sources_Darwin() {
 	if (( V_MAJOR == 4 && V_MINOR <= 8 )) || \
 	   (( V_MAJOR == 4 && V_MINOR == 9 && V_PATCHLVL < 4)); then
-		patch -p1 < "${BUILD_BLOCK_DIR}/${V_MAJOR}/non-dead-strip.patch"
-		patch -p1 < "${BUILD_BLOCK_DIR}/${V_MAJOR}/configure-as.patch"
+		patch -p1 < "${BUILDBLOCK_DIR}/${V_MAJOR}/non-dead-strip.patch"
+		patch -p1 < "${BUILDBLOCK_DIR}/${V_MAJOR}/configure-as.patch"
 	fi
 	if (( V_MAJOR == 5 )) || (( V_MAJOR == 6 )); then
-		patch -p1 < "${BUILD_BLOCK_DIR}/${V_MAJOR}/PR57438_avoiding_empty_function_bodies_and_trailing_labels.patch"
+		patch -p1 < "${BUILDBLOCK_DIR}/${V_MAJOR}/PR57438_avoiding_empty_function_bodies_and_trailing_labels.patch"
 	fi
 }
 
@@ -45,7 +45,7 @@ pbuild::configure() {
 		echo "Unsupported OS '${OS}'!"
 		;;
 	esac
-	"${MODULE_SRCDIR}"/configure \
+	"${SRC_DIR}"/configure \
 		--prefix="${PREFIX}" \
 		"${conf_args[@]}" \
 		|| exit 1

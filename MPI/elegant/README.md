@@ -50,8 +50,9 @@ ELEGANT_VERSION=34.2.0
 
 ## Setup Environment
 ```
-DOWNLOAD_DIR='/afs/psi.ch/software/Pmodules/distfiles/elegant'
-PREFIX=/opt/psi/MPI/elegant/${ELEGANT_VERSION}/${MPI}/${MPI_VERSION}/${COMPILER}/${COMPILER_VERSION}
+source "${PMODULES_ROOT}/config/modbuild.conf"
+DOWNLOAD_DIR="${PMODULES_DISTFILESDIR}/elegant"
+PREFIX="${PMODULES_ROOT}/MPI/elegant/${ELEGANT_VERSION}/${MPI}/${MPI_VERSION}/${COMPILER}/${COMPILER_VERSION}"
 
 export EPICS_BASE="${PREFIX}/epics/base"
 export HOST_ARCH=linux-x86_64

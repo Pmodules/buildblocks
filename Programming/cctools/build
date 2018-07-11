@@ -1,0 +1,26 @@
+#!/usr/bin/env modbuild
+#
+# :FIXME: this is work in progress!
+#
+pbuild::add_to_group 'Programming'
+pbuild::set_download_url "https://opensource.apple.com/tarballs/cctools/$P-$V.tar.gz"
+pbuild::compile_in_sourcetree
+
+pbuild::set_default_patch_strip 0
+pbuild::add_patch 'files/PR-12400897.patch'
+pbuild::add_patch 'files/PR-37520.patch'
+pbuild::add_patch 'files/cctools-829-lto.patch'
+pbuild::add_patch 'files/cctools-839-static-dis_info.patch'
+pbuild::add_patch 'files/cctools-862-prunetrie.patch'
+pbuild::add_patch 'files/cctools-895-OFILE_LLVM_BITCODE.patch'
+pbuild::add_patch 'files/cctools-895-big_endian.patch'
+pbuild::add_patch 'files/not-clang.patch'
+
+#pbuild::set_docfiles 'COPYING' 'COPYING.LIB' 'COPYING.RUNTIME' 'COPYING3' 'COPYING3.LIB' 'NEWS' 'README'
+
+pbuild::configure() {
+	:
+}
+
+pbuild::make_all
+

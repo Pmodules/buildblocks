@@ -7,7 +7,7 @@ pbuild::post_prep() {
 }
 
 pbuild::configure() {
-	"${MODULE_SRCDIR}"/configure \
+	"${SRC_DIR}"/configure \
 		--prefix="${PREFIX}"
 }
 
@@ -40,7 +40,7 @@ pbuild::post_install() {
 	local sed_cmd="s:@PREFIX@:${PREFIX}:g;"
 	sed_cmd+="s:@HDF5_PREFIX@:${HDF5_SERIAL_PREFIX}:g;"
 	sed_cmd+="s:@ROOT_PREFIX@:${ROOT_PREFIX}:g;"
-	sed "${sed_cmd}" "${BUILD_BLOCK_DIR}/${V_MAJOR}/H5root" > "${PREFIX}/bin/H5root"
+	sed "${sed_cmd}" "${BUILDBLOCK_DIR}/${V_MAJOR}/H5root" > "${PREFIX}/bin/H5root"
 	chmod 0755 "${PREFIX}/bin/H5root"
 
 	# install serial HDF5 and H5hut header files

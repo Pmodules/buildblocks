@@ -3,7 +3,7 @@
 SOURCE_URL="file://$PMODULES_DISTFILESDIR/$P-V.tar.bz2"
 
 pbuild::configure() {
-	cat <<EOF > "${MODULE_SRCDIR}/SuiteSparse_config/SuiteSparse_config.mk"
+	cat <<EOF > "${SRC_DIR}/SuiteSparse_config/SuiteSparse_config.mk"
 CF = \$(CFLAGS) \$(CPPFLAGS) \$(TARGET_ARCH) -O3 -fexceptions -fPIC -DNTIMER
 RANLIB = ranlib
 ARCHIVE = \$(AR) \$(ARFLAGS)
@@ -26,13 +26,13 @@ TBB =
 EOF
 }
 
-pbuild::build() {
-	cd "${MODULE_SRCDIR}/UMFPACK"
+pbuild::compile() {
+	cd "${SRC_DIR}/UMFPACK"
 	make TARGET=CORE2 BINARY=64 USE_THREAD=0 NO_SHARED=1
 }
 
 pbuild::install() {
-	cd "${MODULE_SRCDIR}/UMFPACK"
+	cd "${SRC_DIR}/UMFPACK"
 	install -d "${PREFIX}/include"
 	install -d "${PREFIX}/lib"
 	make PREFIX="${PREFIX}" install

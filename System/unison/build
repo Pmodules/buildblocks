@@ -4,13 +4,13 @@ pbuild::configure() {
 	:
 }
 
-pbuild::build() {
-	cd "${MODULE_SRCDIR}"
+pbuild::compile() {
+	cd "${SRC_DIR}"
 	make
 }
 
 pbuild::install() {
-	cd "${MODULE_SRCDIR}"
+	cd "${SRC_DIR}"
 	install -m 0755 -d "${PREFIX}/bin"
 	install -m 0755 unison "${PREFIX}/bin"
 }

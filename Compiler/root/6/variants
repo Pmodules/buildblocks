@@ -6,9 +6,11 @@ root/6.08.00         stable	gcc/4.9.4 b:Python/2.7.12 b:gsl/1.16 b:cmake/3.6.3
 root/6.08.00         stable	gcc/5.4.0 b:Python/2.7.12 b:gsl/1.16 b:cmake/3.6.3
 root/6.08.00         stable	gcc/6.2.0 b:Python/2.7.12 b:gsl/1.16 b:cmake/3.6.3
 
-root/6.08.02         unstable   gcc/4.8.5 b:Python/2.7.12 b:gsl/2.2.1 b:cmake/3.6.3
-root/6.08.02         unstable   gcc/4.9.4 b:Python/2.7.12 b:gsl/2.2.1 b:cmake/3.6.3
-root/6.08.02         unstable   gcc/5.4.0 b:Python/2.7.12 b:gsl/2.2.1 b:cmake/3.6.3
-root/6.08.02         unstable   gcc/6.2.0 b:Python/2.7.12 b:gsl/2.2.1 b:cmake/3.6.3
+root/6.08.02    stable		gcc/4.8.5 b:Python/2.7.12 b:gsl/2.2.1 b:cmake/3.6.3
+root/6.08.02    stable		gcc/4.9.4 b:Python/2.7.12 b:gsl/2.2.1 b:cmake/3.6.3
+root/6.08.02    stable		gcc/5.4.0 b:Python/2.7.12 b:gsl/2.2.1 b:cmake/3.6.3
+root/6.08.02    stable		gcc/6.2.0 b:Python/2.7.12 b:gsl/2.2.1 b:cmake/3.6.3
 
+root/6.12.06	unstable	gcc/5.5.0 b:Python/2.7.12 b:gsl/2.4 b:cmake/3.6.3
+root/6.12.06	unstable	gcc/6.4.0 b:Python/2.7.12 b:gsl/2.4 b:cmake/3.6.3
 root/6.12.06	unstable	gcc/7.3.0 b:Python/2.7.12 b:gsl/2.4 b:cmake/3.6.3

@@ -5,10 +5,10 @@ SOURCE_URL="ftp://ftp.tcl.tk/pub/tcl/tcl8_6/tk$V-src.tar.gz"
 pbuild::configure() {
 	case ${OS} in
 	Linux )
-		srcdir="${MODULE_SRCDIR}/unix"
+		srcdir="${SRC_DIR}/unix"
 		;;
 	Darwin )
-		srcdir="${MODULE_SRCDIR}/macosx"
+		srcdir="${SRC_DIR}/macosx"
 		C_INCLUDE_PATH+=":/opt/local/include"
 		LIBRARY_PATH+=":/opt/local/lib"
 		;;

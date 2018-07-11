@@ -12,6 +12,8 @@ OpenBLAS/0.2.19		stable		gcc/5.4.0
 OpenBLAS/0.2.19		stable		gcc/6.2.0
 OpenBLAS/0.2.19		stable		gcc/6.3.0
 
+OpenBLAS/0.2.20		stable		gcc/5.5.0
+OpenBLAS/0.2.20		stable		gcc/6.4.0
 OpenBLAS/0.2.20		stable		gcc/7.3.0
 OpenBLAS/0.2.20		stable		clang-macos/9.0.0
 OpenBLAS/0.2.20		stable		intel/17.4

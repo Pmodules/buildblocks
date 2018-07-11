@@ -11,7 +11,7 @@ pbuild::configure() {
 		-DCMAKE_INSTALL_PREFIX="${PREFIX}" \
 		-DCMAKE_BUILD_TYPE=RELEASE \
 		"${configure_args[@]}" \
-		"${MODULE_SRCDIR}" || std::die 1 "cmake failed"
+		"${SRC_DIR}" || std::die 1 "cmake failed"
 }
 
 pbuild::add_to_group 'OPAL'

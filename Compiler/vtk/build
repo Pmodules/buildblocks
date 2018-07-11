@@ -23,7 +23,7 @@ pbuild::configure() {
 		-DVTK_INSTALL_INCLUDE_DIR:PATH=include \
 		-DVTK_INSTALL_LIB_DIR:PATH=lib \
 		-DVTK_USE_COCOA:BOOL=OFF \
-		"${MODULE_SRCDIR}"
+		"${SRC_DIR}"
 }
 
 pbuild::add_to_group 'Compiler'
