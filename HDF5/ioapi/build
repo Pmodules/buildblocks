@@ -1,6 +1,6 @@
 #!/usr/bin/env modbuild
 
-pbuild::supported_os 'Darwin'
+pbuild::supported_os 'Darwin' 'Linux'
 
 pbuild::set_download_url "https://gitlab.psi.ch/Pmodules/download/raw/master/$P-$V.tar.gz"
 
@@ -24,6 +24,10 @@ pbuild::post_prep() {
 pbuild::pre_configure_Darwin() {
 	cp -av "${BUILDBLOCK_DIR}/files/Makeinclude.OSX_x86_gfortmpi" "ioapi"
 	BIN='OSX_x86_gfortmpi'
+}
+
+pbuild::pre_configure_Linux() {
+	BIN='Linux2_x86_64gfortmpi'
 }
 
 pbuild::pre_configure() {
