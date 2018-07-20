@@ -37,6 +37,7 @@ pbuild::pre_configure() {
 	config_args+=( "INSTALL=${PREFIX}" )
 	config_args+=( "NCFLIBS=-lpnetcdf -lnetcdf -lnetcdff -lgfortran" )
 	config_args+=( "BIN=${BIN}" )
+	config_args+=( "FIXDIR=${PREFIX}/include" )
 }
 
 pbuild::configure() {
@@ -54,9 +55,9 @@ pbuild::install() {
 
 pbuild::post_install() {
 	cd "${PREFIX}"
-	mkdir -p lib
+	mkdir -p 'include'
 	mv -v "${BIN}"/*.a	'lib'
-	mv -v "${BIN}"/*.mod	'lib'
+	mv -v "${BIN}"/*.mod	'include'
 	mv -v "${BIN}"		'bin'
 }
 
