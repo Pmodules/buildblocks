@@ -6,3 +6,4 @@ atlas/3.10.3	unstable	gcc/5.5.0
 atlas/3.10.3	unstable	gcc/6.2.0
 atlas/3.10.3	unstable	gcc/6.4.0
 atlas/3.10.3	unstable	gcc/7.3.0 b:binutils/2.29 
+atlas/3.10.3_haswell	unstable	gcc/7.3.0 b:binutils/2.29 
