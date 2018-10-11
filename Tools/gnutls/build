@@ -1,0 +1,18 @@
+#!/usr/bin/env modbuild
+
+pbuild::set_download_url "https://www.gnupg.org/ftp/gcrypt/$P/v${V_MAJOR}.${V_MINOR}/$P-$V.tar.xz"
+
+pbuild::add_to_group 'Tools'
+
+module use 'Libraries'
+
+if [[ ${OS} == Darwin ]]; then
+	module use System
+	pbuild::add_configure_args "CC=clang"
+fi
+pbuild::add_configure_args "--with-included-unistring"
+pbuild::add_configure_args "--with-included-libtasn1"
+pbuild::add_configure_args "--without-p11-kit"
+
+pbuild::make_all
+
