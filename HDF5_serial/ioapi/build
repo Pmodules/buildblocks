@@ -1,0 +1,83 @@
+#!/usr/bin/env modbuild
+
+pbuild::supported_os 'Darwin' 'Linux'
+
+pbuild::set_download_url "https://gitlab.psi.ch/Pmodules/download/raw/master/$P-$V.tar.gz"
+
+pbuild::add_to_group 'HDF5_serial'
+pbuild::compile_in_sourcetree
+pbuild::add_patch 'files/Makefile.pncf.sed.patch'
+
+pbuild::add_docfiles README.txt
+pbuild::add_docfiles V32-CHANGES.txt
+pbuild::add_docfiles VERSION.txt
+pbuild::add_docfiles HTML/gpl.txt
+
+declare BIN=''
+
+pbuild::post_prep() {
+	find "${SRC_DIR}" -name "*.mod" -exec rm {} \;
+	find "${SRC_DIR}" -name "*.o" -exec rm {} \;
+}
+
+pbuild::pre_configure_Darwin() {
+	case "${COMPILER}" in
+	gcc )
+		BIN='OSX_x86_gfortmpi'
+		cp -av "${BUILDBLOCK_DIR}/files/Makeinclude.${BIN}" "ioapi"
+		;;
+	* )
+		std::die 4 "Compiler '${COMPILER}' is not supported on ${OS}!"
+		;;
+	esac
+}
+
+pbuild::pre_configure_Linux() {
+	case "${COMPILER}" in
+	pgi )
+		BIN='Linux2_x86_64pg'
+		#cp -av "${BUILDBLOCK_DIR}/files/Makeinclude.${BIN}" "ioapi"
+		;;
+	gcc )
+		BIN='Linux2_x86_64gfort'
+		;;
+	* )
+		std::die 4 "Compiler '${COMPILER}' is not supported on ${OS}!"
+		;;
+	esac
+}
+
+pbuild::pre_configure() {
+	cp Makefile.template Makefile
+	pbuild::add_configure_args "BASEDIR=${SRC_DIR}"
+	#pbuild::add_configure_args "CPLMODE=pncf"
+	pbuild::add_configure_args "INSTALL=${PREFIX}"
+	pbuild::add_configure_args "NCFLIBS=-lnetcdf -lnetcdff -lgfortran"
+	pbuild::add_configure_args "BIN=${BIN}"
+	pbuild::add_configure_args "FIXDIR=${PREFIX}/include"
+}
+
+pbuild::configure() {
+	make "${CONFIGURE_ARGS[@]}" configure
+}
+
+pbuild::compile() {
+	make "${CONFIGURE_ARGS[@]}" all
+}
+
+pbuild::install() {
+	mkdir -vp "${PREFIX}"
+	make "${CONFIGURE_ARGS[@]}" install
+}
+
+pbuild::post_install() {
+	cd "${PREFIX}"
+	mkdir -vp 'lib'
+	mkdir -vp 'include'
+	mv -v "${BIN}"/*.a	'lib'
+	mv -v "${BIN}"/*.mod	'include'
+	mv -v "${BIN}"		'bin'
+}
+
+pbuild::make_all
+
