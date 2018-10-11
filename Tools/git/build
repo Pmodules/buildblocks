@@ -1,42 +1,28 @@
 #!/usr/bin/env modbuild
 
-SOURCE_URL="http://www.kernel.org/pub/software/scm/$P/$P-$V.tar.gz"
+pbuild::set_download_url "http://www.kernel.org/pub/software/scm/$P/$P-${V_PKG}.tar.gz"
+pbuild::add_to_group 'Tools'
+pbuild::compile_in_sourcetree
+pbuild::install_docfiles 'COPYING' 'README.md'
 
-case ${OS} in
-Darwin )
+pbuild::pre_configure_Darwin() {
 	export NO_APPLE_COMMON_CRYPTO=1
-	# we use 'asciidoc' from MacPorts
-	PATH+=':/opt/local/bin'
-	;;
-esac
-
-pbuild::configure() {
-	cd "${SRC_DIR}"
-	"${SRC_DIR}"/configure \
-		--prefix="${PREFIX}" \
-		--with-tcltk \
-		--with-perl="${PERL_PREFIX}/bin/perl" \
-		|| exit 1
 }
 
-pbuild::compile() {
-        cd "${SRC_DIR}"
-        make
+pbuild::pre_configure() {
+	pbuild::add_configure_args "--with-tcltk"
+	pbuild::add_configure_args "--with-perl=${PERL_PREFIX}/bin/perl"
+}
 
+pbuild::post_compile() {
 	make -C contrib/subtree prefix="${prefix}"
 }
 
-pbuild::install() {
-        cd "${SRC_DIR}"
-        make install
+pbuild::post_install() {
         make install-doc
 	make -C contrib/subtree prefix="${PREFIX}" install
 	make -C contrib/subtree prefix="${PREFIX}" install-doc
 }
-
-pbuild::add_to_group 'Tools'
-pbuild::install_docfiles 'COPYING' 'README.md'
-pbuild::make_all
 
 # Local Variables:
 # mode: sh
