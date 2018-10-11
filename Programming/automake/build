@@ -12,7 +12,7 @@ pbuild::configure() {
 declare -rx CC=gcc
 
 pbuild::add_to_group 'Programming'
-pbuild::set_docfiles \
+pbuild::install_docfiles \
 	AUTHORS \
 	COPYING \
 	ChangeLog \

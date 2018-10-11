@@ -16,8 +16,7 @@ pbuild::install() {
 }
 
 pbuild::add_to_group 'System'
-pbuild::set_docfiles 'BUGS.txt' 'CONTRIB' 'COPYING' 'NEWS' 'README'
-#pbuild::set_build_dependencies "${COMPILER}"
+pbuild::install_docfiles 'BUGS.txt' 'CONTRIB' 'COPYING' 'NEWS' 'README'
 pbuild::make_all
 
 # Local Variables:

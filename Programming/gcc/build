@@ -56,6 +56,6 @@ declare -rx CC=gcc
 declare -rx CXX=g++
 
 pbuild::add_to_group 'Programming'
-pbuild::set_docfiles 'COPYING' 'COPYING.LIB' 'COPYING.RUNTIME' 'COPYING3' 'COPYING3.LIB' 'NEWS' 'README'
+pbuild::install_docfiles 'COPYING' 'COPYING.LIB' 'COPYING.RUNTIME' 'COPYING3' 'COPYING3.LIB' 'NEWS' 'README'
 pbuild::make_all
 

@@ -12,6 +12,6 @@ pbuild::configure() {
 declare -rx CC=gcc
 
 pbuild::add_to_group 'Programming'
-pbuild::set_docfiles 'AUTHORS' 'COPYING' 'NEWS' 'README' 'THANKS'
+pbuild::install_docfiles 'AUTHORS' 'COPYING' 'NEWS' 'README' 'THANKS'
 pbuild::make_all
 

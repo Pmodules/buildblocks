@@ -46,6 +46,6 @@ pbuild::install() {
 
 
 pbuild::add_to_group 'HDF5'
-pbuild::set_docfiles 'AUTHORS' 'COPYING'
+pbuild::install_docfiles 'AUTHORS' 'COPYING'
 pbuild::make_all
 

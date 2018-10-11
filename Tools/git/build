@@ -35,7 +35,7 @@ pbuild::install() {
 }
 
 pbuild::add_to_group 'Tools'
-pbuild::set_docfiles 'COPYING' 'README.md'
+pbuild::install_docfiles 'COPYING' 'README.md'
 pbuild::make_all
 
 # Local Variables:

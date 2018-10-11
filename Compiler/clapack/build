@@ -17,6 +17,6 @@ pbuild::install() {
 }
 
 pbuild::add_to_group 'Compiler'
-pbuild::set_docfiles 'COPYING'
+pbuild::install_docfiles 'COPYING'
 pbuild::make_all
 

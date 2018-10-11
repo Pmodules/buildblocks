@@ -9,7 +9,7 @@ pbuild::configure() {
 }
 
 pbuild::add_to_group 'Tools'
-pbuild::set_docfiles 'AUTHORS' 'COPYING' 'COPYING.LIB' 'LICENSE' 'README' 'THANKS'
+pbuild::install_docfiles 'AUTHORS' 'COPYING' 'COPYING.LIB' 'LICENSE' 'README' 'THANKS'
 pbuild::set_build_dependencies "gcc/4.8.3"
 pbuild::make_all
 

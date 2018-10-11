@@ -10,7 +10,7 @@ pbuild::configure() {
 
 pbuild::compile_in_sourcetree
 pbuild::add_to_group 'Tools'
-pbuild::set_docfiles 	\
+pbuild::install_docfiles 	\
 	BUGS		\
 	BUGS.txt	\
 	CHANGELOG	\

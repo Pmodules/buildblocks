@@ -15,7 +15,7 @@ pbuild::configure() {
 
 pbuild::add_to_group 'Tools'
 pbuild::compile_in_sourcetree
-#pbuild::set_docfiles 'COPYING' 'README.md'
+#pbuild::install_docfiles 'COPYING' 'README.md'
 pbuild::make_all
 
 # Local Variables:

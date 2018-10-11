@@ -53,6 +53,6 @@ pbuild::install() {
 
 pbuild::add_to_group 'Compiler'
 pbuild::compile_in_sourcetree
-pbuild::set_docfiles 'README'
+pbuild::install_docfiles 'README'
 pbuild::make_all
 pbuild::cleanup_src

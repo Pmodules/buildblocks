@@ -16,7 +16,7 @@ pbuild::add_patch 'files/cctools-895-OFILE_LLVM_BITCODE.patch'
 pbuild::add_patch 'files/cctools-895-big_endian.patch'
 pbuild::add_patch 'files/not-clang.patch'
 
-#pbuild::set_docfiles 'COPYING' 'COPYING.LIB' 'COPYING.RUNTIME' 'COPYING3' 'COPYING3.LIB' 'NEWS' 'README'
+#pbuild::install_docfiles 'COPYING' 'COPYING.LIB' 'COPYING.RUNTIME' 'COPYING3' 'COPYING3.LIB' 'NEWS' 'README'
 
 pbuild::configure() {
 	:

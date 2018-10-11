@@ -19,6 +19,6 @@ pbuild::configure() {
 pbuild::add_to_group 'MPI'
 pbuild::set_runtime_dependencies "${COMPILER}" "${MPI}"
 pbuild::set_build_dependencies 'cmake' "${COMPILER}" "${MPI}"
-pbuild::set_docfiles LICENSE README
+pbuild::install_docfiles LICENSE README
 pbuild::make_all
 

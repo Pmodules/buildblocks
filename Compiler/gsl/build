@@ -9,7 +9,7 @@ pbuild::configure() {
 }
 
 pbuild::add_to_group 'Compiler'
-pbuild::set_docfiles \
+pbuild::install_docfiles \
 	'AUTHORS' \
 	'BUGS' \
 	'COPYING' \

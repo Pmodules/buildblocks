@@ -15,7 +15,7 @@ pbuild::configure() {
 }
 
 pbuild::add_to_group 'MPI'
-pbuild::set_docfiles \
+pbuild::install_docfiles \
 		AUTHORS \
 		COPYING \
 		README
