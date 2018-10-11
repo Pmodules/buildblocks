@@ -1,0 +1,44 @@
+#!/usr/bin/env modbuild
+
+pbuild::set_download_url "https://netcologne.dl.sourceforge.net/project/boost/boost/$V/boost_${V_MAJOR}_${V_MINOR}_${V_PATCHLVL}.tar.gz"
+
+pbuild::add_to_group 'MPI'
+
+BOOST_BUILD_PATH="${BUILD_DIR}"
+
+pbuild::configure() {
+	cd "${SRC_DIR}"
+	"${SRC_DIR}"/bootstrap.sh \
+		--prefix="${PREFIX}" \
+		--with-libraries=all \
+		--with-python-root="${PYTHON_PREFIX}" \
+		|| exit 1
+	echo "using mpi ;" >> "${SRC_DIR}/project-config.jam"
+}
+
+pbuild::compile() {
+	cd "${SRC_DIR}"
+	./b2 \
+		--build-type=minimal \
+		--build-dir="${BUILD_DIR}" \
+		--layout=system \
+		variant=release \
+		link=shared,static \
+		threading=multi \
+		stage
+}
+
+pbuild::install() {
+	cd "${SRC_DIR}"
+	./b2 \
+		--build-type=minimal \
+		--build-dir="${BUILD_DIR}" \
+		--layout=system \
+		variant=release \
+		link=shared,static \
+		threading=multi \
+		install
+}
+
+pbuild::make_all
+

@@ -1,0 +1,14 @@
+#%Module1.0
+
+module-whatis		"C++ libraries"
+module-url		"http://www.boost.org"
+module-license		"Boost Software License"
+module-maintainer	"Achim Gsell <achim.gsell@psi.ch>"
+module-help		"
+Boost is a set of libraries for the C++ programming language that provide
+support for tasks and structures such as linear algebra, pseudorandom number
+generation, multithreading, image processing, regular expressions, and unit
+testing. It contains over eighty individual libraries.
+(Wikipedia)
+"
+
