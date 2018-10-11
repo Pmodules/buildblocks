@@ -1,6 +1,6 @@
 #!/usr/bin/env modbuild
 
-#SOURCE_URL="https://ftp.gnu.org/gnu/$P/$P-$V.tar.bz2"
+pbuild::add_to_group 'Programming'
 
 pbuild::prep() {
 	:
@@ -18,5 +18,4 @@ pbuild::install() {
 	:
 }
 
-pbuild::add_to_group 'Programming'
 pbuild::make_all
