@@ -16,6 +16,8 @@ parmetis/4.0.3	unstable	gcc/6.2.0 openmpi/2.0.1  b:cmake/3.6.3
 parmetis/4.0.3	stable		gcc/7.3.0 openmpi/1.10.7 b:cmake/3.6.3
 parmetis/4.0.3	stable		gcc/7.3.0 openmpi/2.1.2  b:cmake/3.6.3
 parmetis/4.0.3	stable		gcc/7.3.0 openmpi/3.0.0  b:cmake/3.6.3
+parmetis/4.0.3	stable		gcc/7.3.0 openmpi/3.0.1  b:cmake/3.9.6
+parmetis/4.0.3	stable		gcc/7.3.0 openmpi/3.1.2  b:cmake/3.9.6
 parmetis/4.0.3	stable		clang-macos/9.0.0 openmpi/1.10.7 b:cmake/3.6.3
 parmetis/4.0.3	stable		clang-macos/9.0.0 openmpi/2.1.2  b:cmake/3.6.3
 parmetis/4.0.3	stable		clang-macos/9.0.0 openmpi/3.0.0  b:cmake/3.6.3

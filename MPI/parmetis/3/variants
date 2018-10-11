@@ -21,3 +21,4 @@ parmetis/3.2.0	unstable	gcc/6.1.0 openmpi/1.10.2
 parmetis/3.2.0	unstable	gcc/6.2.0 openmpi/1.10.2
 parmetis/3.2.0	unstable	gcc/6.2.0 openmpi/1.10.4
 parmetis/3.2.0	unstable	gcc/6.2.0 openmpi/2.0.1
+parmetis/3.2.0	unstable	gcc/7.3.0 openmpi/3.0.1

@@ -1,75 +1,56 @@
 #!/usr/bin/env modbuild
 
-unset MACOSX_DEPLOYMENT_TARGET
+pbuild::set_download_url "http://glaros.dtc.umn.edu/gkhome/fetch/sw/$P/$P-$V.tar.gz"
 
-SOURCE_URL="http://glaros.dtc.umn.edu/gkhome/fetch/sw/$P/$P-$V.tar.gz"
+pbuild::add_to_group 'MPI'
 
-declare -ri MAJOR_VERSION=${V%%.*}
-
-case ${MAJOR_VERSION} in
+case ${V_MAJOR} in
 3 )
-	declare -r docfiles="CHANGES INSTALL LICENSE.txt README VERSION"
+	pbuild::add_docfiles CHANGES INSTALL LICENSE.txt README VERSION
 	;;
 4 )
-	declare -r docfiles="LICENSE.txt"
+	pbuild::add_docfiles Changelog Install.txt LICENSE.txt
+	;;
+* )
+	std::die 4 "Unsupported major version!"
 	;;
 esac
 
-pbuild::configure() {
-	CC=$MPICC
-	CXX=$MPICXX
-	F77=$MPIF77
-	F90=$MPIF90
-	FC=$MPIFC
-	FORTRAN=$MPIFORTRAN
-	if (( MAJOR_VERSION == 4 )) ; then
-		cmake \
-			-DCMAKE_INSTALL_PREFIX="${PREFIX}" \
-			-DMETIS_PATH="${SRC_DIR}/metis" \
-			-DGKLIB_PATH="${SRC_DIR}/metis/GKlib" \
-			"${SRC_DIR}" \
-			|| exit 1
+pbuild::pre_configure() {
+	pbuild::add_configure_args "CC=${MPICC}"
+	pbuild::add_configure_args "CXX=${MPICXX}"
+	pbuild::add_configure_args "F77=${MPIF77}"
+	pbuild::add_configure_args "F90=${MPIF90}"
+	pbuild::add_configure_args "FC=${MPIFC}"
+	pbuild::add_configure_args "FORTRAN=${MPIFORTRAN}"
+	if ((  V_MAJOR == 4 )}; then
+		pbuild::add_configure_args "-DMETIS_PATH=${SRC_DIR}/metis"
+		pbuild::add_configure_args "-DGKLIB_PATH=${SRC_DIR}/metis/GKlib"
+		;;
 	fi
 }
 
-pbuild::compile() {
-	CC=$MPICC
-	CXX=$MPICXX
-	F77=$MPIF77
-	F90=$MPIF90
-	FC=$MPIFC
-	FORTRAN=$MPIFORTRAN
-	if (( MAJOR_VERSION == 3 )) ; then
+pbuild::pre_install() {
+	mkdir -p "${PREFIX}/include/metis"
+	mkdir -p "${PREFIX}/lib"
+}
+
+pbuild::post_install() {
+	case ${V_MAJOR} in
+	3 )
 		cd "${SRC_DIR}"
-		make -e -j3 || exit 1
-
-		mkdir -p $PREFIX/include/metis
-		mkdir -p $PREFIX/lib
-
 		cp *.h $PREFIX/include
 		cp METISLib/*.h $PREFIX/include/metis
 		cp lib*.a $PREFIX/lib
-	elif (( MAJOR_VERSION == 4 )); then
-		make -j3 || exit 1
-		make install
-
+		;;
+	4 )
 		LIBMETIS_A=$(find . -name libmetis.a)
 		METIS_H=$(find "${SRC_DIR}" -name metis.h)
 
 		install -m 0644 $METIS_H    $PREFIX/include
 		install -m 0644 $LIBMETIS_A $PREFIX/lib
-	else
-		die 42 "Unsupported version: $V"
-	fi
+		;;
+	esac
 }
 
-pbuild::install() {
-	:
-}
-
-
-pbuild::add_to_group 'MPI'
-pbuild::set_docfiles ${docfiles} 
-pbuild::make_all
-pbuild::cleanup_src
-
+# vim: filetype=sh
