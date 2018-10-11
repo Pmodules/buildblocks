@@ -14,4 +14,8 @@ hdf5/1.10.1	unstable	intel/17.4 openmpi/2.1.2
 hdf5/1.10.1	unstable	intel/17.4 openmpi/3.0.0
 hdf5/1.10.1	unstable	intel/17.4 intel-mpi/17.4
 
+hdf5/1.10.1	unstable	pgi/18.5 pgi-mpi/18.5
+
 hdf5/1.10.2 	stable    	gcc/7.3.0 openmpi/3.0.1
+hdf5/1.10.3 	stable    	gcc/7.3.0 openmpi/3.1.2
+hdf5/1.10.3	unstable	intel/17.4 intel-mpi/17.4
