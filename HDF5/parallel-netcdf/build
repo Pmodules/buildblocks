@@ -1,23 +1,36 @@
 #!/usr/bin/env modbuild
 
-pbuild::add_to_group 'HDF5'
 pbuild::set_download_url "http://cucis.ece.northwestern.edu/projects/PnetCDF/Release/$P-$V.tar.gz"
-pbuild::set_docfiles \
-	AUTHORS  \
-	COPYING \
-	COPYRIGHT \
-	CREDITS \
-	ChangeLog \
-	NEWS \
-	RELEASE_NOTES
 
-pbuild::configure() {
-	"${SRC_DIR}"/configure \
-		--prefix="${PREFIX}" \
-		--with-mpi="${OPENMPI_DIR}" \
-		--with-pic \
-		--disable-shared \
-		|| exit 1
+pbuild::add_to_group 'HDF5'
+
+pbuild::add_docfiles 'AUTHORS' 'CREDITS'
+pbuild::add_docfiles 'COPYING' 'COPYRIGHT'
+pbuild::add_docfiles 'ChangeLog' 'NEWS'
+pbuild::add_docfiles 'RELEASE_NOTES'
+
+pbuild::pre_configure() {
+	pbuild::add_configure_args "--with-mpi=${MPICC/bin\/*}"
+	pbuild::add_configure_args "--with-pic"
+	pbuild::add_configure_args "--disable-shared"
+	case "${COMPILER}" in
+		pgi )
+			# PGI uses GCC's include files, some object files and
+			# the STL implementation!
+			# The PGI C pre-processor is broken and doesn't work 
+			# for HDF5. We use the pre-processor of the underlying
+			# GCC...
+			# This is a bit hackish!
+			#
+			# The following eval sets GCCDIR! Which is something 
+			# like:
+			# /opt/psi/Programming/gcc/7.3.0/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.0
+			#
+			eval $(pgcc -show 2>/dev/null | \
+				awk '/^GCCDIR[[:space:]]*=/{gsub(/[[:space:]]/,""); print $0}')
+			pbuild::add_configure_args "CPP=${GCCDIR%%/..*}/cpp"
+			;;
+	esac
 }
 
 pbuild::make_all
