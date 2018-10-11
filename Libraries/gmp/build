@@ -1,18 +1,14 @@
 #!/usr/bin/env modbuild
 
-SOURCE_URL="https://gmplib.org/download/$P/$P-$V.tar.bz2"
-
-pbuild::configure() {
-	"${SRC_DIR}"/configure \
-		--prefix="${PREFIX}" \
-		--disable-shared \
-		|| exit 1
-}
+pbuild::set_download_url "https://gmplib.org/download/$P/$P-$V_PKG.tar.bz2"
+pbuild::add_to_group 'Libraries'
 
 # use system gcc to compile
 declare -rx CC=gcc
 declare -rx CPP=/usr/bin/cpp
 
-pbuild::add_to_group 'Libraries'
+pbuild::add_configure_args "--disable-shared"
+pbuild::add_configure_args "--with-pic"
+
 pbuild::make_all
 
