@@ -1,0 +1,13 @@
+#!/usr/bin/env modbuild
+
+pbuild::set_download_url "https://ftp.gnu.org/gnu/$P/$P-$V.tar.gz"
+
+# use system gcc to compile
+declare -rx CC=gcc
+
+pbuild::add_to_group 'Libraries'
+
+pbuild::add_configure_args "--disable-shared"
+pbuild::add_configure_args "CFLAGS=-fPIC"
+
+pbuild::make_all

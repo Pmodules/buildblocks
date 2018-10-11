@@ -1,0 +1,20 @@
+#%Module1.0
+
+module-whatis		"ASN.1 library"
+module-url		"https://www.gnu.org/software/libtasn1/"
+module-license		"GNU LGPL v2.1"
+module-maintainer	"Achim Gsell <achim.gsell@psi.ch>"
+
+module-help		"
+Libtasn1 is the ASN.1 library used by GnuTLS, p11-kit and some other
+packages. It was originally written by Fabio Fiorina, and now maintained
+as a GNU package.
+
+The goal of this implementation is to be highly portable, and only require
+an ANSI C99 platform.
+
+For status information on what's happening with the package, see the NEWS
+file from live sources.
+"
+
+append-path	PKG_CONFIG_PATH	$PREFIX/lib64/pkgconfig
