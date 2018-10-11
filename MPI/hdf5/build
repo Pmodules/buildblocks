@@ -1,8 +1,6 @@
 #!/usr/bin/env modbuild
 
 pbuild::set_download_url "https://support.hdfgroup.org/ftp/HDF5/releases/$P-${V_MAJOR}.${V_MINOR}/$P-$V/src/hdf5-$V.tar.bz2"
-#                         https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.10/hdf5-1.10.3/src/hdf5-1.10.3.tar.bz2
-#			  https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-110/hdf5-1.10.3/src/hdf5-1.10.3.tar.bz2
 pbuild::add_to_group 'MPI'
 
 pbuild::add_docfiles ACKNOWLEDGMENTS
