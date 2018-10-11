@@ -1,12 +1,6 @@
 #!/usr/bin/env modbuild
 
-SOURCE_URL="https://sourceforge.net/projects/asciidoc/files/$P/$V/$P-$V.tar.gz"
-
-pbuild::configure() {
-	"${SRC_DIR}"/configure \
-		--prefix="${PREFIX}" \
-		|| exit 1
-}
+pbuild::set_download_url "https://sourceforge.net/projects/asciidoc/files/$P/${V_PKG}/$P-${V_PKG}.tar.gz"
 
 pbuild::compile_in_sourcetree
 pbuild::add_to_group 'Tools'
@@ -22,7 +16,6 @@ pbuild::install_docfiles 	\
 	MANIFEST	\
 	README		\
 	README.txt
-pbuild::make_all
 
 # Local Variables:
 # mode: sh
