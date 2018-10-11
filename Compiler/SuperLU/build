@@ -1,10 +1,13 @@
 #!/usr/bin/env modbuild
 
-SOURCE_URL="http://crd-legacy.lbl.gov/~xiaoye/SuperLU/superlu_$V.tar.gz"
+pbuild::set_download_url "http://crd-legacy.lbl.gov/~xiaoye/SuperLU/superlu_${V_PKG}.tar.gz"
+pbuild::add_to_group 'Compiler'
+pbuild::install_docfiles 'README'
 
 if (( V_MAJOR < 5 )); then
-pbuild::configure() {
-	cat <<EOF > "${SRC_DIR}/make.inc"
+	pbuild::compile_in_sourcetree
+	pbuild::configure() {
+		cat <<EOF > "${SRC_DIR}/make.inc"
 PLAT		= 
 SuperLUroot 	= \${PREFIX}
 SUPERLULIB   	= \$(SuperLUroot)/lib/libsuperlu.a
@@ -28,31 +31,15 @@ LOADOPTS	= -fopenmp
 CDEFS        = -DAdd_ 
 EOF
 }
-else
-pbuild::configure() {
-	cmake "${SRC_DIR}" \
-		-DCMAKE_INSTALL_PREFIX="${PREFIX}" \
-		|| exit 1 
 
-}
+	pbuild::pre_compile() {
+		mkdir -p "${PREFIX}/lib"
+	}
+
+	pbuild::post_install() {
+		mkdir -p "${PREFIX}/include"
+		install -m 0444 "${SRC_DIR}"/SRC/*.h "${PREFIX}/include"
+	}
+
 fi
 
-pbuild::compile() {
-	if (( V_MAJOR < 5 )); then
-		cd "${SRC_DIR}"
-		mkdir -p "${PREFIX}/lib"
-	fi
-	make
-}
-
-pbuild::install() {
-	make install
-	mkdir -p "${PREFIX}/include"
-	install -m 0444 "${SRC_DIR}"/SRC/*.h "${PREFIX}/include"
-}
-
-pbuild::add_to_group 'Compiler'
-pbuild::compile_in_sourcetree
-pbuild::install_docfiles 'README'
-pbuild::make_all
-pbuild::cleanup_src
