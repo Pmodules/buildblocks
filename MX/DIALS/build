@@ -3,9 +3,11 @@
 pbuild::add_to_group 'MX'
 
 pbuild::set_download_url \
-	"https://github.com/dials/dials/releases/download/v${V_MAJOR}.${V_MINOR}.0/dials-v${V}-linux-x86_64.tar.xz"
+	"https://github.com/dials/dials/releases/download/v${V_MAJOR}.11.0/dials-v${V_PKG//./-}-linux-x86_64.tar.xz"
 pbuild::set_sha256sum 'dials-v1-11-3-linux-x86_64.tar.xz:021b7856bd3f431bf15c4f9474a94e5b6fcbfc9966c10063b32766df84bcf107'
-pbuild::install_docfiles 'Copyright' 'ChangeLog' 'NEWS' 'README'
+pbuild::install_docfiles 'LICENSE' 'VERSION' 'README.md'
+
+pbuild::compile_in_sourcetree
 
 pbuild::configure() {
         :
@@ -16,7 +18,7 @@ pbuild::compile() {
 }
 
 pbuild::install() {
-        :
+        ./install --prefix=/opt/psi/MX/DIALS/${V}
 }
 
 
