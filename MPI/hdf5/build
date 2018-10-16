@@ -57,5 +57,3 @@ pbuild::pre_configure() {
 
 }
 
-pbuild::make_all
-
