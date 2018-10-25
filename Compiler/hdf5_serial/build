@@ -3,10 +3,10 @@
 pbuild::set_download_url "https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-${V_MAJOR}.${V_MINOR}/hdf5-$V/src/hdf5-$V.tar.bz2"
 
 pbuild::add_to_group 'Compiler'
-pbuild::add_docfiles ACKNOWLEDGMENTS
-pbuild::add_docfiles COPYING
-pbuild::add_docfiles MANIFEST
-pbuild::add_docfiles README.txt
+pbuild::install_docfiles ACKNOWLEDGMENTS
+pbuild::install_docfiles COPYING
+pbuild::install_docfiles MANIFEST
+pbuild::install_docfiles README.txt
 
 pbuild::pre_configure() {
 	pbuild::add_configure_args "--enable-shared"
@@ -43,6 +43,3 @@ pbuild::pre_configure() {
 		pbuild::add_configure_args "--enable-fortran"
 	fi
 }
-
-pbuild::make_all
-
