@@ -30,6 +30,10 @@ pbuild::compile_in_sourcetree
 # 	cp -v "${BUILDBLOCK_DIR}/files/Makefile.PSI" "${BUILD_DIR}/src/MAKE/MINE"
 # }
 #
+pbuild::configure() {
+  sed -i '/^CCFLAGS.*/ s/$/ -fopenmp/' ${BUILD_DIR}/src/MAKE/Makefile.mpi
+  sed -i '/^LINKFLAGS.*/ s/$/ -fopenmp/' ${BUILD_DIR}/src/MAKE/Makefile.mpi
+}
 
 pbuild::compile() {
   echo BEGIN COMPILE

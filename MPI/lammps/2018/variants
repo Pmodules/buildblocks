@@ -1,3 +1,4 @@
 lammps/2018.3          unstable  gcc/7.3.0 openmpi/3.0.1
 lammps/2018.3_merlin	 unstable	 gcc/8.2.0 openmpi/3.1.1 b:cmake/3.9.6
 lammps/2018.11_merlin  unstable  gcc/8.2.0 openmpi/3.1.1 b:cmake/3.9.6
+lammps/2018.11_merlin2  unstable  gcc/8.2.0 openmpi/3.1.1 b:cmake/3.9.6

@@ -1,0 +1,9 @@
+#%Module1.0
+
+module-whatis		  "is an integrated suite of Open-Source computer codes for electronic-structure calculations and materials modeling at the nanoscale. It is based on density-functional theory, plane waves, and pseudopotentials."
+module-url		    "https://www.quantum-espresso.org"
+module-license		"See PREFIX/share/doc/COPYING"
+module-maintainer	"Marc Caubet <marc.caubet@psi.ch>"
+module-help		    "
+QUANTUM ESPRESSOR is an integrated suite of Open-Source computer codes for electronic-structure calculations and materials modeling at the nanoscale. It is based on density-functional theory, plane waves, and pseudopotentials.
+"

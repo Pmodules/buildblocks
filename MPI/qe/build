@@ -1,0 +1,20 @@
+#!/usr/bin/env modbuild
+
+pbuild::set_download_url "https://github.com/QEF/q-e/archive/$P-$V.tar.gz"
+echo "https://github.com/QEF/q-e/archive/$P-$V.tar.gz"
+
+pbuild::add_to_group 'MPI'
+
+pbuild::install_docfiles License README.md CONTRIBUTING.md
+
+pbuild::compile_in_sourcetree
+
+
+pbuild::configure() {
+  ./configure -enable-openmp
+}
+
+pbuild::compile() {
+  make all
+}
+
