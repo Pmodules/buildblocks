@@ -11,10 +11,22 @@ pbuild::compile_in_sourcetree
 
 
 pbuild::configure() {
-  ./configure -enable-openmp
+  mkdir -p ${PREFIX}
+  ./configure -enable-openmp --with-prefix="${PREFIX}/bin" --prefix="${PREFIX}/bin"
 }
 
 pbuild::compile() {
   make all
 }
 
+pbuild::install() {
+   # Due to bug in: https://gitlab.com/QEF/q-e/commit/88e6558646dbbcfcafa5f3fa758217f6062ab91c.diff
+   #   Deploying custom install procedure
+   mkdir -p ${PREFIX}/bin
+   cd ${BUILD_DIR}
+   for x in `find * ! -path "test-suite/*" -name *.x -type f` ; do 
+     cp $x ${PREFIX}/bin/
+   done
+   echo 'Quantum ESPRESSO binaries installed in ${PREFIX}/bin'
+  # make install
+}
