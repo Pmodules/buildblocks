@@ -14,3 +14,9 @@ openmpi/3.1.1	stable		gcc/8.1.0
 openmpi/3.1.1	stable		gcc/8.2.0
 
 openmpi/3.1.2	stable		gcc/7.3.0
+
+openmpi/3.1.3	stable		gcc/4.8.5
+openmpi/3.1.3	stable		gcc/5.5.0
+openmpi/3.1.3	stable		gcc/6.4.0
+openmpi/3.1.3	stable		gcc/7.3.0
+openmpi/3.1.3	stable		gcc/8.2.0

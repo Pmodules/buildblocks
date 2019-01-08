@@ -28,5 +28,7 @@ openmpi/1.10.7	stable		gcc/6.3.0
 openmpi/1.10.7	stable		gcc/6.4.0
 openmpi/1.10.7	stable		gcc/7.2.0
 openmpi/1.10.7	stable		gcc/7.3.0
+openmpi/1.10.7	stable		gcc/8.2.0
+
 
 openmpi/1.10.7	stable		intel/17.4
