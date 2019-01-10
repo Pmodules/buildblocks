@@ -50,3 +50,5 @@ hdf5_serial/1.10.1	stable		gcc/7.2.0
 hdf5_serial/1.10.1	stable		gcc/7.3.0
 
 hdf5_serial/1.10.1	unstable	clang-macos/9.0.0
+
+hdf5_serial/1.10.4	stable		gcc/7.3.0
