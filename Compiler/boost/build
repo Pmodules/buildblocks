@@ -1,6 +1,8 @@
 #!/usr/bin/env modbuild
 
-pbuild::set_download_url "https://netcologne.dl.sourceforge.net/project/$P/$P/$V/$P_${V_MAJOR}_${V_MINOR}_${V_PATCHLVL}.tar.gz"
+#pbuild::set_download_url "https://netcologne.dl.sourceforge.net/project/$P/$P/$V/$P_${V_MAJOR}_${V_MINOR}_${V_PATCHLVL}.tar.gz"
+pbuild::set_download_url "https://dl.bintray.com/boostorg/release/${V_PKG}/source/${P}_${V_PKG//./_}.tar.gz"
+pbuild::add_to_group 'Compiler'
 
 BOOST_BUILD_PATH="${BUILD_DIR}"
 
@@ -39,6 +41,4 @@ pbuild::install() {
 		install
 }
 
-pbuild::add_to_group 'Compiler'
-pbuild::make_all
 
