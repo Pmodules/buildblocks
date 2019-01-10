@@ -36,3 +36,4 @@ boost/1.67.0         stable	clang-macos/9.0.0 b:Python/2.7.14
 boost/1.67.0         stable	intel/17.4 b:Python/2.7.14
 
 boost/1.68.0         stable	gcc/7.3.0 b:Python/2.7.14
+boost/1.68.0         stable	gcc/8.2.0 b:Python/2.7.14
