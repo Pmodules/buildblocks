@@ -1,6 +1,7 @@
 #!/usr/bin/env modbuild
 
 pbuild::set_download_url "http://amas.web.psi.ch/Downloads/$P/$P-$V.tar.bz2"
+pbuild::add_to_group 'Compiler'
 
 pbuild::post_prep() {
 	./autogen.sh
@@ -43,6 +44,4 @@ pbuild::post_install() {
 	cp -av "${H5HUT_INCLUDE_DIR}/"*		"${PREFIX}/include/"
 }
 
-pbuild::add_to_group 'Compiler'
-pbuild::make_all
 
