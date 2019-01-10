@@ -3,7 +3,6 @@
 pbuild::set_download_url "https://sourceforge.net/projects/math-atlas/files/Stable/$V/atlas${V_PKG}.tar.bz2"
 
 pbuild::add_to_group 'Compiler'
-pbuild::make_all
 
 # Local Variables:
 # mode: sh
