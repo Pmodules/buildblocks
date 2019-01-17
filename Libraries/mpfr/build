@@ -1,13 +1,9 @@
 #!/usr/bin/env modbuild
 
-pbuild::set_download_url "http://www.mpfr.org/$P-$V/$P-$V.tar.gz"
-
-# use system gcc to compile
-declare -rx CC=gcc
+pbuild::set_download_url "http://www.mpfr.org/$P-${V_PKG}/$P-${V_PKG}.tar.xz"
+pbuild::add_to_group 'Libraries'
 
 module use 'Libraries'
-
-pbuild::add_to_group 'Libraries'
 
 pbuild::pre_configure() {
 	pbuild::add_configure_args "--with-gmp=${GMP_PREFIX}"
