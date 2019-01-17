@@ -1,0 +1,6 @@
+#!/usr/bin/env modbuild
+
+pbuild::set_download_url https://zlib.net/$P-${V_PKG}.tar.gz
+pbuild::add_to_group 'Libraries'
+
+pbuild::install_docfiles 'README'
