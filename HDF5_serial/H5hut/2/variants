@@ -9,3 +9,4 @@ H5hut/2.0.0rc3	unstable	gcc/5.4.0 hdf5_serial/1.8.18 b:autoconf/2.69 b:automake/
 H5hut/2.0.0rc3	unstable	gcc/6.2.0 hdf5_serial/1.8.18 b:autoconf/2.69 b:automake/1.14 b:libtool/2.4.2
 
 H5hut/2.0.0rc4	unstable	gcc/7.3.0 hdf5_serial/1.10.1 b:autoconf/2.69 b:automake/1.15 b:libtool/2.4.6
+H5hut/2.0.0rc5	unstable	gcc/7.3.0 hdf5_serial/1.10.4 b:autoconf/2.69 b:automake/1.15 b:libtool/2.4.6
