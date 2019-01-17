@@ -1,0 +1,16 @@
+#!/usr/bin/env modbuild
+
+pbuild::set_download_url "ftp://ftp.unidata.ucar.edu/pub/$P/$P-${V_PKG}.tar.gz"
+pbuild::add_to_group 'Libraries'
+
+pbuild::install_docfiles 'COPYRIGHT'
+pbuild::install_docfiles 'ANNOUNCEMENT'
+pbuild::install_docfiles 'CHANGE_LOG'
+
+module use Libraries
+
+pbuild::pre_configure() {
+	pbuild::add_configure_args "--disable-shared"
+	pbuild::add_configure_args "--with-pic"
+}
+
