@@ -1,6 +1,7 @@
 #!/usr/bin/env modbuild
 
-pbuild::set_download_url "http://cern.ch/geant4-data/releases/$P.${V_PKG}.tar.gz"
+declare -r VERSION=${V_MAJOR}.$(printf '%02d' ${V_MINOR})
+pbuild::set_download_url "http://cern.ch/geant4-data/releases/$P.${VERSION}.tar.gz"
 pbuild::add_to_group 'Compiler'
 
 #pbuild::install_docfiles 'ChangeLog'
@@ -13,6 +14,7 @@ pbuild::pre_configure() {
 	pbuild::add_configure_args "-DCMAKE_INSTALL_PREFIX=${PREFIX}"
 	pbuild::add_configure_args "-DGEANT4_USE_SYSTEM_CLHEP=ON"
 	pbuild::add_configure_args "-DPC_EXPAT_INCLUDE_DIRS=${LIBEXPAT_INCLUDE_DIR}"
+	pbuild::add_configure_args "-DGEANT4_INSTALL_DATA=ON"
 	if pbuild::use_flag 'multithreaded'; then
 		pbuild::add_configure_args "-DGEANT4_BUILD_MULTITHREADED=ON"
 	fi
