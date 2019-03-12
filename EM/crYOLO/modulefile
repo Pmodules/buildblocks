@@ -1,0 +1,51 @@
+#%Module
+
+module-whatis	        "crYOLO is a fast and accurate particle picking procedure for electron microscopy"
+module-url		"http://sphire.mpg.de/wiki/doku.php?id=pipeline:window:cryolo"
+module-license	        "SPHIRE-crYOLO Complimentary Science Software License (http://sphire.mpg.de/wiki/doku.php?id=cryolo_license). Non-commercial academic and research purposes only"
+module-maintainer	"Spencer Bliven <spencer.bliven@psi.ch>"
+
+module-help	"
+CrYOLO is a fast and accurate particle picking procedure. It's based on
+convolutional neural networks and utilizes the popular You Only Look Once
+(YOLO) object detection system.
+
+  * crYOLO makes picking fast – On a modern GPU it will pick your particles at
+    up to 6 micrographs per second.
+  * crYOLO makes picking smart – The network learns the context of particles
+    (e.g. not to pick particles on carbon or within ice contamination )
+  * crYOLO makes training easy – You might use a general network model and skip
+    training completely. However, if the general model doesn't give you
+    satisfactory results or if you would like to improve them, you might want
+    to train a specialized model specific for your data set by selecting
+    particles (no selection of negative examples necessary) on a small number
+    of micrographs.
+"
+
+# Check for supported shell types
+set shelltype [module-info shelltype]
+switch -- $shelltype {
+    "sh" {
+    }
+    default {
+        puts stderr "Shells of type '$shelltype' are NOT supported!"
+    }
+}
+
+#puts stderr "Switching crYOLO mode to [module-info mode]"
+#puts stdout "{ date; echo Switching crYOLO mode to [module-info mode] ; } >> /gpfs/home/bliven_s/cryolo_mod.log;\n"
+
+
+switch [module-info mode] {
+    "load" {
+        #puts stderr "source $PREFIX/conda/bin/activate crYOLO"
+        puts stdout "source $PREFIX/conda/bin/activate crYOLO;\n"
+    }
+    "unload" -
+    "remove" {
+        #puts stderr "source deactivate"
+        puts stdout "source $PREFIX/conda/bin/deactivate;\n"
+        puts stdout {unset $(set|sed -rn 's/^(_?conda[a-z_]*).*$/\1/pI');}
+    }
+}
+
