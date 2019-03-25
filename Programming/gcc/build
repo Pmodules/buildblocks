@@ -15,7 +15,11 @@ pbuild::patch_sources_Darwin() {
 
 pbuild::configure() {
 	local -a conf_args=()
-	conf_args+=( "--enable-languages=c,c++,objc,obj-c++,lto,fortran,go" )
+	if (( V_MAJOR >= 8 )); then
+		conf_args+=( "--enable-languages=c,c++,objc,obj-c++,lto,fortran,go" )
+	else
+		conf_args+=( "--enable-languages=c,c++,objc,obj-c++,lto,fortran" )
+	fi
 	conf_args+=( "--with-gmp=${GMP_PREFIX}" )
 	conf_args+=( "--with-mpfr=${MPFR_PREFIX}" )
 	conf_args+=( "--with-mpc=${MPC_PREFIX}" )
