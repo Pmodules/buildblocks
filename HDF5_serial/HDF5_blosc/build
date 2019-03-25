@@ -1,0 +1,5 @@
+#!/usr/bin/env modbuild
+
+pbuild::set_download_url "https://github.com/Blosc/hdf5-blosc/archive/v${V_PKG}.tar.gz"
+pbuild::add_to_group 'HDF5_serial'
+pbuild::use_cmake

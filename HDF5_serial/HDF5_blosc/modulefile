@@ -1,0 +1,11 @@
+#%Module1.0
+
+module-whatis     "HDF5_blosc"
+module-url        "https://github.com/Blosc/hdf5-blosc"
+module-license    "https://github.com/Blosc/hdf5-blosc/tree/master/LICENSES"
+module-maintainer "Ivan Usov <ivan.usov@psi.ch>"
+module-help "
+This is a filter for HDF5 that uses the Blosc compressor
+"
+
+setenv          HDF5_PLUGIN_PATH             $PREFIX
