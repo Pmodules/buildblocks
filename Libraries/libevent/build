@@ -5,5 +5,3 @@ pbuild::add_to_group 'Libraries'
 
 pbuild::install_docfiles 'LICENSE'
 
-pbuild::make_all
-
