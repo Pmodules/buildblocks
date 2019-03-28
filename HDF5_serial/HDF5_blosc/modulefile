@@ -8,4 +8,4 @@ module-help "
 This is a filter for HDF5 that uses the Blosc compressor
 "
 
-setenv          HDF5_PLUGIN_PATH             $PREFIX
+setenv          HDF5_PLUGIN_PATH             $PREFIX/lib64
