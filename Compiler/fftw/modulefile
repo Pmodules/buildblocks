@@ -1,0 +1,12 @@
+#%Module
+
+module-whatis       "Fastest Fourier Transform in the West"
+module-url          "http://www.fftw.org/"
+module-license      "GPL; http://www.fftw.org/doc/License-and-Copyright.html"
+module-maintainer   "Spencer Bliven <spencer.bliven@psi.ch>"
+
+module-help         "
+FFTW is a C subroutine library for computing the discrete Fourier transform (DFT) in one or more dimensions, of arbitrary input size, and of both real and complex data (as well as of even/odd data, i.e. the discrete cosine/sine transforms or DCT/DST).
+"
+
+
