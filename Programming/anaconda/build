@@ -2,7 +2,6 @@
 
 pbuild::add_to_group 'Programming'
 pbuild::prep() {
-    echo "prepping"
     source "${BUILDBLOCK_DIR}/files/config-$V.sh"
 
     mkdir -p "$SRC_DIR"
@@ -25,18 +24,4 @@ pbuild::install() {
 
     # Install conda
     bash "$SRC_DIR/miniconda.sh" -b -p $PREFIX/conda
-
-    # Load conda
-    source "$PREFIX/conda/etc/profile.d/conda.sh"
-
-    # Install anaconda versions
-    for PY in "${PYTHON_VERSION[@]}"; do
-        conda install -y anaconda=$V python=$PY
-    done
-
-    # Deactivate
-    source deactivate
-
-    # Unload conda; 
-    #unset $(set|sed -rn 's/^(_?conda[a-z_]*).*$/\1/pI');
 }
