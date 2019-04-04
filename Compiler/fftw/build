@@ -8,7 +8,6 @@ pbuild::set_sha256sum "fftw-3.3.8.tar.gz:6113262f6e92c5bd474f2875fa1b01054c4ad50
 pbuild::install_docfiles 'COPYRIGHT' 'COPYING' 'README' 'NEWS'
 
 pbuild::pre_configure() {
-    echo "PRECONFIGURE" >&2
     pbuild::add_configure_args "CC=${MPICC}"
     pbuild::add_configure_args "CXX=${MPICXX}"
 
@@ -23,23 +22,3 @@ pbuild::pre_configure() {
     pbuild::add_configure_args "--enable-sse2"
     pbuild::add_configure_args "--enable-avx2"
 }
-
-pbuild::configure() {
-    echo "CONFIGURING" >&2
-    pwd >&2
-    ls >&2
-    ./configure
-}
-
-pbuild::compile() {
-    echo "COMPILING" >&2
-    echo "PWD=$PWD" >&2
-    echo "ls:" >&2
-    ls >&2
-    echo "make:" >&2
-    make
-    exit 1
-}
-
-#pbuild::install() {
-#}
