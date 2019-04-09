@@ -1,0 +1,61 @@
+#%Module1.0
+
+module-whatis       "Conda package manager and Anaconda software distribution"
+module-url          "https://www.anaconda.com/"
+module-license      "3-clause BSD License and 3rd party software licenses. https://docs.continuum.io/anaconda/eula/"
+module-maintainer   "Spencer Bliven <spencer.bliven@psi.ch>"
+
+module-help         "
+Anaconda is a package manager, an environment manager, a Python/R data science
+distribution, and a collection of over 1,500+ open source packages. Anaconda is
+free and easy to install, and it offers free community support.
+
+Conda is an open source package management system and environment management
+system that runs on Windows, macOS and Linux. Conda quickly installs, runs and
+updates packages and their dependencies. Conda easily creates, saves, loads and
+switches between environments on your local computer. It was created for Python
+programs, but it can package and distribute software for any language.
+
+Conda as a package manager helps you find and install packages. If you need a
+package that requires a different version of Python, you do not need to switch
+to a different environment manager, because conda is also an environment
+manager. With just a few commands, you can set up a totally separate
+environment to run that different version of Python, while continuing to run
+your usual version of Python in your normal environment.
+
+This package provides the conda command (miniconda), as well as releases of the
+Anaconda distribution, built against several python versions.
+"
+
+set dont-setenv { LD_LIBRARY_PATH }
+
+# Check for supported shell types
+set shelltype [module-info shelltype]
+switch -- $shelltype {
+    "sh" {
+    }
+    default {
+        puts stderr "Shells of type '$shelltype' are NOT supported!"
+    }
+}
+
+switch [module-info mode] {
+    "load" {
+	#TODO check whether another conda version is present (conflicts)
+	
+        puts stderr "Using conda from $P/$V\n"
+        puts stdout "source \"$PREFIX/conda/etc/profile.d/conda.sh\";\n"
+
+	# Activate base
+	puts stdout "conda activate;\n"
+    }
+    "unload" -
+    "remove" {
+        # Deactivate
+        puts stdout {while [[ "${CONDA_SHLVL:-0}" -gt 0 ]]; do conda deactivate; done;}
+
+        # Unload conda
+        puts stdout {unset $(set|sed -rn 's/^(_?conda[a-z_]*).*$/\1/pI');}
+    }
+}
+

@@ -1,0 +1,24 @@
+#!/usr/bin/env modbuild
+
+pbuild::add_to_group 'Programming'
+
+source "${BUILDBLOCK_DIR}/files/config-${V_PKG}.sh"
+
+pbuild::pre_prep() {
+    curl -fsSLo "$PMODULES_DISTFILESDIR/Miniconda2-${CONDA_VERSION}-Linux-x86_64.sh" \
+	"https://repo.anaconda.com/miniconda/Miniconda2-${CONDA_VERSION}-Linux-x86_64.sh"
+}
+
+pbuild::configure() {
+    :
+}
+
+pbuild::compile() {
+    :
+}
+
+pbuild::install() {
+    # Install conda
+    bash "$PMODULES_DISTFILESDIR/Miniconda2-${CONDA_VERSION}-Linux-x86_64.sh" \
+    	-b -p "$PREFIX/conda"
+}
