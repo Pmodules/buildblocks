@@ -1,24 +1,19 @@
 #!/usr/bin/env modbuild
 
-# pbuild::set_download_url "https://github.com/hpc/ior/releases/download/${V_PKG}/$P-${V_PKG}.tar.gz"
-# pbuild::set_download_url "https://github.com/hpc/ior/archive/${V_PKG}.zip"
 pbuild::set_download_url "https://github.com/hpc/ior/archive/${V_PKG}.tar.gz"
 
-pbuild::add_to_group 'Tools'
+pbuild::add_to_group 'System'
 
-pbuild::install_docfiles AUTHORS COPYING NEWS README.md README_S3
+pbuild::install_docfiles AUTHORS NEWS README_S3
 
 cd ${SRC_DIR}
 
 # pbuild::compile_in_sourcetree
 pbuild::pre_configure() {
-  pbuild::add_configure_args "LIBS=/usr/lpp/mmfs/lib/libgpfs.so"
-  ./bootstrap"
+  pbuild::add_configure_args "LIBS=/tmp/libgpfs.so"
+  cd ${SRC_DIR}
+  ./bootstrap
 }
 pbuild::configure() {
-  ./configure LIBS=/usr/lpp/mmfs/lib/libgpfs.so"
+  ./configure LIBS=/tmp/libgpfs.so
 }
-
-pbuild::compile
-
-pbuild::install
