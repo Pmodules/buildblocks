@@ -24,3 +24,4 @@ openmpi/3.1.1	stable		gcc/7.3.0
 openmpi/3.1.2	stable		gcc/7.3.0
 openmpi/3.1.3	stable		gcc/7.3.0
 openmpi/3.1.3	unstable		clang-macos/10.0.1
+openmpi/4.0.1	unstable		clang-macos/10.0.1
