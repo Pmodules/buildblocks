@@ -1,5 +1,7 @@
 #!/usr/bin/env modbuild
 
+pbuild::add_to_group 'Tools'
+
 pbuild::prep() {
 	:
 }
@@ -15,6 +17,8 @@ pbuild::compile() {
 pbuild::install() {
    mkdir -p "$PREFIX/bin"
    /usr/bin/curl -o "$PREFIX/bin/datasetIngestor" https://intranet.psi.ch/pub/Daas/WebHome/datasetIngestor
+   /usr/bin/curl -o "$PREFIX/bin/datasetRetriever" https://intranet.psi.ch/pub/Daas/WebHome/datasetRetriever
+
    chmod +x "$PREFIX/bin/datasetIngestor"
 }
 
