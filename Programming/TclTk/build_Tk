@@ -1,0 +1,38 @@
+#!/usr/bin/env modbuild
+
+pbuild::set_download_url "ftp://ftp.tcl.tk/pub/tcl/tk8_6/tk${V_PKG}-src.tar.gz"
+
+pbuild::add_to_group 'Programming'
+pbuild::install_docfiles 'license.terms' 'README'
+
+
+pbuild::pre_configure_Linux() {
+	srcdir="${SRC_DIR}/unix"
+}
+
+pbuild::pre_configure_Darwin() {
+	srcdir="${SRC_DIR}/macosx"
+}
+
+pbuild::configure() {
+	export PATH="${PREFIX}/bin:$PATH"
+	export C_INCLUDE_PATH="${PREFIX}/include:${C_INCLUDE_PATH}"
+	export LIBRARY_PATH="${PREFIX}/lib:${LIBRARY_PATH}"
+
+	"${srcdir}"/configure \
+		--prefix="${PREFIX}" \
+		--enable-shared=no \
+		--with-tcl="${PREFIX}/lib" \
+		|| exit 1
+}
+
+pbuild::compile() {
+	export PATH="${PREFIX}/bin:$PATH"
+	export C_INCLUDE_PATH="${PREFIX}/include:${C_INCLUDE_PATH}"
+	export LIBRARY_PATH="${PREFIX}/lib:${LIBRARY_PATH}"
+        make -j3
+}
+
+pbuild::post_install() {
+	{ cd "${PREFIX}"/bin && rm -f tclsh && ln -fs tclsh${V%.*} tclsh; };
+}

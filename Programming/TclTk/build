@@ -1,0 +1,4 @@
+#!/bin/bash
+
+./build_Tcl "$@"
+./build_Tk  "$@"

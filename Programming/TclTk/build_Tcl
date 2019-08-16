@@ -1,0 +1,30 @@
+#!/usr/bin/env modbuild
+
+pbuild::set_download_url "ftp://ftp.tcl.tk/pub/tcl/tcl8_6/tcl${V_PKG}-src.tar.gz"
+
+pbuild::add_to_group 'Programming'
+pbuild::install_docfiles 'license.terms' 'README'
+
+#pbuild::pre_prep() {
+#	pbuild::set_unpack_dir "tcl${V_PKG}-src.tar.gz" "${SRC_DIR}/Tcl"
+#	pbuild::set_unpack_dir "tk${V_PKG}-src.tar.gz"  "${SRC_DIR}/Tk"
+#}
+
+pbuild::pre_configure_Linux() {
+	srcdir="${SRC_DIR}/unix"
+}
+
+pbuild::pre_configure_Darwin() {
+	srcdir="${SRC_DIR}/macosx"
+}
+
+pbuild::configure() {
+	"${srcdir}"/configure \
+		--prefix="${PREFIX}" \
+		--enable-shared=no \
+		|| exit 1
+}
+
+pbuild::post_install() {
+	{ cd "${PREFIX}"/bin && rm -f tclsh && ln -fs tclsh${V%.*} tclsh; };
+}

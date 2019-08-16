@@ -1,0 +1,16 @@
+#%Module1.0
+
+module-whatis		"a very powerful, easy to learn programming language"
+module-url		"http://www.tcl.tk"
+module-license		"BSD-lik"
+module-maintainer	"Achim Gsell <achim.gsell@psi.ch>"
+
+module-help		"
+Tcl (Tool Command Language) is a very powerful but easy to learn dynamic
+programming language, suitable for a very wide range of uses, including
+web and desktop applications, networking, administration, testing and many
+more. Open source and business-friendly, Tcl is a mature yet evolving
+language that is truly cross platform, easily deployed and highly
+extensible. 
+"
+
