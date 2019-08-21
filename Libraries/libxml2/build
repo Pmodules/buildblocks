@@ -1,0 +1,14 @@
+#!/usr/bin/env modbuild
+
+pbuild::set_download_url "http://xmlsoft.org/sources/$P-${V_PKG}.tar.gz"
+pbuild::add_to_group 'Libraries'
+
+#pbuild::install_docfiles 'ANNOUNCE'
+#pbuild::install_docfiles 'CHANGES'
+#pbuild::install_docfiles 'LICENSE'
+#pbuild::install_docfiles 'README'
+#pbuild::install_docfiles 'TODO'
+
+pbuild::add_configure_args "--with-pic"
+pbuild::add_configure_args "--without-python"
+
