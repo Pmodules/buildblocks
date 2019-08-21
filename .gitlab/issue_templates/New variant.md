@@ -1,8 +1,8 @@
-# New module request
+# New module variant
 
-| **Name** | **Version** | **Group** | **Overlay** |
-|----------|-------------|-----------|-------------|
-|          |             |           |             |
+| **Name** | **Version** | **Notes** |
+|----------|-------------|-----------|
+|          |             |           |
 
 
 ## Operating systems 
