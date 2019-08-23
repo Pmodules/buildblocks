@@ -2,8 +2,6 @@
 
 pbuild::set_download_url "https://releases.pagure.org/$P/$P-${V_PKG}.tar.bz2"
 
-module use System
-
 pbuild::compile_in_sourcetree
 pbuild::add_to_group 'Tools'
 pbuild::install_docfiles	\
@@ -13,6 +11,15 @@ pbuild::install_docfiles	\
 	NEWS		\
 	README		\
 	THANKS 
+
+pbuild::pre_configure() {
+	# :FIXME: Hack for macos, we should build our own xsltproc module
+	test -x /opt/local/bin/xsltproc && pbuild::add_configure_args XSLTPROC=$_
+}
+
+pbuild::post_install() {
+	cp -av "${GETOPT_DIR}/bin/getopt" "${PREFIX}/bin"
+}
 
 # Local Variables:
 # mode: sh
