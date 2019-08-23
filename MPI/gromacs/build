@@ -1,15 +1,20 @@
-#!/usr/bin/env modbuild
+#!/usr/bin/env modbuild 
 
 pbuild::set_download_url "http://ftp.gromacs.org/pub/$P/$P-${V_PKG}.tar.gz"
 
 pbuild::add_to_group 'MPI'
 
-pbuild::install_docfiles ACKNOWLEDGMENTS COPYING MANIFEST README.txt
+if (( V_MAJOR <= 2018 )); then
+  pbuild::install_docfiles ACKNOWLEDGMENTS COPYING MANIFEST README.txt
+else
+  pbuild::install_docfiles AUTHORS COPYING README
+fi
 
 pbuild::pre_configure() {
   # For enabling GPU, set to 'yes'
   local enable_gpu='yes'
 
+  echo here
   pbuild::add_configure_args "-DCMAKE_BUILD_TYPE=RELEASE"
   pbuild::add_configure_args "-DGMX_MPI=on"
 
