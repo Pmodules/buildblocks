@@ -64,21 +64,30 @@ switch [module-info mode] {
     }
     "unload" -	
     "remove" {
-        # Deactivate all layers of active conda environments
-        puts stdout {while [[ "${CONDA_SHLVL:-0}" -gt 0 ]]; do conda deactivate; done;}
+	# Only run this if conda is in the PATH
+	catch {exec which conda} result option
+	if { [dict get $option -code] != 0 } {
+	    puts stderr "Error: cannot cleanly unload anaconda: conda is not in the PATH"
+	} else {
+	    # if the user has invoked this from a subshell, the conda functions may
+	    # not be defined, so we need to reload the environment
+	    puts stdout {if [[ x$(command -v conda) != xconda ]];then source  $(conda info --base)/etc/profile.d/conda.sh; fi;}
 
-	remove-path PATH  $PREFIX/conda/condabin
- 	# remove the conda function definitions
-	unsetenv __conda_activate
-	unsetenv __conda_hashr
-	unsetenv __conda_reactivate
-	unsetenv conda
+	    # Deactivate all layers of active conda environments
+	    puts stdout {while [[ "${CONDA_SHLVL:-0}" -gt 0 ]]; do conda deactivate; done;}
 
-	unsetenv CONDA_EXE
-	unsetenv CONDA_PYTHON_EXE
-	unsetenv CONDA_SHLVL
-	unsetenv _CE_CONDA
+	    remove-path PATH  $PREFIX/conda/condabin
+	    # remove the conda function definitions
+	    unsetenv __conda_activate
+	    unsetenv __conda_hashr
+	    unsetenv __conda_reactivate
+	    unsetenv conda
 
+	    unsetenv CONDA_EXE
+	    unsetenv CONDA_PYTHON_EXE
+	    unsetenv CONDA_SHLVL
+	    unsetenv _CE_CONDA
+	}
     }
 }
 
