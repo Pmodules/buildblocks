@@ -34,5 +34,5 @@ pbuild::compile() {
 }
 
 pbuild::post_install() {
-	{ cd "${PREFIX}"/bin && rm -f tclsh && ln -fs tclsh${V%.*} tclsh; };
+	{ cd "${PREFIX}"/bin && rm -f wish && ln -fs wish${V%.*} wish; };
 }
