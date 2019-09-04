@@ -1,0 +1,9 @@
+# Clean environment based on pure conda-forge packages
+name: hpce-tools
+channels:
+  - conda-forge
+  - http://conda-pkg.intranet.psi.ch
+dependencies:
+  - python=3.6
+  - ldapuserdir
+  

@@ -14,7 +14,9 @@ dependencies:
   - pytables
   - ipython
   - keras=2.1.6
-  - dask
   - deap
   - nb_conda_kernels
   - ipywidgets
+# Note that the dask 2.1.0 with python 3.6 led to a non-functioning configuration
+# (serialization errors in dask). Therefore we exclude it here.
+#  - dask
