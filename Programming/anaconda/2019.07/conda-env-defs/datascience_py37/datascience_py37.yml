@@ -1,0 +1,22 @@
+# Clean environment based on pure conda-forge packages
+name: datascience_py37
+channels:
+  - conda-forge
+dependencies:
+  - python=3.7
+  - pandas
+  - numpy
+  - scipy
+  - scikit-learn
+  - matplotlib
+  - seaborn
+  - tensorflow=1.13.1
+  - pytables
+  - ipython
+  # keras 2.1.6 not available from conda-forge for py37
+  #  - keras=2.1.6
+  - deap
+  - nb_conda_kernels
+  - ipywidgets
+  - dask
+  - dask-jobqueue
