@@ -5,11 +5,12 @@
    * The anaconda module just provides the **conda** package management tool together with its directory infrastructure which contains *conda environments* and a cache of downloaded packages
    * Python and user software is provided in **conda environments**. These environments are located within the directory tree belonging to the anaconda module, e.g. `/afs/psi.ch/sys/psi.merlin/Programming/anaconda/2019.03/conda/envs/`
    * The software in these environments can be accessed by users through
-      * loading the anaconda module and then using `conda activate somemodule_py36`
-	  * a seperate pmodule that transparently switches to that installed environment by just setting the correct PATH
-	  * jupyter installations running from one of the environments which discover the other environments if they contain the correct packages (**nb_conda_kernels**)
+      1) loading the anaconda module and then using `conda activate somemodule_py36`
+	  1) a seperate pmodule that transparently switches to that installed environment by just setting the correct PATH to the python binary.
+	  1) jupyter installations running from one of the environments which discover the other environments if they contain the correct packages (**nb_conda_kernels**)
    * The `conda` tool has frequent updates, and our experience shows that they should be installed. However, it would be a waste to every time produce a new module, because with the new module would also be associated a new area for environments. So, we prefer to update conda in place, and only make a new anaconda module if their are special incentives
-   * Environments are self sufficient and do not depend on the conda tool at all. All depending libraries are installed by conda. Conda makes consisten use of **rpath** definitions for executables and libraries, i.e. there is no reason to set `LD_LIBRARY_PATH` at all.
+   * Most environments are self sufficient and do not depend on the conda tool at all after the instalation: Conda took care of installing all depending libraries, and the builds that conda provides make consistent use of **rpath** definitions for executables and libraries, i.e. there is no reason to set `LD_LIBRARY_PATH` at all.
+      * There is one important exception: If your environment needs additional setups (activation hooks), then it will rely on the `conda activate` call, since these hooks are only run inside of this call.
    
 ## Building a central conda environment
 
@@ -47,12 +48,14 @@ In most cases you will want to go ahead with `pip` installs. However, after runn
 
 Proceed as above by defining a YAML file and use conda to first install all the conda based packages.
 
-Even though the YAML file also allows for the specification of pip packages, I advise to do this step separately. The pip steps can fail for various reasons, and it is better to do them interactively. Describe what you have to do in a README.md inside of the `conda-env-defs/${myenv}` folder.
+Even though the YAML file also allows for the specification of pip packages, I advise to do this step separately. The pip steps can fail for various reasons, and it is better to do them interactively. Describe what you have to do in a README.md inside of the `conda-env-defs/${myenv}** folder.
+
+**Note** that if pip triggers compilations, the package may pick up shared libraries from outside the environment. This can lead to problems if the build is done on pmod6.psi.ch which runs SL6, while most of the production environments are now on REHL7!
 
    
 ### installation of a conda environment and adding source compiled packages
 
-**DRAFT!!!**
+**This is still a DRAFT!!!**
 
 This works if the python package has a correct setup.py build
 
@@ -62,7 +65,7 @@ This works if the python package has a correct setup.py build
 	  * document it in `conda-env-defs/${myenv}/README.md`
    * downlad and store the sources in the install area under
      `/opt/psi/Programming/anaconda/2019.07/xxxx/mypackage`
-   * Use pip to install them into the environment (requires the setup.py)
+   * Use pip to install them into the environment (requires that the package comes with a correct `setup.py`)
      ```
      cd /opt/psi/Programming/anaconda/2019.07/xxxx/mypackage
      pip install .

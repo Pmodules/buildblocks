@@ -1,0 +1,20 @@
+name: talos_py36
+channels:
+  - conda-forge
+dependencies:
+  - python=3.6
+  - pandas
+  - numpy
+  - scipy
+  - scikit-learn
+  - matplotlib
+  - seaborn
+  - tensorflow=1.13.1
+  - pytables
+  - ipython
+  - keras=2.1.6
+  - dask
+  - deap
+  - nb_conda_kernels
+  - ipywidgets
+  - chaospy
