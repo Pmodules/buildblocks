@@ -5,21 +5,20 @@ pbuild::set_download_url "ftp://ftp.tcl.tk/pub/tcl/tcl8_6/tcl${V_PKG}-src.tar.gz
 pbuild::add_to_group 'Programming'
 pbuild::install_docfiles 'license.terms' 'README'
 
-#pbuild::pre_prep() {
-#	pbuild::set_unpack_dir "tcl${V_PKG}-src.tar.gz" "${SRC_DIR}/Tcl"
-#	pbuild::set_unpack_dir "tk${V_PKG}-src.tar.gz"  "${SRC_DIR}/Tk"
-#}
-
-pbuild::pre_configure_Linux() {
-	srcdir="${SRC_DIR}/unix"
+pbuild::configure_Darwin() {
+	export CXX=/usr/bin/clang++
+	export CC=/usr/bin/clang
+	PATH+=":/opt/X11/bin"
+	export PKG_CONFIG_PATH="/opt/X11/share/pkgconfig:/opt/X11/lib/pkgconfig:$PKG_CONFIG_PATH"
+	"${SRC_DIR}/macosx/configure" \
+		--prefix="${PREFIX}" \
+		--enable-threads \
+		--disable-symbols \
+		|| exit 1
 }
 
-pbuild::pre_configure_Darwin() {
-	srcdir="${SRC_DIR}/macosx"
-}
-
-pbuild::configure() {
-	"${srcdir}"/configure \
+pbuild::configure_Linux() {
+	"${SRC_DIR}/unix/configure" \
 		--prefix="${PREFIX}" \
 		--enable-shared=no \
 		|| exit 1
@@ -27,4 +26,11 @@ pbuild::configure() {
 
 pbuild::post_install() {
 	{ cd "${PREFIX}"/bin && rm -f tclsh && ln -fs tclsh${V%.*} tclsh; };
+}
+
+pbuild::post_install_Darwin() {
+	local -r libtcl="libtcl${V_MAJOR}.${V_MINOR}.dylib"
+	install_name_tool \
+			-id @executable_path/../lib/${libtcl} \
+			"${PREFIX}/lib/${libtcl}"
 }

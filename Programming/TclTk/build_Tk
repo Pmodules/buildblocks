@@ -1,38 +1,48 @@
 #!/usr/bin/env modbuild
 
-pbuild::set_download_url "ftp://ftp.tcl.tk/pub/tcl/tk8_6/tk${V_PKG}-src.tar.gz"
+pbuild::set_download_url "ftp://ftp.tcl.tk/pub/tcl/tk${V_MAJOR}_${V_MINOR}/tk${V_PKG}-src.tar.gz"
 
 pbuild::add_to_group 'Programming'
-pbuild::install_docfiles 'license.terms' 'README'
 
+export PATH="${PREFIX}/bin:$PATH"
+export C_INCLUDE_PATH="${PREFIX}/include:${C_INCLUDE_PATH}"
+export LIBRARY_PATH="${PREFIX}/lib:${LIBRARY_PATH}"
 
-pbuild::pre_configure_Linux() {
-	srcdir="${SRC_DIR}/unix"
+pbuild::configure_Darwin() {
+	PATH+=":/opt/X11/bin"
+	export CXX=/usr/bin/clang++
+	export CC=/usr/bin/clang
+	export PKG_CONFIG_PATH="/opt/X11/share/pkgconfig:/opt/X11/lib/pkgconfig:$PKG_CONFIG_PATH"
+	"${SRC_DIR}/macosx/configure" \
+		--prefix="${PREFIX}" \
+		--enable-threads \
+		--disable-symbols \
+		--with-tcl="${PREFIX}/lib" \
+		--enable-xft \
+		--with-x \
+		--x-includes=/opt/X11/include \
+		|| exit 1
 }
 
-pbuild::pre_configure_Darwin() {
-	srcdir="${SRC_DIR}/macosx"
-}
-
-pbuild::configure() {
-	export PATH="${PREFIX}/bin:$PATH"
-	export C_INCLUDE_PATH="${PREFIX}/include:${C_INCLUDE_PATH}"
-	export LIBRARY_PATH="${PREFIX}/lib:${LIBRARY_PATH}"
-
-	"${srcdir}"/configure \
+pbuild::configure_Linux() {
+	"${SRC_DIR}/unix/configure" \
 		--prefix="${PREFIX}" \
 		--enable-shared=no \
 		--with-tcl="${PREFIX}/lib" \
 		|| exit 1
 }
 
-pbuild::compile() {
-	export PATH="${PREFIX}/bin:$PATH"
-	export C_INCLUDE_PATH="${PREFIX}/include:${C_INCLUDE_PATH}"
-	export LIBRARY_PATH="${PREFIX}/lib:${LIBRARY_PATH}"
-        make -j3
-}
-
 pbuild::post_install() {
 	{ cd "${PREFIX}"/bin && rm -f wish && ln -fs wish${V%.*} wish; };
+}
+
+pbuild::post_install_Darwin() {
+	local -r libtk="libtk${V_MAJOR}.${V_MINOR}.dylib"
+	install_name_tool \
+			-id @executable_path/../lib/${libtk} \
+			"${PREFIX}/lib/${libtk}"
+	install_name_tool \
+			-change "${PREFIX}/lib:/usr/X11/lib/${libtk}" \
+			"@executable_path/../lib/${libtk}" \
+			 "${PREFIX}/bin/wish"
 }
