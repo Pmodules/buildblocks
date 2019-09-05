@@ -27,7 +27,6 @@ pbuild::configure_Darwin() {
 pbuild::configure_Linux() {
 	"${SRC_DIR}/unix/configure" \
 		--prefix="${PREFIX}" \
-		--enable-shared=no \
 		--with-tcl="${PREFIX}/lib" \
 		|| exit 1
 }
