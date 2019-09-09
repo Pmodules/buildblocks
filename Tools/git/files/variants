@@ -1,8 +1,0 @@
-git/2.3.3	stable		Tcl/8.6.4 Tk/8.6.4
-git/2.5.2	stable		Tcl/8.6.4 Tk/8.6.4
-git/2.8.1	stable		Tcl/8.6.4 Tk/8.6.4
-git/2.11.1	stable		Tcl/8.6.4 Tk/8.6.4
-git/2.13.0	stable		Tcl/8.6.4 Tk/8.6.4 b:perl b:asciidoc b:xmlto
-git/2.16.2	stable		Tcl/8.6.4 Tk/8.6.4 b:perl b:asciidoc b:xmlto
-git/2.19.1	unstable	Tcl/8.6.4 Tk/8.6.4 b:perl/5.26.1 b:asciidoc/8.6.9 b:xmlto/0.0.28
-git/2.21.0	unstable	Tcl/8.6.9 Tk/8.6.9 b:perl/5.28.1 b:asciidoc/8.6.9-1 b:xmlto/0.0.28 b:gettext/0.19.8

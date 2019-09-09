@@ -14,8 +14,9 @@ pbuild::post_configure_Linux() {
 }
 
 pbuild::pre_configure() {
-	pbuild::add_configure_args "LIBS=-lintl"
+	#pbuild::add_configure_args "LIBS=-lintl"
 	pbuild::add_configure_args "--with-tcltk"
+	pbuild::add_configure_args "--with-iconv=${GETTEXT_PREFIX}"
 	pbuild::add_configure_args "--with-perl=${PERL_PREFIX}/bin/perl"
 }
 
@@ -24,9 +25,9 @@ pbuild::post_compile() {
 }
 
 pbuild::post_install() {
-        make install-doc
+        make install-doc V=1 XMLTO_EXTRA='--skip-validation'
 	make -C contrib/subtree prefix="${PREFIX}" install
-	make -C contrib/subtree prefix="${PREFIX}" install-doc
+	make -C contrib/subtree prefix="${PREFIX}" install-doc XMLTO="xmlto --skip-validation"
 }
 
 # Local Variables:
