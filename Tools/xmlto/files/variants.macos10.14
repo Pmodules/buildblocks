@@ -1,2 +1,2 @@
 xmlto/0.0.28	stable		b:getopt/1.1.6
-xmlto/0.0.28-1	unstable	libxml2/2.9.9 b:getopt/1.1.6
+xmlto/0.0.28-1	stable		libxml2/2.9.9 b:getopt/1.1.6
