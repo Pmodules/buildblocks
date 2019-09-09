@@ -83,7 +83,7 @@ switch [module-info mode] {
 	    # is not aware that the above bash statements will have modified the path
 	    # upon the eval that is done by the outer "module" function.
 
-	    puts stdout {PATH=$(echo $PATH| tr ':' '\n' | grep -v "$mydel" | tr '\n' ':'); export PATH=${PATH%:};}
+	    puts stdout {PATH=$(echo $PATH| tr ':' '\n' | grep -v "$PREFIX/conda/condabin" | tr '\n' ':'); export PATH=${PATH%:};}
 
 	    # remove the conda function definitions
 	    unsetenv __conda_activate
