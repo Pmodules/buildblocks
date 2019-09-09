@@ -1,2 +1,2 @@
-git/2.21.0	unstable	b:perl/5.30.0 b:asciidoc/8.6.9-2 b:xmlto/0.0.28-1
-git/2.23.0	unstable	b:perl/5.30.0 b:asciidoc/8.6.9-2 b:xmlto/0.0.28-1
+git/2.21.0	stable		b:perl/5.30.0 b:asciidoc/8.6.9-2 b:xmlto/0.0.28-1
+git/2.23.0	stable		b:perl/5.30.0 b:asciidoc/8.6.9-2 b:xmlto/0.0.28-1
