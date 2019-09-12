@@ -1,14 +1,14 @@
 #!/usr/bin/env modbuild
 
-pbuild::set_download_url "https://netcologne.dl.sourceforge.net/project/boost/boost/$V/boost_${V_MAJOR}_${V_MINOR}_${V_PATCHLVL}.tar.gz"
+pbuild::set_download_url "https://netcologne.dl.sourceforge.net/project/boost/boost/$V/boost_${V_PKG//./_}.tar.gz"
 
 pbuild::add_to_group 'MPI'
 
-pbuild::add_patch "files/context-Jamfile.patch"
+#pbuild::add_patch "files/context-Jamfile.patch"
 
 BOOST_BUILD_PATH="${BUILD_DIR}"
 
-declare -x TOOLSET=''
+TOOLSET=''
 
 pbuild::pre_configure() {
 	case "${COMPILER}" in
@@ -22,6 +22,10 @@ pbuild::pre_configure() {
 }
 
 pbuild::configure() {
+	:
+}
+
+pbuild::compile() {
         cd "${SRC_DIR}"
         ./bootstrap.sh \
                 --prefix="${PREFIX}" \
@@ -29,10 +33,6 @@ pbuild::configure() {
                 --without-libraries=python \
                 || exit 1
         echo "using mpi ;" >> "./project-config.jam"
-}
-
-pbuild::compile() {
-        cd "${SRC_DIR}"
         ./b2  \
                 --build-dir="${BUILD_DIR}" \
                 --layout=system \
