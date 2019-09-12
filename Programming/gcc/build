@@ -2,6 +2,28 @@
 
 pbuild::set_download_url "https://ftp.gnu.org/gnu/gcc/$P-$V/$P-$V.tar.gz"
 
+# use system gcc to compile
+#declare -rx CC=gcc
+#declare -rx CXX=g++
+
+pbuild::add_to_group 'Programming'
+pbuild::install_docfiles 'COPYING' 'COPYING.LIB' 'COPYING.RUNTIME' 'COPYING3' 'COPYING3.LIB' 'NEWS' 'README'
+pbuild::compile_in_sourcetree
+
+#pbuild::pre_prep_Darwin() {
+#	if (( V_MAJOR == 8 )); then
+#		pbuild::add_patch "files/headers-10.14.4-fix.patch"
+#	fi
+#}
+
+pbuild::post_prep_Darwin() {
+	if (( V_MAJOR == 8 )); then
+		local -r OS_REL=$(uname -r)
+		local -r patch_fname="${BUILDBLOCK_DIR}/8/headers-10.14.4-fix.patch"
+		patch -p1 < <(sed "s/darwin18.5/${OS,,}${OS_REL%.*}/" ${patch_fname})
+	fi
+}
+
 pbuild::pre_prep() {
 	if (( V_MAJOR == 4 && V_MINOR <= 8 )) || \
 	   (( V_MAJOR == 4 && V_MINOR == 9 && V_PATCHLVL < 4)); then
@@ -11,58 +33,39 @@ pbuild::pre_prep() {
 	if (( V_MAJOR == 5 )) || (( V_MAJOR == 6 )); then
 		pbuild::add_patch_Darwin "${V_MAJOR}/PR57438_avoiding_empty_function_bodies_and_trailing_labels.patch"
 	fi
-	if (( V_MAJOR == 8 )); then
-		pbuild::add_patch_Darwin "files/headers-10.14.4-fix.patch"
-	fi
 }
 
-pbuild::configure() {
-	local -a conf_args=()
+pbuild::pre_configure() {
+	pbuild::add_configure_args "--with-gmp=${GMP_PREFIX}"
+	pbuild::add_configure_args "--with-mpfr=${MPFR_PREFIX}"
+	pbuild::add_configure_args "--with-mpc=${MPC_PREFIX}"
+	pbuild::add_configure_args "--enable-lto"
+	pbuild::add_configure_args "--disable-multilib"
+	pbuild::add_configure_args "--with-build-config=bootstrap-debug"
+	pbuild::add_configure_args "--with-pkgversion='PSI Environment Module'"
+	pbuild::add_configure_args "--with-build-config=bootstrap-debug"
+}
+
+pbuild::pre_configure_Linux() {
 	if (( V_MAJOR >= 8 )); then
-		conf_args+=( "--enable-languages=c,c++,objc,obj-c++,lto,fortran,go" )
-	else
-		conf_args+=( "--enable-languages=c,c++,objc,obj-c++,lto,fortran" )
+		pbuild::add_configure_args "--enable-languages=c,c++,objc,obj-c++,lto,fortran,go"
 	fi
-	conf_args+=( "--with-gmp=${GMP_PREFIX}" )
-	conf_args+=( "--with-mpfr=${MPFR_PREFIX}" )
-	conf_args+=( "--with-mpc=${MPC_PREFIX}" )
-	conf_args+=( "--enable-lto" )
-	conf_args+=( "--disable-multilib" )
-	conf_args+=( "--with-build-config=bootstrap-debug" )
-	conf_args+=( "--with-pkgversion='PSI Environment Module'" )
-	conf_args+=( "--with-build-config=bootstrap-debug" )
-
-	case "${OS}" in
-	Darwin )
-		local -r prefix='/usr'
-		conf_args+=( "--with-as=${prefix}/bin/as" )
-		conf_args+=( "--with-ld=${prefix}/bin/ld" )
-		conf_args+=( "--with-ar=${prefix}/bin/ar" )
-		export	AR_FOR_TARGET=${prefix}/bin/ar \
-		export	AS_FOR_TARGET=${prefix}/bin/as \
-		export	LD_FOR_TARGET=${prefix}/bin/ld \
-		export	NM_FOR_TARGET=${prefix}/bin/nm \
-		export	OBJDUMP_FOR_TARGET=${prefix}/bin/objdump \
-		export	RANLIB_FOR_TARGET=${prefix}/bin/ranlib \
-		export	STRIP_FOR_TARGET=${prefix}/bin/strip \
-		export	OTOOL=${prefix}/bin/otool \
-		export	OTOOL64=${prefix}/bin/otool \
-		;;
-	* )
-		echo "Unsupported OS '${OS}'!"
-		;;
-	esac
-	"${SRC_DIR}"/configure \
-		--prefix="${PREFIX}" \
-		"${conf_args[@]}" \
-		|| exit 1
 }
 
-# use system gcc to compile
-declare -rx CC=gcc
-declare -rx CXX=g++
-
-pbuild::add_to_group 'Programming'
-pbuild::install_docfiles 'COPYING' 'COPYING.LIB' 'COPYING.RUNTIME' 'COPYING3' 'COPYING3.LIB' 'NEWS' 'README'
-pbuild::make_all
+pbuild::pre_configure_Darwin() {
+	local -r prefix='/usr'
+	pbuild::add_configure_args "--enable-languages=c,c++,objc,obj-c++,lto,fortran"
+	pbuild::add_configure_args "--with-as=${prefix}/bin/as"
+	pbuild::add_configure_args "--with-ld=${prefix}/bin/ld"
+	pbuild::add_configure_args "--with-ar=${prefix}/bin/ar"
+	pbuild::add_configure_args "AR_FOR_TARGET=${prefix}/bin/ar"
+	pbuild::add_configure_args "AS_FOR_TARGET=${prefix}/bin/as"
+	pbuild::add_configure_args "LD_FOR_TARGET=${prefix}/bin/ld"
+	pbuild::add_configure_args "NM_FOR_TARGET=${prefix}/bin/nm"
+	pbuild::add_configure_args "OBJDUMP_FOR_TARGET=${prefix}/bin/objdump"
+	pbuild::add_configure_args "RANLIB_FOR_TARGET=${prefix}/bin/ranlib"
+	pbuild::add_configure_args "STRIP_FOR_TARGET=${prefix}/bin/strip"
+	pbuild::add_configure_args "OTOOL=${prefix}/bin/otool"
+	pbuild::add_configure_args "OTOOL64=${prefix}/bin/otool"
+}
 
