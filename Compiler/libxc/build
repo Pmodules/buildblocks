@@ -1,0 +1,32 @@
+#!/usr/bin/env modbuild
+
+pbuild::set_download_url "https://gitlab.com/$P/$P/-/archive/${V_PKG}/$P-${V_PKG}.tar.gz"
+pbuild::add_to_group 'Compiler'
+pbuild::use_autotools
+pbuild::install_docfiles 'AUTHORS'
+pbuild::install_docfiles 'COPYING'
+pbuild::install_docfiles 'KNOWN_ISSUES'
+pbuild::install_docfiles 'NEWS'
+pbuild::install_docfiles 'PACKAGING'
+pbuild::install_docfiles 'README'
+pbuild::install_docfiles 'TODO'
+
+pbuild::post_prep() {
+	libtoolize
+	aclocal
+	autoheader 
+	automake --add-missing
+	autoconf 
+}
+
+pbuild::pre_configure() {
+	local -r cflags="-O2 -fPIC -fp-model precise            -funroll-loops -g  -traceback -xHost"
+	local -r fcflags="-O2 -fPIC -fp-model precise -fpp -free -funroll-loops -g  -traceback -xHost"
+	pbuild::add_configure_args "CC=${CC}"
+	pbuild::add_configure_args "CXX=${CXX}"
+	pbuild::add_configure_args "FC=${FC}"
+	pbuild::add_configure_args "CFLAGS=${cflags}"
+	pbuild::add_configure_args "CXXFLAGS=${cflags}"
+	pbuild::add_configure_args "FCFLAGS=${fcflags}"
+}
+
