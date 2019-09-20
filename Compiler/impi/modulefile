@@ -1,0 +1,23 @@
+#%Module1.0
+
+# Let the native Intel configuration define the following variables:  
+#set dont-setenv { C_INCLUDE_PATH CPLUS_INCLUDE_PATH LD_LIBRARY_PATH LIBRARY_PATH }
+
+module-whatis		"Intel MPI"
+module-url		"http://intel.com/"
+module-license		"Intel"
+module-maintainer	"Hans-Christian Stadler <hans-christian.stadler@psi.ch>"
+module-addgroup		"MPI"
+
+module-help     "
+impi/19.3  - Intel MPI 2019.3 64-bit
+"
+
+setenv          MPICC                   mpiicc
+setenv          MPICXX                  mpiicpc
+setenv          MPIF77                  mpiifort
+setenv          MPIF90                  mpiifort
+setenv          MPIFC                   mpiifort
+setenv          MPIFORTRAN              mpiifort
+setenv          MPIEXEC                 mpirun
+setenv          MPIRUN                  mpirun
