@@ -2,6 +2,16 @@ FFTW
 ====
 
 FFTW is highly optimized, but downgrades if run on an older processor. It
-should be built compiled on a system with SSE2 and AVX2 support (e.g. merlin).
+should be built compiled on merlin, since it needs SSE2, AVX2, and Infiniband
+(libfabric).
 
 This module requires PMODULE_VERSION > 1.0.0 to compile.
+
+The module is currently organized around several use flags:
+
+- *sp* single precision vs *dp* double precision
+- *merlin6* vs *merlin*. These come from the upstream dependency on openmpi,
+  which needs to be compiled differently for RHEL6 (merlin) and RHEL7
+  (merlin6).
+
+

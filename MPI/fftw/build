@@ -3,7 +3,7 @@
 
 pbuild::add_to_group 'MPI'
 
-pbuild::set_download_url "http://www.fftw.org/fftw-$V.tar.gz"
+pbuild::set_download_url "http://www.fftw.org/fftw-${V_PKG}.tar.gz"
 pbuild::set_sha256sum "fftw-3.3.8.tar.gz:6113262f6e92c5bd474f2875fa1b01054c4ad5040f6b0da7c03c98821d9ae303"
 
 pbuild::install_docfiles 'COPYRIGHT' 'COPYING' 'README' 'NEWS'
@@ -22,4 +22,18 @@ pbuild::pre_configure() {
     # CPU optimizations
     pbuild::add_configure_args "--enable-sse2"
     pbuild::add_configure_args "--enable-avx2"
+    pbuild::add_configure_args "--with-pic"
+    #pbuild::add_configure_args "--enable-shared"
+
+    # Floating point precision
+    #pbuild::add_configure_args "--enable-type-prefix"
+    if pbuild::use_flag "sp"; then
+        pbuild::add_configure_args "--enable-single"
+        pbuild::add_configure_args "--enable-sse"
+    elif pbuild::use_flag "dp"; then
+        : #default
+    else
+        echo "No flag specified" >&2
+        exit 1
+    fi
 }

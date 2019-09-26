@@ -1,1 +1,8 @@
-fftw/3.3.8	unstable	gcc/{7.3.0,8.2.0} mpich/3.2.1 openmpi/3.1.3
+fftw/3.3.8	deprecated	gcc/{7.3.0,8.2.0} mpich/3.2.1 openmpi/3.1.3
+# Use older MPI version on merlin5
+fftw/3.3.8-1_sp_merlin	unstable	gcc/8.2.0 mpich/3.2.1 openmpi/3.1.1
+fftw/3.3.8-1_dp_merlin	unstable	gcc/8.2.0 mpich/3.2.1 openmpi/3.1.1
+# Merlin6 mpi version
+fftw/3.3.8-1_sp_merlin6	unstable	gcc/{7.4.0,8.3.0} mpich/3.3 openmpi/3.1.4_merlin6
+fftw/3.3.8-1_dp_merlin6	unstable	gcc/{7.4.0,8.3.0} mpich/3.3 openmpi/3.1.4_merlin6
+
