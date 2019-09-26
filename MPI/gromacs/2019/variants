@@ -1,3 +1,1 @@
-gromacs/2019.3_sp  unstable   gcc/7.4.0 openmpi/3.1.4_merlin6 cuda/10.0.130 Python/2.7.16 b:cmake/3.14.0
-gromacs/2019.3_sp    removed        gcc/7.4.0 openmpi/4.0.1
-gromacs/2019.3_sp    removed        gcc/8.3.0 openmpi/3.1.4
+gromacs/2019.3_sp  stable   gcc/7.4.0 openmpi/3.1.4_merlin6 cuda/10.0.130 Python/2.7.16 b:cmake/3.14.0
