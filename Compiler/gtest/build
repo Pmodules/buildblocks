@@ -1,44 +1,32 @@
 #!/usr/bin/env modbuild
 
-pbuild::set_download_url "https://github.com/google/googletest/archive/release-1.7.0.tar.gz"
-
-declare -a config_args=()
-
-case "${OS}" in
-Darwin )
-	#config_args+=( '-DCMAKE_OSX_SYSROOT=/' )
-	#config_args+=( "-DCMAKE_OSX_DEPLOYMENT_TARGET=''" )
-	;;
-esac
-
-pbuild::install_docfiles \
-	CHANGES \
-	CONTRIBUTORS \
-	LICENSE \
-	README
-
-pbuild::configure() {
-        cmake \
-                -DCMAKE_INSTALL_PREFIX="${PREFIX}" \
-                -DCMAKE_BUILD_TYPE=RELEASE \
-                "${config_args[@]}" \
-                "${SRC_DIR}"
-}
-
-pbuild::install() {
-	local -r _include_srcdir="${SRC_DIR}/include/gtest"
-	local -r _include_dstdir="${PREFIX}/include/gtest"
-	if [[ -e "${_include_dstdir}" ]]; then
-		chmod -R u+w "${_include_dstdir}"
-	fi
-	mkdir -p "${_include_dstdir}"
-	cp -rv "${_include_srcdir}"/* "${_include_dstdir}"
-
-	local -r _lib_dstdir="${PREFIX}/lib"
-	mkdir -p "${_lib_dstdir}"
-	cp -v *.a "${_lib_dstdir}"
-}
-
+pbuild::set_download_url "https://github.com/google/googletest/archive/release-1.8.1.tar.gz"
 pbuild::add_to_group 'Compiler'
-pbuild::make_all
+
+if (( V_MAJOR == 1 )) && (( V_MINOR <= 7 )); then
+	pbuild::install_docfiles \
+		CHANGES \
+		CONTRIBUTORS \
+		LICENSE \
+		README
+
+	pbuild::install() {
+		local -r _include_srcdir="${SRC_DIR}/include/gtest"
+		local -r _include_dstdir="${PREFIX}/include/gtest"
+		if [[ -e "${_include_dstdir}" ]]; then
+			chmod -R u+w "${_include_dstdir}"
+		fi
+		mkdir -p "${_include_dstdir}"
+		cp -rv "${_include_srcdir}"/* "${_include_dstdir}"
+
+		local -r _lib_dstdir="${PREFIX}/lib"
+		mkdir -p "${_lib_dstdir}"
+		cp -v *.a "${_lib_dstdir}"
+	}
+else
+	pbuild::install_docfiles \
+		CONTRIBUTING.md \
+		LICENSE \
+		README.md
+fi
 
