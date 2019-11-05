@@ -6,7 +6,6 @@ boost/1.68.0         stable	gcc/7.3.0 openmpi/3.0.0 b:Python/2.7.14
 boost/1.68.0         stable	gcc/7.3.0 openmpi/3.1.2 b:Python/2.7.14
 boost/1.68.0         stable	gcc/7.3.0 openmpi/3.1.3 b:Python/2.7.14
 boost/1.68.0-1       stable	gcc/7.3.0 openmpi/3.1.3 b:zlib/1.2.11
-boost/1.70.0         unstable	gcc/7.3.0 openmpi/3.1.3 b:zlib/1.2.11
 
 boost/1.68.0         stable	gcc/8.2.0 openmpi/1.10.7 b:Python/2.7.14
 boost/1.68.0         stable	gcc/8.2.0 openmpi/2.1.5 b:Python/2.7.14
@@ -15,3 +14,5 @@ boost/1.68.0         stable	gcc/8.2.0 openmpi/3.1.2 b:Python/2.7.14
 boost/1.68.0         stable	gcc/8.2.0 openmpi/3.1.3 b:Python/2.7.14
 
 boost/1.68.0-1       stable	gcc/7.3.0 mpich/3.3 b:zlib/1.2.11
+
+boost/1.70.0         stable	gcc/7.3.0 openmpi/3.1.3 b:zlib/1.2.11
