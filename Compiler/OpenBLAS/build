@@ -5,7 +5,7 @@ pbuild::set_download_url "http://github.com/xianyi/$P/archive/v${V_PKG}.tar.gz"
 pbuild::add_to_group 'Compiler'
 pbuild::compile_in_sourcetree
 pbuild::install_docfiles 'LICENSE' 'README.md'
-pbuild::set_supported_compilers 'gcc' 'intel' 'clang-macos'
+#pbuild::set_supported_compilers 'gcc' 'intel' 'clang-macos'
 
 pbuild::configure() {
 	case ${COMPILER} in
@@ -55,7 +55,7 @@ pbuild::post_install() {
 	# We have to build shared libs and remove them here.
 	# Building with NOSHARED gives an error during install -
 	# due to a bug in the Makefile(s).
-	rm -f "${PREFIX}/lib/"*.so
-	rm -f "${PREFIX}/lib/"*.dylib 
+	rm -f "${PREFIX}/lib/"lib*.{so,dylib}
+	rm -f "${PREFIX}/lib/"lib*.{so,dylib}.*
 }
 
