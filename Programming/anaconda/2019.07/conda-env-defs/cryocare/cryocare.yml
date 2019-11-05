@@ -1,0 +1,33 @@
+name: cryocare
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.7
+  - dask
+  - dask-jobqueue
+  - deap
+  - docopt
+  - graphviz
+  - ipython
+  - ipywidgets
+  - keras
+  - matplotlib
+  - mrcfile
+  - nb_conda_kernels
+  - numpy
+  - pandas
+  - plotly
+  - pytables
+  - python-graphviz
+  - scikit-learn
+  - scipy
+  - seaborn
+  - tensorflow=1.13.1
+  - tensorflow-gpu
+  - tifffile
+  - cudatoolkit=9.2
+  - cudnn
+  - pip:
+    - csbdeep
+    - pixiedust

@@ -1,0 +1,13 @@
+{
+    "argv": [
+        "/opt/psi/Programming/anaconda/2019.07/admintools/kernelwrapper.sh",
+        "cryocare",
+        "/opt/psi/Programming/anaconda/2019.07/conda/envs/cryocare/bin/python",
+        "-m",
+        "ipykernel_launcher",
+        "-f",
+        "{connection_file}"
+    ],
+    "display_name": "Python 3",
+    "language": "python"
+}
