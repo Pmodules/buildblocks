@@ -1,0 +1,28 @@
+#!/usr/bin/env modbuild
+
+pbuild::add_to_group 'EM'
+pbuild::use_cmake
+
+pbuild::prep() {
+
+    local BRANCH
+    if [[ "$V" =~ beta$ ]]; then
+        BRANCH="ver${V_MAJOR}.${V_MINOR}"
+    else
+        BRANCH="${V_PKG}"
+    fi
+
+    git clone --depth=1 -b "$BRANCH" https://github.com/3dem/relion.git "$SRC_DIR" || return $?
+}
+
+pbuild::pre_configure() {
+    pbuild::add_configure_args FORCE_OWN_FFTW=ON
+    pbuild::add_configure_args FORCE_OWN_FLTK=ON
+    pbuild::add_configure_args CUDA=ON
+    pbuild::add_configure_args CudaTexture=ON
+    pbuild::add_configure_args ALTCPU=ON
+    pbuild::add_configure_args FORCE_OWN_TBB=ON
+    # Requires intel compiler
+    #pbuild::add_configure_args MKLFFT=ON
+}
+
