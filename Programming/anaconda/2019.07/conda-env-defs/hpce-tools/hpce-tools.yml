@@ -6,4 +6,5 @@ channels:
 dependencies:
   - python=3.6
   - ldapuserdir
-  
+  - cython  # for pyslurm
+  - conda-build
