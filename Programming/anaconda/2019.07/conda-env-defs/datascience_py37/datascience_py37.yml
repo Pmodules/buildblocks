@@ -18,5 +18,7 @@ dependencies:
   - deap
   - nb_conda_kernels
   - ipywidgets
+  - plotly
   - dask
   - dask-jobqueue
+  - python-graphviz
