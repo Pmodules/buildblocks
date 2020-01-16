@@ -52,50 +52,76 @@ switch -- $shelltype {
 
 switch [module-info mode] {
     "load" {
-	#TODO check whether another conda version is present (conflicts)
-	# pmodules itself seems to prevent loading the same module of a different version
-	# but we need to prevent conflicts with a conda from a different source.
-	
+        #TODO check whether another conda version is present (conflicts)
+        # pmodules itself seems to prevent loading the same module of a different version
+        # but we need to prevent conflicts with a conda from a different source.
+
         # puts stderr "DEBUG: Using conda from $P/$V\n"
         puts stdout "source \"$PREFIX/conda/etc/profile.d/conda.sh\";\n"
 
-	# Activate base? No: anaconda should just provide the conda tool
-	# puts stdout "conda activate;\n"
+        # Activate base? No: anaconda should just provide the conda tool
+        #puts stdout "conda activate;\n"
+
+
+        # Safety check! Warn if an admin loads anaconda on an auristor system
+        catch {
+            # Check if we're running auristor
+            set afsversion [exec fs --version]
+            if [regexp -nocase {^auristor} $afsversion] {
+
+                # Admin groups for this module (regex format)
+                set admins {sys.modules:administrators|sys.modules:psi_python}
+
+                # Determine current user. Prefer klist, but fall back to $USER
+                catch {
+                    exec klist 2>/dev/null | sed -E -n {s/.*principal: ([^@]+)(@.*)?$/\1/p};
+                } principal option
+                if { [dict get $option -code] != 0} {
+                    set principal $::env(USER)
+                }
+
+                # Determine whether the user belongs to one of the admin groups
+                if [regexp $admins [exec pts mem $principal]] {
+                    puts stderr "WARNING: You have loaded the anaconda module on an Auristor system. Do not install packages!"
+                }
+            }
+        }
     }
-    "unload" -	
+
+    "unload" -
     "remove" {
-	# Only run this if conda is in the PATH
-	catch {exec which conda} result option
-	if { [dict get $option -code] != 0 } {
-	    puts stderr "Error: cannot cleanly unload anaconda: conda is not in the PATH"
-	} else {
-	    # if the user has invoked this from a subshell, the conda
-	    # functions may not be defined even though a conda
-	    # executable is still in the path ! One could try the
-	    # following, but currently we leave it commented.
-	    # puts stdout {if [[ x$(command -v conda) != xconda ]];then source  $(conda info --base)/etc/profile.d/conda.sh; fi;}
+        # Only run this if conda is in the PATH
+        catch {exec which conda} result option
+        if { [dict get $option -code] != 0 } {
+            puts stderr "Error: cannot cleanly unload anaconda: conda is not in the PATH"
+        } else {
+            # if the user has invoked this from a subshell, the conda
+            # functions may not be defined even though a conda
+            # executable is still in the path ! One could try the
+            # following, but currently we leave it commented.
+            # puts stdout {if [[ x$(command -v conda) != xconda ]];then source $(conda info --base)/etc/profile.d/conda.sh; fi;}
 
-	    # If the conda env is intact (conda defined as a function), then
-	    # deactivate all layers of active conda environments
-	    puts stdout {if [[ x$(command -v conda) == xconda ]]; then while [[ "${CONDA_SHLVL:-0}" -gt 0 ]]; do  [[ $PMODULES_DEBUG == 1 ]] && echo "unloading conda env $CONDA_DEFAULT_ENV..." >&2; conda deactivate; [[ $PMODULES_DEBUG == 1 ]] && echo $PATH >&2; done; fi;}
+            # If the conda env is intact (conda defined as a function), then
+            # deactivate all layers of active conda environments
+            puts stdout {if [[ x$(command -v conda) == xconda ]]; then while [[ "${CONDA_SHLVL:-0}" -gt 0 ]]; do [[ $PMODULES_DEBUG == 1 ]] && echo "unloading conda env $CONDA_DEFAULT_ENV..." >&2; conda deactivate; [[ $PMODULES_DEBUG == 1 ]] && echo $PATH >&2; done; fi;}
 
-	    # the path cleaning cannot use tcl remove-path, since at this point tcl
-	    # is not aware that the above bash statements will have modified the path
-	    # upon the eval that is done by the outer "module" function.
+            # the path cleaning cannot use tcl remove-path, since at this point tcl
+            # is not aware that the above bash statements will have modified the path
+            # upon the eval that is done by the outer "module" function.
 
-	    puts stdout {PATH=$(echo $PATH| tr ':' '\n' | grep -v "$PREFIX/conda/condabin" | tr '\n' ':'); export PATH=${PATH%:};}
+            puts stdout {PATH=$(echo $PATH| tr ':' '\n' | grep -v "$PREFIX/conda/condabin" | tr '\n' ':'); export PATH=${PATH%:};}
 
-	    # remove the conda function definitions
-	    unsetenv __conda_activate
-	    unsetenv __conda_hashr
-	    unsetenv __conda_reactivate
-	    unsetenv conda
+            # remove the conda function definitions
+            unsetenv __conda_activate
+            unsetenv __conda_hashr
+            unsetenv __conda_reactivate
+            unsetenv conda
 
-	    unsetenv CONDA_EXE
-	    unsetenv CONDA_PYTHON_EXE
-	    unsetenv CONDA_SHLVL
-	    unsetenv _CE_CONDA
-	}
+            unsetenv CONDA_EXE
+            unsetenv CONDA_PYTHON_EXE
+            unsetenv CONDA_SHLVL
+            unsetenv _CE_CONDA
+        }
     }
 }
 
