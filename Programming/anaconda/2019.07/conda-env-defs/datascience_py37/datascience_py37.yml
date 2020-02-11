@@ -24,4 +24,5 @@ dependencies:
   - dask-jobqueue
   - python-graphviz
   - bayesian-optimization
+  - hdf5storage
   
