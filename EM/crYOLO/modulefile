@@ -32,20 +32,17 @@ switch -- $shelltype {
     }
 }
 
-#puts stderr "Switching crYOLO mode to [module-info mode]"
-#puts stdout "{ date; echo Switching crYOLO mode to [module-info mode] ; } >> /gpfs/home/bliven_s/cryolo_mod.log;\n"
-
+#set useflag [string map {{:} {}} $USEFLAGS]
+#puts stderr "conda activate cryolo-${V_PKG}-${USEFLAGS%\n"
 
 switch [module-info mode] {
     "load" {
-        #puts stderr "source $PREFIX/conda/bin/activate crYOLO"
-        puts stdout "source $PREFIX/conda/bin/activate crYOLO;\n"
+      # Relies on the anaconda module being loaded since we need to update the path
+      puts stdout "conda activate cryolo-1.5.6-gpu;\n"
     }
     "unload" -
     "remove" {
-        #puts stderr "source deactivate"
-        puts stdout "source $PREFIX/conda/bin/deactivate;\n"
-        puts stdout {unset $(set|sed -rn 's/^(_?conda[a-z_]*).*$/\1/pI');}
+        puts stdout "conda deactivate;\n"
     }
 }
 

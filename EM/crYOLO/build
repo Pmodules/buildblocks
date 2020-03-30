@@ -3,14 +3,7 @@
 
 pbuild::add_to_group 'EM'
 pbuild::prep() {
-
-    source "${BUILDBLOCK_DIR}/files/config-$V.sh"
-
-    echo "prepping"
-    mkdir -p "$SRC_DIR"
-    curl -fsSLo "$SRC_DIR/miniconda.sh" "https://repo.anaconda.com/miniconda/${MINICONDA_VERSION:-Miniconda2-latest-Linux-x86_64.sh}"
-    curl -fsSLo "$SRC_DIR/cryoloBM.tgz" "${CRYOLOBM_URL:-ftp://ftp.gwdg.de/pub/misc/sphire/crYOLO_BM_V1_1_1/cryoloBM-1.1.1.tar.gz}"
-    curl -fsSLo "$SRC_DIR/cryolo.tgz" "${CRYOLO_URL:-ftp://ftp.gwdg.de/pub/misc/sphire/crYOLO_V${V_MAJOR}_${V_MINOR}_${V_PATCH}/cryolo-${V}.tar.gz}"
+    :
 }
 
 pbuild::configure() {
@@ -22,22 +15,6 @@ pbuild::compile() {
 }
 
 pbuild::install() {
-    mkdir -p $PREFIX
-
-    # Install conda
-    bash "$SRC_DIR/miniconda.sh" -b -p $PREFIX/conda
-
-    # Create environment
-    $PREFIX/conda/bin/conda create -y --name crYOLO anaconda python=3.6 pyqt=5 cudnn=7.1.2 numpy
-
-    # Activate
-    source $PREFIX/conda/bin/activate crYOLO
-
-    # Install
-    pip install $SRC_DIR/cryolo.tgz
-    pip install $SRC_DIR/cryoloBM.tgz
-
-    # Deactivate
-    source deactivate
+    :
 }
 
