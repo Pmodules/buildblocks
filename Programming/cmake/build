@@ -13,4 +13,16 @@ pbuild::configure() {
 	"${SRC_DIR}/bootstrap" --prefix="${PREFIX}" ${bootstrap_flags} --verbose
 }
 
-
+pbuild::post_install_Linux() {
+	mkdir -p "${PREFIX}/libexec"
+	cp -v "${GCC_DIR}"/lib64/libgcc_s.so.*  "${PREFIX}/libexec"
+	cp -v "${GCC_DIR}"/lib64/libstdc++.so.* "${PREFIX}/libexec"
+	chrpath -d /opt/psi/Programming/cmake/3.15.5/bin/ccmake
+	patchelf --set-rpath '$ORIGIN/../libexec' --force-rpath "${PREFIX}/bin/ccmake"
+	chrpath -d /opt/psi/Programming/cmake/3.15.5/bin/cmake
+	patchelf --set-rpath '$ORIGIN/../libexec' --force-rpath "${PREFIX}/bin/cmake"
+	chrpath -d /opt/psi/Programming/cmake/3.15.5/bin/cpack
+	patchelf --set-rpath '$ORIGIN/../libexec' --force-rpath "${PREFIX}/bin/cpack" 
+	chrpath -d /opt/psi/Programming/cmake/3.15.5/bin/ctest
+	patchelf --set-rpath '$ORIGIN/../libexec' --force-rpath "${PREFIX}/bin/ctest"
+}
