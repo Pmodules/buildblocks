@@ -87,5 +87,4 @@ pbuild::configure() {
 
 pbuild::add_to_group 'HDF5'
 pbuild::install_docfiles Copyright.txt LICENSE README RELEASE_NOTES
-pbuild::make_all
 
