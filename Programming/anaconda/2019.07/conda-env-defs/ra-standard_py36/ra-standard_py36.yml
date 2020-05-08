@@ -25,4 +25,5 @@ dependencies:
   - hdf5
   - h5py
   - dask
+  - dask-jobqueue
   - paulscherrerinstitute::bitshuffle
