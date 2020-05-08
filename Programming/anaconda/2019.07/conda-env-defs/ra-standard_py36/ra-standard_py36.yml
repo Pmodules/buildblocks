@@ -1,0 +1,28 @@
+# Clean environment based on pure conda-forge packages
+name: ra-standard_py36
+#channels:
+#  - conda-forge
+dependencies:
+  - python=3.6
+  - pandas
+  - xlrd
+  - numpy
+  - scipy
+  - scikit-learn
+  - matplotlib
+  - seaborn
+  - tensorflow
+  - pytables
+  - ipython
+  - keras
+  - nb_conda_kernels
+  - ipywidgets
+  - plotly
+  - python-graphviz
+  - statsmodels
+  - scikit-image
+  - numba
+  - hdf5
+  - h5py
+  - dask
+  - paulscherrerinstitute::bitshuffle
