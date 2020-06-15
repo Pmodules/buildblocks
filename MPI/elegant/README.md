@@ -13,7 +13,7 @@ Instructions to build `Pelegant`:
 
 https://ops.aps.anl.gov/publish/Pelegant_manual/node2.html
 
-## Get the software
+## Getting the software and required configuration files
 
 **Main page**
 
@@ -24,7 +24,7 @@ https://ops.aps.anl.gov/publish/Pelegant_manual/node2.html
 * http://www.aps.anl.gov/Accelerator_Systems_Division/Accelerator_Operations_Physics/cgi-bin/oagLog4.cgi?name=epics.base.configure.tar.gz
 * http://www.aps.anl.gov/Accelerator_Systems_Division/Accelerator_Operations_Physics/cgi-bin/oagLog4.cgi?name=epics.extensions.configure.tar.gz
 
-**Configure files for elegant, spiffe, genesis, and shower**
+**Configuration files for elegant, spiffe, genesis, and shower**
 
 * http://www.aps.anl.gov/Accelerator_Systems_Division/Accelerator_Operations_Physics/cgi-bin/oagLog4.cgi?name=oag.apps.configure.tar.gz
 
