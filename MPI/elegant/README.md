@@ -51,59 +51,58 @@ export EPICS_HOST_ARCH=linux-x86_64
 export RPN_DEFNS="${PREFIX}/RPN_DEFNS/defns.rpn"
 export PERLLIB="${PREFIX}/lib/perl"
 
+PATH+=":$PREFIX/epics/extensions/bin/${EPICS_HOST_ARCH}"
+
 ARGS=()
 ARGS+=( "GNU_BIN=$GCC_DIR/bin" )
 ARGS+=( "LD=/usr/bin/ld" )
 ARGS+=( "AR=/usr/bin/ar -rc" )
 ARGS+=( "RANLIB=/usr/bin/ranlib" )
-ARGS+=( "EPICS_BASE=${EPICS_BASE}" )
 ARGS+=( "SYSGSL=1")
 ```
 
-## Prepare base build environment
+## Prepare everything
 
-EPICS base configuration
 ```
 mkdir -p "${PREFIX}"
 mkdir -p "${RPN_DEFNS%/*}"
 cp "${DOWNLOAD_DIR}/defns.rpn" "${RPN_DEFNS}"
 cd "${PREFIX}"
 tar xvf "${DOWNLOAD_DIR}/epics.base.configure.tar.gz"
-cd epics/base
-make -e "${ARGS[@]}"
-```
-
-## Unpack EPICS extensions and OAG apps configuration
-
-```
-#ARGS+=( "TOOLS=${PREFIX}/bin")
-cd "${PREFIX}"
 tar xvf "${DOWNLOAD_DIR}/epics.extensions.configure.tar.gz"
 tar xvf "${DOWNLOAD_DIR}/oag.apps.configure.tar.gz"
+tar xvf "${DOWNLOAD_DIR}/SDDS.${SDDS_VERSION}.tar.gz"
+tar xvf "${DOWNLOAD_DIR}/elegant.${ELEGANT_VERSION}.tar.gz"
+```
+
+## Configure EPICS base and OAG applications
+
+```
+cd epics/base
+make "${ARGS[@]}"
 cd "${PREFIX}/oag/apps/configure"
 sed -i "s/clean::/clean:/" RULES_PYTHON
-make -e "${ARGS[@]}"
+make "${ARGS[@]}"
 ```
 
-## Build required tools and libraries from SDDS
-```
+## Compile SDDS
 
-cd "${PREFIX}"
-tar xvf "${DOWNLOAD_DIR}/SDDS.${SDDS_VERSION}.tar.gz"
+```
 cd "${PREFIX}/epics/extensions/src/SDDS/"
 sed -i -e  "s/\( sddspseudoinverse_SYS_LIB.*\)/\1 gfortran/" SDDSaps/pseudoInverse/Makefile
 sed -i -e  "s/\( sddsmatrixop_SYS_LIBS.*\)/\1 gfortran/" SDDSaps/pseudoInverse/Makefile
 
-make -e "${ARGS[@]}" -C png   && \
-make -e "${ARGS[@]}"  
+make "${ARGS[@]}" -C png   && \
+make "${ARGS[@]}"
+
+make "${ARGS[@]}" -C pgapack
+make "${ARGS[@]}" -C SDDSlib clean
+make "${ARGS[@]}" MPI=1 -C SDDSlib
 ```
 
 ## Compile elegant
 
 ```
-PATH+=":$PREFIX/epics/extensions/bin/linux-x86_64"
-cd "${PREFIX}"
-tar xvf "${DOWNLOAD_DIR}/elegant.${ELEGANT_VERSION}.tar.gz"
 cd "${PREFIX}/oag/apps/src/elegant"
 make "${ARGS[@]}" STATIC_BUILD=NO
 ```
@@ -111,10 +110,6 @@ make "${ARGS[@]}" STATIC_BUILD=NO
 ## Compile Pelegant
 
 ```
-cd "${PREFIX}/epics/extensions/src/SDDS/"
-make "${ARGS[@]}" -C pgapack
-make "${ARGS[@]}" -C SDDSlib clean
-make "${ARGS[@]}" MPI=1 -C SDDSlib
 cd "${PREFIX}/oag/apps/src/elegant"
 make clean
 make SYSGSL=1 Pelegant
