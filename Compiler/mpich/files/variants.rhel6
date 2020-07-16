@@ -1,0 +1,8 @@
+mpich/3.1.4		deprecated	gcc/{4.7.4,4.8.4,4.9.2,5.1.0}
+mpich/3.1.4		deprecated	intel/15.2
+
+mpich/3.2.1		stable		gcc/{4.8.5,5.5.0,6.4.0,7.3.0,8.2.0}
+mpich/3.2.1		stable		intel/17.4
+
+mpich/3.3		stable		gcc/{7.3.0,7.4.0,8.3.0}
+mpich/3.3.2		unstable	gcc/{7.5.0,8.4.0,9.3.0}
