@@ -28,7 +28,7 @@ setenv		MPIRUN			$PREFIX/bin/mpirun
 set libibverbs  [glob -nocomplain /usr/lib{64,}/libibverbs.so.1*]
 set libnuma     [glob -nocomplain /usr/lib{64,}/libnuma.so.1*]
 set librdmacm   [glob -nocomplain /usr/lib{64,}/librdmacm.so.1*]
-set libucx      [glob -nocomplain /usr/lib{64,}/libuc[mpst].so.0*]
+set libucx      [glob -nocomplain /usr/lib{64,}/libuc\[mpst\].so.0*]
 
 if { $libibverbs eq "" || $libnuma eq "" || $librdmacm eq "" || $libucx eq "" } {
     if { [file isdirectory $PREFIX/lib/fallback] } {
