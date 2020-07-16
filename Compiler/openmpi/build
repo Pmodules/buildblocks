@@ -13,8 +13,6 @@ pbuild::install_docfiles 'AUTHORS' 'LICENSE' 'NEWS' 'README'
 
 
 pbuild::pre_configure() {
-        INSTALL_LIBPMIX=false
-
 	if [[ -n "${CUDA_VERSION}" ]]; then	
 		pbuild::add_configure_args "--with-cuda=${CUDA_HOME}"
 	fi
@@ -32,6 +30,10 @@ pbuild::pre_configure() {
         if pbuild::use_flag slurm ; then
 		pbuild::add_configure_args "--with-pmi"
 		pbuild::add_configure_args "--with-pmi-libdir=/usr/lib64/"
+
+                if pbuild::use_flag "libpmix"; then
+                  pbuild::add_configure_args "--enable-install-libpmix"
+                fi
         fi
 
 	local version
@@ -43,10 +45,6 @@ pbuild::pre_configure() {
 	elif (( V_MAJOR >= 4 )); then
 		pbuild::add_configure_args "--enable-mpi-fortran"
 		pbuild::add_configure_args "--without-verbs"
-		if ${INSTALL_LIBPMIX}  ; then
-                  echo "Enabling Install libpmix"
-                  pbuild::add_configure_args "--enable-install-libpmix"
-                fi
 	fi
 }
 
