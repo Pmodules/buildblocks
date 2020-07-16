@@ -18,6 +18,14 @@ and ramping machines. The code provides simulation of various collective
 effects, such as wakes and coherent synchrotron radiation.
 "
 
-setenv        RPN_DEFNS         $PREFIX/RPN-DEFNS
-setenv        HOST_ARCH         linux-x86_64
-setenv        EPICS_HOST_ARCH   linux-x86_64
+setenv		RPN_DEFNS		$PREFIX/RPN_DEFNS
+setenv		HOST_ARCH		linux-x86_64
+setenv		EPICS_HOST_ARCH		linux-x86_64
+
+append-path	PATH			$PREFIX/epics/extensions/bin/linux-x86_64
+append-path	PATH			$PREFIX/oag/apps/bin/linux-x86_64
+
+append-path	LIBRARY_PATH		$PREFIX/epics/extensions/lib/linux-x86_64
+append-path	C_INCLUDE_PATH		$PREFIX/epics/extensions/include
+append-path	CPLUS_INCLUDE_PATH	$PREFIX/epics/extensions/include
+append-path	PKG_CONFIG_PATH		$PREFIX/epics/base/lib
