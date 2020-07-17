@@ -1,3 +1,4 @@
 emacs/25.1	stable	b:libungif/4.1.4 b:tiff/4.0.3
 emacs/25.3	stable	b:libungif/4.1.4 b:tiff/4.0.9
 emacs/26.1	stable	b:libungif/4.1.4 b:tiff/4.0.9 b:nettle/3.4 gnutls/3.5.19
+emacs/26.3	stable	b:libungif/4.1.4 b:tiff/4.0.9 b:nettle/3.4 gnutls/3.5.19
