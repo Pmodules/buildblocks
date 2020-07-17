@@ -56,8 +56,11 @@ pbuild::post_install() {
 	ln -fs "${PREFIX}/include/python${V%.*}m" "${PREFIX}/include/python"
 	ln -fs "${PREFIX}/include/python${V%.*}m" "${PREFIX}/include/python${V%.*}"
 	PATH+=":${PREFIX}/bin"
-	cd "${BUILDBLOCK_DIR}"
-	"${PREFIX}/bin/python" 'get-pip.py'
+
+	if (( V_MAJOR == 2 || (V_MAJOR == 3 && V_MINOR <= 7) )); then
+		cd "${BUILDBLOCK_DIR}"
+		"${PREFIX}/bin/python" 'get-pip.py'
+	fi
 
 	std::info "Building numpy\n"
 	pip${V_MAJOR} install numpy
