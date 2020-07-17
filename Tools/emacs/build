@@ -35,5 +35,4 @@ pbuild::post_install_Darwin() {
 }
 
 pbuild::add_to_group 'Tools'
-pbuild::make_all
 
