@@ -1,0 +1,18 @@
+# Clean environment based on pure conda-forge packages
+name: scicat_client-0.1.0
+channels:
+  - conda-forge
+  - http://conda-pkg.intranet.psi.ch
+dependencies:
+  - python=3.8
+  - requests
+  # development tools
+  - conda-build
+  - black
+  - flake8
+  - mypy
+  - mypy_extensions
+  - typing_extensions
+  - tox
+  - tox-conda
+  - pytest
