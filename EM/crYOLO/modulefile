@@ -26,19 +26,28 @@ convolutional neural networks and utilizes the popular You Only Look Once
 set shelltype [module-info shelltype]
 switch -- $shelltype {
     "sh" {
+        puts stdout "source \"\${ANACONDA_PREFIX}\"/admintools/conda_setup.sh;\n"
     }
     default {
         puts stderr "Shells of type '$shelltype' are NOT supported!"
     }
 }
 
-#set useflag [string map {{:} {}} $USEFLAGS]
-#puts stderr "conda activate cryolo-${V_PKG}-${USEFLAGS%\n"
+# Determine useflags and construct conda env name
+set list [split $V "_"]
+set version  [lindex ${list} 0]
+set useflags [lrange ${list} 1 end]
+set flavour  [lindex $useflags 0]
+set env_to_activate [string tolower ${P}]-${version}-${flavour}
+
+#puts stderr "P/V: $P/$V"
+#puts stderr "USEFLAG: [lindex $useflags 0]"
+#puts stderr "$env_to_activate"
 
 switch [module-info mode] {
     "load" {
       # Relies on the anaconda module being loaded since we need to update the path
-      puts stdout "conda activate cryolo-1.5.6-gpu;\n"
+      puts stdout "conda activate $env_to_activate;\n"
     }
     "unload" -
     "remove" {

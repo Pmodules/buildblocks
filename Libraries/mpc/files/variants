@@ -6,3 +6,4 @@ mpc/1.1.0	stable		b:gmp/6.1.2 b:mpfr/4.0.0
 mpc/1.1.0-1	stable		b:gmp/6.1.2 b:mpfr/4.0.1
 mpc/1.1.0-2	stable		b:gmp/6.1.2-1 b:mpfr/4.0.1-1
 mpc/1.1.0-3	stable		b:gmp/6.1.2-1 b:mpfr/4.0.2
+mpc/1.1.0-4	stable		b:gmp/6.2.0 b:mpfr/4.0.2-1

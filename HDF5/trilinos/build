@@ -2,7 +2,7 @@
 
 pbuild::set_download_url \
 	"https://github.com/$P/$P/tarball/$P-release-${V//./-}" \
-	"$P-$V.tar.gz"
+	"$P-${V_PKG}.tar.gz"
 
 pbuild::set_sha256sum \
 	"trilinos-12.12.1.tar.gz:c8f2029fa36230b9f384c56139aaa33111227bcf653e73f7daf3c9efdecc1d2d"

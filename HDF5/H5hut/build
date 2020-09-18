@@ -1,6 +1,6 @@
 #!/usr/bin/env modbuild
 
-pbuild::set_download_url "http://amas.web.psi.ch/Downloads/$P/$P-$V.tar.gz"
+pbuild::set_download_url "http://amas.web.psi.ch/Downloads/$P/$P-${V_PKG}.tar.gz"
 pbuild::add_to_group 'HDF5'
 pbuild::install_docfiles 'AUTHORS' 'COPYING'
 
@@ -8,32 +8,27 @@ if [[ ${V_MAJOR} == 1 ]]; then
 	pbuild::compile_in_sourcetree
 fi
 
-pbuild::pre_configure() {
-	: ./autogen.sh
+pbuild::post_prep() {
+	./autogen.sh
 }
 
-pbuild::configure() {
+pbuild::pre_configure() {
+	pbuild::add_configure_args "--enable-parallel"
+	pbuild::add_configure_args "--enable-debug"
+	pbuild::add_configure_args "--enable-shared"
+	pbuild::add_configure_args "--with-hdf5=$HDF5_PREFIX"
+	pbuild::add_configure_args "--with-pic"
 	if (( V_MAJOR >= 2 )); then
-		: config_args+=" --enable-python"
+		: pbuild::add_configure_args "--enable-python"
 	fi
 	case "${COMPILER}" in
 		"clang-macos" )
 			:
 			;;
 		* )
-			config_args+='--enable-fortran'
+			pbuild::add_configure_args '--enable-fortran'
 			;;
 	esac
-
-	"${SRC_DIR}"/configure \
-		--prefix="${PREFIX}" \
-		--enable-parallel \
-		--enable-debug \
-		--enable-shared \
-		--with-hdf5=$HDF5_PREFIX \
-		--with-pic \
-		${config_args} \
-		|| exit 1
 }
 
 pbuild::compile() {

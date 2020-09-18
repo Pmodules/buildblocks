@@ -25,5 +25,8 @@ pbuild::install() {
 
    /usr/bin/curl -o "$PREFIX/bin/datasetArchiver" https://intranet.psi.ch/pub/Daas/WebHome/datasetArchiver
    chmod +x "$PREFIX/bin/datasetArchiver"
+
+   # Hardcoded; could be made version-specific in the future if needed
+   ln -s "${PMODULES_ROOT}/Programming/anaconda/2019.07/conda/envs/scicat_client-0.1.0/bin/scicat_client" "$PREFIX/bin/scicat_client"
 }
 

@@ -57,7 +57,8 @@ switch [module-info mode] {
         # but we need to prevent conflicts with a conda from a different source.
 
         # puts stderr "DEBUG: Using conda from $P/$V\n"
-        puts stdout "source \"$PREFIX/conda/etc/profile.d/conda.sh\";\n"
+        #puts stdout "source \"$PREFIX/conda/etc/profile.d/conda.sh\";\n"
+        puts stdout "source $PREFIX/admintools/conda_setup.sh;\n"
 
         # Activate base? No: anaconda should just provide the conda tool
         #puts stdout "conda activate;\n"

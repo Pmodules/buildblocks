@@ -2,8 +2,15 @@ Python/2.7.11	stable		openssl/1.0.2j Tcl/8.6.4 Tk/8.6.4
 Python/2.7.12	stable		openssl/1.0.2j Tcl/8.6.4 Tk/8.6.4
 Python/2.7.14	stable		openssl/1.0.2o Tcl/8.6.4 Tk/8.6.4
 Python/2.7.16	stable		b:openssl/1.0.2r b:TclTk/8.6.9 b:xz/5.2.4
+Python/2.7.17	stable		b:openssl/1.0.2r b:TclTk/8.6.9 b:xz/5.2.4
+# commented, problems to build ssl module
+#Python/2.7.18	unstable	b:openssl/1.0.2r b:TclTk/8.6.9 b:xz/5.2.4
 Python/3.4.0	deprecated	openssl/1.0.2m Tcl/8.6.4 Tk/8.6.4
 Python/3.4.3	stable		openssl/1.0.2m Tcl/8.6.4 Tk/8.6.4
 Python/3.6.3	stable		b:openssl/1.0.2r b:TclTk/8.6.9 b:xz/5.2.4
+# commented, problems to build ssl module
+#Python/3.6.11	unstable	b:openssl/1.1.1g b:TclTk/8.6.9 b:xz/5.2.4
 Python/3.7.3	stable		b:openssl/1.0.2r b:TclTk/8.6.9 b:xz/5.2.4
 Python/3.7.4	stable		b:openssl/1.0.2r b:TclTk/8.6.9 b:xz/5.2.4
+Python/3.7.8	unstable	b:openssl/1.1.1g b:TclTk/8.6.9 b:xz/5.2.4
+Python/3.8.4	unstable	b:openssl/1.1.1g b:TclTk/8.6.9 b:xz/5.2.4

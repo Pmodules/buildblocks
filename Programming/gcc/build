@@ -36,7 +36,6 @@ pbuild::pre_configure() {
 	pbuild::add_configure_args "--with-mpc=${MPC_PREFIX}"
 	pbuild::add_configure_args "--enable-lto"
 	pbuild::add_configure_args "--disable-multilib"
-	pbuild::add_configure_args "--with-build-config=bootstrap-debug"
 	pbuild::add_configure_args "--with-pkgversion='PSI Environment Module'"
 	pbuild::add_configure_args "--with-build-config=bootstrap-debug"
 }

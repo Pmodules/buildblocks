@@ -1,44 +1,44 @@
 #!/usr/bin/env modbuild
+pbuild::set_download_url "https://netcologne.dl.sourceforge.net/project/${P}/${P}/$V/${P}_${V_PKG//./_}.tar.gz"
+#pbuild::set_download_url "https://dl.bintray.com/boostorg/release/${V_PKG}/source/${P}_${V_PKG//./_}.tar.gz"
 
-#pbuild::set_download_url "https://netcologne.dl.sourceforge.net/project/$P/$P/$V/$P_${V_MAJOR}_${V_MINOR}_${V_PATCHLVL}.tar.gz"
-pbuild::set_download_url "https://dl.bintray.com/boostorg/release/${V_PKG}/source/${P}_${V_PKG//./_}.tar.gz"
 pbuild::add_to_group 'Compiler'
 
 BOOST_BUILD_PATH="${BUILD_DIR}"
 
-pbuild::configure() {
-	cd "${SRC_DIR}"
-	"${SRC_DIR}"/bootstrap.sh \
-		--prefix="${PREFIX}" \
-		--with-libraries=all \
-		--with-python-root="${PYTHON_PREFIX}" \
-		|| exit 1
+TOOLSET=''
+
+pbuild::pre_configure() {
+	case "${COMPILER}" in
+	gcc )
+	        TOOLSET=gcc
+	        ;;
+	* )
+	        std::die 1 "Unsupported compiler!"
+	        ;;
+	esac
 }
 
 pbuild::compile() {
-	cd "${SRC_DIR}"
-	./b2 \
-		--build-type=minimal \
-		--build-dir="${BUILD_DIR}" \
-		--layout=system \
+        cd "${SRC_DIR}"
+        ./bootstrap.sh \
+                --prefix="${PREFIX}" \
+                --with-toolset=${TOOLSET} \
+                --without-libraries=python \
+                || exit 1
+        ./b2  \
+                --build-dir="${BUILD_DIR}" \
+                --layout=system \
+                --without-python \
 		--without-mpi \
-		variant=release \
-		link=shared,static \
-		threading=multi \
-		stage
+                toolset=${TOOLSET} \
+                variant=release \
+                link=shared,static \
+                threading=multi \
+                install -j 3 \
+                || exit 1
 }
 
 pbuild::install() {
-	cd "${SRC_DIR}"
-	./b2 \
-		--build-type=minimal \
-		--build-dir="${BUILD_DIR}" \
-		--layout=system \
-		--without-mpi \
-		variant=release \
-		link=shared,static \
-		threading=multi \
-		install
+	:
 }
-
-

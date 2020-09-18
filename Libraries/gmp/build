@@ -10,5 +10,3 @@ declare -rx CPP=/usr/bin/cpp
 pbuild::add_configure_args "--disable-shared"
 pbuild::add_configure_args "--with-pic"
 
-pbuild::make_all
-

@@ -1,4 +1,4 @@
-name: cryolo-1.5.6-gpu
+name: cryolo-1.6.1-cpu
 channels:
   - defaults
 dependencies:
@@ -11,4 +11,4 @@ dependencies:
   - intel-openmp==2019.4
   - pip
   - pip:
-    - cryolo[gpu]==1.5.6
+    - cryolo[cpu]==1.6.1
