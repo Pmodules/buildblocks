@@ -1,6 +1,10 @@
 #!/usr/bin/env modbuild 
 
-pbuild::set_download_url "https://download.java.net/java/GA/jdk12.0.2/e482c34c86bd4bf8b56c0b35558996b9/10/GPL/openjdk-12.0.2_linux-x64_bin.tar.gz"
+URL=$(grep -E "^${V_MAJOR}" files/version-to-URL.txt | awk '{print $2}')
+
+echo $URL
+
+pbuild::set_download_url "${URL}"
 
 pbuild::add_to_group 'Programming'
 
@@ -13,33 +17,7 @@ pbuild::compile() {
 }
 
 pbuild::install() {
-  install -m 0755 -d "${PREFIX}/bin"
-  for binary_file in $(ls ${SRC_DIR}/bin/*)
-  do
-    install -m 0755 "${binary_file}" "${PREFIX}/bin"
-  done
-
-  for java_dir in $(echo "lib lib/security lib/jfr lib/server")
-  do
-    mkdir -p "${PREFIX}/${java_dir}"
-    install -m 0755 -d "${PREFIX}/${java_dir}"
-    for library_file in $(find ${SRC_DIR}/${java_dir} -maxdepth 1 -type f)
-    do
-      install -m 0755 "${library_file}" "${PREFIX}/${java_dir}"
-    done
-  done
-
-  for java_dir in $(echo "conf conf/management conf/security conf/security/policy conf/security/policy/unlimited conf/security/policy/limited conf/sdp")
-  do
-    mkdir -p "${PREFIX}/${java_dir}"
-    install -m 0755 -d "${PREFIX}/${java_dir}"
-    for library_file in $(find ${SRC_DIR}/${java_dir} -maxdepth 1 -type f)
-    do
-      install -m 0755 "${library_file}" "${PREFIX}/${java_dir}"
-    done
-  done
-
-  for java_dir in $(echo "jmods")
+  for java_dir in $(find ${SRC_DIR} -type d | sed -n "s|^${SRC_DIR}/||p")
   do
     mkdir -p "${PREFIX}/${java_dir}"
     install -m 0755 -d "${PREFIX}/${java_dir}"
