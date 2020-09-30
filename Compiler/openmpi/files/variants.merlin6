@@ -1,4 +1,4 @@
-openmpi/3.1.4_merlin6   stable     gcc/{7.4.0,8.3.0}
+openmpi/3.1.4_merlin6   deprecated gcc/{7.4.0,8.3.0}
 
 openmpi/3.1.5_merlin6   deprecated gcc/{7.3.0,7.4.0,8.3.0,9.2.0}
 openmpi/3.1.5_merlin6   deprecated intel/{15.2,17.4,18.4}
@@ -15,7 +15,7 @@ openmpi/3.0.5_slurm     unstable   intel/{15.2,17.4,18.4}
 openmpi/3.1.6_slurm     stable     gcc/{4.9.4,5.5.0,6.5.0,7.5.0,8.4.0,9.3.0}
 openmpi/3.1.6_slurm     stable     intel/{15.2,17.4,18.4,20.1}
 
-openmpi/4.0.4_slurm     unstable   gcc/{4.9.4,5.5.0,6.5.0,7.5.0,8.4.0,9.3.0}
-openmpi/4.0.4_slurm     unstable   intel/{15.2,17.4,18.4,20.1}
+openmpi/4.0.4_slurm     stable     gcc/{4.9.4,5.5.0,6.5.0,7.5.0,8.4.0,9.3.0}
+openmpi/4.0.4_slurm     stable     intel/{15.2,17.4,18.4,20.1}
 
 openmpi/4.0.4_slurm_libpmix unstable gcc/9.3.0
