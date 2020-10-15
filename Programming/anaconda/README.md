@@ -1,5 +1,10 @@
 # Building of an Anaconda release using Pmodules
 
+## Important Note about access permissions
+
+   The central anacoda installations are located below `/afs/psi.ch/sys/psi.merlin/Programming/anaconda`. All administrators
+   of these installations must be members of the AFS group `sys.modules:psi_python` in order to have write permission.
+
 ## Concepts
 
    * The anaconda module just provides the **conda** package management tool together with its directory infrastructure which contains *conda environments* and a cache of downloaded packages
@@ -14,7 +19,7 @@
    
 ## Building a central conda environment
 
-   * **Allways work on the host pmod6**: conda is trying to use hardlinks where it can. There is an issue that can appear if you install from a machine that uses Auristor (which provides hardlinks). This causes whole environments to become corrupt, so that only a PSI AFS admin can fix the problem. Therefore we only install from pmod6 which runs openAFS.
+   * **Allways work on the host pmod6**: conda is trying to use hardlinks where it can. There is an issue that can appear if you install from a machine that uses Auristor (which provides hardlinks within the same AFS volume). Accessing or modifying from an old OpenAFS client can cause problems. This causes whole environments to become corrupt, so that only a PSI AFS admin can fix the problem. Therefore we only install from pmod6 which runs openAFS.
 
 ### installation of a pure conda environment
 
