@@ -1,1 +1,1 @@
-trilinos/12.18.1_slurm	unstable	gcc/{7.5.0,8.4.0,9.3.0} openmpi/3.1.6_slurm  hdf5/1.10.6_slurm b:cmake/3.15.5 b:OpenBLAS/0.3.10 b:parmetis/4.0.3_slurm
+trilinos/12.18.1_slurm	stable	gcc/{7.5.0,8.4.0,9.3.0} openmpi/3.1.6_slurm  hdf5/1.10.6_slurm b:cmake/3.15.5 b:OpenBLAS/0.3.10 b:parmetis/4.0.3_slurm
