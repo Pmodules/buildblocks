@@ -28,6 +28,9 @@ pbuild::pre_prep() {
 	if (( V_MAJOR == 5 )) || (( V_MAJOR == 6 )); then
 		pbuild::add_patch_Darwin "${V_MAJOR}/PR57438_avoiding_empty_function_bodies_and_trailing_labels.patch"
 	fi
+	if (( V_MAJOR == 10 && V_MINOR == 2 )); then
+		pbuild::add_patch "files/gcc-10.2.0-cpp-__has_include.patch"
+	fi
 }
 
 pbuild::pre_configure() {
