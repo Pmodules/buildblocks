@@ -1,18 +1,12 @@
 #!/usr/bin/env modbuild
 
-pbuild::set_download_url "https://github.com/hpc/ior/archive/${V_PKG}.tar.gz"
+pbuild::set_download_url "http://github.com/hpc/ior/releases/download/${V_PKG}/ior-${V_PKG}.tar.gz"
 
 pbuild::add_to_group 'System'
 
-pbuild::install_docfiles AUTHORS NEWS README_S3
+pbuild::install_docfiles AUTHORS NEWS README.md
 
-export GPFS_VERSION="5.0.2-3"
-
-export C_INCLUDE_PATH+=":$BUILDBLOCK_DIR/files/gpfs/$GPFS_VERSION/include/"
-export LIBRARY_PATH+=":$BUILDBLOCK_DIR/files/gpfs/$GPFS_VERSION/lib/"
-
-pbuild::pre_configure() {
-  
+pbuil::configure() {
   cd ${SRC_DIR}
-  ./bootstrap
+  ./configure --prefix="${PREFIX}" 
 }

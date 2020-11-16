@@ -1,4 +1,13 @@
 #!/bin/bash
+# kernelwrapper.sh
+# This wrapper is needed to correctly have jupyter activate conda evnironments
+# including the running of the $ENV/etc/conda/activate.d hooks
+# q.v. https://github.com/Anaconda-Platform/nb_conda_kernels/issues/145
+#
+# This script must be called from the config located in an environment
+#   $ENV/share/jupyter/kernels/python3/kernel.jsonshare/jupyter/kernels/python3/kernel.json 
+
+# 2019 - Derek Feichtinger
 dbgecho() {
     DBGLOG=/tmp/kernelwrapper-${USER}.log
     if [[ $DEBUG_JUPYTER_WRAPPER == 1 ]]; then

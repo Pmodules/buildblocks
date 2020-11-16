@@ -1,14 +1,13 @@
 # Clean environment based on pure conda-forge packages
-name: hpce-tools
+name: scicat_client-0.1.0
 channels:
   - conda-forge
   - http://conda-pkg.intranet.psi.ch
 dependencies:
-  - python=3.6
-  - ldapuserdir
-  # python development
+  - python=3.8
+  - requests
+  # development tools
   - conda-build
-  - cython  # for pyslurm
   - black
   - flake8
   - mypy
@@ -17,4 +16,3 @@ dependencies:
   - tox
   - tox-conda
   - pytest
-  - bpython

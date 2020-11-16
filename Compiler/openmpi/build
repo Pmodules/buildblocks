@@ -23,23 +23,39 @@ pbuild::pre_configure() {
 	pbuild::add_configure_args "--enable-shared"
 	pbuild::add_configure_args "--enable-static"
 	pbuild::add_configure_args "--with-sge=yes"
+       	pbuild::add_configure_args "--with-ucx"
+       	pbuild::add_configure_args "--with-hwloc=internal"
 	pbuild::add_configure_args "--with-slurm=yes"
+
+        if pbuild::use_flag slurm ; then
+		pbuild::add_configure_args "--with-pmi"
+		pbuild::add_configure_args "--with-pmi-libdir=/usr/lib64/"
+
+                if pbuild::use_flag "libpmix"; then
+                  pbuild::add_configure_args "--enable-install-libpmix"
+                fi
+        fi
+
 	local version
 	(( version = (${V_MAJOR} * 100 + ${V_MINOR}) * 100 + V_PATCHLVL ))
-	if (( version < 30104 )) ; then
+        if (( V_MAJOR < 4 )); then
 		pbuild::add_configure_args "--enable-mpi-f90"
 		pbuild::add_configure_args "--enable-mpi-profile"
 		pbuild::add_configure_args "--enable-smp-locks"
 	elif (( V_MAJOR >= 4 )); then
 		pbuild::add_configure_args "--enable-mpi-fortran"
+		pbuild::add_configure_args "--without-verbs"
 	fi
 }
 
 pbuild::post_install() {
 	mkdir -p "${PREFIX}/lib/fallback"
 	local -r binary=$(ls "${PREFIX}"/lib/libmpi.so.*.*.*)
-	pbuild::install_shared_libs "${binary}" "${PREFIX}/lib/fallback" '/usr/.*/libuc[mpst].so'
-	pbuild::install_shared_libs "${binary}" "${PREFIX}/lib/fallback" '/usr/.*/libnuma.so'
-	pbuild::install_shared_libs "${binary}" "${PREFIX}/lib/fallback" '/usr/.*/libbverbs.so'
-	pbuild::install_shared_libs "${binary}" "${PREFIX}/lib/fallback" '/usr/.*/librdmacm.so'
+	pbuild::install_shared_libs "${binary}" "${PREFIX}/lib/fallback" '/libuc[mpst].so'
+	pbuild::install_shared_libs "${binary}" "${PREFIX}/lib/fallback" '/libuct_ib.so.0'
+	pbuild::install_shared_libs "${binary}" "${PREFIX}/lib/fallback" '/libnuma.so'
+	pbuild::install_shared_libs "${binary}" "${PREFIX}/lib/fallback" '/libibverbs.so'
+	pbuild::install_shared_libs "${binary}" "${PREFIX}/lib/fallback" '/librdmacm.so'
+	pbuild::install_shared_libs "${binary}" "${PREFIX}/lib/fallback" '/libpmi.so'
+	pbuild::install_shared_libs "${binary}" "${PREFIX}/lib/fallback" '/libpmi2.so'
 }

@@ -2,5 +2,5 @@ relion/2.1.b1	stable	gcc/4.9.4 openmpi/2.0.1 cuda/8.0.44
 relion/3.0_beta	stable	gcc/4.9.4 openmpi/2.0.1 cuda/8.0.44
 relion/3.0.8	stable	gcc/7.4.0 openmpi/3.1.4_merlin6 cuda/9.2.148 b:cmake/3.14.0 b:tiff/4.0.9
 relion/3.1-beta	unstable	gcc/7.4.0 openmpi/3.1.4_merlin6 cuda/9.2.148 b:cmake/3.14.0 b:tiff/4.0.9
-relion/3.1.0	unstable	gcc/7.5.0 openmpi/4.0.4_slurm cuda/10.0.130 b:cmake/3.15.5 b:tiff/4.0.9 b:git/2.22.0
+relion/3.1.0	stable	gcc/7.5.0 openmpi/4.0.4_slurm cuda/10.0.130 b:cmake/3.15.5 b:tiff/4.0.9 b:git/2.22.0
 

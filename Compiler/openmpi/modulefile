@@ -29,8 +29,10 @@ set libibverbs  [glob -nocomplain /usr/lib{64,}/libibverbs.so.1*]
 set libnuma     [glob -nocomplain /usr/lib{64,}/libnuma.so.1*]
 set librdmacm   [glob -nocomplain /usr/lib{64,}/librdmacm.so.1*]
 set libucx      [glob -nocomplain /usr/lib{64,}/libuc\[mpst\].so.0*]
+set libpmi      [glob -nocomplain /usr/lib{64,}/libpmi.so.0*]
+set libpmi2     [glob -nocomplain /usr/lib{64,}/libpmi2.so.0*]
 
-if { $libibverbs eq "" || $libnuma eq "" || $librdmacm eq "" || $libucx eq "" } {
+if { $libibverbs eq "" || $libnuma eq "" || $librdmacm eq "" || $libucx eq "" || $libpmi eq "" || $libpmi2 eq "" } {
     if { [file isdirectory $PREFIX/lib/fallback] } {
         prepend-path LD_LIBRARY_PATH      $PREFIX/lib/fallback
     }

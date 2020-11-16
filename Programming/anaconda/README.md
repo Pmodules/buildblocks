@@ -1,5 +1,10 @@
 # Building of an Anaconda release using Pmodules
 
+## Important Note about access permissions
+
+   The central anacoda installations are located below `/afs/psi.ch/sys/psi.merlin/Programming/anaconda`. All administrators
+   of these installations must be members of the AFS group `sys.modules:psi_python` in order to have write permission.
+
 ## Concepts
 
    * The anaconda module just provides the **conda** package management tool together with its directory infrastructure which contains *conda environments* and a cache of downloaded packages
@@ -14,7 +19,7 @@
    
 ## Building a central conda environment
 
-   * **Allways work on the host pmod6**: conda is trying to use hardlinks where it can. There is an issue that can appear if you install from a machine that uses Auristor (which provides hardlinks). This causes whole environments to become corrupt, so that only a PSI AFS admin can fix the problem. Therefore we only install from pmod6 which runs openAFS.
+   * **Allways work on the host pmod6**: conda is trying to use hardlinks where it can. There is an issue that can appear if you install from a machine that uses Auristor (which provides hardlinks within the same AFS volume). Accessing or modifying from an old OpenAFS client can cause problems. This causes whole environments to become corrupt, so that only a PSI AFS admin can fix the problem. Therefore we only install from pmod6 which runs openAFS.
 
 ### installation of a pure conda environment
 
@@ -70,3 +75,48 @@ This works if the python package has a correct setup.py build
      cd /opt/psi/Programming/anaconda/2019.07/xxxx/mypackage
      pip install .
      ```
+     
+## Building for use with jupyter
+
+Jupyter can discover conda environments if the environment contains the **nb_conda_kernels** package.
+Regrettably the environment activation by this package does not run through the full process as compared to the command line functions. The activation scripts that can be placed in an environment do not get executed (q.v. my bug report https://github.com/Anaconda-Platform/nb_conda_kernels/issues/145).
+   
+In order to fix this, we must use a workaround which involves modifying the kernel spec configuration file of the environment to wrap the call to the python kernel like in this example for `.../envs/mpi-test/share/jupyter/kernels/python3/kernel.json`:
+
+```
+     {
+         "argv": [
+      	"/opt/psi/Programming/anaconda/2019.07/admintools/kernelwrapper.sh",
+      	"mpi-test",
+      	"/opt/psi/Programming/anaconda/2019.07/conda/envs/mpi-test/bin/python",
+      	"-m",
+      	"ipykernel_launcher",
+      	"-f",
+      	"{connection_file}"
+      ],
+      "display_name": "Python 3",
+      "language": "python"
+     }
+```
+
+In order to modify an environment easily I wrote a tool found in the `admintools` of this buildblock which you can use as follows:
+
+```
+files/admintools/install-kernelwrapper.py -v /opt/psi/Programming/anaconda/2019.07/conda/envs/hep_root
+```
+
+### Logging of environment activation information
+
+The logging of information for the usage of central environments is
+important, because it allows to do lifetime management of the conda
+environments. We can find out whether a particular environment is used at all
+and by whom, and can so plan the decommissioning.
+
+Logging is currently implemented by an activation hook script that gets placed
+in each environment. This is done by running the script `.../files/admintools/install-env-loggers.sh`
+which will loop over all central environments of this anaconda pmodule.
+
+
+
+
+

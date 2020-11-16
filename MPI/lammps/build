@@ -4,80 +4,50 @@
 TARNAME=$(grep -E "^${V_MAJOR}.${V_MINOR}" files/version-to-tarname.txt| awk '{print $2}')
 
 # pbuild::set_download_url "https://gitlab.psi.ch/caubet_m/merlin-software/raw/master/$P/$P-${V_PKG}.tar.gz"
-pbuild::set_download_url "https://github.com/lammps/lammps/archive/${TARNAME}"
+# pbuild::set_download_url "https://github.com/lammps/lammps/archive/${TARNAME}"
+pbuild::set_download_url "https://lammps.sandia.gov/tars/${TARNAME}"
 
 pbuild::add_to_group 'MPI'
 
 pbuild::install_docfiles README LICENSE
 
-pbuild::compile_in_sourcetree
-
-# pbuild::pre_configure() {
-#   pbuild::add_configure_args "-D CMAKE_BUILD_TYPE=RELEASE"
-# 
-#   pbuild::add_configure_args "-D BUILD_MPI=yes"
-#   pbuild::add_configure_args "-D BUILD_OMP=yes"
-#   pbuild::add_configure_args "-D PKG_USER-OMP=yes"
-#   pbuild::add_configure_args "-D PKG_BODY=yes"
-#   pbuild::add_configure_args "-D PKG_DIPOLE=yes"
-#   pbuild::add_configure_args "-D PKG_MOLECULE=yes"
-#   pbuild::add_configure_args "-D PKG_MPIIO=yes"
-#   pbuild::add_configure_args "-D PKG_REPLICA=yes"
-#   # pbuild::add_configure_args "-D PKG_REAX=yes"
-#   pbuild::add_configure_args "-D PKG_RIGID=yes"
-#   pbuild::add_configure_args "-D PKG_USER-REAXC=yes"
-# 
-# }
-
-# pbuild::configure() {
-# 	cp -v "${BUILDBLOCK_DIR}/files/Makefile.PSI" "${BUILD_DIR}/src/MAKE/MINE"
-# }
-#
 pbuild::configure() {
-  sed -i '/^CCFLAGS.*/ s/$/ -fopenmp/' ${BUILD_DIR}/src/MAKE/Makefile.mpi
-  sed -i '/^LINKFLAGS.*/ s/$/ -fopenmp/' ${BUILD_DIR}/src/MAKE/Makefile.mpi
+	cmake -D CMAKE_INSTALL_PREFIX="${PREFIX}" \
+              -D CMAKE_BUILD_TYPE=RELEASE \
+              -D BUILD_MPI=yes \
+              -D BUILD_OMP=yes \
+              -D BUILD_TOOLS=yes \
+              -D BUILD_DOC=yes \
+              -D LAMMPS_MACHINE=mpi \
+              -D PKG_USER-OMP=yes \
+              -D PKG_ASPHERE=yes \
+              -D PKG_BODY=yes \
+              -D PKG_COMPRESS=yes \
+              -D PKG_CORESHELL=yes \
+              -D PKG_DIPOLE=yes \
+              -D PKG_GRANULAR=yes \
+              -D PKG_MANYBODY=yes \
+              -D PKG_KSPACE=yes \
+              -D PKG_MC=yes \
+              -D PKG_MISC=yes \
+              -D PKG_MOLECULE=yes \
+              -D PKG_MPIIO=yes \
+              -D PKG_OPT=yes \
+              -D PKG_PYTHON=yes \
+              -D PKG_REPLICA=yes \
+              -D PKG_RIGID=yes \
+              -D PKG_SNAP=yes \
+              -D PKG_USER-EFF=yes \
+              -D PKG_USER-DRUDE=yes \
+              -D PKG_USER-REAXC=yes \
+              -D BUILD_SHARED_LIBS=on \
+	      ${BUILD_DIR}/../src/cmake
 }
 
 pbuild::compile() {
-  echo BEGIN COMPILE
-  cd src
-  # make clean-all
-  # make no-all
-  make yes-user-omp
-  make yes-asphere
-  make yes-body
-  make yes-compress
-  make yes-coreshell
-  make yes-dipole
-  make yes-granular
-  make yes-manybody
-  make yes-kspace
-  make yes-mc
-  make yes-misc
-  make yes-molecule
-  make yes-mpiio
-  make yes-opt
-  make yes-python
-  make yes-replica
-  make yes-rigid
-  make yes-snap
-  make yes-user-eff
-  make yes-user-drude
-  make yes-user-reaxc
-  make yes-user-reaxc args="-m serial"
-  make yes-user-reaxc args="-m mpi"
-  make mpi
-  echo ENDCOMPILE
+	cmake --build ${BUILD_DIR}
 }
 
 pbuild::install() {
-	install -m 0755 -d "${PREFIX}/bin"
-  # Modify this for installing individual binaries
-	install -m 0755  "${BUILD_DIR}/src/lmp_mpi" "${PREFIX}/bin/"
-
-  # Strip all present binaries
-  for file in $(ls ${PREFIX}/bin/lmp_*)
-  do
-    strip "$file"
-  done
+        make install
 }

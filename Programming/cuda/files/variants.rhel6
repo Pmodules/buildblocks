@@ -3,3 +3,4 @@ cuda/9.0.176	stable
 cuda/9.1.85	stable
 cuda/9.2.148	stable
 cuda/10.0.130	stable
+cuda/10.1.105	unstable

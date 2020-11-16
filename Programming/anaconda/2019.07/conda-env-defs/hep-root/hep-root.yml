@@ -1,0 +1,12 @@
+name: hep_root
+channels:
+  - conda-forge
+dependencies:
+  -  python=3.7
+  -  root     
+  -  numpy    
+  -  root_numpy
+  -  pandas   
+  -  matplotlib
+  -  tensorflow
+  -  nb_conda_kernels
