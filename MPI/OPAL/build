@@ -1,6 +1,6 @@
 #!/usr/bin/env modbuild
 
-pbuild::set_download_url "http://amas.web.psi.ch/Downloads/$P/src/$P-$V.tar.bz2"
+pbuild::set_download_url "http://amas.web.psi.ch/Downloads/$P/src/$P-${V_PKG}.tar.xz"
 pbuild::add_to_group 'MPI'
 
 pbuild::pre_configure_Linux() {
@@ -13,6 +13,7 @@ pbuild::pre_configure_Linux() {
 pbuild::pre_configure() {
 	pbuild::add_configure_args "-DCMAKE_BUILD_TYPE=Release"
 	pbuild::add_configure_args "-DENABLE_SAAMG_SOLVER=TRUE"
+	pbuild::add_configure_args "-DENABLE_AMR=TRUE"
+	pbuild::add_configure_args "-DENABLE_AMR_MG_SOLVER=TRUE"
 }
-
 
