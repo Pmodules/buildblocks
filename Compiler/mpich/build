@@ -11,8 +11,18 @@ pbuild::pre_configure() {
 	pbuild::add_configure_args "--enable-cxx"
 	pbuild::add_configure_args "--enable-fortran"
 	if pbuild::use_flag merlin; then
+		MXM_DIR='/opt/mellanox/mxm/'
 		pbuild::add_configure_args "--with-device=ch3:nemesis:mxm"
 		pbuild::add_configure_args "--with-mxm=${MXM_DIR}"
+		pbuild::add_configure_args "--without-x"
+		#pbuild::add_configure_args "--with-slurm-include=/usr/include/slurm"
+		#pbuild::add_configure_args "--with-slurm-lib=/usr/lib64"
+		#pbuild::add_configure_args "--with-pmi=slurm"
+		#pbuild::add_configure_args "--with-pm=no"
+		pbuild::add_configure_args "--enable-gl=no"
+	fi
+	if [[ "${COMPILER}" == 'gcc' ]] && (( ${COMPILER_VERSION%.*.*} == 10 )); then
+		pbuild::add_configure_args "FFLAGS=-fallow-argument-mismatch"
 	fi
 }
 

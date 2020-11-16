@@ -1,1 +1,3 @@
 mpich/3.2.1_merlin	unstable	gcc/{6.4.0,7.3.0} b:binutils/2.29 b:mxm/3.6.3104
+
+mpich/3.3.2_merlin	unstable	gcc/10.2.0 b:binutils/2.29
