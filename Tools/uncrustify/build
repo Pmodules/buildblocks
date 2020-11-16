@@ -1,0 +1,17 @@
+#!/usr/bin/env modbuild
+
+pbuild::add_to_group 'Tools'
+
+pbuild::set_download_url \
+	"https://github.com/$P/$P/archive/$P-${V_PKG}.tar.gz"
+#pbuild::set_sha256sum 'gnuplot-5.2.4.tar.gz:1515f000bd373aaa53b16183f274189d4f5e0ae47d22f434857933d16a4770cb'
+#pbuild::install_docfiles 'Copyright' 'ChangeLog' 'NEWS' 'README'
+
+#pbuild::add_configure_args '--with-latex=no'
+#pbuild::add_configure_args '--with-qt=no'
+
+# Local Variables:
+# mode: sh
+# sh-basic-offset: 8
+# tab-width: 8
+# End:
