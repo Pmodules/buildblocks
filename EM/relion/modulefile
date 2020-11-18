@@ -43,6 +43,5 @@ setenv RELION_GCTF_EXECUTABLE /opt/psi/EM/Gctf/1.06/bin/Gctf
 setenv RELION_RESMAP_EXECUTABLE /opt/psi/EM/ResMap/1.1.4/bin/ResMap
 
 # Version-specific variables
-setenv RELION_QSUB_TEMPLATE /opt/psi/EM/relion/3.1-beta/scripts/multi_gpu.sh
-setenv RELION_MOTIONCOR2_EXECUTABLE /opt/psi/EM/MotionCor2/1.3.0/bin/MotionCor2_1.3.0-Cuda92
-
+setenv RELION_QSUB_TEMPLATE /opt/psi/EM/relion/$V/scripts/multi_gpu.sh
+setenv RELION_MOTIONCOR2_EXECUTABLE /opt/psi/EM/MotionCor2/1.4.0/bin/MotionCor2_1.4.0_Cuda110

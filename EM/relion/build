@@ -22,7 +22,9 @@ pbuild::pre_configure() {
     pbuild::add_configure_args CudaTexture=ON
     pbuild::add_configure_args ALTCPU=ON
     pbuild::add_configure_args FORCE_OWN_TBB=ON
-    # Requires intel compiler
-    #pbuild::add_configure_args MKLFFT=ON
+    if [[ -n "$INTEL_VERSION" ]]; then
+        # Requires intel compiler
+        pbuild::add_configure_args MKLFFT=ON
+    fi
 }
 
