@@ -1,0 +1,32 @@
+#%Module1.0
+
+module-whatis           "a software environment for subtomogram averaging of cryo-EM data"
+module-url              "https://wiki.dynamo.biozentrum.unibas.ch/w/index.php/Main_Page"
+module-license          "GPLv2 license"
+module-maintainer       "Spencer Bliven <spencer.bliven@psi.ch>"
+
+module-help             "
+Dynamo is a software environment for subtomogram averaging of cryo-EM data.  In
+a full workflow, you would organize tomograms in catalogues, use them to pick
+particles and create alignment and classification projects to be run on
+different computing environments. 
+
+Cite:
+
+1. Dynamo: A flexible, user-friendly development tool for subtomogram averaging
+   of cryo-EM data in high-performance computing environments. Castaño-Díez D,
+   Kudryashev M, Arheit M, Stahlberg H., J Struct Biol. 2012.
+2. Dynamo Catalogue: Geometrical tools and data management for particle picking
+   in subtomogram averaging of cryo-electron tomograms Castaño-Díez D, Kudryashev
+   M, Stahlberg H., in J Struct Biol. 2017 Feb; 197(2):135-144
+3. The Dynamo package for tomography and subtomogram averaging: components for
+   MATLAB, GPU computing and EC2 Amazon Web Services Castaño-Díez D. in Acta
+   Crystallographica Section D: Structural Biology 73 (6).
+4. Protocols for Subtomogram Averaging of Membrane Proteins in the Dynamo
+   Software Package Navarro PP, Stahlberg H and Castaño-Díez D (2018). Front. Mol.
+   Biosci. 5:82.
+"
+
+setenv DYNAMO_ROOT "$PREFIX/bin"
+# merlin-specific
+setenv MCR_CACHE_ROOT "/scratch/$::env(USER)"

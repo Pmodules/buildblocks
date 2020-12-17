@@ -1,0 +1,68 @@
+#!/usr/bin/env modbuild
+
+pbuild::add_to_group 'EM'
+pbuild::use_cmake
+
+# config provides DYNAMO_ID
+test -f "$V/config" || { echo "$V/config not found"; exit 1; }
+source "$V/config"
+
+
+pbuild::prep() {
+    # Download tarball and expand to $PREFIX
+    # Download links are on google drive, which requires a script (gdrivedl.py)
+    # to handle setting session cookies
+
+    local GDRIVEDL="${PMODULES_TMPDIR:-/tmp}/gdrivedl.py"
+
+    bootstrap () {
+        # Download gdrivedl to bootstrap the download process
+        if ! [ -f "$GDRIVEDL" ]; then
+            # Use sbliven fork; adds CLI options
+            wget -O "$GDRIVEDL" 'https://raw.githubusercontent.com/sbliven/gdrivedl/master/gdrivedl.py'
+        fi
+    }
+
+    download_dynamo() {
+        local DYNAMO_ID="$1"
+        #local DYNAMO_LINK="https://drive.google.com/u/0/uc?export=download&id=${DYNAMO_ID}"
+        local OUT="$2"
+
+        bootstrap
+
+        python "$GDRIVEDL" "$DYNAMO_ID" -O "$OUT" --quiet
+    }
+
+    unpack() {
+        local -r file="$1"
+        local -r dir="${2:-${SRC_DIR}}"
+        (
+            if [[ -n "${dir}" ]]; then
+                mkdir -p "${dir}"
+                cd "${dir}"
+            fi
+            tar -xv --strip-components 1 -f "${file}"
+        )
+    }
+
+    : DYNAMO_ID=${DYNAMO_ID:?DYNAMO_ID not set in config file}
+    TAR_FILE="$PMODULES_DISTFILESDIR/dynamo-${V_PKG}.tar"
+    mkdir -p "${PMODULES_DISTFILESDIR}"
+    download_dynamo "$DYNAMO_ID" "$TAR_FILE"
+    mkdir -p "$PREFIX"
+    unpack "$TAR_FILE" "$PREFIX/bin"
+}
+
+pbuild::configure() {
+    :
+}
+
+pbuild::compile() {
+    # Could force compilation here, but I'm going to do it manually the first time
+    :
+}
+
+pbuild::install() {
+    :
+}
+
