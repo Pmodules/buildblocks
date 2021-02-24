@@ -1,0 +1,61 @@
+#!/usr/bin/env modbuild
+
+pbuild::set_download_url "http://github.com/xianyi/$P/archive/v${V_PKG}.tar.gz"
+
+pbuild::add_to_group 'Compiler'
+pbuild::compile_in_sourcetree
+pbuild::install_docfiles 'LICENSE' 'README.md'
+#pbuild::set_supported_compilers 'gcc' 'intel' 'clang-macos'
+
+pbuild::configure() {
+	case ${COMPILER} in
+	gcc )
+		CC='gcc'
+		;;
+	intel )
+		CC='icc'
+		;;
+	clang-macos )
+		CC='gcc'
+		;;
+	* )
+		die 3 "Oops: unknown compiler: ${COMPILER}"
+		;;
+	esac
+	cat <<EOF > "${SRC_DIR}/make.inc"
+SHELL = /bin/sh
+PLAT = 
+DRVOPTS  = \$(NOOPT)
+ARCHFLAGS= -ru
+EOF
+	echo "USE_SIMPLE_THREADED_LEVEL3 = 1" >> "${SRC_DIR}/Makefile.rule"
+	if pbuild::use_flag "avx"; then
+		echo "NO_AVX = 0" >> "${SRC_DIR}/Makefile.rule"
+	else
+		echo "NO_AVX = 1" >> "${SRC_DIR}/Makefile.rule"
+	fi
+	if pbuild::use_flag "avx2"; then
+		echo "NO_AVX2 = 0" >> "${SRC_DIR}/Makefile.rule"
+	else
+		echo "NO_AVX2 = 1" >> "${SRC_DIR}/Makefile.rule"
+	fi
+	if pbuild::use_flag "omp"; then
+		echo "USE_THREAD = 1" >> "${SRC_DIR}/Makefile.rule"
+	else
+		echo "USE_THREAD = 0" >> "${SRC_DIR}/Makefile.rule"
+	fi
+}
+
+pbuild::post_configure_Darwin() {
+	sed -i.bak "s/MACOSX_DEPLOYMENT_TARGET=.*/MACOSX_DEPLOYMENT_TARGET=$MACOSX_DEPLOYMENT_TARGET/" \
+		"${SRC_DIR}/Makefile.system"
+}
+
+pbuild::post_install() {
+	# We have to build shared libs and remove them here.
+	# Building with NOSHARED gives an error during install -
+	# due to a bug in the Makefile(s).
+	rm -f "${PREFIX}/lib/"lib*.{so,dylib}
+	rm -f "${PREFIX}/lib/"lib*.{so,dylib}.*
+}
+
