@@ -22,10 +22,9 @@ pbuild::pre_configure() {
 	pbuild::add_configure_args "--enable-orterun-prefix-by-default"
 	pbuild::add_configure_args "--enable-shared"
 	pbuild::add_configure_args "--enable-static"
-	pbuild::add_configure_args "--with-sge=yes"
-       	pbuild::add_configure_args "--with-ucx"
        	pbuild::add_configure_args "--with-hwloc=internal"
 	pbuild::add_configure_args "--with-slurm=yes"
+	pbuild::add_configure_args "--with-ucx=${UCX_PREFIX}"
 
         if pbuild::use_flag slurm ; then
 		pbuild::add_configure_args "--with-pmi"
