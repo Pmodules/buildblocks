@@ -4,10 +4,10 @@ pbuild::set_download_url "http://cucis.ece.northwestern.edu/projects/PnetCDF/Rel
 
 pbuild::add_to_group 'HDF5'
 
-pbuild::add_docfiles 'AUTHORS' 'CREDITS'
-pbuild::add_docfiles 'COPYING' 'COPYRIGHT'
-pbuild::add_docfiles 'ChangeLog' 'NEWS'
-pbuild::add_docfiles 'RELEASE_NOTES'
+pbuild::install_docfiles 'AUTHORS' 'CREDITS'
+pbuild::install_docfiles 'COPYING' 'COPYRIGHT'
+pbuild::install_docfiles 'ChangeLog' 'NEWS'
+pbuild::install_docfiles 'RELEASE_NOTES'
 
 pbuild::pre_configure() {
 	pbuild::add_configure_args "--with-mpi=${MPICC/bin\/*}"
@@ -32,6 +32,4 @@ pbuild::pre_configure() {
 			;;
 	esac
 }
-
-pbuild::make_all
 
