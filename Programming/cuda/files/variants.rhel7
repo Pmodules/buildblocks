@@ -1,4 +1,4 @@
-cuda/8.0.44	stable
+cuda/8.0.44	deprecated
 cuda/9.0.176	stable
 cuda/9.1.85	stable
 cuda/9.2.148	stable
