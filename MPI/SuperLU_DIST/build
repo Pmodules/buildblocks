@@ -2,6 +2,7 @@
 
 # :FIXME: need review!
 
+pbuild::add_to_group MPI
 pbuild::configure() {
 	case ${COMPILER} in
 	gcc )
@@ -50,10 +51,3 @@ pbuild::install() {
 	install -m 0444 "${SRC_DIR}"/SRC/*.h "${PREFIX}/include"
 }
 
-
-pbuild::add_to_group 'MPI'
-pbuild::set_runtime_dependencies "${COMPILER}" "${MPI} 'OpenBLAS' 'parmetis'"
-pbuild::set_build_dependencies "${COMPILER}" "${MPI}" 'OpenBLAS' 'parmetis'
-pbuild::install_docfiles 'README'
-pbuild::make_all
-pbuild::cleanup_src
