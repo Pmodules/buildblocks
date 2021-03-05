@@ -20,6 +20,8 @@ openmpi/4.0.4_slurm     stable     intel/{15.2,17.4,18.4,20.1}
 
 openmpi/3.1.6_slurm     stable     intel/20.4 cuda/11.1.0
 
+
+openmpi/4.0.5_slurm     stable     gcc/9.2.0 cuda/11.0.3
 openmpi/4.0.5_slurm     stable     gcc/{8.4.0,9.3.0} cuda/11.1.0
 openmpi/4.0.5_slurm     stable     intel/20.4 cuda/11.1.0
 
