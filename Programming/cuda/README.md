@@ -72,37 +72,37 @@ wget https://developer.download.nvidia.com/compute/cuda/11.2.2/local_installers/
    └──────────────────────────────────────────────────────────────────────────────┘
    ```
 6. **Options**:
-  * **Driver Options:** 
-    * Do not install any of the OpenGL-related driver files: _uncheck_
-    * Do not install the nvidia-drm kernel module: _check_
-  * **ToolKit Options:** _uncheck all_ and:
-    * **Change Toolkit Install Path:** `/opt/psi/Programming/cuda/11.2.2`
-  * **Samples Options:** 
-    * **Change Writeable Samples Install Path:** `/opt/psi/Programming/cuda/11.2.2`
-  * **Library install path (Blank for system default):** `/opt/psi/Programming/cuda/11.2.2`
+   * **Driver Options:** 
+      * Do not install any of the OpenGL-related driver files: _uncheck_
+      * Do not install the nvidia-drm kernel module: _check_
+   * **ToolKit Options:** _uncheck all_ and:
+      * **Change Toolkit Install Path:** `/opt/psi/Programming/cuda/11.2.2`
+   * **Samples Options:** 
+      * **Change Writeable Samples Install Path:** `/opt/psi/Programming/cuda/11.2.2`
+   * **Library install path (Blank for system default):** `/opt/psi/Programming/cuda/11.2.2`
 7. **Install**
 
 ## Post-Installation
 
 1. Add the new version in the variants file:
-  ```bash
-  (base) [caubet_m@merlin-l-001 cuda]$ git diff files/variants.rhel7
-  diff --git a/Programming/cuda/files/variants.rhel7 b/Programming/cuda/files/variants.rhel7
-  index ba48643..2cb6f93 100644
-  --- a/Programming/cuda/files/variants.rhel7
-  +++ b/Programming/cuda/files/variants.rhel7
-  @@ -7,3 +7,4 @@ cuda/10.1.105   stable
-   cuda/11.0.3     stable
-   cuda/11.1.0     stable
-   cuda/11.1.1     stable
-  +cuda/11.2.2     unstable
-  ```
+   ```bash
+   (base) [caubet_m@merlin-l-001 cuda]$ git diff files/variants.rhel7
+   diff --git a/Programming/cuda/files/variants.rhel7 b/Programming/cuda/files/variants.rhel7
+   index ba48643..2cb6f93 100644
+   --- a/Programming/cuda/files/variants.rhel7
+   +++ b/Programming/cuda/files/variants.rhel7
+   @@ -7,3 +7,4 @@ cuda/10.1.105   stable
+    cuda/11.0.3     stable
+    cuda/11.1.0     stable
+    cuda/11.1.1     stable
+   +cuda/11.2.2     unstable
+   ```
 2. Update Module files:
-  ```bash
-  (base) [caubet_m@merlin-l-001 cuda]$ ./build 11.2.2 --update-modulefiles
-  cuda/11.2.2: already exists, not rebuilding ...
-  cuda/11.2.2: installing modulefile in '/opt/psi/Programming/modulefiles/cuda' ...
-  ```
+   ```bash
+   (base) [caubet_m@merlin-l-001 cuda]$ ./build 11.2.2 --update-modulefiles
+   cuda/11.2.2: already exists, not rebuilding ...
+   cuda/11.2.2: installing modulefile in '/opt/psi/Programming/modulefiles/cuda' ...
+   ```
 3. Commit + push:
    ```bash
    (base) [caubet_m@merlin-l-001 cuda]$ git commit -a -m "Added cuda/11.2.2 -> unstable"
