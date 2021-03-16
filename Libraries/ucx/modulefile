@@ -9,3 +9,5 @@ module-help		"
 Unified Communication X (ucx) is an open-source production grade communication
 framework for data centric and high-performance application.
 "
+
+setenv  UCX_WARN_UNUSED_ENV_VARS  n
