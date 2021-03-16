@@ -1,0 +1,23 @@
+#%Module1.0
+
+module-whatis		"NVIDIA GDRCopy"
+module-url		"https://github.com/NVIDIA/gdrcopy"
+module-license		"$PREFIX/share/doc/GDRCopy/LICENSE"
+module-maintainer	"Marc Caubet Serrabou <marc.caubet@psi.ch>"
+
+module-help		"
+GDR COPY is a fast copy library from NVIDIA, used to transfer files 
+between the host and the GPU.  Communication libraries (MVAPICH2, UCX)
+can take advantage of GDRCopy. if available on the systems.
+
+While GPUDirect RDMA is meant for direct access to GPU memory from 
+third-party devices, it is possible to use these same APIs to create
+perfectly valid CPU mappings of the GPU memory.
+
+The advantage of a CPU driven copy is the very small overhead involved.
+That might be useful when low latencies are required.
+
+To use it, please check whether the GDR COPY module is loaded on the
+involed machines.
+  # lsmod | grep gdrdrv
+"
