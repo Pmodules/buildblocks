@@ -26,16 +26,20 @@ pbuild::pre_configure() {
   pbuild::add_configure_args "--with-verbs"
 
   if [[ -n "${CUDA_VERSION}" ]]; then
-    pbuild::add_configure_args "--with-cuda=$CUDA_HOME"
+    pbuild::add_configure_args "--with-cuda=${CUDA_HOME}"
   fi
 
   if [[ -n "${KNEM_VERSION}" ]]; then
     pbuild::add_configure_args "--with-knem"
   fi
-  if pbuild::use_flag slurm || pbuild::use_flag dgx; then
-    pbuild::add_configure_args "--without-gdrcopy"       # Will be --with-gdrcopy when available
-    pbuild::add_configure_args "--with-rdmacm"
+
+  if [[ -n "${GDRCOPY_VERSION}" ]]; then
+    pbuild::add_configure_args "--with-gdrcopy"
   else
     pbuild::add_configure_args "--without-gdrcopy"
+  fi
+
+  if pbuild::use_flag slurm || pbuild::use_flag dgx; then
+    pbuild::add_configure_args "--with-rdmacm"
   fi
 }
