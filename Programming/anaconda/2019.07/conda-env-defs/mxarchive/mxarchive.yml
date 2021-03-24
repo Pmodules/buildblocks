@@ -1,0 +1,19 @@
+name: mxarchive
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python>=3.6
+  - Click>=7.0
+  - pyparsing>=2
+  - tox
+  - flake8
+  - coverage
+  - pytest>=3
+  - pytest-runner>=5
+  - Sphinx>1.8
+  - bump2version
+  - twine
+  - pip
+  - pip:
+    - git+https://git.psi.ch/bliven_s/mxarchive.git
