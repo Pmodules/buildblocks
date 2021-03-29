@@ -25,7 +25,10 @@ openmpi/4.0.5_slurm     stable     gcc/9.2.0 cuda/11.0.3
 openmpi/4.0.5_slurm     stable     gcc/{8.4.0,9.3.0} cuda/11.1.0
 openmpi/4.0.5_slurm     stable     intel/20.4 cuda/11.1.0
 
-openmpi/4.0.5_dgx       unstable   gcc/{8.4.0,9.3.0,10.2.0} cuda/11.2.2 b:ucx/1.10.0_dgx
-openmpi/4.1.0_dgx       unstable   gcc/10.2.0 cuda/11.2.2 b:ucx/1.10.0_dgx
+openmpi/4.0.5_dgx        removed    gcc/{8.4.0,9.3.0,10.2.0} cuda/11.2.2 b:ucx/1.10.0_dgx
+openmpi/4.0.5_dgx_master removed    gcc/10.2.0 cuda/11.2.2 b:ucx/1.10.0-1_dgx_master
+openmpi/4.1.0_dgx        removed    gcc/10.2.0 cuda/11.2.2 b:ucx/1.10.0_slurm
+openmpi/4.0.5-1_dgx      unstable   gcc/{8.4.0,9.3.0,10.2.0} cuda/11.2.2 b:ucx/1.10.0-1_dgx
+openmpi/4.1.0-1_dgx      unstable   gcc/10.2.0 cuda/11.2.2 b:ucx/1.10.0-1_dgx
 
 openmpi/4.0.4_slurm_libpmix unstable gcc/9.3.0

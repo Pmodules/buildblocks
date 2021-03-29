@@ -1,11 +1,33 @@
 #!/usr/bin/env modbuild
 
-pbuild::set_download_url "https://github.com/openucx/ucx/releases/download/v${V_PKG}/$P-${V_PKG}.tar.gz"
-pbuild::add_to_group 'Libraries'
-
 # use system gcc to compile
 declare -rx CC=gcc
 declare -rx CPP=/usr/bin/cpp
+
+# Check 'version-to-gitcommit.txt'
+#   - If version exists, we will compile directly from GIT cloned commit.
+#   - If version does not exist, install from GIT repository package (tag).
+COMMIT=$(grep -E "^${V}" files/version-to-gitcommit.txt | awk '{print $2}')
+
+if [[ ! -n ${COMMIT} ]]; then
+  pbuild::set_download_url "https://github.com/openucx/ucx/releases/download/v${V_PKG}/$P-${V_PKG}.tar.gz"
+else
+  pbuild::pre_prep() {
+    # Only deploy package if it does not exist
+    if [[ ! -f $PMODULES_DISTFILESDIR/$P-$V.tar.gz ]]; then
+      git clone https://github.com/openucx/ucx.git ucx
+      cd ucx
+      git fetch -a
+      git checkout ${COMMIT}
+      ./autogen.sh
+      cd ..
+      tar --remove-files -cvzf $PMODULES_DISTFILESDIR/$P-$V.tar.gz ucx
+    fi
+  }
+  pbuild::set_download_url "https://github.com/openucx/ucx/releases/download/v${V_PKG}/$P-${V_PKG}.tar.gz" "$P-$V.tar.gz"
+fi
+
+pbuild::add_to_group 'Libraries'
 
 pbuild::pre_configure() {
   # pbuild::add_configure_args "--disable-shared"
