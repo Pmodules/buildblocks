@@ -1,0 +1,2 @@
+boost/1.73.0_dgx	unstable	gcc/{8.4.0,9.3.0,10.2.0} cuda/11.2.2 openmpi/4.0.5-1_dgx b:zlib/1.2.11
+
