@@ -36,4 +36,4 @@ gcc/9.2.0	stable		b:gmp/6.1.2-1 b:mpfr/4.0.2 b:mpc/1.1.0-3 b:isl/0.21
 gcc/9.3.0	stable		b:gmp/6.2.0 b:mpfr/4.0.2-1 b:mpc/1.1.0-4
 
 gcc/10.1.0	stable		b:gmp/6.2.0 b:mpfr/4.0.2-1 b:mpc/1.1.0-4
-gcc/10.2.0	unstable	b:gmp/6.2.0 b:mpfr/4.0.2-1 b:mpc/1.1.0-4
+gcc/10.2.0	stable		b:gmp/6.2.0 b:mpfr/4.0.2-1 b:mpc/1.1.0-4
