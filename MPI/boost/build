@@ -10,7 +10,11 @@ BOOST_BUILD_PATH="${BUILD_DIR}"
 
 TOOLSET=''
 
-pbuild::pre_configure() {
+pbuild::configure() {
+	:
+}
+
+pbuild::compile() {
 	case "${COMPILER}" in
 	gcc )
 	        TOOLSET=gcc
@@ -19,13 +23,6 @@ pbuild::pre_configure() {
 	        std::die 1 "Unsupported compiler!"
 	        ;;
 	esac
-}
-
-pbuild::configure() {
-	:
-}
-
-pbuild::compile() {
         cd "${SRC_DIR}"
         ./bootstrap.sh \
                 --prefix="${PREFIX}" \
