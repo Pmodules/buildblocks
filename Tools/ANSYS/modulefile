@@ -1,0 +1,53 @@
+#%Module1.0
+
+module-whatis           "ANSYS Software"
+module-url              "https://www.ansys.com"
+module-license          "See PREFIX/share/doc/COPYING"
+module-maintainer       "Marc Caubet Serrabou <marc.caubet@psi.ch>"
+module-help             "
+Ansys offers a comprehensive software suite that spans the entire range 
+of physics, providing access to virtually any field of engineering simulation 
+that a design process requires. Organizations around the world trust Ansys to 
+deliver the best value for their engineering simulation software investment.
+
+This module contains the main ANSYS Software with several ANSYS products
+(i.e Fluent, EM, RSM, CFX, Mechanical APDL, etc.).
+"
+
+set year [string range  $V_PKG 2 3]
+set release [string range  $V_PKG end end]
+set version "v$year$release"
+
+prepend-path    PATH    $PREFIX/$version/ansys/bin
+prepend-path    PATH    $PREFIX/$version/aisol/bin
+prepend-path    PATH    $PREFIX/$version/CEI/bin
+prepend-path    PATH    $PREFIX/$version/CFD-Post/bin
+prepend-path    PATH    $PREFIX/$version/CFX/bin
+prepend-path    PATH    $PREFIX/$version/EKM/bin
+prepend-path    PATH    $PREFIX/$version/fensapice/bin
+prepend-path    PATH    $PREFIX/$version/fluent/bin
+prepend-path    PATH    $PREFIX/$version/Framework/bin
+prepend-path    PATH    $PREFIX/$version/Icepak/bin
+prepend-path    PATH    $PREFIX/$version/polyflow/bin
+prepend-path    PATH    $PREFIX/$version/RSM/bin
+prepend-path    PATH    $PREFIX/$version/SystemCoupling/bin
+prepend-path    PATH    $PREFIX/$version/TurboGrid/bin
+# 07.04.2020
+prepend-path    PATH    $PREFIX/$version/Electronics/Linux64
+prepend-path    PATH    $PREFIX/$version/Framework/bin/Linux64
+prepend-path    PATH    $PREFIX/$version/AnsysEM$year.$release/Linux64
+prepend-path    PATH    $PREFIX/shared_files/licensing/lic_admin/
+
+# General
+prepend-path    LD_LIBRARY_PATH  $PREFIX/$version/tp/qt/5.9.6/linx64/lib
+
+# CFX5
+prepend-path    LD_LIBRARY_PATH  $PREFIX/$version/CFX/lib/linux-amd64
+prepend-path    LD_LIBRARY_PATH  $PREFIX/$version/CFX/tools/boost-1.63.0/linx64/lib/Release
+prepend-path    LD_LIBRARY_PATH  $PREFIX/$version/CFX/tools/icemcfd-$year.$release/linx64/IcemExe2Cfx/syslib
+prepend-path    LD_LIBRARY_PATH  $PREFIX/$version/CFX/tools/qwt-6.1.2/linx64/lib
+prepend-path    LD_LIBRARY_PATH  $PREFIX/$version/CFX/tools/qwtpolar-1.1.1/linx64/lib
+prepend-path    LD_LIBRARY_PATH  $PREFIX/$version/CFX/tools/xerces-3.2.2/linx64/lib
+
+# RSM
+prepend-path    PATH    $PREFIX/$version/RSM/Config/tools/linux
