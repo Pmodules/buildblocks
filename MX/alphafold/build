@@ -29,9 +29,14 @@ pbuild::install() {
     git clone --depth=1 -b "$BRANCH" https://github.com/deepmind/alphafold.git "$ALPHAFOLD_HOME" || return $?
     if ! [ -f "$ALPHAFOLD_HOME/alphafold/common/stereo_chemical_props.txt" ]; then
         wget -q -P "$ALPHAFOLD_HOME/alphafold/common/" \
+            --no-check-certificate `# wget root certs are old` \
             https://git.scicore.unibas.ch/schwede/openstructure/-/raw/7102c63615b64735c4941278d92b554ec94415f8/modules/mol/alg/src/stereo_chemical_props.txt
     fi
     wget -O "$ALPHAFOLD_HOME/run_alphafold.sh" \
         https://raw.githubusercontent.com/kalininalab/alphafold_non_docker/main/run_alphafold.sh
     chmod +x "$ALPHAFOLD_HOME/run_alphafold.sh"
+
+    cp -r "$BUILDBLOCK_DIR/bin" "$PREFIX/"
+    sed -i "s/ALPHAFOLD_VERSION/$V/g" "$PREFIX/bin/"*
 }
+

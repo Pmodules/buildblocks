@@ -18,6 +18,6 @@
 export ALPHAFOLD_DATA=/data/project/bio/shared/alphafold
 module purge
 module use MX unstable
-module load anaconda/2019.07 cuda/11.0.3 alphafold/2.0.0-b88f8da
+module load alphafold/ALPHAFOLD_VERSION
 
 exec "${ALPHAFOLD_DIR:?Error loading module}/bin/submit.sh" "$@"

@@ -1,1 +1,2 @@
-alphafold/2.0.0-b88f8da	anaconda/2019.07 b:gcc/10.3.0 cuda/11.0.3
+alphafold/2.0.0-b88f8da	unstable	anaconda/2019.07 b:gcc/10.3.0 cuda/11.0.3
+alphafold/2.0.1	unstable	anaconda/2019.07 b:gcc/10.3.0 cuda/11.0.3

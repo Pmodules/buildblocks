@@ -24,7 +24,7 @@ module --version
 
 module purge
 module use MX unstable Programming
-module load anaconda/2019.07 cuda/11.0.3 alphafold/2.0.0-b88f8da
+module load alphafold/ALPHAFOLD_VERSION
 module list
 
 exec "${ALPHAFOLD_DIR:?Error loading module}/bin/submit.sh" "$@"

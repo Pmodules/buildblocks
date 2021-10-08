@@ -49,7 +49,7 @@ hostname >> "$LOG"
 set +u # Allow unset variables in activate commands
 module purge
 module use MX unstable
-module load anaconda/2019.07 cuda/11.0.3 alphafold/2.0.0-b88f8da 2>> "$LOG"
+module load alphafold/ALPHAFOLD_VERSION 2>> "$LOG"
 conda activate "${ALPHAFOLD_ENV:?"Error: ALPHAFOLD_ENV not set. Try 'module use MX unstable; module load alphafold'"}"
 set -u
 
