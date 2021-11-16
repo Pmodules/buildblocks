@@ -3,33 +3,36 @@ openmpi/3.1.4_merlin6   deprecated gcc/{7.4.0,8.3.0}
 openmpi/3.1.5_merlin6   deprecated gcc/{7.3.0,7.4.0,8.3.0,9.2.0}
 openmpi/3.1.5_merlin6   deprecated intel/{15.2,17.4,18.4}
 
-openmpi/3.1.5-1_merlin6 stable     gcc/{7.3.0,7.4.0,8.3.0,9.2.0}
-openmpi/3.1.5-1_merlin6 stable     intel/{15.2,17.4,18.4}
+openmpi/3.1.5-1_merlin6 deprecated gcc/{7.3.0,7.4.0,8.3.0,9.2.0}
+openmpi/3.1.5-1_merlin6 deprecated intel/{15.2,17.4,18.4}
 
-openmpi/2.1.6_slurm     unstable   gcc/{4.9.4,5.5.0,6.5.0,7.4.0,8.3.0,9.2.0}
-openmpi/2.1.6_slurm     unstable   intel/{15.2,17.4,18.4}
+openmpi/2.1.6_slurm     deprecated gcc/{4.9.4,5.5.0,6.5.0,7.4.0,8.3.0,9.2.0}
+openmpi/2.1.6_slurm     deprecated intel/{15.2,17.4,18.4}
 
-openmpi/3.0.5_slurm     unstable   gcc/{4.9.4,5.5.0,6.5.0,7.4.0,8.3.0,9.2.0}
-openmpi/3.0.5_slurm     unstable   intel/{15.2,17.4,18.4}
+openmpi/3.0.5_slurm     deprecated  gcc/{4.9.4,5.5.0,6.5.0,7.4.0,8.3.0,9.2.0}
+openmpi/3.0.5_slurm     deprecated  intel/{15.2,17.4,18.4}
 
-openmpi/3.1.6_slurm     stable     gcc/{4.9.4,5.5.0,6.5.0,7.5.0,8.4.0,9.3.0}
-openmpi/3.1.6_slurm     stable     intel/{15.2,17.4,18.4,20.1}
+openmpi/3.1.6_slurm     deprecated  gcc/{4.9.4,5.5.0,6.5.0,7.5.0,8.4.0,9.3.0}
+openmpi/3.1.6_slurm     stable      gcc/{7.5.0,8.4.0,9.3.0}
+openmpi/3.1.6_slurm     deprecated  intel/{15.2,17.4,18.4,20.1}
+openmpi/3.1.6_slurm     deprecated  intel/20.4 cuda/11.1.0
 
-openmpi/4.0.4_slurm     stable     gcc/{4.9.4,5.5.0,6.5.0,7.5.0,8.4.0,9.3.0}
-openmpi/4.0.4_slurm     stable     intel/{15.2,17.4,18.4,20.1}
+openmpi/4.0.3_slurm     deprecated  gcc/{4.9.4,5.5.0,6.5.0,7.5.0,8.4.0,9.3.0}
+openmpi/4.0.3_slurm     deprecated  intel/{15.2,17.4,18.4,20.1}
 
-openmpi/3.1.6_slurm     stable     intel/20.4 cuda/11.1.0
-
+openmpi/4.0.4_slurm     stable      gcc/{4.9.4,5.5.0,6.5.0,7.5.0,8.4.0,9.3.0}
+openmpi/4.0.4_slurm     deprecated  intel/{15.2,17.4}
+openmpi/4.0.4_slurm     stable      intel/{18.4,20.1}
 
 openmpi/4.0.5_slurm     stable     gcc/9.2.0 cuda/11.0.3
 openmpi/4.0.5_slurm     stable     gcc/{8.4.0,9.3.0} cuda/11.1.0
 openmpi/4.0.5_slurm     stable     intel/20.4 cuda/11.1.0
 
-openmpi/4.0.5-1_slurm   unstable   gcc/{8.4.0,9.3.0,10.2.0} cuda/11.2.2 b:ucx/1.10.0-1_slurm
+openmpi/4.0.5-1_slurm   stable     gcc/{8.4.0,9.3.0,10.2.0} cuda/11.2.2 b:ucx/1.10.0-1_slurm
 openmpi/4.0.5-2_slurm   unstable   gcc/10.2.0 cuda/11.3.0 b:ucx/1.11.0_slurm
 
-openmpi/4.0.5-1_dgx     unstable   gcc/{8.4.0,9.3.0,10.2.0} cuda/11.2.2 b:ucx/1.10.0-1_dgx
-openmpi/4.1.0-1_dgx     unstable   gcc/10.2.0 cuda/11.2.2 b:ucx/1.10.0-1_dgx
+openmpi/4.0.5-1_dgx     deprecated gcc/{8.4.0,9.3.0,10.2.0} cuda/11.2.2 b:ucx/1.10.0-1_dgx
+openmpi/4.1.0-1_dgx     deprecated gcc/10.2.0 cuda/11.2.2 b:ucx/1.10.0-1_dgx
 
 
-openmpi/4.0.4_slurm_libpmix unstable gcc/9.3.0
+openmpi/4.0.4_slurm_libpmix deprecated gcc/9.3.0
