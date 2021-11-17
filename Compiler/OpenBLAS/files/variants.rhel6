@@ -9,4 +9,5 @@ OpenBLAS/0.3.7		stable		gcc/{7.4.0,8.3.0,9.2.0}
 
 OpenBLAS/0.3.9		stable		gcc/{7.5.0,8.4.0,9.3.0,10.1.0}
 OpenBLAS/0.3.10		stable		gcc/{7.5.0,8.4.0,9.3.0,10.1.0}
-OpenBLAS/0.3.13		unstable	gcc/{7.5.0,8.4.0,9.3.0,10.2.0} b:cmake/3.15.5 b:binutils/2.29
+OpenBLAS/0.3.13		stable		gcc/{7.5.0,8.4.0,9.3.0,10.2.0,10.3.0} b:cmake/3.15.5 b:binutils/2.29
+OpenBLAS/0.3.15		unstable	gcc/{7.5.0,8.4.0,9.3.0,10.3.0} b:cmake/3.15.5 b:binutils/2.29
