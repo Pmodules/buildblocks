@@ -8,10 +8,7 @@ pbuild::add_to_group 'HDF5'
 pbuild::compile_in_sourcetree
 pbuild::add_patch 'files/Makefile.pncf.sed.patch'
 
-pbuild::add_docfiles README.txt
-pbuild::add_docfiles V32-CHANGES.txt
-pbuild::add_docfiles VERSION.txt
-pbuild::add_docfiles HTML/gpl.txt
+pbuild::install_docfiles README.txt V32-CHANGES.txt VERSION.txt HTML/gpl.txt
 
 declare BIN=''
 
@@ -78,6 +75,4 @@ pbuild::post_install() {
 	mv -v "${BIN}"/*.mod	'include'
 	mv -v "${BIN}"		'bin'
 }
-
-pbuild::make_all
 
