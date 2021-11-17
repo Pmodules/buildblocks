@@ -1,2 +1,2 @@
-qe/6.3  unstable	gcc/8.2.0 openmpi/3.1.1       b:cmake/3.9.6
+qe/6.3  deprecated	gcc/8.2.0 openmpi/3.1.1       b:cmake/3.9.6
 qe/6.5  unstable        gcc/9.3.0 lapack/3.9.0 OpenBLAS/0.3.9 openmpi/4.0.4_slurm b:cmake/3.15.5
