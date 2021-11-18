@@ -1,6 +1,6 @@
 #!/usr/bin/env modbuild
 
-module use Libraries
+eval $(modulecmd bash use Libraries)
 pbuild::add_to_group 'Tools'
 
 pbuild::set_download_url \
@@ -12,10 +12,9 @@ pbuild::install_docfiles 'CHANGES'
 pbuild::install_docfiles 'COPYING'
 pbuild::install_docfiles 'README'
 pbuild::install_docfiles 'README.ja'
-pbuild::install_docfiles 'TODO'
 
 pbuild::post_install() {
-	pbuild::install_shared_libs 'bin/tmux' 'libevent'
+	pbuild::install_shared_libs "${PREFIX}/bin/tmux" 'libevent'
 }
 
 # Local Variables:
