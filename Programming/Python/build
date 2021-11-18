@@ -85,6 +85,9 @@ pbuild::post_install() {
 
 	std::info "Building pandas\n"
 	pip${V_MAJOR} install pandas
+
+	std::info "Building virtualenv\n"
+	pip${V_MAJOR} install virtualenv
 }
 
 
