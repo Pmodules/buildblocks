@@ -1,0 +1,12 @@
+diff -ur root-6.08.02.orig/cmake/modules/FindOracle.cmake root-6.08.02/cmake/modules/FindOracle.cmake
+--- root-6.08.02.orig/cmake/modules/FindOracle.cmake	2016-12-03 00:07:29.000000000 +0100
++++ root-6.08.02/cmake/modules/FindOracle.cmake	2017-03-30 15:40:50.682127137 +0200
+@@ -55,7 +55,7 @@
+ )
+ FIND_LIBRARY(
+     ORACLE_LIBRARY_LNNZ
+-    NAMES libnnz10 nnz10 libnnz11 nnz11 ociw32
++    NAMES libnnz10 nnz10 libnnz11 nnz11 nnz12 ociw32
+     PATHS ${ORACLE_LIB_LOCATION}
+ )
+ 

@@ -21,6 +21,7 @@ pbuild::pre_configure_Darwin() {
 }
 
 pbuild::pre_configure_Linux() {
+	pbuild::use_cmake
 	if pbuild::use_flag 'oracleclient'; then
 		INSTANTCLIENT_INCLUDE_DIR='/usr/lib/oracle/12.1/client64/include'
 		INSTANTCLIENT_LIBRARY_DIR='/usr/lib/oracle/12.1/client64/lib'
@@ -34,11 +35,6 @@ pbuild::pre_configure_Linux() {
 		pbuild::add_configure_args "-DORACLE_PATH_LIB=${INSTANTCLIENT_LIBRARY_DIR}"
 		pbuild::add_configure_args "-DORACLE_OCI_VERSION=10G_R2"
 	fi
-}			   
-
-
-pbuild::post_configure() {
-	sed -i.bak "s:${MODULE_SRCDIR//\/\///}/root.exe:${MODULE_BUILDDIR//\/\///}/bin/root.exe:" CMakeFiles/hsimple.dir/build.make 
 }
 
 pbuild::compile() {

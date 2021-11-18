@@ -1,0 +1,13 @@
+root/5.34.19	stable		gcc/{4.7.4,4.8.3,4.8.4,4.9.2}
+root/5.34.26	stable		gcc/{4.7.4,4.8.3,4.8.4,4.9.2} 
+root/5.34.34	stable		gcc/4.8.3
+root/5.34.36	stable		gcc/{4.8.5,4.9.4}
+
+root/6.04.10	deprecated	gcc/{4.9.2,5.2.0} b:psi-python27/2.3.0 
+
+root/6.08.00	stable		gcc/{4.8.5,4.9.4,5.4.0,6.2.0} b:Python/2.7.12 b:gsl/1.16 b:cmake/3.6.3
+root/6.08.02    stable		gcc/{4.8.5,4.9.4,5.4.0,6.2.0} b:Python/2.7.12 b:gsl/2.2.1 b:cmake/3.6.3
+
+root/6.12.06	stable		gcc/7.3.0 b:Python/2.7.12 b:gsl/2.4 b:cmake/3.6.3
+
+root/6.24.06	stable		gcc/10.3.0 b:Python/3.8.12 b:gsl/2.7 b:cmake/3.20.5 b:binutils/2.29
