@@ -2,16 +2,14 @@
 
 pbuild::add_to_group 'Tools'
 
-pbuild::set_download_url "http://ftp.stack.nl/pub/users/dimitri/$P-$V.src.tar.gz"
+pbuild::set_download_url "https://www.doxygen.nl/files/$P-${V_PKG}.src.tar.gz"
 
-pbuild::add_docfiles 'BUILD.txt'
-pbuild::add_docfiles 'INSTALL'
-pbuild::add_docfiles 'LANGUAGE.HOWTO'
-pbuild::add_docfiles 'LICENSE'
-pbuild::add_docfiles 'README.md'
-pbuild::add_docfiles 'VERSION'
+pbuild::install_docfiles 'BUILD.txt' 'INSTALL' 'LANGUAGE.HOWTO' 'LICENSE' 'README.md' 'VERSION'
 
-pbuild::make_all
+pbuild::post_install_1.9.2() {
+	install -m 0755 -d "${PREFIX}/lib64"
+	install "${GCC_PREFIX}/lib64/libstdc++.so.6" "${PREFIX}/lib64"
+}
 
 # Local Variables:
 # mode: sh
