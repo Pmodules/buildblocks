@@ -24,8 +24,9 @@ pbuild::pre_configure() {
 	pbuild::add_configure_args "--enable-static"
        	pbuild::add_configure_args "--with-hwloc=internal"
 	pbuild::add_configure_args "--with-slurm=yes"
-	pbuild::add_configure_args "--with-ucx=${UCX_PREFIX}"
-
+	if [[ -n "${UCX_VERSION}" ]]; then
+		pbuild::add_configure_args "--with-ucx=${UCX_PREFIX}"
+	fi
         if pbuild::use_flag slurm || pbuild::use_flag dgx || pbuild::use_flag merlin6; then
 		pbuild::add_configure_args "--with-pmi"
 		pbuild::add_configure_args "--with-pmi-libdir=/usr/lib64/"
