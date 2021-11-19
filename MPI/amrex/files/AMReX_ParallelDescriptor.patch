@@ -1,0 +1,270 @@
+--- amrex-18.07/Src/Base/AMReX_ParallelDescriptor.cpp	2018-07-02 19:40:21.000000000 +0200
++++ AMReX_ParallelDescriptor.cpp	2021-06-21 15:25:26.752813320 +0200
+@@ -54,13 +54,13 @@
+ 
+ #ifdef BL_USE_UPCXX
+     UPCXX_MPI_Mode Mode;
+-#endif    
++#endif
+ 
+ #ifdef BL_USE_MPI3
+     MPI_Win cp_win;
+     MPI_Win fb_win;
+ #endif
+-  
++
+     namespace util
+     {
+ 	//
+@@ -951,7 +951,7 @@
+ 	    BL_MPI_REQUIRE( MPI_Allreduce(&recv_team, &recv, 1, Mpi_typemap<Real>::type(), op,
+ 					  MyTeam().get_lead_comm()) );
+ 	}
+-	BL_MPI_REQUIRE( MPI_Bcast(&recv, 1, Mpi_typemap<Real>::type(), 
++	BL_MPI_REQUIRE( MPI_Bcast(&recv, 1, Mpi_typemap<Real>::type(),
+ 				  0, MyTeam().get_team_comm()) );
+     }
+     else
+@@ -994,11 +994,11 @@
+ 	BL_MPI_REQUIRE( MPI_Reduce(r, recv_team.dataPtr(), cnt, Mpi_typemap<Real>::type(), op,
+ 				   0, MyTeam().get_team_comm()) );
+ 	if (isTeamLead()) {
+-	    BL_MPI_REQUIRE( MPI_Allreduce(recv_team.dataPtr(), recv.dataPtr(), cnt, 
++	    BL_MPI_REQUIRE( MPI_Allreduce(recv_team.dataPtr(), recv.dataPtr(), cnt,
+ 					  Mpi_typemap<Real>::type(), op,
+ 					  MyTeam().get_lead_comm()) );
+ 	}
+-	BL_MPI_REQUIRE( MPI_Bcast(recv.dataPtr(), cnt, Mpi_typemap<Real>::type(), 
++	BL_MPI_REQUIRE( MPI_Bcast(recv.dataPtr(), cnt, Mpi_typemap<Real>::type(),
+ 				  0, MyTeam().get_team_comm()) );
+     }
+     else
+@@ -1045,7 +1045,7 @@
+ 				       RankInLeadComm(cpu), MyTeam().get_lead_comm()) );
+ 	}
+ 	if (sameTeam(cpu)) {
+-	    BL_MPI_REQUIRE( MPI_Bcast(&recv, 1, Mpi_typemap<Real>::type(), 
++	    BL_MPI_REQUIRE( MPI_Bcast(&recv, 1, Mpi_typemap<Real>::type(),
+ 				      0, MyTeam().get_team_comm()) );
+ 	}
+     }
+@@ -1098,7 +1098,7 @@
+ 				       RankInLeadComm(cpu), MyTeam().get_lead_comm()) );
+ 	}
+ 	if (sameTeam(cpu)) {
+-	    BL_MPI_REQUIRE( MPI_Bcast(&recv[0], cnt, Mpi_typemap<Real>::type(), 
++	    BL_MPI_REQUIRE( MPI_Bcast(&recv[0], cnt, Mpi_typemap<Real>::type(),
+ 				      0, MyTeam().get_team_comm()) );
+ 	}
+     }
+@@ -1148,7 +1148,7 @@
+ 	    BL_MPI_REQUIRE( MPI_Allreduce(&recv_team, &recv, 1, MPI_LONG, op,
+ 					  MyTeam().get_lead_comm()) );
+ 	}
+-	BL_MPI_REQUIRE( MPI_Bcast(&recv, 1, MPI_LONG, 
++	BL_MPI_REQUIRE( MPI_Bcast(&recv, 1, MPI_LONG,
+ 				  0, MyTeam().get_team_comm()) );
+     }
+     else
+@@ -1191,7 +1191,7 @@
+ 	BL_MPI_REQUIRE( MPI_Reduce(r, recv_team.dataPtr(), cnt, MPI_LONG, op,
+ 				   0, MyTeam().get_team_comm()) );
+ 	if (isTeamLead()) {
+-	    BL_MPI_REQUIRE( MPI_Allreduce(recv_team.dataPtr(), recv.dataPtr(), cnt, 
++	    BL_MPI_REQUIRE( MPI_Allreduce(recv_team.dataPtr(), recv.dataPtr(), cnt,
+ 					  MPI_LONG, op,
+ 					  MyTeam().get_lead_comm()) );
+ 	}
+@@ -1295,7 +1295,7 @@
+ 				       RankInLeadComm(cpu), MyTeam().get_lead_comm()) );
+ 	}
+ 	if (sameTeam(cpu)) {
+-	    BL_MPI_REQUIRE( MPI_Bcast(&recv[0], cnt, MPI_LONG, 
++	    BL_MPI_REQUIRE( MPI_Bcast(&recv[0], cnt, MPI_LONG,
+ 				      0, MyTeam().get_team_comm()) );
+ 	}
+     }
+@@ -1345,7 +1345,7 @@
+ 	    BL_MPI_REQUIRE( MPI_Allreduce(&recv_team, &recv, 1, MPI_INT, op,
+ 					  MyTeam().get_lead_comm()) );
+ 	}
+-	BL_MPI_REQUIRE( MPI_Bcast(&recv, 1, MPI_INT, 
++	BL_MPI_REQUIRE( MPI_Bcast(&recv, 1, MPI_INT,
+ 				  0, MyTeam().get_team_comm()) );
+     }
+     else
+@@ -1388,7 +1388,7 @@
+ 	BL_MPI_REQUIRE( MPI_Reduce(r, recv_team.dataPtr(), cnt, MPI_INT, op,
+ 				   0, MyTeam().get_team_comm()) );
+ 	if (isTeamLead()) {
+-	    BL_MPI_REQUIRE( MPI_Allreduce(recv_team.dataPtr(), recv.dataPtr(), cnt, 
++	    BL_MPI_REQUIRE( MPI_Allreduce(recv_team.dataPtr(), recv.dataPtr(), cnt,
+ 					  MPI_INT, op,
+ 					  MyTeam().get_lead_comm()) );
+ 	}
+@@ -1492,7 +1492,7 @@
+ 				       RankInLeadComm(cpu), MyTeam().get_lead_comm()) );
+ 	}
+ 	if (sameTeam(cpu)) {
+-	    BL_MPI_REQUIRE( MPI_Bcast(&recv[0], cnt, MPI_LONG, 
++	    BL_MPI_REQUIRE( MPI_Bcast(&recv[0], cnt, MPI_LONG,
+ 				      0, MyTeam().get_team_comm()) );
+ 	}
+     }
+@@ -1735,13 +1735,13 @@
+     return m_finished;
+ }
+ 
+-void ParallelDescriptor::EndParallel () 
++void ParallelDescriptor::EndParallel ()
+ {
+     ParallelContext::pop();
+ }
+ 
+ void ParallelDescriptor::Abort (int s, bool backtrace)
+-{ 
++{
+     if (backtrace && amrex::system::signal_handling) {
+ 	BLBackTrace::handler(s);
+     } else {
+@@ -1950,23 +1950,18 @@
+     static MPI_Datatype mine(MPI_DATATYPE_NULL);
+     if ( mine == MPI_DATATYPE_NULL )
+     {
+-	IntVect iv[2];	// Used to construct the data types
+-	MPI_Datatype types[] = {
+-	    MPI_LB,
+-	    MPI_INT,
+-	    MPI_UB};
+-	int blocklens[] = { 1, AMREX_SPACEDIM, 1};
+-	MPI_Aint disp[3];
+-	int n = 0;
+-	BL_MPI_REQUIRE( MPI_Address(&iv[0],      &disp[n++]) );
+-	BL_MPI_REQUIRE( MPI_Address(&iv[0].vect, &disp[n++]) );
+-	BL_MPI_REQUIRE( MPI_Address(&iv[1],      &disp[n++]) );
+-	for ( int i = n-1; i >= 0; i-- )
+-	{
+-	    disp[i] -= disp[0];
+-	}
+-	BL_MPI_REQUIRE( MPI_Type_struct(n, blocklens, disp, types, &mine) );
+-	BL_MPI_REQUIRE( MPI_Type_commit( &mine ) );
++        MPI_Datatype types[] = { MPI_INT };
++        int blocklens[] = { AMREX_SPACEDIM };
++        MPI_Aint disp[] = { 0 };
++        BL_MPI_REQUIRE( MPI_Type_create_struct(1, blocklens, disp, types, &mine) );
++        MPI_Aint lb, extent;
++        BL_MPI_REQUIRE( MPI_Type_get_extent(mine, &lb, &extent) );
++        if (extent != sizeof(IntVect)) {
++            MPI_Datatype tmp = mine;
++            BL_MPI_REQUIRE( MPI_Type_create_resized(tmp, 0, sizeof(IntVect), &mine) );
++            BL_MPI_REQUIRE( MPI_Type_free(&tmp) );
++        }
++        BL_MPI_REQUIRE( MPI_Type_commit( &mine ) );
+     }
+     return mine;
+ }
+@@ -1976,23 +1971,18 @@
+     static MPI_Datatype mine(MPI_DATATYPE_NULL);
+     if ( mine == MPI_DATATYPE_NULL )
+     {
+-	IndexType iv[2];	// Used to construct the data types
+-	MPI_Datatype types[] = {
+-	    MPI_LB,
+-	    MPI_UNSIGNED,
+-	    MPI_UB};
+-	int blocklens[] = { 1, 1, 1};
+-	MPI_Aint disp[3];
+-	int n = 0;
+-	BL_MPI_REQUIRE( MPI_Address(&iv[0],       &disp[n++]) );
+-	BL_MPI_REQUIRE( MPI_Address(&iv[0].itype, &disp[n++]) );
+-	BL_MPI_REQUIRE( MPI_Address(&iv[1],       &disp[n++]) );
+-	for ( int i = n-1; i >= 0; i-- )
+-	{
+-	    disp[i] -= disp[0];
+-	}
+-	BL_MPI_REQUIRE( MPI_Type_struct(n, blocklens, disp, types, &mine) );
+-	BL_MPI_REQUIRE( MPI_Type_commit( &mine ) );
++        MPI_Datatype types[] = { MPI_UNSIGNED };
++        int blocklens[] = { 1 };
++        MPI_Aint disp[] = { 0 };
++        BL_MPI_REQUIRE( MPI_Type_create_struct(1, blocklens, disp, types, &mine) );
++        MPI_Aint lb, extent;
++        BL_MPI_REQUIRE( MPI_Type_get_extent(mine, &lb, &extent) );
++        if (extent != sizeof(IndexType)) {
++            MPI_Datatype tmp = mine;
++            BL_MPI_REQUIRE( MPI_Type_create_resized(tmp, 0, sizeof(IndexType), &mine) );
++            BL_MPI_REQUIRE( MPI_Type_free(&tmp) );
++        }
++        BL_MPI_REQUIRE( MPI_Type_commit( &mine ) );
+     }
+     return mine;
+ }
+@@ -2002,27 +1992,29 @@
+     static MPI_Datatype mine(MPI_DATATYPE_NULL);
+     if ( mine == MPI_DATATYPE_NULL )
+     {
+-	Box iv[2];	// Used to construct the data types
+-	MPI_Datatype types[] = {
+-	    MPI_LB,
+-	    Mpi_typemap<IntVect>::type(),
+-	    Mpi_typemap<IntVect>::type(),
+-	    Mpi_typemap<IndexType>::type(),
+-	    MPI_UB};
+-	int blocklens[] = { 1, 1, 1, 1, 1};
+-	MPI_Aint disp[5];
+-	int n = 0;
+-	BL_MPI_REQUIRE( MPI_Address(&iv[0],          &disp[n++]) );
+-	BL_MPI_REQUIRE( MPI_Address(&iv[0].smallend, &disp[n++]) );
+-	BL_MPI_REQUIRE( MPI_Address(&iv[0].bigend,   &disp[n++]) );
+-	BL_MPI_REQUIRE( MPI_Address(&iv[0].btype,    &disp[n++]) );
+-	BL_MPI_REQUIRE( MPI_Address(&iv[1],          &disp[n++]) );
+-	for ( int i = n-1; i >= 0; i-- )
+-	{
+-	    disp[i] -= disp[0];
+-	}
+-	BL_MPI_REQUIRE( MPI_Type_struct(n, blocklens, disp, types, &mine) );
+-	BL_MPI_REQUIRE( MPI_Type_commit( &mine ) );
++        Box bx[2];
++        MPI_Datatype types[] = {
++            Mpi_typemap<IntVect>::type(),
++            Mpi_typemap<IntVect>::type(),
++            Mpi_typemap<IndexType>::type(),
++        };
++        int blocklens[] = { 1, 1, 1 };
++        MPI_Aint disp[3];
++        BL_MPI_REQUIRE( MPI_Get_address(&bx[0].smallend, &disp[0]) );
++        BL_MPI_REQUIRE( MPI_Get_address(&bx[0].bigend,   &disp[1]) );
++        BL_MPI_REQUIRE( MPI_Get_address(&bx[0].btype,    &disp[2]) );
++        disp[2] -= disp[0];
++        disp[1] -= disp[0];
++        disp[0] = 0;
++        BL_MPI_REQUIRE( MPI_Type_create_struct(3, blocklens, disp, types, &mine) );
++        MPI_Aint lb, extent;
++        BL_MPI_REQUIRE( MPI_Type_get_extent(mine, &lb, &extent) );
++        if (extent != sizeof(bx[0])) {
++            MPI_Datatype tmp = mine;
++            BL_MPI_REQUIRE( MPI_Type_create_resized(tmp, 0, sizeof(bx[0]), &mine) );
++            BL_MPI_REQUIRE( MPI_Type_free(&tmp) );
++        }
++        BL_MPI_REQUIRE( MPI_Type_commit( &mine ) );
+     }
+     return mine;
+ }
+@@ -2121,7 +2113,7 @@
+ 	    team_ranks[i] = MyTeamLead() + i;
+ 	}
+ 	BL_MPI_REQUIRE( MPI_Group_incl(grp, team_size, team_ranks, &team_grp) );
+-	BL_MPI_REQUIRE( MPI_Comm_create(ParallelDescriptor::Communicator(), 
++	BL_MPI_REQUIRE( MPI_Comm_create(ParallelDescriptor::Communicator(),
+ 					team_grp, &m_Team.m_team_comm) );
+ 
+ 	std::vector<int>lead_ranks(m_Team.m_numTeams);
+@@ -2129,7 +2121,7 @@
+ 	    lead_ranks[i] = i * team_size;
+ 	}
+ 	BL_MPI_REQUIRE( MPI_Group_incl(grp, lead_ranks.size(), &lead_ranks[0], &lead_grp) );
+-	BL_MPI_REQUIRE( MPI_Comm_create(ParallelDescriptor::Communicator(), 
++	BL_MPI_REQUIRE( MPI_Comm_create(ParallelDescriptor::Communicator(),
+ 					lead_grp, &m_Team.m_lead_comm) );
+ 
+         BL_MPI_REQUIRE( MPI_Group_free(&grp) );
