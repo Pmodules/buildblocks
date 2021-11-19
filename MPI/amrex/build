@@ -9,6 +9,12 @@ pbuild::install_docfiles 'INSTALL'
 pbuild::install_docfiles 'license.txt'
 pbuild::install_docfiles 'README.txt'
 
+pbuild::pre_prep() {
+	echo "OPENMPI_VERSION=${OPENMPI_VEERSION}" 1>&2
+	if pbuild::version_gt "${OPENMPI_VERSION}" '4.0.0'; then
+		pbuild::add_patch "files/AMReX_ParallelDescriptor.patch"
+	fi
+}
 
 pbuild::pre_configure() {
 	pbuild::use_cmake
@@ -16,6 +22,13 @@ pbuild::pre_configure() {
 	pbuild::use_flag "2d" && DIM=2
 	pbuild::use_flag "3d" && DIM=3
 
+	if pbuild::version_lt "${OPENMPI_VERSION}" '4.0.0'; then
+		FORTRAN_INTERFACES='ON'
+		ENABLE_FBASELIB='ON'
+	else
+		FORTRAN_INTERFACES='OFF'
+		ENABLE_FBASELIB='OFF'
+	fi
 	pbuild::add_configure_args "CC=${MPICC}"
 	pbuild::add_configure_args "CXX=${MPICXX}"
 	pbuild::add_configure_args "FC=${MPIF90}"
@@ -29,8 +42,8 @@ pbuild::pre_configure() {
 	pbuild::add_configure_args "-DENABLE_OMP=${OPENMP}"
 	pbuild::add_configure_args "-DENABLE_DP=1"
 	pbuild::add_configure_args "-DENABLE_EB=OFF"
-	pbuild::add_configure_args "-DENABLE_FORTRAN_INTERFACES=ON"
-	pbuild::add_configure_args "-DENABLE_FBASELIB=1"
+	pbuild::add_configure_args "-DENABLE_FORTRAN_INTERFACES=${FORTRAN_INTERFACES}"
+	pbuild::add_configure_args "-DENABLE_FBASELIB=${ENABLE_FBASELIB}"
 	pbuild::add_configure_args "-DENABLE_AMRDATA=OFF"
 	pbuild::add_configure_args "-DENABLE_DP_PARTICLES=1"
 	pbuild::add_configure_args "-DENABLE_FPE=0"
