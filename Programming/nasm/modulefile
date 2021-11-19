@@ -1,0 +1,9 @@
+#%Module1.0
+
+module-whatis		"Netwide Assember"
+module-url		'ihttps://www.nasm.us'
+module-license	 	""
+module-maintainer	"Achim Gsell <achim.gsell@psi.ch>"
+
+module-help	"
+"
