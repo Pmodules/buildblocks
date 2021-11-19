@@ -1,0 +1,13 @@
+#!/usr/bin/env modbuild
+
+pbuild::set_download_url "http://www.live555.com/liveMedia/public/live.${V_PKG}.tar.gz"
+pbuild::add_to_group 'Libraries'
+pbuild::compile_in_sourcetree
+
+pbuild::configure() {
+	./genMakefiles linux
+}
+
+pbuild::install() {
+	make DESTDIR="${PREFIX}" PREFIX="" install
+}
