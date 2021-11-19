@@ -9,11 +9,19 @@ pbuild::pre_configure_Linux() {
 	fi
 }
 
-# add -fopenmp to CC and CXX, if you want to compile with OpenMP
 pbuild::pre_configure() {
 	pbuild::add_configure_args "-DCMAKE_BUILD_TYPE=Release"
-	pbuild::add_configure_args "-DENABLE_SAAMG_SOLVER=TRUE"
-	pbuild::add_configure_args "-DENABLE_AMR=TRUE"
-	pbuild::add_configure_args "-DENABLE_AMR_MG_SOLVER=TRUE"
+	if [[ $V == 2.2.1-1_slurm ]]; then
+		:
+	else
+		pbuild::add_configure_args "-DENABLE_SAAMG_SOLVER=TRUE"
+		pbuild::add_configure_args "-DENABLE_AMR=TRUE"
+		pbuild::add_configure_args "-DENABLE_AMR_MG_SOLVER=TRUE"
+	fi
+	if (( V_MAJOR >= 2021 )); then
+		pbuild::add_configure_args "-DBUILD_FOR_PRODUCTION=TRUE"
+		pbuild::add_configure_args "-DENABLE_BANDRF=TRUE"
+		pbuild::add_configure_args "-DENABLE_OPAL_FEL=TRUE"
+	fi
 }
 
