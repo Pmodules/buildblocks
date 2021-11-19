@@ -1,0 +1,12 @@
+#!/usr/bin/env modbuild
+
+pbuild::set_download_url "http://ffmpeg.org/releases/ffmpeg-${V_PKG}.tar.xz"
+
+eval $(modulecmd bash use Libraries)
+
+pbuild::pre_configure() {
+	pbuild::add_configure_args '--enable-libx264' '--enable-gpl' '--enable-pic'
+}
+
+pbuild::add_to_group 'Tools'
+
