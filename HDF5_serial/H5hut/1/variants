@@ -1,8 +1,0 @@
-H5hut_serial/1.99.13 stable     b:autoconf/2.69 b:automake/1.14 b:libtool/2.4.2 gcc/4.7.4 b:vtk/5.10.1 hdf5_serial/1.8.12 
-H5hut_serial/1.99.13 stable     b:autoconf/2.69 b:automake/1.14 b:libtool/2.4.2 gcc/4.7.4 b:vtk/5.10.1 hdf5_serial/1.8.14 
-H5hut_serial/1.99.13 stable     b:autoconf/2.69 b:automake/1.14 b:libtool/2.4.2 gcc/4.8.3 b:vtk/5.10.1 hdf5_serial/1.8.12 
-H5hut_serial/1.99.13 stable     b:autoconf/2.69 b:automake/1.14 b:libtool/2.4.2 gcc/4.8.3 b:vtk/5.10.1 hdf5_serial/1.8.14 
-H5hut_serial/1.99.13 stable     b:autoconf/2.69 b:automake/1.14 b:libtool/2.4.2 gcc/4.8.4 b:vtk/5.10.1 hdf5_serial/1.8.12 
-H5hut_serial/1.99.13 stable     b:autoconf/2.69 b:automake/1.14 b:libtool/2.4.2 gcc/4.8.4 b:vtk/5.10.1 hdf5_serial/1.8.14 
-H5hut_serial/1.99.13 stable     b:autoconf/2.69 b:automake/1.14 b:libtool/2.4.2 gcc/4.9.2 b:vtk/5.10.1 hdf5_serial/1.8.12 
-H5hut_serial/1.99.13 stable     b:autoconf/2.69 b:automake/1.14 b:libtool/2.4.2 gcc/4.9.2 b:vtk/5.10.1 hdf5_serial/1.8.14 

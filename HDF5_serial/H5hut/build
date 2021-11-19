@@ -25,6 +25,4 @@ pbuild::install() {
 }
 
 pbuild::add_to_group 'HDF5_serial'
-#pbuild::set_build_dependencies   "autoconf" "automake" "libtool" "${COMPILER}" "vtk" "hdf5_serial"
-pbuild::make_all
 
