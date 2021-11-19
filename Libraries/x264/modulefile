@@ -1,0 +1,10 @@
+#%Module1.0
+
+module-whatis		"H.264/MPEG-4 AVC encoding library and application"
+module-url		"ihttps://www.videolan.org/developers/x264.html"
+module-license		"GNU GPL v2"
+module-maintainer	"Achim Gsell <achim.gsell@psi.ch>"
+
+module-help		"
+"
+
