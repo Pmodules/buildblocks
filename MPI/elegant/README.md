@@ -21,12 +21,21 @@ Instructions to build [`Pelegant`](https://ops.aps.anl.gov/publish/Pelegant_manu
 * [EPICS extensions configuration](http://www.aps.anl.gov/Accelerator_Systems_Division/Accelerator_Operations_Physics/cgi-bin/oagLog4.cgi?name=epics.extensions.configure.tar.gz)
 * [Configuration files for elegant, spiffe, genesis, and shower](http://www.aps.anl.gov/Accelerator_Systems_Division/Accelerator_Operations_Physics/cgi-bin/oagLog4.cgi?name=oag.apps.configure.tar.gz)
 
-## SDDS and Elegant sources
+## Elegant 2021.3.0
+
+### SDDS 5 and Elegant 2021.4 sources
+
+* [SDDS 5.1 source](https://ops.aps.anl.gov/cgi-bin/oagLog4.cgi?name=SDDS.5.1.tar.gz)
+* [Elegant 2021.4.0 source](http://www.aps.anl.gov/Accelerator_Systems_Division/Accelerator_Operations_Physics/cgi-bin/oagLog4.cgi?name=elegant.2021.4.0.tar.gz)
+
+## Elegant 2020.2.0
+
+### SDDS and Elegant sources
 
 * [SDDS 4.3.1 source](http://www.aps.anl.gov/Accelerator_Systems_Division/Accelerator_Operations_Physics/cgi-bin/oagLog4.cgi?name=SDDS.4.3.0.tar.gz)
 * [Elegant 2020.2.0 source](http://www.aps.anl.gov/Accelerator_Systems_Division/Accelerator_Operations_Physics/cgi-bin/oagLog4.cgi?name=elegant.2020.2.0.tar.gz)
 
-## Required Modules
+### Required Modules
 
 ```
 module load gcc/8.4.0 gsl/2.6 OpenBLAS/0.3.10 mpich/3.2.1
@@ -37,7 +46,7 @@ module load gcc/8.4.0 gsl/2.6 lapack/3.9.0 openmpi/3.1.6
 ```
 
 
-## Setup Environment
+### Setup Environment
 ```
 SDDS_VERSION=4.3
 ELEGANT_VERSION=2020.2.0
@@ -61,7 +70,7 @@ ARGS+=( "RANLIB=/usr/bin/ranlib" )
 ARGS+=( "SYSGSL=1")
 ```
 
-## Prepare everything
+### Prepare everything
 
 ```
 mkdir -p "${PREFIX}"
@@ -75,7 +84,7 @@ tar xvf "${DOWNLOAD_DIR}/SDDS.${SDDS_VERSION}.tar.gz"
 tar xvf "${DOWNLOAD_DIR}/elegant.${ELEGANT_VERSION}.tar.gz"
 ```
 
-## Configure EPICS base and OAG applications
+### Configure EPICS base and OAG applications
 
 ```
 cd epics/base
@@ -85,7 +94,7 @@ sed -i "s/clean::/clean:/" RULES_PYTHON
 make "${ARGS[@]}"
 ```
 
-## Compile SDDS
+### Compile SDDS
 
 ```
 cd "${PREFIX}/epics/extensions/src/SDDS/"
@@ -100,14 +109,14 @@ make "${ARGS[@]}" -C SDDSlib clean
 make "${ARGS[@]}" MPI=1 -C SDDSlib
 ```
 
-## Compile elegant
+### Compile elegant
 
 ```
 cd "${PREFIX}/oag/apps/src/elegant"
 make "${ARGS[@]}" STATIC_BUILD=NO
 ```
 
-## Compile Pelegant
+### Compile Pelegant
 
 ```
 cd "${PREFIX}/oag/apps/src/elegant"
