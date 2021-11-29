@@ -99,17 +99,11 @@ make "${ARGS[@]}" -C namelist
 make "${ARGS[@]}" -C matlib
 make "${ARGS[@]}" -C mdbcommon
 make "${ARGS[@]}" -C mdblib
-
-make "${ARGS[@]}" -C SDDSlib clean
-make "${ARGS[@]}" MPI=1 -C SDDSlib
 ```
 
 ### Compile elegant 2021.4.0
 
 ```
-cd "${PREFIX}/epics/extensions/src/SDDS/"
-make "${ARGS[@]}" -C SDDSlib # do we need this?
-
 cd "${PREFIX}/oag/apps/src/elegant"
 make "${ARGS[@]}" STATIC_BUILD=NO
 ```
