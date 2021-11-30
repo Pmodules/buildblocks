@@ -28,20 +28,27 @@ Instructions to build [`Pelegant`](https://ops.aps.anl.gov/publish/Pelegant_manu
 * [SDDS 5.1 source](https://ops.aps.anl.gov/cgi-bin/oagLog4.cgi?name=SDDS.5.1.tar.gz)
 * [Elegant 2021.4.0 source](http://www.aps.anl.gov/Accelerator_Systems_Division/Accelerator_Operations_Physics/cgi-bin/oagLog4.cgi?name=elegant.2021.4.0.tar.gz)
 
-### Required Modules
+### Initialize environment
 
+SDDS_VERSION=5.1
+ELEGANT_VERSION=2021.4.0
+DOWNLOAD_DIR="/opt/psi/var/distfiles/elegant"
+
+With OpenMPI not optimized for Merlin/SLURM:
 ```
 module load gcc/10.3.0 gsl/2.7 lapack/3.10.0 openmpi/4.0.5
+USE_FLAGS=""
+```
+On Merlin:
+```
+module load gcc/10.3.0 gsl/2.7 lapack/3.10.0 openmpi/4.0.5-1_slurm
+USE_FLAGS="_slurm"
 ```
 
+PREFIX="${PMODULES_ROOT}/MPI/elegant/${ELEGANT_VERSION}${USE_FLAGS}/${MPI}/${MPI_VERSION}/${COMPILER}/${COMPILER_VERSION}"
 
 ### Setup Environment
 ```
-SDDS_VERSION=5.1
-ELEGANT_VERSION=2021.4.0
-source "${PMODULES_ROOT}/config/modbuild.conf"
-DOWNLOAD_DIR="${PMODULES_DISTFILESDIR}/elegant"
-PREFIX="${PMODULES_ROOT}/MPI/elegant/${ELEGANT_VERSION}/${MPI}/${MPI_VERSION}/${COMPILER}/${COMPILER_VERSION}"
 
 export EPICS_BASE="${PREFIX}/epics/base"
 export HOST_ARCH=linux-x86_64
