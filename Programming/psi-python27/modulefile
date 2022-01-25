@@ -15,4 +15,4 @@ The distribution is enriched by PSI specific packages.
 
 set dont-setenv { LD_LIBRARY_PATH }
 
-
+conflict  anaconda
