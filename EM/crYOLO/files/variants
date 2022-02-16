@@ -1,5 +1,5 @@
-crYOLO/1.2.3	unstable	cuda/9.0.176
-crYOLO/1.5.6_gpu	unstable	anaconda/2019.07
-crYOLO/1.6.1_gpu	unstable	anaconda/2019.07
-crYOLO/1.6.1_cpu	unstable	anaconda/2019.07
+crYOLO/1.2.3	deprecated	cuda/9.0.176
+crYOLO/1.5.6_gpu	stable	anaconda/2019.07
+crYOLO/1.6.1_gpu	stable	anaconda/2019.07
+crYOLO/1.6.1_cpu	stable	anaconda/2019.07
 
