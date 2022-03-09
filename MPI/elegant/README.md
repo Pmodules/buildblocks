@@ -28,27 +28,30 @@ Instructions to build [`Pelegant`](https://ops.aps.anl.gov/publish/Pelegant_manu
 * [SDDS 5.1 source](https://ops.aps.anl.gov/cgi-bin/oagLog4.cgi?name=SDDS.5.1.tar.gz)
 * [Elegant 2021.4.0 source](http://www.aps.anl.gov/Accelerator_Systems_Division/Accelerator_Operations_Physics/cgi-bin/oagLog4.cgi?name=elegant.2021.4.0.tar.gz)
 
-### Initialize environment
+### Setup Environment
 
-SDDS_VERSION=5.1
-ELEGANT_VERSION=2021.4.0
-DOWNLOAD_DIR="/opt/psi/var/distfiles/elegant"
-
-With OpenMPI not optimized for Merlin/SLURM:
+#### Pmodules
+Compile on Merlin:
 ```
-module load gcc/10.3.0 gsl/2.7 lapack/3.10.0 openmpi/4.0.5
-USE_FLAGS=""
-```
-On Merlin:
-```
-module load gcc/10.3.0 gsl/2.7 lapack/3.10.0 openmpi/4.0.5-1_slurm
+MODULES=('gcc/10.3.0' 'gsl/2.7' 'lapack/3.10.0' 'openmpi/4.0.5-1_slurm')
 USE_FLAGS="_slurm"
 ```
-
-PREFIX="${PMODULES_ROOT}/MPI/elegant/${ELEGANT_VERSION}${USE_FLAGS}/${MPI}/${MPI_VERSION}/${COMPILER}/${COMPILER_VERSION}"
-
-### Setup Environment
+Compile on other systems (e.g. Pmod7.psi.ch)
 ```
+MODULES=('gcc/10.3.0' 'gsl/2.7' 'lapack/3.10.0' 'openmpi/4.0.5')
+USE_FLAGS=""
+```
+Load the modules
+```
+module load "${MODULES[@]}"
+```
+#### Elegant, SDDS, etc
+```
+SDDS_VERSION=5.1
+ELEGANT_VERSION=2021.4.0
+ELEGANT_RELASE=-1
+DOWNLOAD_DIR="/opt/psi/var/distfiles/elegant"
+PREFIX="${PMODULES_ROOT}/MPI/elegant/${ELEGANT_VERSION}${ELEGANT_RELASE}${USE_FLAGS}/${MPI}/${MPI_VERSION}/${COMPILER}/${COMPILER_VERSION}"
 
 export EPICS_BASE="${PREFIX}/epics/base"
 export HOST_ARCH=linux-x86_64
@@ -67,7 +70,6 @@ ARGS+=( "SYSGSL=1")
 ```
 
 ### Prepare everything
-
 ```
 mkdir -p "${PREFIX}"
 mkdir -p "${RPN_DEFNS%/*}"
@@ -111,8 +113,11 @@ make "${ARGS[@]}" -C mdblib
 ### Compile elegant 2021.4.0
 
 ```
+cd "${PREFIX}/oag/apps/src/physics
+make
 cd "${PREFIX}/oag/apps/src/elegant"
 make "${ARGS[@]}" STATIC_BUILD=NO
+make "${ARGS[@]}" -C elegantTools
 ```
 
 ### Compile Pelegant 2021.4.0
@@ -127,6 +132,11 @@ make clean
 make SYSGSL=1 Pelegant
 ```
 
+### Final step(s)
+```
+mkdir -p "${PREFIX}/lib64"
+cp -av "${GSL_DIR}"/lib64/* "${PREFIX}"/lib64
+```
 
 ## Elegant 2020.2.0
 
