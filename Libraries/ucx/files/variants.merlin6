@@ -2,10 +2,12 @@ ucx/1.9.0_slurm           stable     cuda/11.1.0 b:doxygen/1.8.14 b:knem/1.1.4
 ucx/1.10.0_slurm          stable     cuda/11.3.0 b:doxygen/1.8.14 b:knem/1.1.4 b:GDRCopy/2.2.0
 ucx/1.10.0-1_slurm        stable     cuda/11.2.2 b:doxygen/1.8.14 b:knem/1.1.4 b:GDRCopy/2.2.0
 ucx/1.11.0_slurm          stable     cuda/11.3.0 b:doxygen/1.8.14 b:knem/1.1.4 b:GDRCopy/2.2.0
-ucx/1.11.2_slurm          unstable   cuda/11.3.0 b:doxygen/1.9.2  b:knem/1.1.4 b:GDRCopy/2.2.0
-ucx/1.11.2-1_slurm        unstable   cuda/11.4.3 b:doxygen/1.9.2  b:knem/1.1.4 b:GDRCopy/2.2.0
-ucx/1.11.2-2_slurm        unstable   cuda/11.5.1 b:doxygen/1.9.2  b:knem/1.1.4 b:GDRCopy/2.2.0
-ucx/1.11.2-3_slurm        unstable   cuda/11.1.0 b:doxygen/1.9.2  b:knem/1.1.4 b:GDRCopy/2.2.0
+ucx/1.11.2_slurm          stable     cuda/11.3.0 b:doxygen/1.9.2  b:knem/1.1.4 b:GDRCopy/2.2.0
+ucx/1.11.2-1_slurm        stable     cuda/11.4.3 b:doxygen/1.9.2  b:knem/1.1.4 b:GDRCopy/2.2.0
+ucx/1.11.2-2_slurm        stable     cuda/11.5.1 b:doxygen/1.9.2  b:knem/1.1.4 b:GDRCopy/2.2.0
+ucx/1.11.2-3_slurm        stable     cuda/11.1.0 b:doxygen/1.9.2  b:knem/1.1.4 b:GDRCopy/2.2.0
+
+ucx/1.12.1_slurm          unstable   cuda/11.5.1 b:doxygen/1.9.2  b:knem/1.1.4 b:GDRCopy/2.2.0
 
 ucx/1.9.0_dgx             deprecated cuda/11.1.0 b:doxygen/1.8.14 b:knem/1.1.4
 ucx/1.10.0-1_dgx          deprecated cuda/11.2.2 b:doxygen/1.8.14 b:knem/1.1.4 b:GDRCopy/2.2.0
