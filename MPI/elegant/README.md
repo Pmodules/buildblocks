@@ -113,7 +113,7 @@ make "${ARGS[@]}" -C mdblib
 ### Compile elegant 2021.4.0
 
 ```
-cd "${PREFIX}/oag/apps/src/physics
+cd "${PREFIX}/oag/apps/src/physics"
 make
 cd "${PREFIX}/oag/apps/src/elegant"
 make "${ARGS[@]}" STATIC_BUILD=NO
