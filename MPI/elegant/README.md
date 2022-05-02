@@ -33,23 +33,20 @@ Instructions to build [`Pelegant`](https://ops.aps.anl.gov/publish/Pelegant_manu
 #### Pmodules
 Compile on Merlin:
 ```
-MODULES=('gcc/10.3.0' 'gsl/2.7' 'lapack/3.10.0' 'openmpi/4.0.5-1_slurm')
 USE_FLAGS="_slurm"
+module load gcc/10.3.0 gsl/2.7 lapack/3.10.0 openmpi/4.0.5-1_slurm
 ```
 Compile on other systems (e.g. Pmod7.psi.ch)
 ```
-MODULES=('gcc/10.3.0' 'gsl/2.7' 'lapack/3.10.0' 'openmpi/4.0.5')
 USE_FLAGS=""
+module load gcc/10.3.0 gsl/2.7 lapack/3.10.0 openmpi/4.0.5
 ```
-Load the modules
-```
-module load "${MODULES[@]}"
-```
+
 #### Elegant, SDDS, etc
 ```
 SDDS_VERSION=5.1
 ELEGANT_VERSION=2021.4.0
-ELEGANT_RELASE=-1
+ELEGANT_RELASE=-2
 DOWNLOAD_DIR="/opt/psi/var/distfiles/elegant"
 PREFIX="${PMODULES_ROOT}/MPI/elegant/${ELEGANT_VERSION}${ELEGANT_RELASE}${USE_FLAGS}/${MPI}/${MPI_VERSION}/${COMPILER}/${COMPILER_VERSION}"
 
