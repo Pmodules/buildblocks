@@ -1,0 +1,31 @@
+#%Module1.0
+
+module-whatis           "Slurm Workload Manager"
+module-url              "https://slurm.schedmd.com/"
+module-license          "See https://github.com/SchedMD/slurm/blob/master/LICENSE.OpenSSL"
+module-maintainer       "Marc Caubet <marc.caubet@psi.ch>"
+module-help     "
+Slurm is an open source, fault-tolerant, and highly scalable cluster
+management and job scheduling system for large and small Linux clusters.
+
+Slurm requires no kernel modifications for its operation and is relatively
+self-contained. As a cluster workload manager, Slurm has three key functions:
+
+  * First, it allocates exclusive and/or non-exclusive access to resources
+    (compute nodes) to users for some duration of time so they can perform
+    work.
+  * Second, it provides a framework for starting, executing, and monitoring
+    work  (normally a parallel job) on the set of allocated nodes.
+  * Finally, it arbitrates contention for resources by managing a queue of
+    pending work.
+
+Optional plugins can be used for accounting, advanced reservation, gang
+scheduling (time sharing for parallel jobs), backfill scheduling, topology
+optimized resource selection, resource limits by user or bank account, and
+sophisticated multifactor job prioritization algorithms.
+"
+
+module-addgroup Batchsystem
+
+prepend-path    LD_LIBRARY_PATH "$PREFIX/lib/slurm"
+setenv          SLURM_CONF      "/etc/slurm/slurm.conf"

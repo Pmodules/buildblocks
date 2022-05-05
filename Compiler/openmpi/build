@@ -22,11 +22,25 @@ pbuild::pre_configure() {
 	pbuild::add_configure_args "--enable-orterun-prefix-by-default"
 	pbuild::add_configure_args "--enable-shared"
 	pbuild::add_configure_args "--enable-static"
-       	pbuild::add_configure_args "--with-hwloc=internal"
 	pbuild::add_configure_args "--with-slurm=yes"
+
+        if [[ -n "${PMIX_PREFIX}" ]]; then
+                unset PMIX_VERSION
+        	pbuild::add_configure_args "--with-pmix=${PMIX_PREFIX}"
+        fi
+
+        if [[ -n "${HWLOC_PREFIX}" ]]; then
+                unset HWLOC_VERSION
+        	pbuild::add_configure_args "--with-hwloc=${HWLOC_PREFIX}"
+                pbuild::add_configure_args "--with-hwloc-libdir=${HWLOC_PREFIX}/lib64"
+        else
+        	pbuild::add_configure_args "--with-hwloc=internal"
+        fi
+
 	if [[ -n "${UCX_VERSION}" ]]; then
 		pbuild::add_configure_args "--with-ucx=${UCX_PREFIX}"
 	fi
+
         if pbuild::use_flag slurm || pbuild::use_flag dgx || pbuild::use_flag merlin6; then
 		pbuild::add_configure_args "--with-pmi"
 		pbuild::add_configure_args "--with-pmi-libdir=/usr/lib64/"

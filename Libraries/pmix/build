@@ -1,0 +1,15 @@
+#!/usr/bin/env modbuild
+
+echo "https://github.com/openpmix/openpmix/releases/download/v${V_PKG}/$P-${V_PKG}.tar.gz"
+pbuild::set_download_url "https://github.com/openpmix/openpmix/releases/download/v${V_PKG}/$P-${V_PKG}.tar.gz"
+
+pbuild::add_to_group 'Libraries'
+
+(( version = (${V_MAJOR} * 100 + ${V_MINOR}) * 100 + V_PATCHLVL ))
+if (( V_MAJOR > 1 )); then
+  pbuild::install_docfiles AUTHORS README LICENSE NEWS VERSION
+else 
+  pbuild::install_docfiles README LICENSE NEWS VERSION
+fi
+
+pbuild::compile_in_sourcetree

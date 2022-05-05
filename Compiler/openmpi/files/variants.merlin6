@@ -38,6 +38,8 @@ openmpi/4.1.1_slurm     unstable   gcc/10.2.0 cuda/11.3.0 b:ucx/1.11.2_slurm
 openmpi/4.1.1-1_slurm   unstable   gcc/10.2.0 cuda/11.3.0 b:ucx/1.10.0_slurm
 
 openmpi/4.1.3_slurm     unstable   gcc/11.2.0 cuda/11.5.1 b:ucx/1.12.1_slurm
+openmpi/4.1.3_slurm     unstable   intel/20.4 cuda/11.5.1 b:ucx/1.12.1_slurm
+openmpi/4.1.3_merlin6   unstable   gcc/11.2.0 cuda/11.5.1 slurm/21.08.6 b:ucx/1.12.1_slurm
 
 openmpi/4.0.5-1_dgx     deprecated gcc/{8.4.0,9.3.0,10.2.0} cuda/11.2.2 b:ucx/1.10.0-1_dgx
 openmpi/4.1.0-1_dgx     deprecated gcc/10.2.0 cuda/11.2.2 b:ucx/1.10.0-1_dgx

@@ -1,0 +1,27 @@
+#!/usr/bin/env modbuild
+
+echo "https://github.com/SchedMD/${P}/archive/refs/tags/${P}-${V_MAJOR}-${V_MINOR}-${V_PATCHLVL}-1.tar.gz"
+pbuild::set_download_url "https://github.com/SchedMD/${P}/archive/refs/tags/${P}-${V_MAJOR}-${V_MINOR}-${V_PATCHLVL}-1.tar.gz"
+
+pbuild::add_to_group 'Batchsystem'
+pbuild::install_docfiles 'AUTHORS' 'COPYING' 'INSTALL' 'NEWS' 'README.rst' 'LICENSE.OpenSSL'
+
+
+pbuild::pre_configure() {
+  pbuild::add_configure_args "--with-ucx=${UCX_PREFIX}"
+  pbuild::add_configure_args "--with-hwloc=${HWLOC_PREFIX}"
+  # pbuild::add_configure_args "--with-netloc=${HWLOC_PREFIX}"
+  # pbuild::add_configure_args "--with-pmix=/opt/psi/Libraries/pmix/1.2.5:/opt/psi/Libraries/pmix/2.2.5:/opt/psi/Libraries/pmix/3.2.3"
+  pbuild::add_configure_args "--with-pmix=/opt/psi/Libraries/pmix/3.2.3"
+  pbuild::add_configure_args "--with-jwt"
+  pbuild::add_configure_args "--with-json"
+  pbuild::add_configure_args "--with-nvml"
+  pbuild::add_configure_args "--with-http-parser"
+  pbuild::add_configure_args "--with-ofed"
+  pbuild::add_configure_args "--with-lz4"
+  pbuild::add_configure_args "--with-freeipmi"
+  pbuild::add_configure_args "--with-munge"
+  pbuild::add_configure_args "--with-rrdtool"
+  pbuild::add_configure_args "--enable-pam"
+  pbuild::add_configure_args "--enable-static=no"
+}

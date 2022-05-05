@@ -1,0 +1,2 @@
+slurm/21.08.6  unstable  b:gcc/11.2.0 b:cuda/11.5.1 b:ucx/1.12.1_slurm b:libevent/2.1.12 b:hwloc/2.7.1 pmix/3.2.3
+slurm/21.08.7  remove    b:gcc/11.2.0 b:cuda/11.5.1 b:ucx/1.12.1_slurm b:libevent/2.1.12 b:hwloc/2.7.1 pmix/3.2.3
