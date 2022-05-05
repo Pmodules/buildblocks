@@ -1,6 +1,11 @@
 #!/usr/bin/env modbuild
 
-pbuild::set_download_url "http://cucis.ece.northwestern.edu/projects/PnetCDF/Release/$P-$V.tar.gz"
+# pbuild::set_download_url "http://cucis.ece.northwestern.edu/projects/PnetCDF/Release/$P-$V.tar.gz"
+if (( V_MAJOR >= 1 && V_MINOR >= 11 )); then
+  pbuild::set_download_url "https://parallel-netcdf.github.io/Release/pnetcdf-${V_PKG}.tar.gz"
+else
+  pbuild::set_download_url "https://parallel-netcdf.github.io/Release/parallel-netcdf-${V_PKG}.tar.gz"
+fi
 
 pbuild::add_to_group 'HDF5'
 
