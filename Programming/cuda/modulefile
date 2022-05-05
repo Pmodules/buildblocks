@@ -14,7 +14,7 @@ harnessing the power of the graphics processing unit (GPU).
 prepend-path    CUDA_PATH       "$PREFIX"
 
 # libnvidia-ml.so in GDK package is a stub library that is attached only for build purposes
-prepend-path    LIBRARY_PATH    "$PREFIX/lib64/stubs"
+prepend-path	LIBRARY_PATH	"$PREFIX/lib64/stubs"
 prepend-path    LIBRARY_PATH    "$PREFIX/targets/x86_64-linux/lib/stubs"
 
 prepend-path    C_INCLUDE_PATH      "$PREFIX/targets/x86_64-linux/include"
