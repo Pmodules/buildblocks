@@ -24,4 +24,16 @@ pbuild::pre_configure() {
   pbuild::add_configure_args "--with-rrdtool"
   pbuild::add_configure_args "--enable-pam"
   pbuild::add_configure_args "--enable-static=no"
+  pbuild::add_configure_args "--enable-pam"
+  pbuild::add_configure_args "--enable-selinux"
+}
+
+pbuild::post_install() {
+  cd "${BUILD_DIR}"/contribs/pmi
+  make
+  make install
+
+  cd "${BUILD_DIR}"/contribs/pmi2
+  make
+  make install
 }

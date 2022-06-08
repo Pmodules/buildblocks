@@ -42,12 +42,12 @@ pbuild::pre_configure() {
 	fi
 
         if pbuild::use_flag slurm || pbuild::use_flag dgx || pbuild::use_flag merlin6; then
-		pbuild::add_configure_args "--with-pmi"
-		pbuild::add_configure_args "--with-pmi-libdir=/usr/lib64/"
-
-                if pbuild::use_flag "libpmix"; then
-                  pbuild::add_configure_args "--enable-install-libpmix"
-                fi
+		if [[ -n "${SLURM_PREFIX}" ]]; then
+			pbuild::add_configure_args "--with-pmi=${SLURM_PREFIX}"
+		else
+			pbuild::add_configure_args "--with-pmi"
+			pbuild::add_configure_args "--with-pmi-libdir=/usr/lib64/"
+		fi
         fi
 
 	local version

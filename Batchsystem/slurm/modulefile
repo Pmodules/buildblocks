@@ -28,9 +28,14 @@ sophisticated multifactor job prioritization algorithms.
 module-addgroup Batchsystem
 
 setenv          SLURM_CONF         "/etc/slurm/slurm.conf"
+
 prepend-path    LIBRARY_PATH       "$PREFIX/lib/slurm"
 prepend-path    LD_LIBRARY_PATH    "$PREFIX/lib/slurm"
 setenv          SLURM_LIBRARY_DIR  "$PREFIX/lib/slurm"
 prepend-path    LIBRARY_PATH       "$PREFIX/lib64/slurm"
 prepend-path    LD_LIBRARY_PATH    "$PREFIX/lib64/slurm"
 setenv          SLURM_LIBRARY_DIR  "$PREFIX/lib64/slurm"
+
+prepend-path	C_INCLUDE_PATH     "$PREFIX/include/slurm"
+prepend-path	CPLUS_INCLUDE_PATH "$PREFIX/include/slurm"
+setenv		SLURM_INCLUDE_DIR  "$PREFIX/include/slurm"
