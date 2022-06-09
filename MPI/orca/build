@@ -1,0 +1,20 @@
+#!/usr/bin/env modbuild
+
+pbuild::add_to_group 'MPI'
+
+pbuild::prep() {
+	:
+}
+
+pbuild::configure() {
+	:
+}
+
+pbuild::compile() {
+	:
+}
+
+pbuild::install() {
+	:
+}
+
