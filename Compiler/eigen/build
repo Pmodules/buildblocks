@@ -4,4 +4,18 @@
 pbuild::add_to_group 'Compiler'
 pbuild::set_download_url "https://gitlab.com/libeigen/$P/-/archive/${V_PKG}/$P-${V_PKG}.tar.bz2"
 
+pbuild::pre_configure(){
+        pbuild::add_configure_args "-DINCLUDE_INSTALL_DIR=${PREFIX}include"
+}
+
+pbuild::post_install(){
+	cd "${PREFIX}/include"
+	ln -s . eigen3
+}
+
+# Local Variables:
+# mode: sh
+# sh-basic-offset: 8
+# tab-width: 8
+# End:
 
