@@ -2,8 +2,7 @@
 #
 
 pbuild::add_to_group 'Compiler'
-pbuild::set_download_url "http://bitbucket.org/eigen/eigen/get/${V_PKG}.tar.bz2"
-
+pbuild::set_download_url "https://gitlab.com/libeigen/$P/-/archive/${V_PKG}/$P-${V_PKG}.tar.bz2"
 pbuild::pre_configure() {
 	export BOOST_ROOT="${BOOST_PREFIX}"
 	pbuild::add_configure_args "-DUMFPACK_INCLUDES=${UMFPACK_INCLUDE_DIR}"
