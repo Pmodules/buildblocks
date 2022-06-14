@@ -1,0 +1,14 @@
+#%Module1.0
+
+module-whatis		"Proteus beam telescope reconstruction"
+module-url		"https://gitlab.cern.ch/proteus/proteus"
+module-license		"See $PREFIX/share/doc/proteus/LICENSE"
+module-maintainer	"Marc Caubet Serrabou <marc.caubet@psi.ch>"
+module-help	"
+Proteus is a software to reconstruct and analyze data from beam
+telescopes. It takes the raw data, groups hits into clusters, finds
+tracks from clusters on multiple planes, estimates optimal track
+parameters on selected planes, and provides output data for further
+analysis.
+"
+

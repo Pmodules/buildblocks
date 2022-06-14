@@ -1,0 +1,21 @@
+#!/usr/bin/env modbuild
+
+pbuild::set_download_url "https://gitlab.cern.ch/proteus/proteus/-/archive/v${V_MAJOR}.${V_MINOR}.${V_PATCHLVL}/proteus-v${V_MAJOR}.${V_MINOR}.${V_PATCHLVL}.tar.gz"
+
+pbuild::add_to_group 'Compiler'
+pbuild::install_docfiles 'LICENSE' 'README.md' 'Changelog'
+
+pbuild::pre_configure_Linux() {
+   pbuild::use_cmake
+   pbuild::add_configure_args "-DPROTEUS_ENABLE_DOC=on"
+   pbuild::add_configure_args "-DEIGEN_INCLUDE_DIR=${EIGEN_INCLUDE_DIR}"
+}
+
+pbuild::compile() {
+	cmake --build . -- -j6 VERBOSE=1
+}
+
+pbuild::install() {
+	cmake --build . --target install
+}
+
