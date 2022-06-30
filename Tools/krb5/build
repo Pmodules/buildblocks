@@ -1,0 +1,29 @@
+#!/usr/bin/env modbuild
+
+pbuild::add_to_group 'Tools'
+
+pbuild::set_download_url \
+	"https://web.mit.edu/kerberos/dist/$P/${V_PKG}/$P-${V_PKG}.tar.gz"
+#pbuild::set_sha256sum 'gnuplot-5.2.4.tar.gz:1515f000bd373aaa53b16183f274189d4f5e0ae47d22f434857933d16a4770cb'
+#pbuild::install_docfiles 'Copyright' 'NEWS' 'README'
+
+pbuild::configure() {
+	"${SRC_DIR}/src/configure" \
+		--prefix="${PREFIX}" \
+		|| exit 1
+}
+
+pbuild::compile() {
+	cd "${BUILD_DIR}/src"
+	make -j${NJOBS}
+}
+
+pbuild::install() {
+	cd "${BUILD_DIR}/src"
+	make install
+}
+# Local Variables:
+# mode: sh
+# sh-basic-offset: 8
+# tab-width: 8
+# End:

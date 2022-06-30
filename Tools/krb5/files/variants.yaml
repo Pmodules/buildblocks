@@ -1,0 +1,3 @@
+overlay: base
+krb5/1.20:
+- relstage: unstable
