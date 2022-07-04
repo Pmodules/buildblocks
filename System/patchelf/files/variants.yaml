@@ -1,0 +1,8 @@
+overlay: base
+relstage: stable
+patchelf/0.9:
+patchelf/0.11:
+patchelf/0.12:
+  - dependencies: b:gcc/10.3.0
+patchelf/0.14.5:
+  - dependencies: b:gcc/10.3.0
