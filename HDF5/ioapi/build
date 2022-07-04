@@ -37,6 +37,7 @@ pbuild::pre_configure_Linux() {
 		;;
 	gcc )
 		BIN='Linux2_x86_64gfortmpi'
+		cp -av "${BUILDBLOCK_DIR}/files/Makeinclude.${BIN}" "ioapi"
 		;;
 	* )
 		std::die 4 "Compiler '${COMPILER}' is not supported on ${OS}!"
@@ -60,6 +61,8 @@ pbuild::configure() {
 
 pbuild::compile() {
 	make "${CONFIGURE_ARGS[@]}" all
+	make "${CONFIGURE_ARGS[@]}" m3tools
+	 
 }
 
 pbuild::install() {
