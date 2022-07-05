@@ -1,0 +1,19 @@
+overlay: base 
+relstage: stable
+
+gnuplot/4.6.3:
+gnuplot/5.0.0:        
+gnuplot/5.2.0:       
+gnuplot/5.2.4:       
+gnuplot/5.2.6:       
+gnuplot/5.2.7:       
+gnuplot/5.2.8:       
+gnuplot/5.4.0:       
+gnuplot/5.4.1:       
+gnuplot/5.4.2:       
+gnuplot/5.4.3:
+  - relstage: unstable
+    overlay: devel
+    systems: rhel7
+  - systems: rhel6
+
