@@ -1,0 +1,38 @@
+overlay: base
+relstage: stable
+fftw/3.3.8:
+  - with: gcc/{7.3.0,8.2.0} openmpi/3.1.3
+    relstage: deprecated
+
+# Use older MPI version on merlin5
+fftw/3.3.8-1_sp_merlin:
+  - with: gcc/8.2.0 openmpi/3.1.1
+    relstage: deprecated
+    systems: merlin
+fftw/3.3.8-1_dp_merlin:
+  - with: gcc/8.2.0 openmpi/3.1.1
+    relstage: deprecated
+    systems: merlin
+
+fftw/3.3.8-1_sp_merlin6:
+  - with: gcc/7.4.0 openmpi/3.1.4_merlin6
+    relstage: deprecated
+    systems: merlin6
+fftw/3.3.8-1_dp_merlin6:
+  - with: gcc/{7.4.0,8.3.0} openmpi/3.1.4_merlin6
+    relstage: deprecated
+    systems: merlin6
+
+fftw/3.3.9_merlin6:
+  - with: gcc/{8.4.0,9.3.0,10.2.0,10.3.0,11.2.0} openmpi/4.0.5-1_slurm
+    relstage: unstable
+    systems: merlin6
+
+fftw/3.3.10:
+  - with: gcc/{7.5.0,8.4.0,9.3.0,10.3.0} openmpi/4.0.5-1_slurm
+    relstage: unstable
+    systems: merlin6
+fftw/3.3.10_merlin6:
+  - with: gcc/10.2.0 openmpi/4.0.5-1_slurm
+    relstage: unstable
+    systems: merlin6
