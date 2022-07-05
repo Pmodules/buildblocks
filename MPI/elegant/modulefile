@@ -21,6 +21,7 @@ effects, such as wakes and coherent synchrotron radiation.
 setenv		RPN_DEFNS		$PREFIX/RPN_DEFNS
 setenv		HOST_ARCH		linux-x86_64
 setenv		EPICS_HOST_ARCH		linux-x86_64
+setenv		OAG_TOP_DIR		$PREFIX
 
 append-path	PATH			$PREFIX/epics/extensions/bin/linux-x86_64
 append-path	PATH			$PREFIX/oag/apps/bin/linux-x86_64

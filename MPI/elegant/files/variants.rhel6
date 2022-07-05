@@ -1,5 +1,0 @@
-elegant/2020.2.0	stable		gcc/8.4.0 openmpi/3.1.6 gsl/2.6
-elegant/32.0.0		deprecated	gcc/5.4.0 openmpi/1.10.4
-elegant/33.1.2		deprecated	gcc/5.4.0 openmpi/1.10.4
-elegant/34.2.0		deprecated	gcc/7.3.0 mpich/3.2.1
-

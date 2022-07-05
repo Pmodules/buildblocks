@@ -1,0 +1,79 @@
+diff -u linux-x86_64.orig/computeQuadFringeIntegrals linux-x86_64/computeQuadFringeIntegrals
+--- linux-x86_64.orig/computeQuadFringeIntegrals	2022-05-11 17:16:01.000000000 +0200
++++ linux-x86_64/computeQuadFringeIntegrals	2022-05-12 16:36:53.000000000 +0200
+@@ -2,8 +2,9 @@
+ # \
+ exec oagtclsh "$0" "$@"
+ 
+-set auto_path [linsert $auto_path 0  /usr/local/oag/apps/lib/$env(HOST_ARCH)]
+-set auto_path [linsert $auto_path 0 /usr/local/oag/lib_patch/$env(HOST_ARCH)]
++if {![info exists env(OAG_TOP_DIR)]} { set env(OAG_TOP_DIR) /usr/local }
++set auto_path [linsert $auto_path 0  $env(OAG_TOP_DIR)/oag/apps/lib/$env(HOST_ARCH)]
++
+ APSStandardSetup
+ 
+ #
+diff -u linux-x86_64.orig/computeSCTuneSpread linux-x86_64/computeSCTuneSpread
+--- linux-x86_64.orig/computeSCTuneSpread	2022-05-11 17:16:01.000000000 +0200
++++ linux-x86_64/computeSCTuneSpread	2022-05-12 16:39:28.000000000 +0200
+@@ -2,11 +2,8 @@
+ # \
+ exec oagtclsh "$0" "$@"
+ 
+-if [info exists $env(OAG_TOP_DIR)] {
+-    set auto_path [linsert $auto_path 0  $env(OAG_TOP_DIR)/oag/apps/lib/$env(HOST_ARCH)]
+-} else {
+-    set auto_path [linsert $auto_path 0  /usr/local/oag/apps/lib/$env(HOST_ARCH)]
+-}
++if {![info exists env(OAG_TOP_DIR)]} { set env(OAG_TOP_DIR) /usr/local }
++set auto_path [linsert $auto_path 0  $env(OAG_TOP_DIR)/oag/apps/lib/$env(HOST_ARCH)]
+ 
+ APSStandardSetup
+ 
+diff -u linux-x86_64.orig/elegant2track linux-x86_64/elegant2track
+--- linux-x86_64.orig/elegant2track	2022-05-11 17:16:00.000000000 +0200
++++ linux-x86_64/elegant2track	2022-05-12 16:38:20.000000000 +0200
+@@ -2,8 +2,9 @@
+ # \
+ exec oagtclsh "$0" "$@"
+ 
+-set auto_path [linsert $auto_path 0  /usr/local/oag/apps/lib/$env(HOST_ARCH)]
+-set auto_path [linsert $auto_path 0 /usr/local/oag/lib_patch/$env(HOST_ARCH)]
++if {![info exists env(OAG_TOP_DIR)]} { set env(OAG_TOP_DIR) /usr/local }
++set auto_path [linsert $auto_path 0  $env(OAG_TOP_DIR)/oag/apps/lib/$env(HOST_ARCH)]
++
+ APSStandardSetup
+ package require rpn
+ 
+diff -u linux-x86_64.orig/spectra2sdds linux-x86_64/spectra2sdds
+--- linux-x86_64.orig/spectra2sdds	2022-05-11 17:15:10.000000000 +0200
++++ linux-x86_64/spectra2sdds	2022-05-12 16:38:55.000000000 +0200
+@@ -2,8 +2,9 @@
+ # \
+ exec oagtclsh "$0" "$@"
+ 
+-set auto_path [linsert $auto_path 0  /usr/local/oag/apps/lib/$env(HOST_ARCH)]
+-set auto_path [linsert $auto_path 0 /usr/local/oag/lib_patch/$env(HOST_ARCH)]
++if {![info exists env(OAG_TOP_DIR)]} { set env(OAG_TOP_DIR) /usr/local }
++set auto_path [linsert $auto_path 0  $env(OAG_TOP_DIR)/oag/apps/lib/$env(HOST_ARCH)]
++
+ APSStandardSetup
+ 
+ set usage {usage: spectra2sdds2 -input <filename> -output <filename>}
+diff -u linux-x86_64.orig/track2mag linux-x86_64/track2mag
+--- linux-x86_64.orig/track2mag	2022-05-11 17:16:00.000000000 +0200
++++ linux-x86_64/track2mag	2022-05-12 16:31:42.000000000 +0200
+@@ -2,8 +2,11 @@
+ # \
+ exec oagtclsh "$0" "$@"
+ 
+-set auto_path [linsert $auto_path 0  /usr/local/oag/apps/lib/$env(HOST_ARCH)]
+-set auto_path [linsert $auto_path 0 /usr/local/oag/lib_patch/$env(HOST_ARCH)]
++if {![info exists env(OAG_TOP_DIR)] || [string length $env(OAG_TOP_DIR)]==0} {
++    set env(OAG_TOP_DIR) /usr/local
++}
++set auto_path [linsert $auto_path 0  $env(OAG_TOP_DIR)/oag/apps/lib/$env(HOST_ARCH)]
++
+ APSStandardSetup
+ 
+ set usage {usage: track2mag -input <filename> -output <filename> }
