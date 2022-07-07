@@ -6,8 +6,8 @@ pbuild::set_download_url \
 pbuild::add_to_group 'Compiler'
 pbuild::install_docfiles ACKNOWLEDGMENTS
 pbuild::install_docfiles COPYING
-pbuild::install_docfiles MANIFEST
-pbuild::install_docfiles README.txt
+#pbuild::install_docfiles MANIFEST
+pbuild::install_docfiles README.md
 
 pbuild::pre_configure() {
 	pbuild::add_configure_args "--enable-shared"
