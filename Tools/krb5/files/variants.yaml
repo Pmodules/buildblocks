@@ -1,3 +1,4 @@
 overlay: base
 krb5/1.20:
-- relstage: unstable
+- systems: rhel7,rhel8
+  relstage: stable
