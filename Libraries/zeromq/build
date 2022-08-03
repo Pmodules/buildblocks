@@ -1,0 +1,11 @@
+#!/usr/bin/env modbuild
+
+pbuild::set_download_url "https://github.com/zeromq/libzmq/releases/download/v${V_PKG}/$P-${V_PKG}.tar.gz"
+pbuild::add_to_group 'Libraries'
+#pbuild::install_docfiles 'COPYING' 'README.md'
+
+# Local Variables:
+# mode: sh
+# sh-basic-offset: 8
+# tab-width: 8
+# End:
