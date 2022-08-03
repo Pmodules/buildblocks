@@ -1,6 +1,19 @@
-git/2.3.3	stable		Tcl/8.6.4 Tk/8.6.4
-git/2.8.1	stable		Tcl/8.6.4 Tk/8.6.4
-git/2.21.0	stable		TclTk/8.6.9 b:perl/5.30.0 b:asciidoc/8.6.9-1 b:xmlto/0.0.28 b:gettext/0.19.8
-git/2.22.0	stable		TclTk/8.6.9 b:perl/5.30.0 b:asciidoc/8.6.9-1 b:xmlto/0.0.28 b:gettext/0.19.8
-git/2.30.0	stable		TclTk/8.6.9 b:perl/5.30.0 b:asciidoc/8.6.9-1 b:xmlto/0.0.28 b:gettext/0.19.8
-git/2.33.1	stable		TclTk/8.6.9 b:perl/5.30.0 b:asciidoc/8.6.9-1 b:xmlto/0.0.28 b:gettext/0.19.8
+overlay: base
+relstage: stable
+group: Tools
+
+git/2.3.3:
+ - dependencies: Tcl/8.6.4 Tk/8.6.4
+git/2.8.1:
+ - dependencies: Tcl/8.6.4 Tk/8.6.4
+git/2.21.0:
+ - dependencies: TclTk/8.6.9 b:perl/5.30.0 b:asciidoc/8.6.9-1 b:xmlto/0.0.28 b:gettext/0.19.8
+git/2.22.0:
+ - dependencies: TclTk/8.6.9 b:perl/5.30.0 b:asciidoc/8.6.9-1 b:xmlto/0.0.28 b:gettext/0.19.8
+git/2.30.0:
+ - dependencies: TclTk/8.6.9 b:perl/5.30.0 b:asciidoc/8.6.9-1 b:xmlto/0.0.28 b:gettext/0.19.8
+git/2.33.1:
+ - dependencies: TclTk/8.6.9 b:perl/5.30.0 b:asciidoc/8.6.9-1 b:xmlto/0.0.28 b:gettext/0.19.8
+git/2.37.0:
+ - dependencies: TclTk/8.6.9
+   build_requires: perl/5.30.0 asciidoc/8.6.9-1 xmlto/0.0.28 gettext/0.19.8
