@@ -20,7 +20,7 @@ pbuild::pre_configure() {
 }
 
 pbuild::post_compile() {
-	make -C contrib/subtree prefix="${prefix}"
+	make -C contrib/subtree prefix="${PREFIX}"
 }
 
 pbuild::post_install() {
