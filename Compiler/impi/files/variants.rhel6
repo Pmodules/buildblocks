@@ -10,6 +10,6 @@ impi/18.3       stable		intel/18.3
 impi/18.4       stable		intel/18.4
 impi/19.3       stable		intel/19.3
 impi/19.4	stable		intel/19.4
-impi/20.4	unstable	intel/20.4
-impi/21.4	unstable	intel/21.4
-impi/22.1	unstable	intel/22.1
+impi/20.4	stable	        intel/20.4
+impi/21.4	stable	        intel/21.4
+impi/22.1	stable	        intel/22.1

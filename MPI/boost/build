@@ -5,7 +5,12 @@ pbuild::set_download_url "https://boostorg.jfrog.io/artifactory/main/release/${V
 
 pbuild::add_to_group 'MPI'
 
-#pbuild::add_patch "files/context-Jamfile.patch"
+if (( V_MAJOR == 1 )); then
+  if (( V_MINOR >= 78 && V_MINOR < 80 )); then
+    pbuild::add_patch "files/intel-linux.patch"
+  fi
+fi
+
 
 BOOST_BUILD_PATH="${BUILD_DIR}"
 
@@ -16,29 +21,61 @@ pbuild::configure() {
 }
 
 pbuild::compile() {
+        cd "${SRC_DIR}"
+
 	case "${COMPILER}" in
 	gcc )
 	        TOOLSET=gcc
 	        ;;
 	intel )
-	        TOOLSET=intel-linux
-	        # TOOLSET=gcc
+                if (( V_MAJOR == 1 )); then
+                  if (( V_MINOR >= 75 )); then
+                    if (( V_MINOR < 78 )); then
+   	              TOOLSET=clang
+                    else
+	              TOOLSET=intel-linux
+                    fi
+                  else
+                    std::die 1 "Old version ${V_MAJOR}.${V_MINOR}.X not yet supported by PSI with intel compiler"
+                  fi
+                fi
 	        ;;
 	* )
 	        std::die 1 "Unsupported compiler!"
 	        ;;
 	esac
-        cd "${SRC_DIR}"
+
         ./bootstrap.sh \
                 --prefix="${PREFIX}" \
                 --with-toolset=${TOOLSET} \
                 --without-libraries=python \
                 || exit 1
+
+        case "${COMPILER}" in
+        intel )
+          if (( V_MAJOR == 1 )); then
+            if (( V_MINOR >= 75 )); then
+              if (( V_MINOR < 78 )); then
+                case "$IMPI_VERSION" in
+                "22.1" )
+                  sed -i "s#using clang.*#using clang : 2022.0.0.20211123 : $CMPLR_ROOT/linux/bin-llvm/clang++ ;#g" project-config.jam
+                  ;;
+                * )
+	          std::die 1 "Unsupported Intel compiler! Changes in the build file are required."
+	          ;;
+                esac
+              fi
+            fi
+          fi
+          ;;
+        esac
+
         echo "using mpi ;" >> "./project-config.jam"
         ./b2  \
                 --build-dir="${BUILD_DIR}" \
                 --layout=system \
                 --without-python \
+                -d+2 \
                 toolset=${TOOLSET} \
                 variant=release \
                 link=shared,static \
