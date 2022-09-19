@@ -35,7 +35,7 @@ prepend-path    PATH    $PREFIX/$version/TurboGrid/bin
 # 07.04.2020
 prepend-path    PATH    $PREFIX/$version/Electronics/Linux64
 prepend-path    PATH    $PREFIX/$version/Framework/bin/Linux64
-prepend-path    PATH    $PREFIX/$version/AnsysEM$year.$release/Linux64
+prepend-path    PATH    $PREFIX/$version/AnsysEM$year.$release/$version/Linux64/
 prepend-path    PATH    $PREFIX/shared_files/licensing/lic_admin/
 
 # General
@@ -44,6 +44,7 @@ prepend-path    LD_LIBRARY_PATH  $PREFIX/$version/tp/qt/5.9.6/linx64/lib
 # CFX5
 prepend-path    LD_LIBRARY_PATH  $PREFIX/$version/CFX/lib/linux-amd64
 prepend-path    LD_LIBRARY_PATH  $PREFIX/$version/CFX/tools/boost-1.63.0/linx64/lib/Release
+prepend-path    LD_LIBRARY_PATH  $PREFIX/$version/CFX/tools/boost-1.71.0/linx64/lib/Release
 prepend-path    LD_LIBRARY_PATH  $PREFIX/$version/CFX/tools/icemcfd-$year.$release/linx64/IcemExe2Cfx/syslib
 prepend-path    LD_LIBRARY_PATH  $PREFIX/$version/CFX/tools/qwt-6.1.2/linx64/lib
 prepend-path    LD_LIBRARY_PATH  $PREFIX/$version/CFX/tools/qwtpolar-1.1.1/linx64/lib
