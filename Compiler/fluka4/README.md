@@ -34,6 +34,9 @@ mkdir -p "${PREFIX}/flair" && cd "$_"
 tar --strip-components=1 -xvf "${FLAIR_TAR}"
 make
 
+# geoviewer: tbw
+
+
 cd "${PREFIX}"
 ln -s lib lib64
 cp -av "${TCLTK_DIR}/lib/libtcl8.6.so" lib
