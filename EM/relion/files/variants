@@ -1,14 +1,14 @@
 relion/2.1.b1	deprecated	gcc/4.9.4 openmpi/2.0.1 cuda/8.0.44
-relion/2.1	stable	gcc/9.3.0 openmpi/4.0.4_slurm cuda/11.0.3 b:cmake/3.15.5 b:tiff/4.0.9 b:git/2.22.0
+relion/2.1	deprecated	gcc/9.3.0 openmpi/4.0.4_slurm cuda/11.0.3 b:cmake/3.15.5 b:tiff/4.0.9 b:git/2.22.0
 relion/3.0_beta	deprecated	gcc/4.9.4 openmpi/2.0.1 cuda/8.0.44
 relion/3.0.8	deprecated	gcc/7.4.0 openmpi/3.1.4_merlin6 cuda/9.2.148 b:cmake/3.14.0 b:tiff/4.0.9
 relion/3.0.8-1	stable	gcc/9.2.0 openmpi/4.0.5_slurm cuda/11.0.3 b:cmake/3.15.5 b:tiff/4.0.9 b:git/2.22.0
 relion/3.1-beta	deprecated	gcc/7.4.0 openmpi/3.1.4_merlin6 cuda/9.2.148 b:cmake/3.14.0 b:tiff/4.0.9
 relion/3.1.0	deprecated	gcc/7.5.0 openmpi/4.0.4_slurm cuda/10.0.130 b:cmake/3.15.5 b:tiff/4.0.9 b:git/2.22.0
-relion/3.1.0-1	stable	gcc/7.5.0 openmpi/4.0.4_slurm cuda/10.1.105 b:cmake/3.15.5 b:tiff/4.0.9 b:git/2.22.0
+relion/3.1.0-1	deprecated	gcc/7.5.0 openmpi/4.0.4_slurm cuda/10.1.105 b:cmake/3.15.5 b:tiff/4.0.9 b:git/2.22.0
 relion/3.1.1	deprecated	gcc/9.3.0 openmpi/4.0.4_slurm cuda/11.0.3 b:cmake/3.15.5 b:tiff/4.0.9 b:git/2.22.0
 relion/3.1.1-1	stable	gcc/9.2.0 openmpi/4.0.5_slurm cuda/11.0.3 b:cmake/3.15.5 b:tiff/4.0.9 b:git/2.22.0
 relion/3.1.2	stable	gcc/9.2.0 openmpi/4.0.5_slurm cuda/11.0.3 b:cmake/3.15.5 b:tiff/4.0.9 b:git/2.22.0
-relion/3.1.3	unstable	gcc/9.2.0 openmpi/4.0.5_slurm cuda/11.0.3 b:cmake/3.15.5 b:tiff/4.0.9 b:git/2.22.0
-relion/4.0-beta	unstable	gcc/9.2.0 openmpi/4.0.5_slurm cuda/11.0.3 b:cmake/3.15.5 b:tiff/4.0.9 b:git/2.22.0
+relion/3.1.3	stable	gcc/9.2.0 openmpi/4.0.5_slurm cuda/11.0.3 b:cmake/3.15.5 b:tiff/4.0.9 b:git/2.22.0
+relion/4.0-beta	deprecated	gcc/9.2.0 openmpi/4.0.5_slurm cuda/11.0.3 b:cmake/3.15.5 b:tiff/4.0.9 b:git/2.22.0
 relion/4.0.0	unstable	gcc/11.2.0 openmpi/4.1.3_slurm cuda/11.5.1 b:cmake/3.23.2 b:tiff/4.3.0 b:git/2.37.0
