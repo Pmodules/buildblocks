@@ -1,0 +1,30 @@
+#%Module1.0
+
+module-whatis           "PEET (Particle Estimation for Electron Tomography) is an open-source package for aligning and averaging particles in 3-D subvolumes extracted from tomograms."
+module-url              "https://bio3d.colorado.edu/PEET/"
+module-license	        "GPLv2 license"
+module-maintainer       "Spencer Bliven <spencer.bliven@psi.ch>"
+
+module-help	"
+PEET (Particle Estimation for Electron Tomography) is an open-source package
+for aligning and averaging particles in 3-D subvolumes extracted from
+tomograms. It seeks the optimal alignment of each particle against a
+reference volume through several iterations. If PEET and IMOD are both
+installed, most PEET operations are available from the eTomo graphical
+user interface in IMOD. PEET uses the parallel processing framework
+within IMOD, so that the lengthy computations can be distributed to
+multiple cores on one computer, to a set of linked workstations, or to
+a cluster. PEET is written in Matlab and a compiled version is
+distributed along with the Matlab runtime environment needed to run it. 
+
+> Nicastro D, Schwartz C, Pierson J, Gaudette R, Porter ME and McIntosh JR
+  (2006), \"The molecular architecture of axonemes revealed by cryoelectron
+  tomography.\", Science. Vol. 313(5789), pp. 944-948.
+  DOI:10.1126/science.1128618
+> Heumann JM, Hoenger A and Mastronarde DN (2011), \"Clustering and variance
+  maps for cryo-electron tomography using wedge-masked differences.\", J Struct
+  Biol. Vol. 175(3), pp. 288-299. DOI:10.1016/j.jsb.2011.05.011
+"
+
+setenv PARTICLE_DIR "$PREFIX"
+

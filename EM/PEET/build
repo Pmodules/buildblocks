@@ -1,0 +1,41 @@
+#!/usr/bin/env modbuild
+
+pbuild::add_to_group 'EM'
+
+
+pbuild::prep() {
+    dst="$PMODULES_DISTFILESDIR/Particle_${V_PKG}_linux.sh"
+    if [ -f "$dst" ]; then
+        echo "Found cached $dst" >&2
+    else
+        ${curl:-curl} \
+            --location \
+            --fail \
+            --output "$dst" \
+            "https://bio3d.colorado.edu/ftp/PEET/linux/Particle_${V_PKG}_linux.sh"
+    fi
+    }
+
+pbuild::configure() {
+    :
+}
+
+pbuild::compile() {
+    :
+}
+
+pbuild::install() {
+    mkdir -p "$PREFIX/etc/profile.d"
+    # Installs into $PREFIX/Particle
+    sh "$PMODULES_DISTFILESDIR/Particle_${V_PKG}_linux.sh" \
+        --yes \
+        --dir "$PREFIX" \
+        --script "$PREFIX/etc/profile.d"
+
+    # Fix paths
+    sed -ri 's,/usr/local/Particle(Runtime)?,$PEET_HOME,g' $PREFIX/Particle/*.{csh,sh,cfg} $PREFIX/etc/profile.d/Particle.{c,}sh
+    sed -ri 's,MCR_ROOT=.*,MCR_ROOT=$MATLAB_DIR,g' $PREFIX/Particle/*.cfg
+
+    mv $PREFIX/Particle/* $PREFIX/
+    rm -r $PREFIX/Particle
+}
