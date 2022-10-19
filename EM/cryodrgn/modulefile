@@ -1,0 +1,49 @@
+#%Module
+
+module-whatis           "cryoDRGN: Deep Reconstructing Generative Networks for cryo-EM heterogeneous reconstruction"
+module-url              "https://github.com/zhonge/cryodrgn"
+module-license          "GPL v3.0"
+module-maintainer       "Spencer Bliven <spencer.bliven@psi.ch>"
+
+module-help     "
+CryoDRGN is a neural network based algorithm for heterogeneous cryo-EM
+reconstruction. In particular, the method models a continuous distribution over
+3D structures by using a neural network based representation for the volume.
+
+> CryoDRGN: reconstruction of heterogeneous cryo-EM structures using neural
+> networks. Ellen D. Zhong, Tristan Bepler, Bonnie Berger, Joseph H. Davis.
+> https://www.nature.com/articles/s41592-020-01049-4
+
+> Reconstructing continuous distributions of 3D protein structure from cryo-EM
+> images. Ellen D. Zhong, Tristan Bepler, Joseph H. Davis, Bonnie Berger.
+> ICLR 2020, Spotlight presentation, https://arxiv.org/abs/1909.05215
+"
+
+# Check for supported shell types
+set shelltype [module-info shelltype]
+switch -- $shelltype {
+    "sh" {
+        puts stdout "source \"\${ANACONDA_PREFIX}\"/admintools/conda_setup.sh;\n"
+    }
+    default {
+        puts stderr "Shells of type '$shelltype' are NOT supported!"
+    }
+}
+
+# Determine useflags and construct conda env name
+set list [split $V "_"]
+set version  [lindex ${list} 0]
+set useflags [lrange ${list} 1 end]
+set env_to_activate [string tolower ${P}]-${version}
+
+switch [module-info mode] {
+    "load" {
+      # Relies on the anaconda module being loaded since we need to update the path
+      puts stdout "conda activate $env_to_activate;\n"
+    }
+    "unload" -
+    "remove" {
+        puts stdout "conda deactivate;\n"
+    }
+}
+
