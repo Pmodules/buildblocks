@@ -1,0 +1,45 @@
+#%Module1.0
+
+module-whatis                "IMOD is a set of image processing, modeling and display programs used for tomographic reconstruction and for 3D reconstruction of EM serial sections and optical sections."
+module-url                "http://bio3d.colorado.edu/imod/"
+module-license                "mostly GPLv2.0, with the exceptions, see http://bio3d.colorado.edu/imod/COPYRIGHT.txt"
+module-maintainer        "Spencer Bliven <spencer.bliven@psi.ch> / Dmitry Ozerov <dmitry.ozerov@psi.ch>"
+
+module-help        "
+IMOD is a set of image processing, modeling and display programs used for tomographic
+reconstruction and for 3D reconstruction of EM serial sections and optical sections.
+The package contains tools for assembling and aligning data within multiple types and
+sizes of image stacks, viewing 3-D data from any orientation, and modeling and display
+of the image files. IMOD was developed primarily by David Mastronarde, Rick Gaudette,
+Sue Held, Jim Kremer, Quanren Xiong, and John Heumann at the University of Colorado.
+
+The development of IMOD has been supported by grants from the National Center for
+Research Resources, the National Institute of General Medical Sciences, and the National
+Institute for Biomedical Imaging and Bioengineering.  IMOD and virtually all programs
+contained within the IMOD package are Copyright (c) 1994-2017 by the Regents of the
+University of Colorado.  Other contributors are acknowledged in our Copyright and
+Credits statement http://bio3d.colorado.edu/imod/COPYRIGHT.txt. 
+
+Original publication:
+> Kremer J.R., Mastronarde, D.N., and McIntosh, J.R. (1996) Computer
+> visualization of three-dimensional image data using IMOD. J. Struct. Biol.
+> 116:71-76.
+
+For tomographic reconstruction, see also:
+
+> Mastronarde, D.N. (1997) Dual-axis tomography: an approach with alignment
+> methods that preserve resolution. J. Struct. Biol. 120:343-352.
+
+> Mastronarde, D.N. and Held, S.R. (2017) Automated tilt series alignment and
+> tomographic reconstruction in IMOD. J. Struct. Biol. 197:102-113. 
+"
+
+switch [module-info mode] {
+    "load" {
+        puts stdout "source $PREFIX/profile.d/IMOD-linux.sh"
+    }
+    "unload" -
+    "remove" {
+        # Could unset IMOD variables here
+    }
+}
