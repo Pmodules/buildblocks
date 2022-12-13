@@ -6,7 +6,7 @@ pbuild::add_to_group 'MPI'
 pbuild::install_docfiles ACKNOWLEDGMENTS
 pbuild::install_docfiles COPYING
 pbuild::install_docfiles MANIFEST
-pbuild::install_docfiles README.md
+pbuild::install_docfiles README*
 
 pbuild::pre_configure() {
 	pbuild::add_configure_args "CC=${MPICC}"
