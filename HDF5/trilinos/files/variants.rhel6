@@ -17,4 +17,5 @@ trilinos/12.12.1	deprecated	intel/17.4 openmpi/{1.10.7,2.1.2,3.0.0} hdf5/1.10.1 
 trilinos/12.18.1	stable		gcc/{7.5.0,8.4.0,9.3.0,10.1.0} openmpi/3.1.6  hdf5/1.10.6 b:cmake/3.15.5 b:OpenBLAS/0.3.10 b:parmetis/4.0.3 
 
 trilinos/13.0.1		stable		gcc/{7.5.0,8.4.0,9.3.0,10.3.0} openmpi/4.0.5  hdf5/1.10.7 b:cmake/3.15.5 b:OpenBLAS/0.3.15 b:parmetis/4.0.3 
+trilinos/13.0.1		stable		gcc/10.4.0 openmpi/4.1.4  hdf5/1.10.8 b:cmake/3.15.5 b:OpenBLAS/0.3.21 b:parmetis/4.0.3 
 

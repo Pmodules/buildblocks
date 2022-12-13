@@ -7,4 +7,5 @@ boost/1.73.0_dgx	deprecated	gcc/{8.4.0,9.3.0,10.2.0} openmpi/4.0.5-1_dgx
 boost/1.75.0_slurm	unstable 	intel/22.1 impi/22.1 b:zlib/1.2.11
 boost/1.76.0_slurm      stable          gcc/{10.2.0,10.3.0} openmpi/4.0.5-1_slurm b:zlib/1.2.11
 boost/1.79.0_slurm	stable		gcc/{9.3.0,10.3.0} openmpi/4.1.3_slurm b:zlib/1.2.11
+boost/1.79.0_slurm	stable		gcc/10.4.0 openmpi/4.1.4_slurm b:zlib/1.2.13
 boost/1.79.0_slurm	unstable 	intel/22.1 impi/22.1 b:zlib/1.2.11

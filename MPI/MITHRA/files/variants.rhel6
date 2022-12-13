@@ -1,3 +1,4 @@
 MITHRA/2020.8.27	deprecated	gcc/8.4.0 openmpi/3.1.6
 MITHRA/2.0		stable		gcc/8.4.0 openmpi/3.1.6
 MITHRA/2.0		stable		gcc/10.3.0 openmpi/4.0.5
+MITHRA/2.0		stable		gcc/10.4.0 openmpi/4.1.4

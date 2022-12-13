@@ -25,3 +25,4 @@ parmetis/4.0.3	stable		gcc/7.3.0 mpich/3.3  b:cmake/3.9.6
 parmetis/4.0.3	stable		gcc/{7.5.0,8.4.0,9.3.0,10.1.0} openmpi/3.1.6 b:cmake/3.9.6
 
 parmetis/4.0.3	stable		gcc/{7.5.0,8.4.0,9.3.0,10.3.0} openmpi/4.0.5 b:cmake/3.15.5
+parmetis/4.0.3	stable		gcc/10.4.0 openmpi/4.1.4 b:cmake/3.15.5

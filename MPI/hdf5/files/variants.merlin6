@@ -1,3 +1,4 @@
-hdf5/1.10.6_slurm       stable	gcc/{7.5.0,8.4.0,9.3.0} openmpi/3.1.6_slurm
-hdf5/1.10.7_slurm       stable	gcc/10.3.0 openmpi/4.0.5-1_slurm
+hdf5/1.10.6_slurm     stable	gcc/{7.5.0,8.4.0,9.3.0} openmpi/3.1.6_slurm
+hdf5/1.10.7_slurm     stable	gcc/10.3.0 openmpi/4.0.5-1_slurm
+hdf5/1.10.8_slurm     stable	gcc/10.4.0 openmpi/4.1.4_slurm
 hdf5/1.13.1_slurm     unstable	gcc/11.2.0 openmpi/4.1.3_slurm

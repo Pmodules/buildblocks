@@ -1,3 +1,4 @@
 amrex/18.07_3d_slurm	stable	gcc/{7.5.0,8.4.0,9.3.0} openmpi/3.1.6_slurm b:cmake/3.15.5
 amrex/18.07_3d_slurm	stable	gcc/10.3.0 openmpi/4.0.5-1_slurm b:cmake/3.20.5
+amrex/18.07_3d_slurm	stable	gcc/10.4.0 openmpi/4.1.4_slurm b:cmake/3.20.5
 
