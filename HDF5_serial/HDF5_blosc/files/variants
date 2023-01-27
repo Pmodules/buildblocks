@@ -1,2 +1,2 @@
-HDF5_blosc/1.0.0_merlin    unstable    gcc/4.8.3 hdf5_serial/1.8.12 b:cmake/3.9.6
-HDF5_blosc/1.0.0_avx2    unstable    gcc/4.8.3 hdf5_serial/1.8.12 b:cmake/3.9.6
+HDF5_blosc/1.0.0_merlin	deprecated	gcc/4.8.3 hdf5_serial/1.8.12 b:cmake/3.9.6
+HDF5_blosc/1.0.0_avx2	deprecated	gcc/4.8.3 hdf5_serial/1.8.12 b:cmake/3.9.6
