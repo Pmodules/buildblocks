@@ -1,0 +1,11 @@
+#%Pmodule
+
+module-whatis		"a small build system with a focus on speed"
+module-url		"https://ninja-build.org/"
+module-license		"Apache License Version 2.0"
+module-maintainer	"Achim Gsell <achim.gsell@psi.ch>"
+
+module-help		"
+Ninja is a small build system with a focus on speed.
+"
+
