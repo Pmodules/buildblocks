@@ -42,15 +42,21 @@ Documentation
 conflict mpich
 conflict mvapich2
 
+set version "$::env(PGI_VERSION)"
+
 set kern [ exec uname -s ]
 if { $kern == "Linux" } {
 	set bits [ exec uname -m ]
 	if { $bits == "x86_64" } {
-		if { [is-loaded pgi-llvm] } {
-			set target linux86-64-llvm
-		} else {
-			set target linux86-64
-		}
+      if { $version < "20.9"} {
+        if { [is-loaded pgi-llvm] } {
+          set target linux86-64-llvm
+        } else {
+          set target linux86-64
+        }
+      } else {
+        set target Linux_x86_64
+      }
 	} elseif { $bits == "ppc64le" } {
 		set target linuxpower
 	} else {
@@ -61,13 +67,12 @@ if { $kern == "Linux" } {
 	set target osx86-64
 }
 
-libdir="$::env(PGI_PREFIX)/${target}"
-if { $V == '18.5'} {
-  libdir=$libdir/2018
+set libdir "$::env(PGI_PREFIX)/$target/$version"
+if { $version < "20.9"} {
+  set libdir $libdir/mpi/openmpi
 } else {
-  libdir=$libdir/2021
+  set libdir $libdir/comm_libs/mpi
 }
-libdir=$libdir/mpi/openmpi
 set libdir $libdir
 
 prepend-path PATH $libdir/bin
