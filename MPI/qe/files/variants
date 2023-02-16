@@ -1,3 +1,4 @@
 qe/6.3  deprecated	gcc/8.2.0 openmpi/3.1.1       b:cmake/3.9.6
 qe/6.5  deprecated        gcc/9.3.0 lapack/3.9.0 OpenBLAS/0.3.9 openmpi/4.0.4_slurm b:cmake/3.15.5
 qe/7.0  unstable        gcc/10.3.0 lapack/3.10.0 OpenBLAS/0.3.20 openmpi/4.1.3_slurm b:cmake/3.23.2
+qe/7.0  unstable        pgi/21.5 pgi-mpi/21.5 cuda/9.2.148 lapack/3.10.0 OpenBLAS/0.3.20 b:cmake/3.23.2

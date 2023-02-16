@@ -48,15 +48,15 @@ set kern [ exec uname -s ]
 if { $kern == "Linux" } {
 	set bits [ exec uname -m ]
 	if { $bits == "x86_64" } {
-      if { $version < "20.9"} {
-        if { [is-loaded pgi-llvm] } {
-          set target linux86-64-llvm
-        } else {
-          set target linux86-64
-        }
+    if { $version < "20.9"} {
+      if { [is-loaded pgi-llvm] } {
+        set target linux86-64-llvm
       } else {
-        set target Linux_x86_64
+        set target linux86-64
       }
+    } else {
+      set target Linux_x86_64
+    }
 	} elseif { $bits == "ppc64le" } {
 		set target linuxpower
 	} else {
