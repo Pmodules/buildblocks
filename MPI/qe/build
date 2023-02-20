@@ -26,10 +26,9 @@ pbuild::pre_configure() {
 
 pbuild::compile() {
         make all
-        make install
 }
 
 pbuild::install() {
-	:
+        make install
 }
 
