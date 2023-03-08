@@ -5,8 +5,10 @@ PSI has a institutional license for FLUKA and Flair. Anyway users should registe
 ## Download
 
 https://fluka.cern
+
 https://flair.web.cern.ch/flair/index.html
 
+https://fluka.cern/download/neutron-data-libraries
 
 You have to register before you can download FLUKA!
 
