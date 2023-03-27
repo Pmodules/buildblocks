@@ -1,0 +1,29 @@
+#!/usr/bin/env modbuild 
+
+pbuild::add_to_group 'MPI'
+
+
+# STUB URL. This should be manually downloaded and placed in /opt/psi/var/distfiles/
+pbuild::set_download_url "http://psi.ch/manual_download/charmm-${V_MAJOR}.${V_MINOR}.tar.gz"
+
+pbuild::pre_configure() {
+  pbuild::add_configure_args "--with-X11"
+  pbuild::add_configure_args "--with-gamus"
+
+  if pbuild::use_flag gpu ; then
+    pbuild::add_configure_args "--with-domdec_gpu"
+    pbuild::add_configure_args "--with-blade"
+  else # pbuild::use_flag cpu
+    pbuild::add_configure_args "--with-repdstr"
+  fi
+
+}
+
+pbuild::post_install() {
+  cp "$BUILDBLOCK_DIR/LICENSE" "$PREFIX/"
+  rm -f "$PREFIX/source" "$PREFIX/tool"  # remove symlink (rc10 issue?)
+  for dir in doc test support; do
+    rm -f "$PREFIX/$dir"  # remove symlink
+    cp -rf "$SRC_DIR/${dir}" "$PREFIX/"
+  done
+}

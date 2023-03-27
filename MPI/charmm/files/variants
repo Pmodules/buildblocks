@@ -1,0 +1,2 @@
+charmm/47.2_cpu	unstable	gcc/10.4.0 openmpi/4.1.4_slurm b:cmake/3.23.2
+charmm/47.2_gpu	unstable	gcc/10.4.0 openmpi/4.1.4_slurm cuda/11.5.1 b:cmake/3.23.2

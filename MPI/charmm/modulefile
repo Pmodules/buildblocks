@@ -1,0 +1,11 @@
+#%Module1.0
+
+module-whatis		"Chemistry at HARvard Macromolecular Mechanics"
+module-url		"https://academiccharmm.org/"
+module-license		"Academic license. See CHARMM_PREFIX/LICENSE"
+module-maintainer	"Spencer Bliven <spencer.bliven@psi.ch>"
+module-help		"
+A molecular simulation program with broad application to many-particle systems with a comprehensive set of energy functions, a variety of enhanced sampling methods, and support for multi-scale techniques including QM/MM, MM/CG, and a range of implicit solvent models.
+
+This is the Academic version of CHARMM.
+"
