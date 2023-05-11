@@ -1,0 +1,33 @@
+#%Module
+
+module-whatis	        "IsoNet, Isotropic Reconstruction of Electron Tomograms with Deep Learning"
+module-url		"https://github.com/IsoNet-cryoET/IsoNet"
+module-license	        "MIT"
+module-maintainer	"Elsa Germann <elsa.germann@psi.ch>"
+
+module-help	"
+Isotropic Reconstruction of Electron Tomograms with Deep Learning
+"
+
+# Determine useflags and construct conda env name
+set list [split $V "_"]
+set version  [lindex ${list} 0]
+set useflags [lrange ${list} 1 end]
+set flavour  [lindex $useflags 0]
+set env_to_activate ${P}
+
+#puts stderr "P/V: $P/$V"
+#puts stderr "USEFLAG: [lindex $useflags 0]"
+#puts stderr "$env_to_activate"
+
+switch [module-info mode] {
+    "load" {
+      # Relies on the anaconda module being loaded since we need to update the path
+      puts stdout "conda activate $env_to_activate;\n"
+    }
+    "unload" -
+    "remove" {
+        puts stdout "conda deactivate;\n"
+    }
+}
+
