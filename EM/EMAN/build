@@ -1,0 +1,23 @@
+#!/usr/bin/env modbuild
+
+pbuild::add_to_group 'EM'
+
+pbuild::prep() {    
+    local EMAN2DL="${PMODULES_TMPDIR:-/tmp}/eman${V}_sphire1.4_sparx.linux64.sh"
+
+    if ! [ -f "$EMAN2DL" ]; then
+        wget -O "$EMAN2DL" "https://cryoem.bcm.edu/cryoem/static/software/release-${V}/eman${V}_sphire1.4_sparx.linux64.sh"
+    fi
+}
+
+pbuild::configure() {
+    :
+}
+
+pbuild::install() {
+    :
+}
+
+pbuild::compile() {
+    bash ${PMODULES_TMPDIR:-/tmp}/eman${V}_sphire1.4_sparx.linux64.sh -u -b -p $PREFIX 
+}

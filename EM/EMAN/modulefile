@@ -1,0 +1,37 @@
+#%Module1.0
+
+set dont-setenv {LD_LIBRARY_PATH}
+
+module-whatis           "EMAN(2) is a broadly based greyscale scientific image processing suite with a primary focus on processing data from transmission electron microscopes"
+module-url              "https://blake.bcm.edu/emanwiki/EMAN2"
+module-license          "GPL license"
+module-maintainer       "Elsa Germann <elsa.germann@psi.ch>"
+
+module-help             "EMAN2 is a broadly based greyscale scientific image processing suite with a primary focus on processing data from transmission electron microscopes. EMAN's original purpose was performing single particle reconstructions (3-D volumetric models from 2-D cryo-EM images) at the highest possible resolution, but the suite now also offers support for single particle cryo-ET, and tools useful in many other subdisciplines such as helical reconstruction, 2-D crystallography and whole-cell tomography. EMAN2 is capable of processing large data sets (>100,000 particle) very efficiently.
+
+Please also note that this is not the (related) EMEN2 electronic notebook, but is EMAN2, a scientific image processing suite.
+
+Please Cite (and read)
+
+EMAN is free software, supported by NIH Grants. It is critical that you cite EMAN2 when you use it in a publication in any significant way, to help us document usage when trying to renew our funding. Feel free to cite any of these:
+
+    Primary EMAN2 paper:
+
+        G. Tang, L. Peng, P.R. Baldwin, D.S. Mann, W. Jiang, I. Rees & S.J. Ludtke. (2007) EMAN2: an extensible image processing suite for electron microscopy. J Struct Biol. 157, 38-46. PMID: 16859925 
+
+    Subnanometer resolution subtomogram averaging using PPPT methods:
+        Chen M, Bell JM, Shi X, Sun SY, Wang Z, Ludtke SJ. Nat Methods. (2019) A complete data processing workflow for cryo-ET and subtomogram averaging, Nat. Methods, 16(11):1161-1168, PMC31611690 
+
+    Neural Network Based Tomogram Segmentation
+        Chen M, Dai W, Sun SY, Jonasch D, He CY, Schmid MF, et al. (2017). Convolutional neural networks for automated annotation of cellular cryo-electron tomograms. Nat. Methods, 14(10), 983–5. PMCID: PMC5623144 
+
+    Neural Network Particle Picker
+        Bell JM, Chen M, Durmaz T, Fluty AC, Ludtke SJ. (2018). New software tools in EMAN2 inspired by EMDatabank map challenge. J. Struct. Biol. Elsevier;, 204(2), 283–90. 
+
+    EMAN2 high resolution refinement methods:
+
+        J.M. Bell, M. Chen, P.R. Baldwin & S.J. Ludtke. (2016) High Resolution Single Particle Refinement in EMAN2.1. Methods. 100, 25-34. PMC4848122 
+
+    Methods for analysis of conformational and compositional variability:
+        Ludtke, S. J. \"Single-Particle Refinement and Variability Analysis in EMAN2.1.\" in Methods Enzymol 579159-189 (Elsevier, United States, 2016). PMC5101015 
+"
