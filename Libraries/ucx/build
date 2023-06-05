@@ -46,6 +46,7 @@ pbuild::pre_configure() {
   pbuild::add_configure_args "--enable-cma"
   pbuild::add_configure_args "--enable-mt"
   pbuild::add_configure_args "--with-verbs"
+  pbuild::add_configure_args "--without-go"
 
   if [[ -n "${CUDA_VERSION}" ]]; then
     pbuild::add_configure_args "--with-cuda=${CUDA_HOME}"

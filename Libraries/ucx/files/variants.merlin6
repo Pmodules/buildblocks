@@ -15,6 +15,8 @@ ucx/1.13.1_slurm          stable     b:cuda/11.5.1 b:doxygen/1.9.2 b:knem/1.1.4 
 ucx/1.13.1-3_slurm        unstable   b:cuda/11.1.0 b:doxygen/1.9.2 b:knem/1.1.4 b:GDRCopy/2.2.0
 
 ucx/1.14.0-5_slurm        unstable   b:cuda/11.5.1 b:doxygen/1.9.2 b:knem/1.1.4 b:GDRCopy/2.2.0
+ucx/1.14.0_slurm          removed    b:cuda/12.1.1 b:doxygen/1.9.2 b:knem/1.1.4 b:GDRCopy/2.3.0
+ucx/1.14.1_slurm          unstable   b:cuda/12.1.1 b:doxygen/1.9.2 b:knem/1.1.4 b:GDRCopy/2.3.0 
 
 ucx/1.9.0_dgx             deprecated cuda/11.1.0 b:doxygen/1.8.14 b:knem/1.1.4
 ucx/1.10.0-1_dgx          deprecated cuda/11.2.2 b:doxygen/1.8.14 b:knem/1.1.4 b:GDRCopy/2.2.0
