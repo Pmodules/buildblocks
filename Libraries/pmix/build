@@ -7,7 +7,7 @@ pbuild::add_to_group 'Libraries'
 
 (( version = (${V_MAJOR} * 100 + ${V_MINOR}) * 100 + V_PATCHLVL ))
 if (( V_MAJOR > 1 )); then
-  pbuild::install_docfiles AUTHORS README LICENSE NEWS VERSION
+  pbuild::install_docfiles AUTHORS README.md LICENSE NEWS VERSION
 else 
   pbuild::install_docfiles README LICENSE NEWS VERSION
 fi

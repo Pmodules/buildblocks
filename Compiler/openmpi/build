@@ -24,6 +24,24 @@ pbuild::pre_configure() {
 	pbuild::add_configure_args "--enable-static"
        	pbuild::add_configure_args "--with-hwloc=internal"
 	pbuild::add_configure_args "--with-slurm=yes"
+
+        if [[ -n "${HWLOC_VERSION}" ]]; then
+                unset HWLOC_VERSION
+		pbuild::add_configure_args "--with-hwloc=${HWLOC_PREFIX}"
+        fi
+
+        if [[ -n "${PMIX_VERSION}" ]]; then
+                unset PMIX_VERSION
+		pbuild::add_configure_args "--with-pmix=${PMIX_PREFIX}"
+        fi
+
+        if [[ -n "${INTEL_VERSION}" ]]; then
+                pbuild::add_configure_args "CC=icc"
+                pbuild::add_configure_args "CXX=icpc"
+                pbuild::add_configure_args "FC=ifort"
+                pbuild::add_configure_args "LDFLAGS=-Wc,-static-intel"
+        fi
+
 	if [[ -n "${UCX_VERSION}" ]]; then
 		pbuild::add_configure_args "--with-ucx=${UCX_PREFIX}"
 	fi
