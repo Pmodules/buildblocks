@@ -1,6 +1,6 @@
-pmix/1.2.5   unstable b:libevent/2.1.12
-pmix/2.2.5   unstable b:libevent/2.1.12
-pmix/3.2.3   unstable b:libevent/2.1.12
+pmix/1.2.5   unstable libevent/2.1.12
+pmix/2.2.5   unstable libevent/2.1.12
+pmix/3.2.3   unstable libevent/2.1.12
 pmix/4.1.2   unstable libevent/2.1.12 b:hwloc/2.7.1 
 pmix/4.2.3   unstable libevent/2.1.12 b:hwloc/2.9.1 
-pmix/4.2.4   unstable intel/22.2 libevent/2.1.12 b:hwloc/2.9.1 
+pmix/4.2.4   unstable libevent/2.1.12 b:hwloc/2.9.1 

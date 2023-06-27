@@ -41,9 +41,14 @@ pbuild::pre_configure() {
                 pbuild::add_configure_args "FC=ifort"
                 pbuild::add_configure_args "F90=ifort"
                 pbuild::add_configure_args "F77=ifort"
-                pbuild::add_configure_args "LDFLAGS=-Wc,-static-intel"
-                pbuild::add_configure_args "--without-ofi"
+                pbuild::add_configure_args "LDFLAGS=-Wc,-static-intel,-O0"
+                # pbuild::add_configure_args "--without-ofi"
+                pbuild::add_configure_args "--enable-debug"
         fi
+
+	if [[ -n "${LIBEVENT_VERSION}" ]]; then
+                pbuild::add_configure_args "--with-libevent=${LIBEVENT_PREFIX}"
+        fi 
 
 	if [[ -n "${UCX_VERSION}" ]]; then
 		pbuild::add_configure_args "--with-ucx=${UCX_PREFIX}"
