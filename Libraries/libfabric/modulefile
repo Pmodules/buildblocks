@@ -1,0 +1,53 @@
+#%Module1.0
+
+module-whatis		"Open Fabrics Interfaces (OFI)"
+module-url		"https://ofiwg.github.io/libfabric/"
+module-license		"Open source, see https://github.com/ofiwg/libfabric/blob/main/COPYING"
+module-maintainer	"Marc Caubet Serrabou <marc.caubet@psi.ch>"
+
+module-help		"
+The Open Fabrics Interfaces (OFI) is a framework focused on exporting 
+fabric communication services to applications.
+
+Libfabric, also known as Open Fabrics Interfaces (OFI), defines a 
+communication API for high-performance parallel and distributed 
+applications. It is a low-level communication library that abstracts 
+diverse networking technologies. Libfabric is developed by the OFI 
+Working Group (OFIWG, pronounced “o-fee-wig”), a subgroup of the 
+OpenFabrics Alliance - OFA. 
+
+Participation in the OFIWG is open to anyone, and not restricted to 
+members of OFA.
+
+The goal of libfabric is to define interfaces that enable a tight 
+semantic map between applications and underlying fabric services. 
+Specifically, libfabric software interfaces have been co-designed with 
+fabric hardware providers and application developers, with a focus on 
+the needs of HPC users. Libfabric supports multiple communication 
+semantics, is fabric and hardware implementation agnostic, and leverages
+and expands the existing RDMA open source community.
+
+Libfabric is designed to minimize the impedance mismatch between 
+applications, including middleware such as MPI, SHMEM, data storage, and
+PGAS, and fabric communication hardware. Its interfaces target 
+high-bandwidth, low-latency NICs, with a goal to scale to tens of 
+thousands of nodes.
+
+Libfabric targets support for the Linux, Free BSD, Windows, and OS X. 
+A reasonable effort is made to support all major, modern Linux 
+distributions; however, validation is limited to the most recent 2-3 
+releases of Red Hat Enterprise Linux (RHEL) and SUSE Linux Enterprise 
+Server (SLES). Support for a particular operating system version or 
+distribution is vendor specific. The exceptions are the tcp and udp 
+based socket providers are available on all platforms.
+"
+
+unsetenv	 LIBFABRIC_LIBRARY_DIR /opt/psi/Libraries/libfabric/1.18.0/lib 
+
+remove-path	 LIBRARY_PATH $PREFIX/lib 
+remove-path	 LD_LIBRARY_PATH $PREFIX/lib 
+setenv	         LIBFABRIC_LIBRARY_DIR $PREFIX/lib64
+
+# prepend-path	 LIBRARY_PATH $PREFIX/lib64 
+# prepend-path	 LD_LIBRARY_PATH $PREFIX/lib64 
+# prepend-path     LIBFABRIC_LIBRARY_DIR $PREFIX/lib64
