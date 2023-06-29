@@ -40,8 +40,8 @@ openmpi/4.1.1-1_slurm   unstable   gcc/10.2.0 cuda/11.3.0 b:ucx/1.10.0_slurm
 openmpi/4.1.3_slurm     stable     gcc/{9.3.0,10.3.0,11.2.0} cuda/11.5.1 b:ucx/1.12.1_slurm
 openmpi/4.1.4_slurm     stable	   gcc/10.4.0 cuda/11.5.1 b:ucx/1.12.1_slurm
 
-openmpi/4.1.5_slurm     unstable   gcc/10.4.0 cuda/12.1.1 b:ucx/1.14.1_slurm
-openmpi/4.1.5_slurm     unstable   intelcc/22.2 b:cuda/12.1.1 b:pmix/4.2.4 b:ucx/1.14.1_slurm b:libfabric/1.18.0 b:hwloc/2.9.1 b:patchelf/0.14.5
+openmpi/4.1.5_slurm     unstable   gcc/{10.4.0,11.4.0} b:cuda/12.1.1 b:pmix/4.2.4 b:ucx/1.14.1_slurm b:libfabric/1.18.0 b:hwloc/2.9.1 b:patchelf/0.14.5
+openmpi/4.1.5_slurm     unstable   intelcc/22.2        b:cuda/12.1.1 b:pmix/4.2.4 b:ucx/1.14.1_slurm b:libfabric/1.18.0 b:hwloc/2.9.1 b:patchelf/0.14.5
 
 openmpi/4.0.5-1_dgx     deprecated gcc/{8.4.0,9.3.0,10.2.0} cuda/11.2.2 b:ucx/1.10.0-1_dgx
 openmpi/4.1.0-1_dgx     deprecated gcc/10.2.0 cuda/11.2.2 b:ucx/1.10.0-1_dgx
