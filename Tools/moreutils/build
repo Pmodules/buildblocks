@@ -1,0 +1,31 @@
+#!/usr/bin/env modbuild
+
+pbuild::set_download_url \
+        "$P-${V_PKG}.tar.bz2"
+#pbuild::install_docfiles \
+#	COPYING \
+#	COPYING.LIB \
+#	COPYING3 \
+#	COPYING3.LIB \
+#	ChangeLog \
+#	MAINTAINERS \
+#	README \
+#	README-maintainer-mode
+
+pbuild::add_to_group 'Tools'
+pbuild::compile_in_sourcetree
+
+pbuild::configure(){ :; }
+pbuild::compile(){
+	make DOCBOOKXSL=/usr/share/sgml/docbook/xsl-stylesheets/
+}
+
+pbuild::install(){
+	make PREFIX="${PREFIX}" install
+}
+
+# Local Variables:
+# mode: sh
+# sh-basic-offset: 8
+# tab-width: 8
+# End:
