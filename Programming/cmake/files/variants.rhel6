@@ -11,3 +11,4 @@ cmake/3.14.0         stable b:gcc/7.3.0
 cmake/3.15.5         stable b:gcc/7.3.0 b:patchelf/0.8.1
 cmake/3.19.2         stable b:gcc/8.4.0 b:patchelf/0.8.1
 cmake/3.20.5         stable b:gcc/8.4.0 b:patchelf/0.8.1
+cmake/3.25.2         stable b:gcc/8.4.0 b:patchelf/0.8.1
