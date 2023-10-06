@@ -32,6 +32,8 @@ prepend-path    PATH    $PREFIX/$version/polyflow/bin
 prepend-path    PATH    $PREFIX/$version/RSM/bin
 prepend-path    PATH    $PREFIX/$version/SystemCoupling/bin
 prepend-path    PATH    $PREFIX/$version/TurboGrid/bin
+# 20.09.2023 add lumerical bin
+prepend-path    PATH    $PREFIX/$version/lumerical/$version/bin
 # 07.04.2020
 prepend-path    PATH    $PREFIX/$version/Electronics/Linux64
 prepend-path    PATH    $PREFIX/$version/Framework/bin/Linux64
