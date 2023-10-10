@@ -22,5 +22,6 @@ The module provides (plain) Python plus the following Python modules:
     nose
     h5py
     pandas
+    ansible
 "
 
