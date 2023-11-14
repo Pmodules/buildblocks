@@ -1,24 +1,29 @@
 #!/usr/bin/env modbuild
 
-pbuild::set_download_url \
-	"https://github.com/llvm/llvm-project/releases/download/llvmorg-${V_PKG}/llvm-project-${V_PKG}.src.tar.xz"
-
 pbuild::add_to_group 'Programming'
+
+pbuild::set_download_url \
+    "https://github.com/llvm/llvm-project/releases/download/llvmorg-${V_PKG}/llvm-project-${V_PKG}.src.tar.xz"
+
 #pbuild::install_docfiles 'AUTHORS' 'LICENSE' 'NEWS' 'README'
 
-
 pbuild::configure() {
-	cmake \
-		-DCMAKE_INSTALL_PREFIX="${PREFIX}" \
-		-DCMAKE_BUILD_TYPE=Release \
-		-DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra;libunwind;lldb;lld;openmp" \
-		-DGCC_INSTALL_PREFIX="${GCC_DIR}" \
-		-G "Unix Makefiles" \
-		"${SRC_DIR}/llvm" \
-		|| exit 1
+    # To expose the correct GCC libstd++ to build system, we need to both set
+    # the correct CC/CXX *and* force the build linker to use the pmodule GCC
+    # library.
+    GCC_CXXLIBDIR="${GCC_DIR}/lib64"
+    CC="${GCC_DIR}/bin/gcc"
+    CXX="${GCC_DIR}/bin/g++"
+    cmake \
+        -DCMAKE_INSTALL_PREFIX="${PREFIX}" \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_CXX_LINK_FLAGS="-Wl,-R,${GCC_CXXLIBDIR} -L${GCC_CXXLIBDIR}" \
+        -DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra;lldb;lld;openmp" \
+        -DLLVM_ENABLE_RUNTIMES="libunwind" \
+        "${CONFIGURE_ARGS[@]}" \
+        -G "Unix Makefiles" \
+        "${SRC_DIR}/llvm" \
+    || exit 1
 }
 
-pbuild::post_install() {
-	# :FIXME: copy libstdc++ and libgcc from used gcc to $PREFIX/lib64
-	:
-}
+# vim: ts=4 sw=4 et 

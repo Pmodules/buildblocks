@@ -1,1 +1,2 @@
 dynamo/1.1.514	unstable	b:psi-python36/5.0.1 gcc/9.3.0 openmpi/4.0.4_slurm cuda/11.1.0 matlab/2019a
+dynamo/1.1.538	unstable	b:psi-python36/5.0.1 gcc/11.2.0 cuda/11.5.1 openmpi/4.1.4_slurm matlab/2023a

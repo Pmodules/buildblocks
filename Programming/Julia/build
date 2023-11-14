@@ -1,0 +1,17 @@
+#!/usr/bin/env modbuild
+
+pbuild::set_download_url "https://julialang-s3.julialang.org/bin/linux/x64/${V_MAJOR}.${V_MINOR}/julia-${V_PKG}-linux-x86_64.tar.gz"
+
+pbuild::add_to_group 'Programming'
+pbuild::install_docfiles 'LICENSE.md' 
+
+pbuild::compile_in_sourcetree
+
+pbuild::compile() {
+  :
+}
+
+pbuild::install() {
+  rsync -av . "${PREFIX}"
+}
+

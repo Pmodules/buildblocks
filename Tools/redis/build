@@ -1,0 +1,31 @@
+#!/usr/bin/env modbuild
+
+pbuild::add_to_group 'Tools'
+
+pbuild::set_download_url \
+	"https://github.com/redis/redis/archive/${V_PKG}.tar.gz"
+
+pbuild::compile_in_sourcetree
+pbuild::install_docfiles \
+	00-RELEASENOTES \
+	BUGS \
+	CODE_OF_CONDUCT.md \
+	CONTRIBUTING.md \
+	COPYING \
+	INSTALL \
+	MANIFESTO \
+	README.md \
+	SECURITY.md \
+	TLS.md
+
+pbuild::configure() { :; }
+
+pbuild::install() {
+	make PREFIX="${PREFIX}" install
+}
+
+# Local Variables:
+# mode: sh
+# sh-basic-offset: 8
+# tab-width: 8
+# End:

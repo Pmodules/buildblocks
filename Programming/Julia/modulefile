@@ -1,0 +1,12 @@
+#%Module1.0
+
+module-whatis		"Julia"
+module-url		"https://julialang.org/"
+module-license		"https://github.com/JuliaLang/julia/blob/master/LICENSE.md"
+module-maintainer       "Marc Caubet Serrabou <marc.caubet@psi.ch>"
+module-help	"
+Julia is a high-level, high-performance dynamic language for technical
+computing. 
+"
+
+module-addgroup	Programming

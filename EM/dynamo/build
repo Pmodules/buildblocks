@@ -51,6 +51,8 @@ pbuild::prep() {
     download_dynamo "$DYNAMO_ID" "$TAR_FILE"
     mkdir -p "$PREFIX"
     unpack "$TAR_FILE" "$PREFIX/bin"
+
+    cp -n "$BUILDBLOCK_DIR/dynamo_activate_MCR.sh" "$PREFIX/bin/"
 }
 
 pbuild::configure() {

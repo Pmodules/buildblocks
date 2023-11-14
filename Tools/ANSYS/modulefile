@@ -32,6 +32,8 @@ prepend-path    PATH    $PREFIX/$version/polyflow/bin
 prepend-path    PATH    $PREFIX/$version/RSM/bin
 prepend-path    PATH    $PREFIX/$version/SystemCoupling/bin
 prepend-path    PATH    $PREFIX/$version/TurboGrid/bin
+# 20.09.2023 add lumerical bin
+prepend-path    PATH    $PREFIX/$version/lumerical/$version/bin
 # 07.04.2020
 prepend-path    PATH    $PREFIX/$version/Electronics/Linux64
 prepend-path    PATH    $PREFIX/$version/Framework/bin/Linux64
@@ -49,6 +51,9 @@ prepend-path    LD_LIBRARY_PATH  $PREFIX/$version/CFX/tools/icemcfd-$year.$relea
 prepend-path    LD_LIBRARY_PATH  $PREFIX/$version/CFX/tools/qwt-6.1.2/linx64/lib
 prepend-path    LD_LIBRARY_PATH  $PREFIX/$version/CFX/tools/qwtpolar-1.1.1/linx64/lib
 prepend-path    LD_LIBRARY_PATH  $PREFIX/$version/CFX/tools/xerces-3.2.2/linx64/lib
+
+# Lumerical
+prepend-path    LD_LIBRARY_PATH  $PREFIX/$version/lumerical/$version/lib/
 
 # RSM
 prepend-path    PATH    $PREFIX/$version/RSM/Config/tools/linux

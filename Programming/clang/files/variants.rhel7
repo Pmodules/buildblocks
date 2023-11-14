@@ -1,1 +1,2 @@
 clang/12.0.0_rhel7	stable	b:cmake/3.15.5 b:gcc/9.3.0 b:Python/3.8.4 b:xz/5.2.4 b:binutils/2.29
+clang/15.0.6_rhel7	unstable	b:cmake/3.23.2 b:gcc/12.1.0 b:Python/3.9.10 b:xz/5.2.4 b:binutils/2.37
