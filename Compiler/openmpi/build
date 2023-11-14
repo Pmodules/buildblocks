@@ -21,35 +21,35 @@ pbuild::pre_configure() {
 	pbuild::add_configure_args "--enable-static"
 	pbuild::add_configure_args "--with-slurm=yes"
 
-	if [[ -n "${CUDA_VERSION}" ]]; then	
+	if [[ -v CUDA_VERSION ]]; then	
 		pbuild::add_configure_args "--with-cuda=${CUDA_HOME}"
 	fi
 
-        if [[ -n "${HWLOC_VERSION}" ]]; then
+        if [[ -v HWLOC_VERSION ]]; then
                 unset HWLOC_VERSION
 		pbuild::add_configure_args "--with-hwloc=${HWLOC_PREFIX}"
         else
        		pbuild::add_configure_args "--with-hwloc=internal"
         fi
 
-	if [[ -n "${LIBEVENT_VERSION}" ]]; then
+	if [[ -v LIBEVENT_VERSION ]]; then
                 pbuild::add_configure_args "--with-libevent=${LIBEVENT_PREFIX}"
         fi 
 
-        if [[ -n "${PMIX_VERSION}" ]]; then
+        if [[ -v PMIX_VERSION ]]; then
                 unset PMIX_VERSION
 		pbuild::add_configure_args "--with-pmix=${PMIX_PREFIX}"
         fi
 
-	if [[ -n "${LIBFABRIC_VERSION}" ]]; then
+	if [[ -v LIBFABRIC_VERSION ]]; then
                 pbuild::add_configure_args "--with-ofi=${LIBFABRIC_PREFIX}"
         fi 
 
-	if [[ -n "${UCX_VERSION}" ]]; then
+	if [[ -v UCX_VERSION ]]; then
 		pbuild::add_configure_args "--with-ucx=${UCX_PREFIX}"
 	fi
 
-        if [[ -n "${INTEL_VERSION}" ]]; then
+        if [[ -v INTEL_VERSION ]]; then
                 pbuild::add_configure_args "CC=icc"
                 pbuild::add_configure_args "CXX=icpc"
                 pbuild::add_configure_args "FC=ifort"
@@ -95,7 +95,7 @@ pbuild::post_install() {
 	  pbuild::install_shared_libs "${binary}" "${PREFIX}/lib/fallback" '/libpmi2.so'
 	fi
 
-	if [[ -n "${CUDA_VERSION}" ]]; then
+	if [[ -v CUDA_VERSION ]]; then
 	  echo "opal_warn_on_missing_libcuda = 0" >> ${PREFIX}/etc/openmpi-mca-params.conf
 	fi
 
