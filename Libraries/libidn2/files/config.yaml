@@ -1,0 +1,26 @@
+format: 1
+libidn2:
+  defaults:
+    group: Libraries
+    relstage: stable
+    docfiles:
+      - ABOUT-NLS
+      - AUTHORS
+      - CONTRIBUTING.md
+      - COPYING
+      - COPYING.LESSERv3
+      - COPYING.unicode
+      - COPYINGv2
+      - ChangeLog
+      - INSTALL
+      - NEWS
+      - README
+      - README.md
+    urls:
+      - url: https://ftp.gnu.org/gnu/libidn/libidn2-${V_PKG}.tar.gz
+  shasums:
+    libidn2-2.3.4.tar.gz: 93caba72b4e051d1f8d4f5a076ab63c99b77faee019b72b9783b267986dbb45f
+  versions:
+    2.3.4:
+      config:
+        relstage: unstable

@@ -14,3 +14,4 @@ boost/1.73.0	stable		gcc/{7.5.0,8.4.0,9.3.0,10.1.0} openmpi/3.1.6 b:zlib/1.2.11
 
 boost/1.76.0	stable		gcc/{7.5.0,8.4.0,9.3.0,10.3.0} openmpi/4.0.5 b:zlib/1.2.11
 boost/1.79.0	stable			gcc/10.4.0 openmpi/4.1.4 b:zlib/1.2.13
+boost/1.82.0	unstable		gcc/10.4.0 openmpi/4.1.5 b:zlib/1.2.13

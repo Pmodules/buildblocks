@@ -1,0 +1,13 @@
+#%Module1.0
+
+module-whatis		"PNG reference library"
+module-url		"http://www.libpng.org/pub/png/libpng.html"
+module-license		"Open source"
+module-maintainer	"Achim Gsell <achim.gsell@psi.ch>"
+
+module-help		"
+libpng is the official PNG reference library. It supports almost all
+PNG features, is extensible, and has been extensively tested for over
+23 years. 
+"
+

@@ -12,6 +12,8 @@ pbuild::set_sha256sum 'Python-3.7.4.tgz:d63e63e14e6d29e17490abbe6f7d17afb3db182d
 
 pbuild::add_to_group 'Programming'
 
+pbuild::compile_in_sourcetree
+
 pbuild::pre_configure() {
 	local -a cflags=()
 	local -a ldflags=()
@@ -26,7 +28,7 @@ pbuild::pre_configure() {
 		ldflags+=("-L${OPENSSL_LIBRARY_DIR}")
 	else
 		pbuild::add_configure_args "--with-openssl=${OPENSSL_DIR}"
-		pbuild::add_configure_args "--enable-optimizations"
+		#pbuild::add_configure_args "--enable-optimizations"
 	fi
 	pbuild::add_configure_args "CFLAGS=${cflags[*]}"
 	pbuild::add_configure_args "LDFLAGS=${ldflags[*]}"
@@ -39,12 +41,16 @@ pbuild::pre_configure_Linux() {
 }
 
 pbuild::post_install_Linux() {
-	install "${OPENSSL_LIBRARY_DIR}"/libcrypto.so.* "${PREFIX}/lib"
-	install "${OPENSSL_LIBRARY_DIR}"/libssl.so.*	"${PREFIX}/lib"
-	install "${TCLTK_LIBRARY_DIR}"/libtcl*.so	"${PREFIX}/lib"
-	install "${TCLTK_LIBRARY_DIR}"/libtk*.so	"${PREFIX}/lib"
-	install "${XZ_LIBRARY_DIR}"/liblzma.so.*	"${PREFIX}/lib"
-	install /usr/lib64/libffi.so.*			"${PREFIX}/lib"
+	if version_le 3.9.10; then
+		install "${OPENSSL_LIBRARY_DIR}"/libcrypto.so.* "${PREFIX}/lib"
+		install "${OPENSSL_LIBRARY_DIR}"/libssl.so.*	"${PREFIX}/lib"
+		install "${TCLTK_LIBRARY_DIR}"/libtcl*.so	"${PREFIX}/lib"
+		install "${TCLTK_LIBRARY_DIR}"/libtk*.so	"${PREFIX}/lib"
+		install "${XZ_LIBRARY_DIR}"/liblzma.so.*	"${PREFIX}/lib"
+		install /usr/lib64/libffi.so.*			"${PREFIX}/lib"
+	else
+		:
+	fi
 }
 
 pbuild::post_install() {
@@ -88,6 +94,9 @@ pbuild::post_install() {
 
 	std::info "Building virtualenv\n"
 	pip${V_MAJOR} install virtualenv
+
+	std::info "Building virtualenv\n"
+	pip${V_MAJOR} install ansible ansible-core==2.15.4
 }
 
 

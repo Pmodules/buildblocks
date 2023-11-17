@@ -52,3 +52,5 @@ openmpi/4.0.5   stable		gcc/{7.5.0,8.4.0,9.3.0,10.2.0} ucx/1.8.1
 openmpi/4.0.5   stable		gcc/10.3.0
 
 openmpi/4.1.4   stable		gcc/10.4.0
+
+openmpi/4.1.5	unstable	gcc/{9.5.0,10.4.0,11.4.0,12.3.0}

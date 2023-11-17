@@ -1,33 +1,33 @@
-overlay: base 
-relstage: stable
-group: Tools
-shasums:
-  gnuplot/5.4.4: 372300b7867f5b3538b25fc5d0ac7734af6e3fe0d202b6db926e4369913f0902
-  gnuplot/5.4.3: 51f89bbab90f96d3543f95235368d188eb1e26eda296912256abcd3535bd4d84
-  gnuplot/5.4.2: e57c75e1318133951d32a83bcdc4aff17fed28722c4e71f2305cfc2ae1cae7ba
-  gnuplot/5.4.1: 6b690485567eaeb938c26936e5e0681cf70c856d273cc2c45fabf64d8bc6590e
-  gnuplot/5.4.0: eb4082f03a399fd1e9e2b380cf7a4f785e77023d8dcc7e17570c1b5570a49c47
-  gnuplot/5.2.8: 60a6764ccf404a1668c140f11cc1f699290ab70daa1151bb58fed6139a28ac37
-  gnuplot/5.2.7: 97fe503ff3b2e356fe2ae32203fc7fd2cf9cef1f46b60fe46dc501a228b9f4ed
-  gnuplot/5.2.6: 35dd8f013139e31b3028fac280ee12d4b1346d9bb5c501586d1b5a04ae7a94ee
-  gnuplot/5.2.4: 1515f000bd373aaa53b16183f274189d4f5e0ae47d22f434857933d16a4770cb
-  gnuplot/5.0.0: 417d4bc5bc914a60409bb75cf18dd14f48b07f53c6ad3c4a4d3cd9a8d7370faf
-  gnuplot/4.6.3: df5ffafa25fb32b3ecc0206a520f6bca8680e6dcc961efd30df34c0a1b7ea7f5
-
-gnuplot/5.4.5:
-    systems: rhel7 rhel6
-gnuplot/5.4.4:
-    systems: rhel7 rhel6
-gnuplot/5.4.3:
-gnuplot/5.4.2:       
-gnuplot/5.4.1:       
-gnuplot/5.4.0:       
-gnuplot/5.2.8:       
-gnuplot/5.2.7:       
-gnuplot/5.2.6:
-gnuplot/5.2.4:       
-gnuplot/5.2.0:       
-gnuplot/5.0.0:        
-gnuplot/4.6.3:
+format: 1
+gnuplot:
+  defaults:
+    group: Tools
+    overlay: base 
+    relstage: stable
+    systems: [rhel8, rhel7, rhel6]
+    docfiles: [Copyright, NEWS, README]
+    urls:
+      - url: https://sourceforge.net/projects/gnuplot/files/$P/$V/$P-${V_PKG}.tar.gz 
+  shasums:
+    gnuplot-5.4.10.tar.gz: 975d8c1cc2c41c7cedc4e323aff035d977feb9a97f0296dd2a8a66d197a5b27c
+    gnuplot-5.4.9.tar.gz: a328a021f53dc05459be6066020e9a71e8eab6255d3381e22696120d465c6a97
+    gnuplot-5.4.8.tar.gz: 931279c7caad1aff7d46cb4766f1ff41c26d9be9daf0bcf0c79deeee3d91f5cf
+    gnuplot-5.4.5.tar.gz: 66f679115dd30559e110498fc94d926949d4d370b4999a042e724b8e910ee478
+    gnuplot-5.4.4.tar.gz: 372300b7867f5b3538b25fc5d0ac7734af6e3fe0d202b6db926e4369913f0902
+    gnuplot-5.4.3.tar.gz: 51f89bbab90f96d3543f95235368d188eb1e26eda296912256abcd3535bd4d84
+    gnuplot-5.4.2.tar.gz: e57c75e1318133951d32a83bcdc4aff17fed28722c4e71f2305cfc2ae1cae7ba
+    gnuplot-5.4.1.tar.gz: 6b690485567eaeb938c26936e5e0681cf70c856d273cc2c45fabf64d8bc6590e
+    gnuplot-5.4.0.tar.gz: eb4082f03a399fd1e9e2b380cf7a4f785e77023d8dcc7e17570c1b5570a49c47
+    gnuplot-5.2.8.tar.gz: 60a6764ccf404a1668c140f11cc1f699290ab70daa1151bb58fed6139a28ac37
+    gnuplot-5.2.7.tar.gz: 97fe503ff3b2e356fe2ae32203fc7fd2cf9cef1f46b60fe46dc501a228b9f4ed
+    gnuplot-5.2.6.tar.gz: 35dd8f013139e31b3028fac280ee12d4b1346d9bb5c501586d1b5a04ae7a94ee
+    gnuplot-5.2.4.tar.gz: 1515f000bd373aaa53b16183f274189d4f5e0ae47d22f434857933d16a4770cb
+    gnuplot-5.0.0.tar.gz: 417d4bc5bc914a60409bb75cf18dd14f48b07f53c6ad3c4a4d3cd9a8d7370faf
+    gnuplot-4.6.3.tar.gz: df5ffafa25fb32b3ecc0206a520f6bca8680e6dcc961efd30df34c0a1b7ea7f5
+  versions:
+    5.4.{0,1,2,3,4,5,8,9};5.2.{0,4,6,7,8};5.0.0;4.6.3:
+    5.4.10:
+      config:
+        relstage: unstable
 
 

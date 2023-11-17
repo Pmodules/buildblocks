@@ -1,0 +1,20 @@
+format: 1
+libfabric:
+  defaults:
+    group: Libraries
+    relstage: stable
+    compile_in_sourcetree: yes
+    docfiles:
+      - AUTHORS
+      - README
+      - COPYING
+      - NEWS.md
+    urls:
+      - url: https://github.com/ofiwg/libfabric/releases/download/v$V/$P-$V.tar.bz2
+  shasums:
+    libfabric-1.13.0.tar.bz2: 0c68264ae18de5c31857724c754023351614330bd61a50b40cef2b5e8f63ab28
+    libfabric-1.18.0.tar.bz2: 912fb7c7b3cf2a91140520962b004a1c5d2f39184adbbd98ae5919b0178afd43
+  versions:
+    1.18.0:
+      config:
+        build_requires: [gcc/10.4.0]

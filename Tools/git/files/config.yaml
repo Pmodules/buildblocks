@@ -1,36 +1,38 @@
-overlay: base
-relstage: stable
-group: Tools
-shasums:
-  git/2.37.0: fc3ffe6c65c1f7c681a1ce6bb91703866e432c762731d4b57c566d696f6d62c3
-  git/2.33.1: 02047f8dc8934d57ff5e02aadd8a2fe8e0bcf94a7158da375e48086cc46fce1d
-  git/2.30.0: d24c4fa2a658318c2e66e25ab67cc30038a35696d2d39e6b12ceccf024de1e5e
-  git/2.22.0: a4b7e4365bee43caa12a38d646d2c93743d755d1cea5eab448ffb40906c9da0b
-  git/2.21.0: 85eca51c7404da75e353eba587f87fea9481ba41e162206a6f70ad8118147bee
-  git/2.8.1: e6626b43ba4bc63ad4918df4c275f50bd7f8af2ab54bde60496ad75e91e927fc
-  git/2.3.3: c189e4a48d8805482f450db666330c79bcefae37e0d035c7717517126ddf4305
-
-git/2.37.2:
- - dependencies: TclTk/8.6.9
-   build_requires: go/1.19 perl/5.30.0 asciidoc/8.6.9-1 xmlto/0.0.28 gettext/0.19.8
-   overlay: devel
-   relstage: unstable
-git/2.37.0:
- - dependencies: TclTk/8.6.9
-   build_requires: perl/5.30.0 asciidoc/8.6.9-1 xmlto/0.0.28 gettext/0.19.8
-git/2.33.1:
- - dependencies: TclTk/8.6.9
-   build_requires: perl/5.30.0 asciidoc/8.6.9-1 xmlto/0.0.28 gettext/0.19.8
-git/2.30.0:
- - dependencies: TclTk/8.6.9
-   build_requires: perl/5.30.0 asciidoc/8.6.9-1 xmlto/0.0.28 gettext/0.19.8
-git/2.22.0:
- - dependencies: TclTk/8.6.9
-   build_requires: perl/5.30.0 asciidoc/8.6.9-1 xmlto/0.0.28 gettext/0.19.8
-git/2.21.0:
- - dependencies: TclTk/8.6.9
-   build_requires: perl/5.30.0 asciidoc/8.6.9-1 xmlto/0.0.28 gettext/0.19.8
-git/2.8.1:
- - dependencies: Tcl/8.6.4 Tk/8.6.4
-git/2.3.3:
- - dependencies: Tcl/8.6.4 Tk/8.6.4
+---
+# yamllint disable rule:line-length
+format: 1
+git:
+  defaults:
+    group: Tools
+    overlay: base
+    relstage: stable
+    systems: [rhel6, rhel7, rhel8]
+    compile_in_sourcetree: true
+    urls:
+      - url: https://mirrors.edge.kernel.org/pub/software/scm/git/git-${V_PKG}.tar.xz
+  shasums:
+    git-2.39.1.tar.gz: ae8d3427e4ccd677abc931f16183c0ec953e3bfcd866493601351e04a2b97398
+    git-2.37.2.tar.gz: 4c428908e3a2dca4174df6ef49acc995a4fdb1b45205a2c79794487a33bc06e5
+    git-2.37.0.tar.gz: fc3ffe6c65c1f7c681a1ce6bb91703866e432c762731d4b57c566d696f6d62c3
+    git-2.33.1.tar.gz: 02047f8dc8934d57ff5e02aadd8a2fe8e0bcf94a7158da375e48086cc46fce1d
+    git-2.30.0.tar.xz: 4c428908e3a2dca4174df6ef49acc995a4fdb1b45205a2c79794487a33bc06e5
+    git-2.22.0.tar.gz: a4b7e4365bee43caa12a38d646d2c93743d755d1cea5eab448ffb40906c9da0b
+    git-2.21.0.tar.gz: 85eca51c7404da75e353eba587f87fea9481ba41e162206a6f70ad8118147bee
+    git-2.8.1.tar.xz: e6626b43ba4bc63ad4918df4c275f50bd7f8af2ab54bde60496ad75e91e927fc
+    git-2.3.3.tar.gz: c189e4a48d8805482f450db666330c79bcefae37e0d035c7717517126ddf4305
+  versions:
+    2.42.0:
+      config:
+        runtime_deps: [TclTk/8.6.9]
+        build_requires: [gcc/10.4.0, perl/5.30.0, asciidoc/8.6.9-1, xmlto/0.0.28, gettext/0.19.8]
+        relstage: unstable
+        overlay: devel
+        systems: [rhel7, rhel8, rhel9]
+        docfiles: [COPYING, README.md]
+    2.39.1;2.37.2;2.37.0;2.33.1;2.30.0;2.22.0;2.21.0:
+      config:
+        runtime_deps: [TclTk/8.6.9]
+        build_requires: [gcc/10.4., perl/5.30.0, asciidoc/8.6.9-1, xmlto/0.0.28, gettext/0.19.8]
+    2.3.3;2.8.1:
+      config:
+        runtime_deps: [Tcl/8.6.9, Tk/8.6.9]

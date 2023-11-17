@@ -26,6 +26,9 @@ pbuild::configure() {
 	:
 }
 
+pbuild::install() {
+	make -e PREFIX="${PREFIX}" install
+}
 # Local Variables:
 # mode: sh
 # sh-basic-offset: 8

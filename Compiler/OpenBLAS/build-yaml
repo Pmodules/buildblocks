@@ -1,0 +1,9 @@
+#!/usr/bin/env modbuild
+
+pbuild::install_docfiles 'LICENSE' 'README.md'
+
+pbuild::pre_configure() {
+        pbuild::add_configure_args "-DCMAKE_BUILD_TYPE=Release"
+        pbuild::add_configure_args "-DDYNAMIC_ARCH=ON"
+}
+

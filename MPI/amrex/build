@@ -10,7 +10,7 @@ pbuild::install_docfiles 'license.txt'
 pbuild::install_docfiles 'README.txt'
 
 pbuild::pre_prep() {
-	echo "OPENMPI_VERSION=${OPENMPI_VEERSION}" 1>&2
+	echo "OPENMPI_VERSION=${OPENMPI_VERSION}" 1>&2
 	if pbuild::version_gt "${OPENMPI_VERSION}" '4.0.0'; then
 		pbuild::add_patch "files/AMReX_ParallelDescriptor.patch"
 	fi

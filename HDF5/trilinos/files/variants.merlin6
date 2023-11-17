@@ -1,2 +1,6 @@
-trilinos/12.18.1_slurm	stable	gcc/{7.5.0,8.4.0,9.3.0} openmpi/3.1.6_slurm  hdf5/1.10.6_slurm b:cmake/3.15.5 b:OpenBLAS/0.3.10 b:parmetis/4.0.3_slurm
-trilinos/13.0.1_slurm	stable	gcc/10.4.0 openmpi/4.1.4_slurm  hdf5/1.10.8_slurm b:cmake/3.20.5 b:OpenBLAS/0.3.21 b:parmetis/4.0.3_slurm
+trilinos/12.18.1_slurm	stable		gcc/{7.5.0,8.4.0,9.3.0} openmpi/3.1.6_slurm  hdf5/1.10.6_slurm b:cmake/3.15.5 b:OpenBLAS/0.3.10 b:parmetis/4.0.3_slurm
+trilinos/13.0.1_slurm	stable		gcc/10.3.0 openmpi/4.0.5-1_slurm  hdf5/1.10.7_slurm b:cmake/3.20.5 b:OpenBLAS/0.3.15 b:parmetis/4.0.3_slurm
+trilinos/13.0.1_slurm	stable		gcc/10.4.0 openmpi/4.1.4_slurm  hdf5/1.10.8_slurm b:cmake/3.20.5 b:OpenBLAS/0.3.21 b:parmetis/4.0.3_slurm
+trilinos/13.4.0_slurm	unstable	gcc/10.3.0 openmpi/4.0.5-1_slurm  hdf5/1.10.7_slurm b:cmake/3.20.5 b:OpenBLAS/0.3.15 b:parmetis/4.0.3_slurm
+trilinos/13.4.0_slurm	unstable	gcc/{9.5.0,10.4.0,11.4.0,12.3.0,13.1.0} openmpi/4.1.5_slurm  hdf5/1.10.8_slurm b:cmake/3.20.5 b:OpenBLAS/0.3.23 b:parmetis/4.0.3_slurm
+

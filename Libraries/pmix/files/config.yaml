@@ -1,0 +1,48 @@
+format: 1
+pmix:
+  defaults:
+    group: Libraries
+    relstage: stable
+    compile_in_sourcetree: yes
+    docfiles:
+      - AUTHORS
+      - README.md
+      - LICENSE
+      - NEWS
+      - VERSION
+    urls:
+      - url: "https://github.com/openpmix/openpmix/releases/download/v${V_PKG}/$P-${V_PKG}.tar.gz"
+  shasums:
+    pmix-1.2.5.tar.gz: d7337601c5b985743e6b6f79ec1a34dfc2aefbb2d04d40b2c0d5bd7100d268ed
+    pmix-2.2.5.tar.gz: db24480fa5be080e1ddcb273098992b69f8f21e4cd6b8df1682e836b303a2a6f
+    pmix-3.2.3.tar.gz: 1325a1355d0794196bb47665053fdbc588f9183aa5385f3581b668427316306e
+    pmix-4.1.2.tar.gz: a7a6d5b322c261999ce0a6395c0ac7dc359c0ff61380ed4c6935430fb9f5f6e6
+    pmix-4.2.3.tar.gz: fd45e18e483e42089d4059df9753d9be3cfb68297a05981b1d937e09f7716d5a
+    pmix-4.2.4.tar.gz: f1fe5fe817ac447ce8d3d88486a1c0d22227efd186e11062aa1f7b0f093089c6
+  versions:
+    1.2.5:
+      config:
+        relstage: removed
+        docfiles:
+          - README
+          - LICENSE
+          - NEWS
+          - VERSION
+    2.2.5;3.2.3:
+      config:
+        relstage: unstable
+    4.1.2:
+      config:
+        relstage: unstable
+        runtime_deps: [libevent/2.1.12]
+        build_requires: [hwloc/2.7.1]
+    4.2.3:
+      config:
+        relstage: unstable
+        runtime_deps: [libevent/2.1.12]
+        build_requires: [hwloc/2.9.1]
+    4.2.4:
+      config:
+        relstage: stable
+        runtime_deps: [libevent/2.1.12]
+        build_requires: [gcc/10.4.0, hwloc/2.9.1]

@@ -1,0 +1,16 @@
+format: 1
+emacs:
+  defaults:
+    group: Tools
+    relstage: stable
+    docfiles:
+    urls:
+      - url: https://ftp.gnu.org/gnu/emacs/$P-${V_PKG}.tar.xz
+  shasums:
+    emacs-29.1.tar.xz: d2f881a5cc231e2f5a03e86f4584b0438f83edd7598a09d24a21bd8d003e2e01
+  versions:
+    29.1:
+      config:
+        relstage: unstable
+        runtime_deps: [gnutls/3.5.19]
+        build_requires: [libidn2/2.3.4, libungif/4.1.4, tiff/4.0.9, nettle/3.4]

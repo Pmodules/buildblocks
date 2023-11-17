@@ -1,0 +1,6 @@
+#!/usr/bin/env modbuild
+
+# use system gcc to compile
+declare -rx CC=gcc
+
+pbuild::add_configure_args "--disable-shared"

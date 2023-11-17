@@ -1,0 +1,34 @@
+#!/usr/bin/env modbuild
+
+CC=''
+CXX=''
+eval $(modulecmd bash use System)
+
+pbuild::pre_configure() {
+	case ${OS} in
+	Darwin )
+		pbuild::add_configure_args '--with-ns' '--with-jpeg=no'
+		;;
+	Linux )
+		# with 24.5 configure complains about missing libjpeg even it
+		# is installed!
+		pbuild::add_configure_args '--with-jpeg=no'
+		;;
+	*)
+		;;
+	esac
+	install -m 0755 -d "${PREFIX}"
+}
+
+pbuild::post_install() {
+	mkdir -p "${PREFIX}/bin"
+	install -m 0755 "${BUILDBLOCK_DIR}/Emacs" "${PREFIX}/bin"
+	install -m 0755 "${BUILDBLOCK_DIR}/Emacsclient" "${PREFIX}/bin"
+	#cp -a "${GNUTLS_LIBRARY_DIR}"/libgnutls.so.* "${PREFIX}/lib"
+	#cp -a "${NETTLE_LIBRARY_DIR}"/libnettle.so.* "${PREFIX}/lib"
+}
+
+pbuild::post_install_Darwin() {
+	cp -a "${BUILD_DIR}/nextstep/Emacs.app" "${PREFIX}"
+}
+

@@ -1,18 +1,21 @@
 #%Module1.0
 
-module-whatis		"Toolkit for the TLS and SSL protocol"
-module-url		"https://openssl.org/"
-module-license		"Apache style"
+module-whatis		"secure communications library implementing the SSL, TLS and DTLS protocols"
+module-url		"https://www.gnutls.org"
+module-license		"GNU Lesser General Public License version 2.1"
 module-maintainer	"Achim Gsell <achim.gsell@psi.ch>"
 
 module-help	"
-OpenSSL is an open source project that provides a robust, commercial-grade,
-and full-featured toolkit for the Transport Layer Security (TLS) and Secure
-Sockets Layer (SSL) protocols. It is also a general-purpose cryptography
-library. For more information about the team and community around the
-project, or to start making your own contributions, start with the community
-page. To get the latest news, download the source, and so on, please see the
-sidebar or the buttons at the top of every page.
+GnuTLS is a secure communications library implementing the SSL, TLS and
+DTLS protocols and technologies around them. It provides a simple C
+language application programming interface (API) to access the secure
+communications protocols as well as APIs to parse and write X.509,
+PKCS #12, and other required structures.
+
+The project strives to provide a secure communications back-end, simple
+to use and integrated with the rest of the base Linux libraries. A back-
+end designed to work and be secure out of the box, keeping the complexity
+of TLS and PKI out of application code.
 "
 
-append-path	PKG_CONFIG_PATH	$PREFIX/lib/pkgconfig
+#append-path	PKG_CONFIG_PATH	$PREFIX/lib/pkgconfig

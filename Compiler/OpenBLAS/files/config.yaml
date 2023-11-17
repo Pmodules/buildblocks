@@ -1,0 +1,100 @@
+---
+# yamllint disable rule:line-length
+format: 1
+OpenBLAS:
+  defaults:
+    group: Compiler
+    overlay: base
+    relstage: stable
+    systems: [rhel6, rhel7, rhel8]
+    urls:
+      - url: http://github.com/xianyi/$P/archive/v${V_PKG}.tar.gz
+        name: OpenBLAS-${V_PKG}.tar.gz
+
+  shasums:
+    OpenBLAS-0.2.9.tar.gz: e899c70b8771896655765f5c64c00c990f8dd0fe569e96788d8c971a23ecb22a
+    OpenBLAS-0.2.19.tar.gz: 9c40b5e4970f27c5f6911cb0a28aa26b6c83f17418b69f8e5a116bb983ca8557
+    OpenBLAS-0.2.20.tar.gz: 5ef38b15d9c652985774869efd548b8e3e972e1e99475c673b25537ed7bcf394
+    OpenBLAS-0.3.7.tar.gz: bde136122cef3dd6efe2de1c6f65c10955bbb0cc01a520c2342f5287c28f9379
+    OpenBLAS-0.3.9.tar.gz: 17d4677264dfbc4433e97076220adc79b050e4f8a083ea3f853a53af253bc380
+    OpenBLAS-0.3.10.tar.gz: 0484d275f87e9b8641ff2eecaa9df2830cbe276ac79ad80494822721de6e1693
+    OpenBLAS-0.3.13.tar.gz: 79197543b17cc314b7e43f7a33148c308b0807cd6381ee77f77e15acf3e6459e
+    OpenBLAS-0.3.15.tar.gz: 30a99dec977594b387a17f49904523e6bc8dd88bd247266e83485803759e4bbe
+    OpenBLAS-0.3.20.tar.gz: 8495c9affc536253648e942908e88e097f2ec7753ede55aca52e5dead3029e3c
+    OpenBLAS-0.3.21.tar.gz: f36ba3d7a60e7c8bcc54cd9aaa9b1223dd42eaf02c811791c37e8ca707c241ca
+    OpenBLAS-0.3.23.tar.gz: 5d9491d07168a5d00116cdc068a40022c3455bf9293c7cb86a65b1054d7e5114
+    OpenBLAS-0.3.24.tar.gz: ceadc5065da97bd92404cac7254da66cc6eb192679cf1002098688978d4d5132
+
+  versions:
+    0.3.24:
+      config:
+        group_deps:
+          compiler:
+            gcc: [12.3.0, 13.1.0]
+        build_requires: [cmake/3.23.2]
+        relstage: unstable
+        overlay: devel
+    0.3.23:
+      variants:
+        - group_deps:
+            compiler:
+              gcc: [7.5.0, 8.5.0, 9.5.0, 10.4.0, 11.4.0, 12.3.0, 13.1.0]
+          build_requires: [cmake/3.23.2]
+    0.3.21:
+      variants:
+        - group_deps:
+            compiler:
+              gcc: [7.5.0, 8.5.0, 9.5.0, 10.4.0, 11.3.0, 12.1.0]
+          build_requires: [cmake/3.23.2]
+    0.3.20:
+      variants:
+        - group_deps:
+            compiler:
+              gcc: [7.5.0, 8.5.0, 9.5.0, 10.3.0, 11.3.0, 12.1.0]
+    0.3.15:
+      variants:
+        - group_deps:
+            compiler:
+              gcc: [7.5.0, 8.4.0, 9.3.0, 10.3.0]
+    0.3.13:
+      variants:
+        - group_deps:
+            compiler:
+              gcc: [7.5.0, 8.4.0, 9.3.0, 10.2.0, 10.3.0]
+    0.3.10;0.3.9:
+      variants:
+        - group_deps:
+            compiler:
+              gcc: [7.5.0, 8.4.0, 9.3.0, 10.1.0]
+    0.3.9:
+      variants:
+        - group_deps:
+            compiler:
+              gcc: [7.5.0, 8.4.0, 9.3.0, 10.1.0]
+    0.3.7:
+      variants:
+        - group_deps:
+            compiler:
+              gcc: [7.4.0, 8.3.0, 9.2.0]
+    0.2.20:
+      variants:
+        - group_deps:
+            compiler:
+              gcc: [5.5.0, 6.4.0, 7.3.0]
+        - group_deps:
+            compiler:
+              intel: [17.4]
+          relstage: deprecated
+    0.2.19:
+      variants:
+        - group_deps:
+            gcc: [4.8.5, 4.9.4, 5.3.0, 5.4.0, 6.2.0, 6.3.0]
+    0.2.9:
+      variants:
+        - group_deps:
+            compiler:
+              gcc: [4.7.4, 4.8.2, 4.8.3, 4.8.4, 4.8.5, 4.9.2, 6.1.0, 6.2.0]
+        - group_deps:
+            compiler:
+              intel: [15.3]
+          relstage: deprecated

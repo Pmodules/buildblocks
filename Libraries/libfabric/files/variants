@@ -1,1 +1,1 @@
-libfabric/1.18.0    unstable  b:gcc/10.4.0
+libfabric/1.18.0    stable  b:gcc/10.4.0

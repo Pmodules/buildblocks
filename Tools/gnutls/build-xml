@@ -1,0 +1,8 @@
+#!/usr/bin/env modbuild
+
+#module use 'Libraries'
+
+pbuild::add_configure_args "--with-included-unistring"
+pbuild::add_configure_args "--with-included-libtasn1"
+pbuild::add_configure_args "--without-p11-kit"
+

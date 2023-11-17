@@ -1,0 +1,56 @@
+#!/usr/bin/env modbuild
+
+pbuild::install_docfiles ACKNOWLEDGMENTS
+pbuild::install_docfiles COPYING
+pbuild::install_docfiles MANIFEST
+pbuild::install_docfiles README*
+
+pbuild::pre_configure() {
+	pbuild::add_configure_args "CC=${MPICC}"
+	pbuild::add_configure_args "CXX=${MPICXX}"
+
+	pbuild::add_configure_args "--enable-shared"
+	pbuild::add_configure_args "--enable-parallel"
+	pbuild::add_configure_args "--enable-cxx"
+	pbuild::add_configure_args "--enable-unsupported"
+	#pbuild::add_configure_args "--enable-threadsafe"
+	pbuild::add_configure_args "--with-pic"
+
+	local enable_fortran='yes'
+
+	case "${COMPILER}" in
+		clang-macos )
+			enable_fortran='no'
+			# we do not have Fortran in Xcode
+			;;
+		pgi )
+			# PGI uses GCC's include files, some object files and
+			# the STL implementation!
+			# The PGI C pre-processor is broken and doesn't work 
+			# for HDF5. We use the pre-processor of the underlying
+			# GCC...
+			# This is a bit hackish!
+			#
+			# The following eval sets GCCDIR! Which is something 
+			# like:
+			# /opt/psi/Programming/gcc/7.3.0/bin/../lib/gcc/x86_64-pc-linux-gnu/7.3.0
+			#
+			eval $(pgcc -show 2>/dev/null | \
+				awk '/^GCCDIR[[:space:]]*=/{gsub(/[[:space:]]/,""); print $0}')
+			pbuild::add_configure_args "CPP=${GCCDIR%%/..*}/cpp"
+			pbuild::add_configure_args "CFLAGS=-fPIC"
+			pbuild::add_configure_args "CXXFLAGS=-fPIC"
+			pbuild::add_configure_args "FCFLAGS=-fPIC"
+			;;
+	esac
+
+	if [[ "${enable_fortran}" == 'yes' ]]; then
+		pbuild::add_configure_args "F77=${MPIF77}"
+		pbuild::add_configure_args "F90=${MPIF90}"
+		pbuild::add_configure_args "FC=${MPIFC}"
+		pbuild::add_configure_args "FORTRAN=${MPIFORTRAN}"
+		pbuild::add_configure_args "--enable-fortran"
+	fi
+
+}
+

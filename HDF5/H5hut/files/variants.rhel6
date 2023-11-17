@@ -23,3 +23,4 @@ H5hut/2.0.0rc6	deprecated	gcc/{7.5.0,8.4.0,9.3.0,10.1.0} openmpi/3.1.6  hdf5/1.1
 H5hut/2.0.0rc6	stable		gcc/10.3.0 openmpi/4.0.5  hdf5/1.10.7 b:automake/1.16.1 b:autoconf/2.69 b:libtool/2.4.6-1 b:Python/2.7.12 b:parmetis/4.0.3
 
 H5hut/2.0.0rc6	stable		gcc/10.4.0 openmpi/4.1.4  hdf5/1.10.8 b:automake/1.16.1 b:autoconf/2.69 b:libtool/2.4.6-1 b:Python/2.7.17
+H5hut/2.0.0rc6	unstable		gcc/10.4.0 openmpi/4.1.5  hdf5/1.10.8 b:automake/1.16.1 b:autoconf/2.69 b:libtool/2.4.6-1 b:Python/2.7.17

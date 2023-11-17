@@ -1,0 +1,29 @@
+#!/usr/bin/env modbuild
+
+pbuild::pre_configure_Darwin() {
+	export NO_APPLE_COMMON_CRYPTO=1
+}
+
+pbuild::pre_configure() {
+	#pbuild::add_configure_args "LIBS=-lintl"
+	pbuild::add_configure_args "--with-tcltk"
+	pbuild::add_configure_args "--with-iconv=${GETTEXT_PREFIX}"
+	pbuild::add_configure_args "--with-perl=${PERL_PREFIX}/bin/perl"
+	:
+}
+
+pbuild::post_compile() {
+	make -C contrib/subtree prefix="${PREFIX}"
+}
+
+pbuild::post_install() {
+        make install-doc V=1 XMLTO_EXTRA='--skip-validation'
+	make -C contrib/subtree prefix="${PREFIX}" install
+	make -C contrib/subtree prefix="${PREFIX}" install-doc XMLTO="xmlto --skip-validation"
+}
+
+# Local Variables:
+# mode: sh
+# sh-basic-offset: 8
+# tab-width: 8
+# End:

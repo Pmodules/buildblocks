@@ -1,0 +1,204 @@
+---
+# yamllint disable rule:line-length
+format: 1
+hdf5_serial:
+  defaults:
+    group: Compiler
+    overlay: base
+    relstage: stable
+    systems: [rhel7, rhel8, rhel9]
+    urls:
+      - url: https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-${V_MAJOR}.${V_MINOR}/hdf5-$V/src/hdf5-$V.tar.bz2
+  shasums:
+    hdf5-1.8.10-patch1.tar.bz2: 292afb3615ad9e68f4d5d18ebb11e4a73f2aece39f2da3875a457ff1e109fc41
+    hdf5-1.8.12.tar.bz2: 10a369a4fc207bb09245f57c758e587420e06dfc0e445e337a58b0848b75a949
+    hdf5-1.8.13.tar.bz2: c2f5a412107aba6f99fd7a4a9db6ce5f5fc8171ec931472784e5839d26aa17ef
+    hdf5-1.8.14.tar.bz2: 53722cb9f5977af2908f92fc1a3f8c597800a5cb448cfe5c75060d6335bb9bab
+    hdf5-1.8.15-patch1.tar.bz2: a5afc630c4443547fff15e9637b5b10404adbed4c00206d89517d32d6668fb32
+    hdf5-1.8.15.1.tar.bz2: 289307fd70cef6715e0a28371635c8038153a4f25069319e34b0bc675a23e8ed
+    hdf5-1.8.16.tar.bz2: 13aaae5ba10b70749ee1718816a4b4bfead897c2fcb72c24176e759aec4598c6
+    hdf5-1.8.17.tar.bz2: fc35dd8fd8d398de6b525b27cc111c21fc79795ad6db1b1f12cb15ed1ee8486a
+    hdf5-1.8.18.tar.bz2: 01c6deadf4211f86922400da82c7a8b5b50dc8fc1ce0b5912de3066af316a48c
+    hdf5-1.8.19.tar.bz2: 59c03816105d57990329537ad1049ba22c2b8afe1890085f0c022b75f1727238
+    hdf5-1.8.20.tar.bz2: a4f2db7e0a078aa324f64e0216a80731731f73025367fa94d158c9b1d3fbdf6f
+    hdf5-1.8.21.tar.bz2: e5b1b1dee44a64b795a91c3321ab7196d9e0871fe50d42969761794e3899f40d
+    hdf5-1.10.0.tar.bz2: 31ff70dc7c7317066ab3bda3eec4498a8b099c69c1271b008ed3df388e743d28
+    hdf5-1.10.1.tar.bz2: 9c5ce1e33d2463fb1a42dd04daacbc22104e57676e2204e3d66b1ef54b88ebf2
+    hdf5-1.10.2.tar.bz2: 1cad5b7bfdf128dfc53cd16fba48f6e7ae4e93c75c371d9ec8dfc4df0c1fcb71
+    hdf5-1.10.3.tar.bz2: c65cdcce4724a57fd3f8da9f0d109b497be30092acb9fac634d1291190d905a9
+    hdf5-1.10.4.tar.bz2: 1267ff06aaedc04ca25f7c6026687ea2884b837043431195f153401d942b28df
+    hdf5-1.10.5.tar.bz2: 68d6ea8843d2a106ec6a7828564c1689c7a85714a35d8efafa2fee20ca366f44
+    hdf5-1.10.6.tar.bz2: 09d6301901685201bb272a73e21c98f2bf7e044765107200b01089104a47c3bd
+    hdf5-1.10.6_slurm.tar.bz2: d5a89e26beae0bc03ad18a0b0d1d3d75f87c32047879d25da11970cb5c4662a3
+    hdf5-1.10.7.tar.bz2: 02018fac7e5efc496d9539a303cfb41924a5dadffab05df9812096e273efa55e
+    hdf5-1.10.8.tar.bz2: 66ec544b195a4cb9f6ffed034fd82e52429d6112747c2996ab69853f606e546b
+    hdf5-1.10.11.tar.bz2: 0afc77da5c46217709475bbefbca91c0cb6f1ea628ccd8c36196cf6c5a4de304
+    hdf5-1.12.0.tar.bz2: 97906268640a6e9ce0cde703d5a71c9ac3092eded729591279bf2e3ca9765f61
+    hdf5-1.12.2.tar.bz2: 3016ea56a175d2ca7f2568c8016420f7a2aad8f95e214fe7fa5485f4b80fbe51
+    hdf5-1.13.1.tar.bz2: e16973ec893e2d5aa9c8dc73e196db9b99a605578e7317b421c713936f8bf57d
+
+  versions:
+    1.8.12:
+      config:
+        group_deps:
+          compiler:
+            gcc: [4.7.4, 4.8.3, 4.8.4, 4.9.2]
+            intel: [15.2]
+        relstage: deprecated
+
+    1.8.13:
+      config:
+        group_deps:
+          compiler:
+            gcc: [4.7.4]
+        relstage: deprecated
+
+    1.8.14:
+      config:
+        group_deps:
+          compiler:
+            gcc: [4.7.4, 4.8.5, 4.9.3]
+            intel: [15.2]
+        relstage: deprecated
+
+    1.8.15-patch1:
+      config:
+        group_deps:
+          compiler:
+            gcc: [5.2.0]
+        relstage: deprecated
+
+    1.8.16:
+      config:
+        group_deps:
+          compiler:
+            gcc: [4.7.4, 5.3.0, 6.1.0]
+            intel: [15.3, 16.2]
+        relstage: deprecated
+
+    1.8.17:
+      config:
+        group_deps:
+          compiler:
+            gcc: [4.7.4, 4.9.4, 5.4.0, 6.2.0]
+            intel: [16.3]
+        relstage: deprecated
+
+    1.8.18:
+      config:
+        group_deps:
+          compiler:
+            gcc: [4.8.5, 5.5.0, 6.3.0, 6.4.0, 7.2.0, 7.3.0]
+        relstage: deprecated
+
+    1.8.19:
+      config:
+        group_deps:
+          compiler:
+            gcc: [4.8.5]
+        relstage: deprecated
+
+    1.8.20:
+      config:
+        group_deps:
+          compiler:
+            gcc: [4.8.5, 8.2.0]
+            intel: [18.4]
+        relstage: deprecated
+
+    1.8.21:
+      config:
+        group_deps:
+          compiler:
+            gcc: [5.5.0, 6.5.0, 7.4.0, 8.3.0]
+            pgi: [18.5]
+        relstage: deprecated
+
+    1.10.0:
+      config:
+        group_deps:
+          compiler:
+            gcc: [6.1.0]
+            intel: [16.3]
+        relstage: deprecated
+
+    1.10.1:
+      config:
+        group_deps:
+          compiler:
+            gcc: [4.8.5, 4.9.4, 5.4.0, 5.5.0, 6.3.0, 6.4.0, 7.1.0, 7.2.0, 7.3.0]
+            intel: [17.1, 17.4]
+            pgi: [17.3, 17.7]
+      relstage: deprecated
+
+    1.10.2:
+      config:
+        group_deps:
+          compiler:
+            gcc: [5.5.0]
+            intel: [18.2, 18.3]
+        relstage: deprecated
+
+    1.10.3:
+      config:
+        group_deps:
+          compiler:
+            gcc: [4.8.5]
+        relstage: deprecated
+
+    1.10.4:
+      config:
+        group_deps:
+          compiler:
+            gcc: [7.3.0]
+        relstage: deprecated
+
+    1.10.5:
+      config:
+        group_deps:
+          compiler:
+            gcc: [5.5.0]
+            intel: [19.3]
+        relstage: deprecated
+
+    1.10.6:
+      config:
+        group_deps:
+          compiler:
+            gcc: [7.5.0, 8.4.0, 9.3.0, 10.2.0]
+        relstage: stable
+
+    1.10.7:
+      config:
+        group_deps:
+          compiler:
+            gcc: [10.2.0, 10.3.0, 11.2.0]
+        relstage: stable
+
+    1.10.8:
+      config:
+        group_deps:
+          compiler:
+            gcc: [6.5.0, 7.5.0, 8.5.0, 9.5.0, 10.3.0, 11.3.0, 12.1.0]
+        relstage: stable
+
+    1.10.11:
+      config:
+        group_deps:
+          compiler:
+            gcc: [10.4.0]
+        relstage: unstable
+
+    1.12.0:
+      config:
+        group_deps:
+          compiler:
+            gcc: [10.2.0]
+        relstage: stable
+
+    1.12.2:
+      config:
+        group_deps:
+          compiler:
+            gcc: [6.5.0, 7.5.0, 8.5.0, 9.5.0, 10.3.0, 11.3.0, 12.1.0]
+        relstage: stable

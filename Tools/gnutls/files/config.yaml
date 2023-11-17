@@ -1,0 +1,17 @@
+format: 1
+gnutls:
+  defaults:
+    group: Tools
+    relstage: stable
+    docfiles:
+    urls:
+      - url: https://www.gnupg.org/ftp/gcrypt/gnutls/v3.7/gnutls-${V_PKG}.tar.xz
+  shasums:
+    gnutls-3.5.19.tar.xz: 1936eb64f03aaefd6eb16cef0567457777618573826b94d03376bb6a4afadc44
+  versions:
+    3.5.19:
+    3.7.10:
+      config:
+        relstage: unstable
+        build_requires: [nettle/3.9.1, gmp/6.1.2-1]
+   

@@ -2,4 +2,5 @@ parmetis/4.0.3_slurm	stable	gcc/{7.5.0,8.4.0,9.3.0} openmpi/3.1.6_slurm b:cmake/
 
 parmetis/4.0.3_slurm	stable	gcc/10.3.0 openmpi/4.0.5-1_slurm b:cmake/3.20.5
 parmetis/4.0.3_slurm	stable	gcc/10.4.0 openmpi/4.1.4_slurm b:cmake/3.20.5
+parmetis/4.0.3_slurm	unstable	gcc/{9.5.0,10.4.0,11.4.0,12.3.0,13.1.0} openmpi/4.1.5_slurm b:cmake/3.20.5
 

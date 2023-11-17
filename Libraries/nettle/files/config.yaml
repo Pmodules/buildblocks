@@ -1,0 +1,16 @@
+format: 1
+nettle:
+  defaults:
+    group: Libraries
+    relstage: stable
+    docfiles: []
+    urls:
+      - url: https://ftp.gnu.org/gnu/nettle/nettle-${V_PKG}.tar.gz
+  shasums:
+    nettle-3.9.1.tar.gz: ccfeff981b0ca71bbd6fbcb054f407c60ffb644389a5be80d6716d5b550c6ce3
+  versions:
+    3.9.1:
+      config:
+        relstage: unstable
+        build_requires: [gmp/6.1.2-1]
+   

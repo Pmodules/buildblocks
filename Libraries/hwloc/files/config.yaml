@@ -1,0 +1,20 @@
+format: 1
+hwloc:
+  defaults:
+    group: Libraries
+    relstage: stable
+    docfiles: [README, AUTHORS, NEWS, COPYING, VERSION]
+    urls:
+      - url: https://download.open-mpi.org/release/${P}/v${V_MAJOR}.${V_MINOR}/${P}-${V}.tar.gz
+  shasums:
+    hwloc-2.7.1.tar.gz: 4cb0a781ed980b03ad8c48beb57407aa67c4b908e45722954b9730379bc7f6d5
+    hwloc-2.9.1.tar.gz: a440e2299f7451dc10a57ddbfa3f116c2a6c4be1bb97c663edd3b9c7b3b3b4cf
+  versions:
+    2.7.1:
+      config:
+        relstage: stable
+        build_requires: cuda/11.5.1
+    2.9.1:
+      config:
+        relstage: stable
+        build_requires: cuda/12.1.1

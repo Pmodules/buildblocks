@@ -13,3 +13,5 @@ Python/3.8.4  deprecated
 Python/3.8.8  deprecated
 Python/3.8.12 stable    
 Python/3.9.10 stable    
+Python/3.9.17 unstable   b:openssl/1.1.1v b:TclTk/8.6.9 b:xz/5.2.4 
+Python/3.9.18 unstable   b:openssl/1.1.1w b:TclTk/8.6.9 b:xz/5.2.4 
