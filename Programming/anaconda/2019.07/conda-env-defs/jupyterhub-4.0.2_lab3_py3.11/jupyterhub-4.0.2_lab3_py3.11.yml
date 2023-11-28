@@ -1,0 +1,20 @@
+name: jupyterhub-4.0.2_lab3_py3.11
+channels:
+  - conda-forge
+dependencies:
+  - jupyterhub=4.0.2
+  - jupyterlab=3.6.3
+  - nb_conda
+  - nb_conda_kernels
+  - jupyter_contrib_nbextensions
+  - ipywidgets=7.6.3
+  - pip
+  - jupytext
+  - python=3.11.6
+  - jupyterlab-git
+  - git
+  - psycopg2
+  - jupyter_server<2.11
+#  - sqlalchemy=1.4.39
+  - pip:
+    - git+https://github.com/jupyterhub/batchspawner.git@e89bf6a
