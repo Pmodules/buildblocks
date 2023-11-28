@@ -1,0 +1,28 @@
+Standard Ra environment based on python 3.11. It includes:
+  - pandas
+  - numpy
+  - scipy
+  - scikit-learn
+  - matplotlib
+  - seaborn
+  - tensorflow
+  - pytables
+  - ipython
+  - keras
+  - ipywidgets
+  - plotly
+  - python-graphviz
+  - statsmodels
+  - scikit-image
+  - numba
+  - hdf5
+  - h5py
+  - dask
+  - dask-jobqueue
+  - ipympl   # needed for jupyterlab interactive plotting
+  - toml
+  - tabulate
+  - click
+  - conda-forge::jupyter-resource-usage
+  - conda-forge::julia
+
