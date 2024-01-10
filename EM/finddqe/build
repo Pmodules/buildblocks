@@ -1,0 +1,28 @@
+#!/usr/bin/env modbuild
+
+# Binary distribution with manual installation. See README.md
+
+pbuild::add_to_group 'EM'
+
+pbuild::set_download_url "https://grigoriefflab.umassmed.edu/system/tdf?path=FindDQE_150706.tar.gz&file=1&type=node&id=4220" "$P-$V_PKG.tar.gz"
+
+pbuild::configure() {
+    cp "$BUILDBLOCK_DIR/files/Makefile" "$SRC_DIR/src"
+}
+
+pbuild::compile() {
+    cd "$SRC_DIR/src"
+    make 
+}
+
+pbuild::install() {
+    mkdir -p "$PREFIX/bin"
+    cp "$SRC_DIR/bin/finddqe.exe" "$PREFIX/bin/finddqe"
+}
+
+
+
+
+
+
+

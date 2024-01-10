@@ -1,0 +1,3 @@
+Installation information: 
+The Makefile_linux_amd64_gnu that is given with the tar file is not sufficient for installation. Requires two small changes, adding of two flags to the Makefile. This is done with the pbuild::configure step , where the corrected Makefile is copied into the src folder. 
+Also, installation was done from/on the Merlin-Login Node.  

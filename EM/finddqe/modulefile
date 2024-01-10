@@ -1,0 +1,9 @@
+#%Module1.0
+
+module-whatis           "FindDQE determines the detective quantum efficiency (DQE) of a detector."
+module-url              "https://grigoriefflab.umassmed.edu/finddqe"
+module-license          "The Janelia Research Campus Software License 1.2 http://license.janelia.org/license/janelia_license_1_2.html"
+module-maintainer       "Greta Assmann <greta.assmann@psi.ch>"
+
+module-help     "Ruskin RS  Yu Z  Grigorieff N  2013  Quantitative characterization of electron detectors for transmission electron microscopy  J Struct Biol  184  385-393 "
+
