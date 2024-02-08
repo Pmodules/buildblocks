@@ -3,7 +3,7 @@
 module-whatis	        "AlphaFold"
 module-url		"https://github.com/deepmind/alphafold/"
 module-license	        "Code: Apache 2.0 License. Parameters: Noncommercial CC-BY-NC 4.0"
-module-maintainer	"Spencer Bliven <spencer.bliven@psi.ch"
+module-maintainer	"Greta Assmann  <greta.assmann@psi.ch"
 
 module-help	"The AlphaFold 2 protein structure prediction method by Google DeepMind.
 
@@ -11,5 +11,5 @@ Jumper, J., Evans, R., Pritzel, A. et al. Highly accurate protein structure pred
 "
 
 setenv ALPHAFOLD_HOME "$PREFIX/alphafold"
-setenv ALPHAFOLD_ENV "alphafold"
+setenv ALPHAFOLD_ENV "alphafold_${V_PKG}"
 

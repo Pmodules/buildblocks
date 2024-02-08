@@ -4,12 +4,28 @@ Alphafold contains two parts:
 1. A conda environment containing dependencies
 2. The alphafold module itself, containing the current code and submission scripts.
 
+## DataBase Data
+
+All the download scripts work from merlin, the only one not working is the pdb-mmcif script. as it is using rsync. 
+The port provided by alphafold is closed by PSI and the US mirror does not work nicely. Alternative that works: 
+rsync -rlpt -v -z --info=progress2 --delete rsync.ebi.ac.uk::pub/databases/pdb/data/structures/divided/mmCIF/ $DIR
+
+Tip: Make sure to use tmux sessions for the downloads. 
+
 ## Conda Environment
 
 Alphafold was installed based on Dima's instructions on ra
 (`/das/work/common/opt/alphafold/2021-07/INSTALL`).
+NEW: Alphafold installed based on Spencers instructions and original git repo. 
 
-On pmod6 as an admin user:
+REMARK: As openAFS has some hardlink/softlink issues with conda env installations, the conda env generation needs to be properly discussed. Current state: 
+Install a conda env in the pmodule with the generall conda installation (module anaconada( but with alwayscopy=true to avoid conflicts and problems,which kind of makes the idea of a central anaconda installation redundant...) 
+
+On pmod7 as an admin user, this is neccessary to generate the conda env on a system with openAFS, otherwise (e.g. on the login node, )
+
+
+The conda env should be isntalled from the environment.yml file, which has combinations of conda-forge, bioconda and pip installations, unfortuantely no environment .yml file provided by alphafold deepmind so far. 
+
 
 ```
 conda create --name alphafold python==3.8
