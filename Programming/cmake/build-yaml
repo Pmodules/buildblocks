@@ -1,8 +1,5 @@
 #!/usr/bin/env modbuild
 
-pbuild::set_download_url "https://cmake.org/files/v${V_MAJOR}.${V_MINOR}/$P-$V.tar.gz"
-pbuild::add_to_group 'Programming'
-
 declare bootstrap_flags=''
 
 pbuild::pre_configure() {

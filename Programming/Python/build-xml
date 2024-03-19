@@ -1,0 +1,88 @@
+#!/usr/bin/env modbuild
+
+pbuild::pre_configure() {
+	local -a cflags=()
+	local -a ldflags=()
+
+	cflags+=("-fPIC")
+	cflags+=("-I${XZ_INCLUDE_DIR}")
+
+	ldflags+=("-L${XZ_LIBRARY_DIR}")
+
+	if (( V_MAJOR == 2 || (V_MAJOR == 3 && V_MINOR <= 6) )); then
+		cflags+=("-I${OPENSSL_INCLUDE_DIR}" "-I${OPENSSL_INCLUDE_DIR}/openssl")
+		ldflags+=("-L${OPENSSL_LIBRARY_DIR}")
+	else
+		pbuild::add_configure_args "--with-openssl=${OPENSSL_DIR}"
+		#pbuild::add_configure_args "--enable-optimizations"
+	fi
+	pbuild::add_configure_args "CFLAGS=${cflags[*]}"
+	pbuild::add_configure_args "LDFLAGS=${ldflags[*]}"
+	pbuild::add_configure_args "--enable-shared"
+}
+
+pbuild::pre_configure_Linux() {
+	pbuild::add_configure_args "--with-tcltk-includes=-I${TCLTK_INCLUDE_DIR}" 
+	pbuild::add_configure_args "--with-tcltk-libs=-L${TCLTK_LIBRARY_DIR} -ltcl8.6 -ltk8.6"
+}
+
+pbuild::post_install_Linux() {
+	if version_le 3.9.10; then
+		install "${OPENSSL_LIBRARY_DIR}"/libcrypto.so.* "${PREFIX}/lib"
+		install "${OPENSSL_LIBRARY_DIR}"/libssl.so.*	"${PREFIX}/lib"
+		install "${TCLTK_LIBRARY_DIR}"/libtcl*.so	"${PREFIX}/lib"
+		install "${TCLTK_LIBRARY_DIR}"/libtk*.so	"${PREFIX}/lib"
+		install "${XZ_LIBRARY_DIR}"/liblzma.so.*	"${PREFIX}/lib"
+		install /usr/lib64/libffi.so.*			"${PREFIX}/lib"
+	else
+		:
+	fi
+}
+
+pbuild::post_install() {
+	export PATH="${PREFIX}/bin:${PATH}"
+	export LD_LIBRARY_PATH="${PREFIX}/lib:${LD_LIBRARY_PATH}"
+	export CFLAGS="-I${OPENSSL_INCLUDE_DIR} -I${OPENSSL_INCLUDE_DIR}/openssl"
+	export CPPFLAGS="-I${OPENSSL_INCLUDE_DIR} -I${OPENSSL_INCLUDE_DIR}/openssl"
+	export LDFLAGS="-L${OPENSSL_LIBRARY_DIR}"
+	ln -fs "${PREFIX}/bin/python${V%%.*}" "${PREFIX}/bin/python"
+	ln -fs "${PREFIX}/include/python${V%.*}m" "${PREFIX}/include/python"
+	ln -fs "${PREFIX}/include/python${V%.*}m" "${PREFIX}/include/python${V%.*}"
+
+	if (( V_MAJOR == 2 || (V_MAJOR == 3 && V_MINOR <= 7) )); then
+		cd "${BUILDBLOCK_DIR}"
+		"${PREFIX}/bin/python" 'get-pip.py'
+	fi
+
+	std::info "Building numpy\n"
+	pip${V_MAJOR} install numpy
+
+	std::info "Building scipy\n"
+	pip${V_MAJOR} install scipy
+
+	std::info "Building matplotlib\n"
+	pip${V_MAJOR} install matplotlib
+
+	std::info "Building ipython\n"
+	pip${V_MAJOR} install ipython
+
+	std::info "Building sympy\n"
+	pip${V_MAJOR} install sympy
+
+	std::info "Building nose\n"
+	pip${V_MAJOR} install nose
+
+	std::info "Building h5py\n"
+	pip${V_MAJOR} install h5py
+
+	std::info "Building pandas\n"
+	pip${V_MAJOR} install pandas
+
+	#std::info "Building virtualenv\n"
+	#pip${V_MAJOR} install virtualenv
+
+	#std::info "Building ansible\n"
+	#pip${V_MAJOR} install ansible ansible-core==2.15.4
+}
+
+

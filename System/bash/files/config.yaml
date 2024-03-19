@@ -1,0 +1,19 @@
+format: 1
+bash:
+  defaults:
+    relstage: stable
+    group: System
+    overlay: base
+    urls:
+      - url: https://ftp.gnu.org/gnu/$P/$P-$V.tar.gz
+
+  shasums:
+    bash-4.3.30.tar.gz: 317881019bbf2262fb814b7dd8e40632d13c3608d2f237800a8828fbb8a640dd
+    bash-5.1.tar.gz: cc012bc860406dcf42f64431bcd3d2fa7560c02915a601aba9cd597a39329baa
+    bash-5.1.16.tar.gz: 5bac17218d3911834520dad13cd1f85ab944e1c09ae1aba55906be1f8192f558
+    bash-5.2.21.tar.gz: c8e31bdc59b69aaffc5b36509905ba3e5cbb12747091d27b4b977f078560d5b8
+  versions:
+    4.3.30;5.1;5.1.16:
+    5.2.21:
+      config:
+        relstage: unstable

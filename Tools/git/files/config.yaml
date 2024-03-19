@@ -21,6 +21,14 @@ git:
     git-2.8.1.tar.xz: e6626b43ba4bc63ad4918df4c275f50bd7f8af2ab54bde60496ad75e91e927fc
     git-2.3.3.tar.gz: c189e4a48d8805482f450db666330c79bcefae37e0d035c7717517126ddf4305
   versions:
+    2.43.1:
+      config:
+        runtime_deps: [TclTk/8.6.9]
+        build_requires: [gcc/10.4.0, perl/5.30.0, asciidoc/8.6.9-1, xmlto/0.0.28, gettext/0.19.8, openssl/1.1.1w]
+        relstage: unstable
+        overlay: devel
+        systems: [rhel7, rhel8, rhel9]
+        docfiles: [COPYING, README.md]
     2.42.0:
       config:
         runtime_deps: [TclTk/8.6.9]

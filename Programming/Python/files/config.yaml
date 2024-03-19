@@ -1,0 +1,58 @@
+format: 1
+Python:
+  defaults:
+    group: Programming
+    overlay: base
+    relstage: stable
+    urls:
+      - url: https://www.python.org/ftp/python/${V_PKG}/$P-${V_PKG}.tgz
+
+  shasums:
+    Python-2.7.12.tgz: 3cb522d17463dfa69a155ab18cffa399b358c966c0363d6c8b5b3bf1384da4b6
+    Python-2.7.14.tgz: 304c9b202ea6fbd0a4a8e0ad3733715fbd4749f2204a9173a58ec53c32ea73e8
+    Python-2.7.16.tgz: 01da813a3600876f03f46db11cc5c408175e99f03af2ba942ef324389a83bad5
+    Python-2.7.17.tgz: f22059d09cdf9625e0a7284d24a13062044f5bf59d93a7f3382190dfa94cecde
+    Python-2.7.18.tgz: da3080e3b488f648a3d7a4560ddee895284c3380b11d6de75edb986526b9a814
+    Python-3.6.11.tgz: 96621902f89746fffc22f39749c07da7c2917b232e72352e6837d41850f7b90c
+    Python-3.6.3.tgz: ab6193af1921b30f587b302fe385268510e80187ca83ca82d2bfe7ab544c6f91
+    Python-3.7.3.tgz: d62e3015f2f89c970ac52343976b406694931742fbde2fed8d1ce8ebb4e1f8ff
+    Python-3.7.4.tgz: d63e63e14e6d29e17490abbe6f7d17afb3db182dbd801229f14e55f4157c4ba3
+    Python-3.7.8.tgz: 0e25835614dc221e3ecea5831b38fa90788b5389b99b675a751414c858789ab0
+    Python-3.8.12.tgz: 316aa33f3b7707d041e73f246efedb297a70898c4b91f127f66dc8d80c596f1a
+    Python-3.8.4.tgz: 32c4d9817ef11793da4d0d95b3191c4db81d2e45544614e8449255ca9ae3cc18
+    Python-3.8.8.tgz: 76c0763f048e4f9b861d24da76b7dd5c7a3ba7ec086f40caedeea359263276f7
+    Python-3.9.10.tgz: 1aa9c0702edbae8f6a2c95f70a49da8420aaa76b7889d3419c186bfc8c0e571e
+    Python-3.9.17.tgz: 8ead58f669f7e19d777c3556b62fae29a81d7f06a7122ff9bc57f7dd82d7e014
+    Python-3.9.18.tgz: 504ce8cfd59addc04c22f590377c6be454ae7406cb1ebf6f5a350149225a9354
+  versions:
+    3.9.18-1:
+      config:
+        relstage: unstable
+        build_requires: [openssl/1.1.1w, TclTk/8.6.9, xz/5.2.4]
+    3.9.18:
+      config:
+        relstage: unstable
+        build_requires: [openssl/1.1.1w, TclTk/8.6.9, xz/5.2.4]
+    3.9.17:
+      config:
+        relstage: unstable
+        build_requires: [openssl/1.1.1v, TclTk/8.6.9, xz/5.2.4]
+    3.9.10:
+    3.8.12:
+    3.8.8;3.8.4:
+      config:
+        relstage: deprecated
+    3.7.8:
+      config:
+        relstage: stable
+    3.7.4;3.7.3:
+      config:
+        relstage: deprecated
+    3.6.3:
+    3.4.3;3.4.0:
+      config:
+        relstage: deprecated
+    2.7.17;2.7.16:
+    2.7.14;2.7.12;2.7.11:
+      config:
+        relstage: deprecated
