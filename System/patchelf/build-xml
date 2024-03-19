@@ -1,0 +1,6 @@
+#!/usr/bin/env modbuild
+
+pbuild::post_prep() {
+	cd "${SRC_DIR}"
+	./bootstrap.sh
+}
