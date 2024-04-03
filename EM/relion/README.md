@@ -11,3 +11,5 @@ and MKL, but this would require additional openmpi variants.
 
 After running ./build, install relion scripts from the repository at
 https://git.psi.ch/lsm-hpce/relion-scripts
+
+From version 5.0-beta on, a conda env is required. conda env is build in the folder $SRC\_DIR/conda\_envs. Also, weights for BLUSH, MODEL-ANGELO and CLASS-RANKER are downloaded in the installation step. 

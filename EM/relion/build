@@ -2,11 +2,23 @@
 
 pbuild::add_to_group 'EM'
 pbuild::use_cmake
+PROFILE="no"
+SP="no"
 
 pbuild::prep() {
+
     local BRANCH
     if [[ "$V" =~ beta$ ]]; then
         BRANCH="ver${V_MAJOR}.${V_MINOR}"
+
+    elif [[ "$V" =~ profile$ ]]; then
+        BRANCH="${V_PKG}"
+        PROFILE="yes"
+
+    elif [[ "$V" =~ sp$ ]]; then
+        BRANCH="ver${V_MAJOR}.${V_MINOR}"
+        SP="yes"
+
     else
         BRANCH="${V_PKG}"
     fi
@@ -15,6 +27,46 @@ pbuild::prep() {
 }
 
 pbuild::pre_configure() {
+
+    # Section will be switched on for -profile version
+    #-----------------------------------------------------------
+    if [[ "$PROFILE" == "yes" ]]; then
+        pbuild::add_configure_args "-DCMAKE_BUILD_TYPE=BENCHMARKING"
+    fi
+    #------------------------------------------------------------
+
+    
+    # Section will be switched on for single-precision  version 
+    # Safe memory usage for multibody refinements
+    #------------------------------------------------------------
+    if [[ "$SP" == "yes" ]]; then
+        pbuild::add_configure_args "-DDoublePrec_CPU=OFF"
+    fi
+    #------------------------------------------------------------
+
+
+
+    # The following section will only work for versions >= 5.0-beta 
+    # -------------------------------------------------------------
+    if [[ "$V_MAJOR" -ge "5" ]]; then
+
+        #download blush weights
+        wget ftp://ftp.mrc-lmb.cam.ac.uk/pub/dari/blush_v1.0.ckpt.gz -P "$PREFIX/torch/hub/checkpoints/relion_blush" \
+        && gunzip "$PREFIX/torch/hub/checkpoints/relion_blush/blush_v1.0.ckpt.gz"
+        mv "$PREFIX/torch/hub/checkpoints/relion_blush/blush_v1.0.ckpt" "$PREFIX/torch/hub/checkpoints/relion_blush/v1.0.ckpt" 
+        touch  "$PREFIX/torch/hub/checkpoints/relion_blush/v1.0_installed.txt"
+
+        #Set Torch Home
+        pbuild::add_configure_args "-DTORCH_HOME_PATH=$PREFIX/torch" 
+
+        #Conda 
+        conda env create -f "$SRC_DIR/environment.yml"  -p "$PREFIX/conda_env/$P_$V" 
+        pbuild::add_configure_args "-DPYTHON_EXE_PATH=$PREFIX/conda_env/$P_$V/bin/python"
+    fi
+
+    #---------------------------------------------------------------
+
+
     # CMake-based build
 
     pbuild::add_configure_args "-DFORCE_OWN_FFTW=ON"
