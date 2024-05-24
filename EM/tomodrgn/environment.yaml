@@ -1,0 +1,18 @@
+channels:
+  - pytorch
+  - conda-forge
+  - defaults
+dependencies:
+  - pytorch-gpu>=1.11.0
+  - cudatoolkit>=11.0
+  - pandas
+  - seaborn
+  - scikit-learn
+  - umap-learn
+  - ipython_genutils
+  - notebook
+  - pip
+  - pip:
+    - ipyvolume>=0.6.0
+    - pythreejs>=2.4.2
+

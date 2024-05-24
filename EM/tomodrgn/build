@@ -1,0 +1,34 @@
+#!/usr/bin/env modbuild
+
+
+pbuild::configure() {
+    #MINICONDA INSTALL
+    mkdir -p  "$PREFIX/miniconda"
+    wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O "$PREFIX/miniconda/miniconda.sh"
+    bash "$PREFIX/miniconda/miniconda.sh" -b -u -p "$PREFIX/miniconda/"
+
+ 
+    #CREATE ENV , make sure to source the "correct" conda.sh
+    "$PREFIX/miniconda/condabin/conda" env create --name "tomodrgn_$V" -f "$BUILDBLOCK_DIR/environment.yaml"
+    source "$PREFIX/miniconda/etc/profile.d/conda.sh"
+    conda activate "tomodrgn_$V"
+
+    #CP SOURCE CODE
+    mkdir "$PREFIX/tomodrgn"
+    cd "$PREFIX/tomodrgn"
+    cp -r "$SRC_DIR"/* .
+    #FIX MATPLOTLIB VERSION issue
+    sed -i 's/cbar.draw_all/cbar._draw_all/' tomodrgn/analysis.py
+    #INSTALL IN ENV
+    pip install . 
+
+}
+
+#DO NOTHING
+pbuild::compile(){
+    :
+}
+
+pbuild::install(){
+    :
+}

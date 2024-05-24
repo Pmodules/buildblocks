@@ -1,0 +1,11 @@
+format: 1
+tomodrgn:
+  deaults:
+    group: EM
+    overlay: base
+    relstage: unstable
+    urls:
+      - url: https://github.com/bpowell122/tomodrgn/archive/refs/tags/v${V_PKG}.tar.gz
+        name: tomodrgn-${V_PKG}.tar.gz
+  versions:
+    0.2.2:
