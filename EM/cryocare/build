@@ -1,0 +1,23 @@
+#!/usr/bin/env modbuild
+
+
+pbuild::configure() {
+    #MINICONDA INSTALL
+    mkdir -p  "$PREFIX/miniconda"
+    wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O "$PREFIX/miniconda/miniconda.sh"
+    bash "$PREFIX/miniconda/miniconda.sh" -b -u -p "$PREFIX/miniconda/"
+
+ 
+    #CREATE ENV , make sure to source the "correct" conda.sh
+    "$PREFIX/miniconda/condabin/conda" env create --name "${P}_${V}" -f "$BUILDBLOCK_DIR/environment.yaml"
+
+}
+
+#DO NOTHING
+pbuild::compile(){
+    :
+}
+
+pbuild::install(){
+    :
+}

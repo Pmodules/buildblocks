@@ -1,0 +1,8 @@
+format: 1
+cryocare:
+  defaults:
+    group: EM
+    overlay: base
+    relstage: unstable
+  versions:
+    0.3.0:

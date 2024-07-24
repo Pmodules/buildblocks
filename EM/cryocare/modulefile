@@ -1,0 +1,34 @@
+#%Module1.0
+
+module-whatis           "Cryocare - Content-Aware Image Restoration for Cryo-Transmission Electron Microscopy Data"
+module-url              "https://github.com/juglab/cryoCARE_T2T"
+module-license          "BSD 2-Clause Simplified License"
+module-maintainer       "Greta Assmann <greta.assmann@psi.ch>"
+
+module-help     "https://arxiv.org/abs/1810.05420"
+
+
+# Check for supported shell types
+set shelltype [module-info shelltype]
+switch -- $shelltype {
+    "sh" {
+        puts stdout "source \"${PREFIX}\"/miniconda/etc/profile.d/conda.sh;\n"
+    }
+    default {
+        puts stderr "Shells of type '$shelltype' are NOT supported!"
+    }
+}
+
+
+switch [module-info mode] {
+    "load" {
+      # Relies on the anaconda module being loaded since we need to update the path
+      puts stdout "conda activate ${P}_${V};\n"
+    }
+    "unload" -
+    "remove" {
+        puts stdout "conda deactivate;\n"
+    }
+}
+
+

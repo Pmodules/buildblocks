@@ -1,0 +1,10 @@
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.8
+  - cudatoolkit=11.0
+  - cudnn=8.0
+  - pip:
+    - tensorflow==2.4
+    - cryoCARE
