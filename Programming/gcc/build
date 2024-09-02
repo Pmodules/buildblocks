@@ -1,68 +1,14 @@
 #!/usr/bin/env modbuild
 
-pbuild::set_download_url "https://ftp.gnu.org/gnu/gcc/$P-$V/$P-$V.tar.gz"
-
-pbuild::add_to_group 'Programming'
-pbuild::install_docfiles 'COPYING' 'COPYING.LIB' 'COPYING.RUNTIME' 'COPYING3' 'COPYING3.LIB' 'NEWS' 'README'
-
-#pbuild::pre_prep_Darwin() {
-#	if (( V_MAJOR == 8 )); then
-#		pbuild::add_patch "files/headers-10.14.4-fix.patch"
+#pbuild::pre_prep() {
+#	if (( V_MAJOR == 10 && V_MINOR == 2 )); then
+#		pbuild::add_patch "files/gcc-10.2.0-cpp-__has_include.patch"
 #	fi
 #}
 
-pbuild::post_prep_Darwin() {
-	if (( V_MAJOR == 8 )); then
-		local -r OS_REL=$(uname -r)
-		local -r patch_fname="${BUILDBLOCK_DIR}/8/headers-10.14.4-fix.patch"
-		patch -p1 < <(sed "s/darwin18.5/${OS,,}${OS_REL%.*}/" ${patch_fname})
-	fi
-}
 
-pbuild::pre_prep() {
-	if (( V_MAJOR == 4 && V_MINOR <= 8 )) || \
-	   (( V_MAJOR == 4 && V_MINOR == 9 && V_PATCHLVL < 4)); then
-		pbuild::add_patch_Darwin "${V_MAJOR}/non-dead-strip.patch"
-		pbuild::add_patch_Darwin "${V_MAJOR}/configure-as.patch"
-	fi
-	if (( V_MAJOR == 5 )) || (( V_MAJOR == 6 )); then
-		pbuild::add_patch_Darwin "${V_MAJOR}/PR57438_avoiding_empty_function_bodies_and_trailing_labels.patch"
-	fi
-	if (( V_MAJOR == 10 && V_MINOR == 2 )); then
-		pbuild::add_patch "files/gcc-10.2.0-cpp-__has_include.patch"
-	fi
-}
-
-pbuild::pre_configure() {
-	pbuild::add_configure_args "--with-gmp=${GMP_PREFIX}"
-	pbuild::add_configure_args "--with-mpfr=${MPFR_PREFIX}"
-	pbuild::add_configure_args "--with-mpc=${MPC_PREFIX}"
-	pbuild::add_configure_args "--enable-lto"
-	pbuild::add_configure_args "--disable-multilib"
-	pbuild::add_configure_args "--with-pkgversion='PSI Environment Module'"
-	pbuild::add_configure_args "--with-build-config=bootstrap-debug"
-}
-
-pbuild::pre_configure_Linux() {
-	if (( V_MAJOR >= 8 )); then
-		pbuild::add_configure_args "--enable-languages=c,c++,objc,obj-c++,lto,fortran,go"
-	fi
-}
-
-pbuild::pre_configure_Darwin() {
-	local -r prefix='/usr'
-	pbuild::add_configure_args "--enable-languages=c,c++,objc,obj-c++,lto,fortran"
-	pbuild::add_configure_args "--with-as=${prefix}/bin/as"
-	pbuild::add_configure_args "--with-ld=${prefix}/bin/ld"
-	pbuild::add_configure_args "--with-ar=${prefix}/bin/ar"
-	pbuild::add_configure_args "AR_FOR_TARGET=${prefix}/bin/ar"
-	pbuild::add_configure_args "AS_FOR_TARGET=${prefix}/bin/as"
-	pbuild::add_configure_args "LD_FOR_TARGET=${prefix}/bin/ld"
-	pbuild::add_configure_args "NM_FOR_TARGET=${prefix}/bin/nm"
-	pbuild::add_configure_args "OBJDUMP_FOR_TARGET=${prefix}/bin/objdump"
-	pbuild::add_configure_args "RANLIB_FOR_TARGET=${prefix}/bin/ranlib"
-	pbuild::add_configure_args "STRIP_FOR_TARGET=${prefix}/bin/strip"
-	pbuild::add_configure_args "OTOOL=${prefix}/bin/otool"
-	pbuild::add_configure_args "OTOOL64=${prefix}/bin/otool"
-}
-
+#pbuild::pre_configure_Linux() {
+#	if (( V_MAJOR >= 8 )); then
+#		pbuild::add_configure_args "--enable-languages=c,c++,objc,obj-c++,lto,fortran,go"
+#	fi
+#}

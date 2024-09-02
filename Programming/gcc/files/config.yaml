@@ -1,0 +1,132 @@
+---
+format: 1
+gcc:
+  defaults:
+    group: Programming
+    relstage: stable
+    docfiles:
+      - COPYING
+      - COPYING.LIB
+      - COPYING.RUNTIME
+      - COPYING3
+      - COPYING3.LIB
+      - NEWS
+      - README
+    configure_args:
+      - --with-gmp=${GMP_PREFIX}
+      - --with-mpfr=${MPFR_PREFIX}
+      - --with-mpc=${MPC_PREFIX}
+      - --enable-lto
+      - --disable-multilib
+      - --with-pkgversion=PSI Environment Module
+      - --with-build-config=bootstrap-debug
+    urls:
+      - url: https://ftp.gnu.org/gnu/gcc/$P-$V/$P-$V.tar.gz
+
+  shasums:
+    gcc-14.2.0.tar.gz: 3a2b10cab86e32358fdac871546d57e2700e9bdb5875ef33fff5b601265b9e32
+    gcc-13.3.0.tar.gz: 3a2b10cab86e32358fdac871546d57e2700e9bdb5875ef33fff5b601265b9e32
+    gcc-13.1.0.tar.gz: bacd4c614d8bd5983404585e53478d467a254249e0f1bb747c8bc6d787bd4fa2
+    gcc-12.4.0.tar.gz: 5a30de2be740062bb3ddd3fd13c9b1bb4584d8f85616d33f23a713439d714148
+    gcc-12.3.0.tar.gz: 11275aa7bb34cd8ab101d01b341015499f8d9466342a2574ece93f954d92273b
+    gcc-12.1.0.tar.gz: e88a004a14697bbbaba311f38a938c716d9a652fd151aaaa4cf1b5b99b90e2de
+    gcc-11.4.0.tar.gz: af828619dd1970734dda3cfb792ea3f2cba61b5a00170ba8bce4910749d73c07
+    gcc-11.3.0.tar.gz: 98438e6cc7294298b474cf0da7655d9a8c8b796421bb0210531c294a950374ed
+    gcc-11.2.0.tar.gz: f0837f1bf8244a5cc23bd96ff6366712a791cfae01df8e25b137698aca26efc1
+    gcc-10.4.0.tar.gz: ab1974017834430de27fd803ade4389602a7d6ca1362496c57bef384b2a4cb07
+    gcc-10.3.0.tar.gz: 8fcf994811ad4e5c7ac908e8cf62af2c1982319e5551f62ae72016064dacdf16
+    gcc-10.2.0.tar.gz: 27e879dccc639cd7b0cc08ed575c1669492579529b53c9ff27b0b96265fa867d
+    gcc-10.1.0.tar.gz: 954057239c89d25bc7a62bfbceb58026363ad74f079c63fdba27f95abbf60900
+    gcc-9.5.0.tar.gz: 15b34072105272a3eb37f6927409f7ce9aa0dd1498efebc35f851d6e6f029a4d
+    gcc-9.3.0.tar.gz: 5258a9b6afe9463c2e56b9e8355b1a4bee125ca828b8078f910303bc2ef91fa6
+    gcc-9.2.0.tar.gz: a931a750d6feadacbeecb321d73925cd5ebb6dfa7eff0802984af3aef63759f4
+    gcc-9.1.0.tar.gz: be303f7a8292982a35381489f5a9178603cbe9a4715ee4fa4a815d6bcd2b658d
+    gcc-8.5.0.tar.gz: 6e6e0628573d2185727a2dd83211d04a2b2748e4a262099099b9c8064634c9ee
+    gcc-8.4.0.tar.gz: 41e8b145832fc0b2b34c798ed25fb54a881b0cee4cd581b77c7dc92722c116a8
+    gcc-8.3.0.tar.gz: ea71adc1c3d86330874b8df19611424b143308f0d6612d542472600532c96d2d
+    gcc-8.2.0.tar.gz: 1b0f36be1045ff58cbb9c83743835367b860810f17f0195a4e093458b372020f
+    gcc-8.1.0.tar.gz: af300723841062db6ae24e38e61aaf4fbf3f6e5d9fd3bf60ebbdbf95db4e9f09
+    gcc-7.5.0.tar.gz: 4f518f18cfb694ad7975064e99e200fe98af13603b47e67e801ba9580e50a07f
+    gcc-7.4.0.tar.gz: cb8df68237b0bea3307217697ad749a0a0565584da259e8a944ef6cfc4dc4d3d
+    gcc-7.3.0.tar.gz: fa06e455ca198ddc11ea4ddf2a394cf7cfb66aa7e0ab98cc1184189f1d405870
+    gcc-7.2.0.tar.gz: 0153a003d3b433459336a91610cca2995ee0fb3d71131bd72555f2231a6efcfc
+    gcc-7.1.0.tar.gz: 3c187ef42e4cf657eec0ed641aac7f7e46261bcb1cea31b72dcf2dedddbbdea5
+    gcc-6.5.0.tar.gz: 4eed92b3c24af2e774de94e96993aadbf6761cdf7a0345e59eb826d20a9ebf73
+    gcc-6.4.0.tar.gz: 4715f02413f8a91d02d967521c084990c99ce1a671b8a450a80fbd4245f4b728
+    gcc-6.3.0.tar.gz: 02f9302a559fa2251595ca0bc1e937219eff2995a3802d7b31676fec2402beb4
+    gcc-6.2.0.tar.gz: ba8c49e54f1b3e04434d6261e5718ed843d1ba3e54a070740913acfbd815e577
+    gcc-6.1.0.tar.gz: 724a61d190f27d5028791587149c6a6d6a312d6659a61636be5be86b6e809b59
+    gcc-5.5.0.tar.gz: 3aabce75d6dd206876eced17504b28d47a724c2e430dbd2de176beb948708983
+    gcc-5.4.0.tar.gz: 37089e80c3f2e9a0663d7ccc51c2a6c7dbbf3275bc1e4ed1ed3b1460cd5b3030
+    gcc-5.3.0.tar.gz: b7f5f56bd7db6f4fcaa95511dbf69fc596115b976b5352c06531c2fc95ece2f4
+    gcc-5.2.0.tar.gz: 87f3f1b3deebee26b6b71068c37201541586647c1ee64a505b06fc4129d6376a
+    gcc-5.1.0.tar.gz: 335275817b5ed845fee787e75efd76a6e240bfabbe0a0c20a81a04777e204617
+    gcc-4.9.4.tar.gz: 1680f92781b92cbdb57d7e4f647c650678c594154cb0d707fd9a994424a9860d
+    gcc-4.9.3.tar.gz: e6c63b40877bc756cc7cfe6ca98013eb15f02ec6c8c2cf68e24533ad1203aaba
+    gcc-4.9.2.tar.gz: 3e573826ec8b0d62d47821408fbc58721cd020df3e594cd492508de487a43b5e
+    gcc-4.9.1.tar.gz: 51c3be8eb5f029929f05117c15c77be2d2f4290eb3c3edbdb54a59a5cd58bf0f
+    gcc-4.9.0.tar.gz: f945544c12435a54f60a463c5aa16e458b82cbb374e26eafe56bb95dbc308ca1
+    gcc-4.8.5.tar.gz: 1dbc5cd94c9947fe5dffd298e569de7f44c3cedbd428fceea59490d336d8295a
+    gcc-4.8.4.tar.gz: 655fe692ddd333c29c5a1418f50f63a42cdd9e9eb7ebdb7f621e33c4b8799e31
+    gcc-4.8.3.tar.gz: 5a46edbee29b6fed9006c02899db7cb7eff5f2d5837678484e1ff7da3b4beb6f
+    gcc-4.8.2.tar.gz: 2ea77114344a06c45dd5791275311e91d306545aa5ec9db31d24174f6965e880
+    gcc-4.7.4.tar.gz: ddbaa583c5d4e4f0928bf15d9f6b6c283349e16eedc47bde71e1b813f6f37819
+    gcc-4.7.3.tar.gz: 34a273937eb63ee710784b65bcf9fb3cfcd79d02848f80c75f8254abd14c79c8
+    gcc-4.6.4.tar.gz: 53de33db01815914b3905a7d2cefac1ecf24ad081b82d93e4f526d8e62ff736f
+  versions:
+    14.2.0:
+      config:
+        relstage: unstable
+        build_requires: [gmp/6.3.0, mpfr/4.2.0, mpc/1.3.1]
+        configure_args+: ['--enable-languages=c,c++,objc,obj-c++,lto,fortran,go']
+      variants:
+        - overlay: base
+          systems: [rhel.*]
+        - overlay: PSI
+          systems: [login.*.merlin7.psi.ch, cn.*.merlin7.psi.ch, gpu.*.merlin7.psi.ch]
+          use_overlays: [PSI]
+          runtime_deps: [cray/23.12, PrgEnv-gnu/8.5.0]
+
+    13.3.0:
+      config:
+        relstage: unstable
+        build_requires: [gmp/6.3.0, mpfr/4.2.0, mpc/1.3.1]
+        configure_args+: ['--enable-languages=c,c++,objc,obj-c++,lto,fortran,go']
+      variants:
+        - overlay: base
+          systems: [rhel.*]
+        - overlay: PSI
+          systems: [login.*.merlin7.psi.ch, cn.*.merlin7.psi.ch, gpu.*.merlin7.psi.ch]
+          use_overlays: [PSI]
+          runtime_deps: [cray/23.12, PrgEnv-gnu/8.5.0]
+
+    13.2.0:
+      config:
+        relstage: unstable
+        build_requires: [gmp/6.3.0, mpfr/4.2.1, mpc/1.3.1-1]
+        configure_args+: ['--enable-languages=c,c++,objc,obj-c++,lto,fortran,go']
+
+    12.4.0:
+      config:
+        relstage: unstable
+        build_requires: [gmp/6.3.0, mpfr/4.2.0, mpc/1.3.1]
+        configure_args+: ['--enable-languages=c,c++,objc,obj-c++,lto,fortran,go']
+      variants:
+        - overlay: base
+          systems: [rhel.*]
+        - overlay: PSI
+          systems: [login.*.merlin7.psi.ch, cn.*.merlin7.psi.ch, gpu.*.merlin7.psi.ch]
+          use_overlays: [PSI]
+          runtime_deps: [cray/23.12, PrgEnv-gnu/8.5.0]
+
+    12.3.0:
+      config:
+        relstage: stable
+        build_requires: [gmp/6.2.1, mpfr/4.2.0, mpc/1.3.1]
+        configure_args+: ['--enable-languages=c,c++,objc,obj-c++,lto,fortran,go']
+      variants:
+        - overlay: PSI
+          systems: [login.*.merlin7.psi.ch, cn.*.merlin7.psi.ch, gpu.*.merlin7.psi.ch]
+          use_overlays: [PSI]
+          runtime_deps: [cray/23.12, PrgEnv-gnu/8.5.0]
+
