@@ -1,0 +1,35 @@
+format: 1
+mpfr:
+  defaults:
+    group: Libraries
+    overlay: base 
+    relstage: stable
+    configure_args:
+      - --disable-shared
+      - --with-pic
+      - --with-gmp=${GMP_PREFIX}
+    docfiles: []
+    urls:
+      - url: http://www.mpfr.org/$P-${V_PKG}/$P-${V_PKG}.tar.xz
+
+  shasums:
+    mpfr-4.2.1.tar.xz: 277807353a6726978996945af13e52829e3abd7a9a5b7fb2793894e18f1fcbb2
+    mpfr-4.2.0.tar.xz: 06a378df13501248c1b2db5aa977a2c8126ae849a9d9b7be2546fb4a9c26d993
+    mpfr-4.1.0.tar.xz: 0c98a3f1732ff6ca4ea690552079da9c597872d30e96ec28414ee23c95558a7f
+    mpfr-4.0.2.tar.xz: 1d3be708604eae0e42d578ba93b390c2a145f17743a744d8f3f8c2ad5855a38a
+    mpfr-4.0.2.tar.bz2: c05e3f02d09e0e9019384cdd58e0f19c64e6db1fd6f5ecf77b4b1c61ca253acc
+    mpfr-4.0.1.tar.xz: 67874a60826303ee2fb6affc6dc0ddd3e749e9bfcb4c8655e3953d0458a6e16e
+    mpfr-4.0.0.tar.bz2: 6aa31fbf3bd1f9f95bcfa241590a9d11cb0f874e2bb93b99c9e2de8eaea6d5fd
+    mpfr-3.1.5.tar.bz2: ca498c1c7a74dd37a576f353312d1e68d490978de4395fa28f1cbd46a364e658
+    mpfr-3.1.4.tar.gz: 0d4de7e1476f79d24c38d5bc04a06fcc9a1bb9cf35fd654ceada29af03ad1844
+    mpfr-3.1.3.tar.bz2: f63bb459157cacd223caac545cb816bcdb5a0de28b809e7748b82e9eb89b0afd
+    mpfr-3.1.2.tar.bz2: 79c73f60af010a30a5c27a955a1d2d01ba095b72537dab0ecaad57f5a7bb1b6b
+    mpfr-3.1.1.tar.bz2: 7b66c3f13dc8385f08264c805853f3e1a8eedab8071d582f3e661971c9acd5fd
+
+  versions:
+    4.1.0;4.2.0;4.2.1:
+
+    3.1.{2..5};4.0.{0..1};4.0.1-1;4.0.2;4.0.2-{1..2}:
+      config:
+        relstage: deprecated
+

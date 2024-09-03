@@ -1,11 +1,2 @@
 #!/usr/bin/env modbuild
 
-pbuild::set_download_url "http://ftp.gnu.org/gnu/${P}/${P}-${V_PKG}.tar.gz"
-pbuild::add_to_group 'Libraries'
-
-pbuild::pre_configure() {
-	pbuild::add_configure_args "--with-gmp=${GMP_PREFIX}"
-	pbuild::add_configure_args "--with-mpfr=${MPFR_PREFIX}"
-	pbuild::add_configure_args "--disable-shared"
-}
-

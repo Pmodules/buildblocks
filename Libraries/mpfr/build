@@ -1,12 +1,2 @@
 #!/usr/bin/env modbuild
 
-pbuild::set_download_url "http://www.mpfr.org/$P-${V_PKG}/$P-${V_PKG}.tar.xz"
-pbuild::add_to_group 'Libraries'
-
-#module use 'Libraries'
-
-pbuild::pre_configure() {
-	pbuild::add_configure_args "--with-gmp=${GMP_PREFIX}"
-	pbuild::add_configure_args "--with-pic"
-	pbuild::add_configure_args "--disable-shared"
-}
