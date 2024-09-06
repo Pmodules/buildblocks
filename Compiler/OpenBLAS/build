@@ -1,13 +1,2 @@
 #!/usr/bin/env modbuild
 
-pbuild::set_download_url "http://github.com/xianyi/$P/archive/v${V_PKG}.tar.gz"
-
-pbuild::add_to_group 'Compiler'
-pbuild::install_docfiles 'LICENSE' 'README.md'
-#pbuild::set_supported_compilers 'gcc' 'intel' 'clang-macos'
-
-pbuild::pre_configure() {
-        pbuild::add_configure_args "-DCMAKE_BUILD_TYPE=Release"
-        pbuild::add_configure_args "-DDYNAMIC_ARCH=ON"
-}
-

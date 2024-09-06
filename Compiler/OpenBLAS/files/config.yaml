@@ -10,6 +10,12 @@ OpenBLAS:
     urls:
       - url: http://github.com/xianyi/$P/archive/v${V_PKG}.tar.gz
         name: OpenBLAS-${V_PKG}.tar.gz
+    configure_args:
+      - -DCMAKE_BUILD_TYPE=Release
+      - -DDYNAMIC_ARCH=ON
+    docfiles:
+      - LICENSE
+      - README.md
 
   shasums:
     OpenBLAS-0.2.9.tar.gz: e899c70b8771896655765f5c64c00c990f8dd0fe569e96788d8c971a23ecb22a
@@ -26,11 +32,24 @@ OpenBLAS:
     OpenBLAS-0.3.24.tar.gz: ceadc5065da97bd92404cac7254da66cc6eb192679cf1002098688978d4d5132
 
   versions:
+    0.3.28:
+      config:
+        group_deps:
+          compiler:
+            gcc: [12.3.0, 12.4.0, 13.3.0, 14.2.0]
+        build_requires: [cmake/3.23.2]
+        relstage: unstable
+      variants:
+        - systems: [rhel.*]
+          overlay: devel
+        - systems: [login.*.merlin7.psi.ch]
+          overlay: Alps
+          use_overlays: [PSI, Alps]
     0.3.24:
       config:
         group_deps:
           compiler:
-            gcc: [12.3.0, 13.1.0]
+            gcc: [12.3.0, 13.1.0, 13.2.0]
         build_requires: [cmake/3.23.2]
         relstage: unstable
         overlay: devel
