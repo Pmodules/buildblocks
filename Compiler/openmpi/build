@@ -6,6 +6,7 @@ pbuild::pre_configure() {
 	pbuild::add_configure_args "--prefix=${PREFIX}"
 
 	pbuild::add_configure_args "--enable-shared"
+	pbuild::add_configure_args "--enable-static"
 	pbuild::add_configure_args "--enable-orterun-prefix-by-default"
 	pbuild::add_configure_args "--with-slurm=yes"
 
@@ -62,14 +63,13 @@ pbuild::pre_configure() {
         if (( V_MAJOR < 5 )); then
 	  pbuild::add_configure_args "--enable-mpi-cxx"
 	  pbuild::add_configure_args "--enable-mpi-cxx-seek"
-	  pbuild::add_configure_args "--enable-static"
           if (( V_MAJOR < 4 )); then
             pbuild::add_configure_args "--enable-mpi-f90"
             pbuild::add_configure_args "--enable-mpi-profile"
             pbuild::add_configure_args "--enable-smp-locks"
           fi
         else
-	  pbuild::add_configure_args "--disable-static"
+	  # pbuild::add_configure_args "--disable-static"
           pbuild::add_configure_args "--without-verbs"
         fi
 
