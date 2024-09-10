@@ -25,6 +25,7 @@ pbuild::pre_configure() {
 	pbuild::add_configure_args "--prefix=${PREFIX}"
 
 	pbuild::add_configure_args "--enable-shared"
+	pbuild::add_configure_args "--enable-static"
 	pbuild::add_configure_args "--enable-orterun-prefix-by-default"
 	pbuild::add_configure_args "--with-slurm=yes"
 >>>>>>> a5c5629 (Update openmpi and libevent)
