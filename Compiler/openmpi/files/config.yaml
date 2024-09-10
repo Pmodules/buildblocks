@@ -63,8 +63,8 @@ openmpi:
           overlay: Alps
           group_deps:
             compiler: {gcc: [12.3.0]}
-          # build_requires: [pmix/5.0.3, hwloc/2.11.1, patchelf/0.14.5]
-          build_requires: [pmix/5.0.3, ucx/1.15.0_slurm, hwloc/2.9.1, patchelf/0.14.5]
+          build_requires: [pmix/5.0.3, hwloc/2.11.1, patchelf/0.14.5]
+          # build_requires: [pmix/5.0.3, ucx/1.15.0_slurm, hwloc/2.9.1, patchelf/0.14.5]
           runtime_deps: [cuda/12.2.0]
           configure_args+:
             - --with-ofi=/opt/cray/libfabric/1.15.2.0
