@@ -1,6 +1,9 @@
 #!/usr/bin/env modbuild
 
 pbuild::pre_configure() {
+        pbuild::add_configure_args "--enable-shared"
+        pbuild::add_configure_args "--enable-static"
+
         if (( V_MAJOR < 5 )); then
 		pbuild::add_configure_args "--enable-mpi-cxx"
 		pbuild::add_configure_args "--enable-mpi-cxx-seek"
