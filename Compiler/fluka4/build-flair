@@ -1,0 +1,15 @@
+#!/usr/bin/env modbuild
+
+pbuild::pre_prep(){
+	SRC_DIR="${PREFIX}/flair"
+	BUILD_DIR="${PREFIX}/flair"
+}
+
+pbuild::compile(){
+	make -j "${JOBS}"
+}
+
+pbuild::install() {
+	:
+}
+

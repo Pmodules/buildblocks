@@ -1,0 +1,24 @@
+---
+# yamllint disable rule:line-length
+format: 1
+flair-geoviewer:
+  defaults:
+    group: Compiler
+    overlay: base
+    relstage: unstable
+    compile_in_sourcetree: true
+    systems: [rhel7, rhel8, rhel9]
+    docfiles: [AUTHORS, LICENSE, NEWS, README]
+    urls:
+      - url: https://flair.web.cern.ch/flair/download/flair-geoviewer-3.3-1.tgz
+  shasums:
+    flair-geoviewer-3.3-1.tgz: 3c18747abac21907e90c3ed1759b73ca53c987f12216ba8ee9919a199c0dca26
+
+  versions:
+    3.3.1:
+      variants:
+        - systems: [merlin-*, ra-*]
+          group_deps:
+            compiler: {gcc: [13.1.0]}
+          relstage: unstable
+          build_requires: ['flair/3.3.1', 'TclTk/8.6.9']

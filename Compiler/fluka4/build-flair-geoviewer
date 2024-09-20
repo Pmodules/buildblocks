@@ -1,0 +1,15 @@
+#!/usr/bin/env modbuild
+
+pbuild::pre_prep(){
+	SRC_DIR="${PREFIX}/geoviewer"
+	BUILD_DIR="${PREFIX}/geoviewer"
+}
+
+pbuild::compile(){
+	make -j "${JOBS}"
+}
+
+pbuild::install() {
+	make DESTDIR="${PREFIX}/flair" install
+}
+

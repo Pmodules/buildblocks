@@ -1,0 +1,23 @@
+---
+# yamllint disable rule:line-length
+format: 1
+flair:
+  defaults:
+    group: Compiler
+    overlay: base
+    relstage: unstable
+    compile_in_sourcetree: true
+    systems: [rhel7, rhel8, rhel9]
+    docfiles: [AUTHORS, LICENSE, NEWS, README]
+    urls:
+      - url: http://flair.web.cern.ch/flair/download/flair-3.3-1.tgz
+  shasums:
+    flair-3.3-1.tgz: 2bc9b02fd2d9ddb7eed96938314b9c73f0b6a844aa1af15728650eaf81e777bd
+
+  versions:
+    3.3.1:
+      variants:
+        - systems: [merlin-*, ra-*]
+          group_deps:
+            compiler: {gcc: [13.1.0]}
+          relstage: unstable

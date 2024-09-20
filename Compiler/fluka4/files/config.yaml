@@ -1,0 +1,242 @@
+---
+# yamllint disable rule:line-length
+format: 1
+fluka4:
+  defaults:
+    group: Compiler
+    overlay: base
+    relstage: unstable
+    compile_in_sourcetree: true
+    systems: [.*]
+    download_dir: /afs/psi.ch/software/Pmodules/protected/fluka
+    urls:
+      - url: none
+        name: fluka-4-${V_PKG}.x86-Linux-gfor9.tgz
+  shasums:
+    fluka-4-4.0.x86-Linux-gfor9.tgz: bcc303b96026b91f6d88d7a5ec274e31619562833330be93a992cd3c7e511eba
+
+  versions:
+    4.0:
+      config:
+        group_deps:
+          compiler: {gcc: [9.5.0]}
+        relstage: unstable
+        build_requires: []
+        runtime_deps: ['TclTk/8.6.9', 'Python/3.9.10', 'gnuplot/5.4.10']
+        sub_packages:
+          - name: flair
+            version: 3.3-1
+            build_args:
+              - --disable-cleanup
+              - -f
+          - name: flair-geoviewer
+            version: 3.3-1
+            build_args:
+              - --disable-cleanup
+              - -f
+          - name: jeff
+            version: 3.3-1-1
+            build_args:
+              - --disable-cleanup
+              - -f
+          - name: endf
+            version: viii0-1.0
+            build_args:
+              - --disable-cleanup
+              - -f
+          - name: jendl
+            version: 4.0u-1.0
+            build_args:
+              - --disable-cleanup
+              - -f
+          - name: cendl
+            version: 31-1.0
+            build_args:
+              - --disable-cleanup
+              - -f
+          - name: brond
+            version: 3.1-1.0
+            build_args:
+              - --disable-cleanup
+              - -f
+
+    4.0_beta:
+      config:
+        group_deps:
+          compiler: {gcc: [9.5.0]}
+        relstage: unstable
+        build_requires: []
+        runtime_deps: ['TclTk/8.6.9', 'Python/3.9.10', 'gnuplot/5.4.10']
+        sub_packages:
+          - name: flair
+            version: 3.x-3.5
+            build_args:
+              - --disable-cleanup
+              - -f
+          - name: flair-geoviewer
+            version: 3.x-3.5
+            build_args:
+              - --disable-cleanup
+              - -f
+          - name: jeff
+            version: 3.3-1-1
+            build_args:
+              - --disable-cleanup
+              - -f
+          - name: endf
+            version: viii0-1.0
+            build_args:
+              - --disable-cleanup
+              - -f
+          - name: jendl
+            version: 4.0u-1.0
+            build_args:
+              - --disable-cleanup
+              - -f
+          - name: cendl
+            version: 31-1.0
+            build_args:
+              - --disable-cleanup
+              - -f
+          - name: brond
+            version: 3.1-1.0
+            build_args:
+              - --disable-cleanup
+              - -f
+
+    4.1_beta1:
+      config:
+        group: Tools
+        build_requires: []
+        runtime_deps: ['gcc/9.5.0', 'TclTk/8.6.9', 'Python/3.9.10', 'gnuplot/5.4.10']
+        sub_packages:
+          - name: flair
+            version: 3.x-5
+            build_args:
+              - --disable-cleanup
+              - -f
+          - name: flair-geoviewer
+            version: 3.x-5
+            build_args:
+              - --disable-cleanup
+              - -f
+          - name: jeff
+            version: 3.3-1-1
+            build_args:
+              - --disable-cleanup
+              - -f
+          - name: endf
+            version: viii0-1.0
+            build_args:
+              - --disable-cleanup
+              - -f
+          - name: jendl
+            version: 4.0u-1.0
+            build_args:
+              - --disable-cleanup
+              - -f
+          - name: cendl
+            version: 31-1.0
+            build_args:
+              - --disable-cleanup
+              - -f
+          - name: brond
+            version: 3.1-1.0
+            build_args:
+              - --disable-cleanup
+              - -f
+
+jeff:
+  type: sub_package
+  defaults:
+    urls:
+      - url: https://flukafiles.web.cern.ch/flukafiles/neutron/fluka_pw_$P-$V.tar.gz
+        strip_dirs: 0
+  shasums:
+    fluka_pw_jeff-3.3-1-1.tar.gz: 48810cab92bc79b241b306390f88b5fc1333363e85fdd0d9317263ba8e29ed8b
+  versions:
+    3.3-1-1:
+
+endf:
+  defaults:
+    urls:
+      - url: https://flukafiles.web.cern.ch/flukafiles/neutron/fluka_pw_$P-$V.tgz
+        strip_dirs: 0
+  shasums:
+    fluka_pw_endf-viii0-1.0.tgz: e26433c9f548c4477b5c47a1929d33ce4a823fa326703d3a52dfa9161f9ae1b9
+  versions:
+    viii0-1.0:
+
+jendl:
+  defaults:
+    urls:
+      - url: https://flukafiles.web.cern.ch/flukafiles/neutron/fluka_pw_$P-$V.tgz
+        strip_dirs: 0
+  shasums:
+    fluka_pw_jendl-4.0u-1.0.tgz: 21d5e2676ae26946df98869bd1d95f4f34edb53488fb40e5c1a8ef0c743f5f6e
+  versions:
+    4.0u-1.0:
+
+cendl:
+  defaults:
+    urls:
+      - url: https://flukafiles.web.cern.ch/flukafiles/neutron/fluka_pw_$P-$V.tgz
+        strip_dirs: 0
+  shasums:
+    fluka_pw_cendl-31-1.0.tgz: d64916e35bfa6337463d01b3596ccd57b8f8b5c2e8879138ef7be14aff2b49d3
+  versions:
+    31-1.0:
+
+brond:
+  defaults:
+    urls:
+      - url: https://flukafiles.web.cern.ch/flukafiles/neutron/fluka_pw_$P-$V.tgz
+        strip_dirs: 0
+  shasums:
+    fluka_pw_brond-3.1-1.0.tgz: c88ba7cde8ccf1c59b49e1138cc06cfd0b2b84f50a67d1dd9a29f104633b8a72
+  versions:
+    3.1-1.0:
+
+flair:
+  defaults:
+    urls:
+      - url: http://flair.web.cern.ch/flair/download/flair-$V.tgz
+  shasums:
+    flair-3.3-1.tgz: 2bc9b02fd2d9ddb7eed96938314b9c73f0b6a844aa1af15728650eaf81e777bd
+
+  versions:
+    3.3-1:
+      config:
+        build_requires: ['gcc/9.5.0', 'Python/3.9.10']
+    3.x-3.5:
+      config:
+        build_requires: ['gcc/9.5.0', 'Python/3.9.10']
+        urls:
+          - url: https://cernbox.cern.ch/remote.php/dav/public-files/m87gnQjIkI4dEls/flair-3.x-3.5.tgz
+    3.x-5:
+      config:
+        build_requires: ['gcc/9.5.0', 'Python/3.9.10']
+        urls:
+          - url: https://cernbox.cern.ch/remote.php/dav/public-files/m87gnQjIkI4dEls/flair-3.x-5.tgz
+
+flair-geoviewer:
+  defaults:
+    urls:
+      - url: https://flair.web.cern.ch/flair/download/flair-geoviewer-$V.tgz
+  shasums:
+    flair-geoviewer-3.3-1.tgz: 3c18747abac21907e90c3ed1759b73ca53c987f12216ba8ee9919a199c0dca26
+
+  versions:
+    3.3-1:
+      config:
+        build_requires: ['gcc/9.5.0', 'Python/3.9.10', 'TclTk/8.6.9']
+    3.x-3.5:
+      config:
+        build_requires: ['gcc/9.5.0', 'Python/3.9.10', 'TclTk/8.6.9']
+        urls:
+          - url: https://cernbox.cern.ch/remote.php/dav/public-files/m87gnQjIkI4dEls/flair-geoviewer-3.x-3.5.tgz
+    3.x-5:
+      config:
+        build_requires: ['gcc/9.5.0', 'Python/3.9.10', 'TclTk/8.6.9']
+        urls:
+          - url: https://cernbox.cern.ch/remote.php/dav/public-files/m87gnQjIkI4dEls/flair-geoviewer-3.x-5.tgz

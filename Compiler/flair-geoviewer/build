@@ -1,0 +1,9 @@
+#!/usr/bin/env modbuild
+pbuild::compile() {
+	make
+}
+
+pbuild::install() {
+        make DESTDIR="${FLAIR_PREFIX}" install
+}
+

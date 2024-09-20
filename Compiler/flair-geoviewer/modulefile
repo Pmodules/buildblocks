@@ -1,0 +1,18 @@
+#%Module1.0
+
+module-whatis		"Flair by CERN: Advanced graphical user interface for particle simulation programs"
+module-url		"http://flair.web.cern.ch/flair/index.html"
+module-license		"[http://flair.web.cern.ch/flair/license.html](http://flair.web.cern.ch/flair/license.html)"
+module-maintainer	"Elsa Germann <elsa.germann@psi.ch>"
+module-help		    "
+/fleə(r)/  	n [U,C] natural or instinctive ability to do something well, to select or recognize what is best, more useful, etc.
+
+flair is an advanced user friendly interface for several Monte Carlo codes. Originally it was developed for FLUKA, where its unique features strongly contributed to the success of both codes FLUKA and flair. From version 3 the interface was separated from the functionality permitting an easy integration of other simulation packages.
+
+The current line of development is to make flair a unique tool for performing calculations with the same input using FLUKA, Geant4, PENELOPE, and other simulations engines.
+Presently is fully supporting the CERN FLUKA version and there is ongoing work to support:
+
+Moira a Geant4 based application, permitting the user to run with Geant4 FLUKA equivalent inputs with the same geometry, materials, scoring,...
+
+Other codes like MCNP, PHITS, PENELOPE could be added in the future. 
+"
