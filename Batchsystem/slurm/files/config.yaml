@@ -1,0 +1,27 @@
+---
+# yamllint disable rule:line-length
+format: 1
+slurm:
+  defaults:
+    group: Batchsystem
+    overlay: Alps
+    relstage: stable
+    docfiles: [AUTHORS, INSTALL, NEWS, README.rst RELEASE_NOTES]
+    urls:
+      - url: https://download.schedmd.com/${P}/${P}-${V}.tar.bz2
+  shasums:
+    slurm-24.05.3.tar.bz2: b0b40513e9b6ae867ddb95d60b950bcb980c15b735b5d0dea37a9a00cc64ae24
+
+  versions:
+    24.05.3:
+      variants:
+        - systems: [.*.merlin7.psi.ch]
+          relstage: unstable
+          overlay: Alps
+          use_overlays: [PSI]
+          group_deps:
+            compiler: {gcc: [12.3.0]}
+          build_requires: [cuda/12.2.0, hwloc/2.11.1, patchelf/0.14.5]
+          configure_args+:
+            - '--with-pmix=/opt/psi/overlays/Alps/Libraries/pmix/2.2.5:/opt/psi/overlays/Alps/Libraries/pmix/3.2.5:/opt/psi/overlays/Alps/Libraries/pmix/4.2.9:/opt/psi/overlays/Alps/Libraries/pmix/5.0.3'
+            - '--with-cray_shasta'

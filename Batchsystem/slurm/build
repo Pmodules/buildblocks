@@ -1,14 +1,9 @@
 #!/usr/bin/env modbuild
 
-pbuild::set_download_url "https://download.schedmd.com/${P}/${P}-${V}.tar.bz2"
-
-pbuild::add_to_group 'Batchsystem'
-pbuild::install_docfiles 'AUTHORS' 'INSTALL' 'NEWS' 'README.rst' 'RELEASE_NOTES'
-
 pbuild::pre_configure() {
-	pbuild::add_configure_args "--with-pmix=${PMIX_PREFIX}"
+	# pbuild::add_configure_args "--with-pmix=${PMIX_PREFIX}"
 	pbuild::add_configure_args "--with-nvml=${CUDA_PREFIX}"
 	pbuild::add_configure_args "--with-hwloc=${HWLOC_PREFIX}"
-	pbuild::add_configure_args "--with-ucx=${UCX_PREFIX}"
+	# pbuild::add_configure_args "--with-ucx=${UCX_PREFIX}"
 	# pbuild::add_configure_args "--with-netloc=${HWLOC_PREFIX}"
 }

@@ -1,0 +1,30 @@
+format: 1
+libevent:
+  defaults:
+    group: Libraries
+    relstage: stable
+    configure_args:
+      - --enable-shared
+      - --enable-static
+    docfiles:
+      - LICENSE
+    urls:
+      - url: https://github.com/libevent/libevent/releases/download/release-$V-stable/$P-$V-stable.tar.gz
+  shasums:
+    libevent-2.1.8-stable.tar.gz: 965cc5a8bb46ce4199a47e9b2c9e1cae3b137e8356ffdad6d94d3b9069b71dc2
+    libevent-2.1.12-stable.tar.gz: 92e6de1be9ec176428fd2367677e61ceffc2ee1cb119035037a27d346b0403bb
+  versions:
+    2.1.12:
+      config:
+        runtime_deps: []
+      variants:
+        - systems: [.*.merlin7.psi.ch]
+          overlay: Alps
+          use_overlays: [PSI]
+          build_requires: []
+          relstage: unstable
+        - systems: [rhel.*]
+          build_requires: [openssl/1.1.1k]
+    2.1.8:
+      config:
+        build_requires: [openssl/1.0.2r]

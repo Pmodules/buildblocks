@@ -6,9 +6,11 @@ openmpi:
     group: Compiler
     overlay: base
     relstage: stable
-    systems: [rhel7, rhel8, rhel9]
+    configure_args:
+      - --enable-shared
+      - --enable-static
     docfiles: [AUTHORS, LICENSE, NEWS, README]
-    urls:
+    Urls:
       - url: https://download.open-mpi.org/release/open-mpi/v${V_MAJOR}.${V_MINOR}/openmpi-${V_PKG}.tar.bz2
   shasums:
     openmpi-1.10.0.tar.bz2: 26b432ce8dcbad250a9787402f2c999ecb6c25695b00c9c6ee05a306c78b6490
@@ -53,25 +55,74 @@ openmpi:
     openmpi-4.1.4.tar.bz2: 92912e175fd1234368c8730c03f4996fe5942e7479bb1d10059405e7f2b3930d
     openmpi-4.1.5.tar.bz2: a640986bc257389dd379886fdae6264c8cfa56bc98b71ce3ae3dfbd8ce61dbe3
     openmpi-4.1.6.tar.bz2: f740994485516deb63b5311af122c265179f5328a0d857a567b85db00b11e415
+    openmpi-5.0.5.tar.bz2: 6588d57c0a4bd299a24103f4e196051b29e8b55fbda49e11d5b3d32030a32776
 
   versions:
+    5.0.5:
+      variants:
+        - systems: [.*.merlin7.psi.ch]
+          relstage: unstable
+          overlay: Alps
+          use_overlays: [PSI]
+          use_flags: [merlin7]
+          group_deps:
+            compiler: {gcc: [12.3.0], intelcc: [22.2]}
+          build_requires: [pmix/5.0.3, hwloc/2.11.1, libfabric/1.15.2.0, patchelf/0.14.5]
+          runtime_deps: [cuda/12.2.0]
+          configure_args+:
+            - --with-ofi=${LIBFABRIC_VERSION}
+            - --enable-mpi1-compatibility
+            - --with-cxi
+            - --with-lustre
+            - --with-slingshot
+
     4.1.6:
+      config:
+        build_variants: first_match
       variants:
         - systems: [merlin-.*]
           suffix: _slurm
           relstage: unstable
-          overlay: private
-          use_overlays: [private]
+          overlay: base
           group_deps:
-            compiler: {gcc: [9.5.0, 10.4.0, 11.4.0, 12.3.0, 13.1.0]}
-          build_requires: [pmix/4.2.4, ucx/1.14.1_slurm, libfabric/1.18.0, hwloc/2.9.1, patchelf/0.14.5]
+            compiler: {gcc: [9.5.0, 10.4.0, 11.4.0, 12.3.0, 12.4.0, 13.1.0, 13.2.0, 14.2.0]}
+          build_requires:
+            - pmix/4.2.4
+            - ucx/1.14.1_slurm
+            - libfabric/1.18.0
+            - hwloc/2.9.1
+            - patchelf/0.14.5
           runtime_deps: [cuda/12.1.1]
+          configure_args+:
+            - CFLAGS=-g -O0
+            - LDFLAGS=-g
+            - --with-gpfs=/usr/lpp/mmfs
+            - --with-pmi=/usr
+
         - systems: [ra-.*]
           suffix: _ra
+          use_flags: [ra]
           group_deps:
             compiler: {gcc: [9.5.0, 10.4.0, 11.4.0, 12.3.0, 13.1.0]}
           build_requires: [pmix/4.2.4, ucx/1.14.1_slurm, hwloc/2.9.1, patchelf/0.14.5]
           runtime_deps: [cuda/12.1.1]
+          configure_args+:
+            - --with-gpfs=/usr/lpp/mmfs
+            - --with-pmi=/usr
+
+        - systems: [.*.merlin7.psi.ch]
+          relstage: unstable
+          overlay: Alps
+          group_deps:
+            compiler: {gcc: [12.3.0]}
+          build_requires: [pmix/4.2.9, hwloc/2.11.1, patchelf/0.14.5]
+          runtime_deps: [cuda/12.2.0]
+          configure_args+:
+            - --with-ofi=${LIBFABRIC_PREFIX}
+            - --enable-mpi1-compatibility
+            - --with-lustre
+          use_overlays: [PSI, Alps]
+          use_flags: [merlin7, slurm]
 
     4.1.4:
       variants:
