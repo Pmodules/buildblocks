@@ -6,9 +6,9 @@ nvhpc:
     group: Programming
     overlay: base
     relstage: stable
-    systems: [rhel7, rhel8, rhel9]
+    systems: ['*.merlin7.*', 'merlin-*', 'ra-*']
     docfiles: [AUTHORS, LICENSE, NEWS, README]
-    compile_in_sourcetree: true 
+    compile_in_sourcetree: true
   shasums:
     nvhpc-24.3.tar.gz: 4fb8949ba8cef73b28818bd9375c9420ec48fab1c64e71315a7c1984f5329d6b
     nvhpc-23.5.tar.gz: 3196309b38df6f0a27e18b80f6a40e23cab8195cad43fc6bbd569af7d8ca5742
@@ -16,18 +16,15 @@ nvhpc:
   versions:
     24.3:
       variants:
-        - systems: [merlin-*, ra-*]
-          suffix: _cuda_12.3
+        - suffix: _cuda_12.3
           urls:
             - url: https://developer.download.nvidia.com/hpc-sdk/${V_PKG}/nvhpc_2024_243_Linux_x86_64_cuda_12.3.tar.gz
-          suffix: _cuda_12.3
-          relstage: unstable
+          relstage: stable
           build_requires: [gcc/10.4.0]
     23.5:
       variants:
-        - systems: [merlin-*, ra-*]
-          suffix: _cuda_12.1
+        - suffix: _cuda_12.1
           urls:
             - url: https://developer.download.nvidia.com/hpc-sdk/${V_PKG}/nvhpc_2023_235_Linux_x86_64_cuda_12.1.tar.gz
-          relstage: unstable
+          relstage: stable
           build_requires: [gcc/10.4.0]

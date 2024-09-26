@@ -202,3 +202,13 @@ hdf5_serial:
           compiler:
             gcc: [6.5.0, 7.5.0, 8.5.0, 9.5.0, 10.3.0, 11.3.0, 12.1.0]
         relstage: stable
+
+    1.12.3:
+      config:
+        group_deps:
+          compiler:
+            gcc: [7.5.0, 8.5.0, 9.5.0, 10.4.0, 11.3.0, 12.1.0]
+        relstage: unstable
+        urls:
+          - url: https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-${V_MAJOR}.${V_MINOR}/hdf5-$V/src/hdf5-$V.tar.bz2
+            strip_dirs: 2

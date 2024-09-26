@@ -6,7 +6,6 @@ git:
     group: Tools
     overlay: base
     relstage: stable
-    systems: [rhel6, rhel7, rhel8]
     compile_in_sourcetree: true
     urls:
       - url: https://mirrors.edge.kernel.org/pub/software/scm/git/git-${V_PKG}.tar.xz
@@ -21,21 +20,38 @@ git:
     git-2.8.1.tar.xz: e6626b43ba4bc63ad4918df4c275f50bd7f8af2ab54bde60496ad75e91e927fc
     git-2.3.3.tar.gz: c189e4a48d8805482f450db666330c79bcefae37e0d035c7717517126ddf4305
   versions:
+    2.45.2:
+      config:
+        runtime_deps: [TclTk/8.6.9, openssl/1.1.1w]
+        build_requires: [gcc/10.4.0, perl/5.30.0, asciidoc/8.6.9-1, xmlto/0.0.28, gettext/0.19.8]
+        relstage: unstable
+        overlay: devel
+        docfiles: [COPYING, README.md]
+        configure_args:
+          - --with-tcltk
+          - --with-iconv=${GETTEXT_PREFIX}
+          - --with-perl=${PERL_PREFIX}/bin/perl
+        sub_packages:
+          - name: git-lfs
+            version: 3.5.1
+            build_args:
     2.43.1:
       config:
         runtime_deps: [TclTk/8.6.9]
         build_requires: [gcc/10.4.0, perl/5.30.0, asciidoc/8.6.9-1, xmlto/0.0.28, gettext/0.19.8, openssl/1.1.1w]
         relstage: unstable
         overlay: devel
-        systems: [rhel7, rhel8, rhel9]
         docfiles: [COPYING, README.md]
+        configure_args:
+          - --with-tcltk
+          - --with-iconv=${GETTEXT_PREFIX}
+          - --with-perl=${PERL_PREFIX}/bin/perl
     2.42.0:
       config:
         runtime_deps: [TclTk/8.6.9]
         build_requires: [gcc/10.4.0, perl/5.30.0, asciidoc/8.6.9-1, xmlto/0.0.28, gettext/0.19.8]
         relstage: unstable
         overlay: devel
-        systems: [rhel7, rhel8, rhel9]
         docfiles: [COPYING, README.md]
     2.39.1;2.37.2;2.37.0;2.33.1;2.30.0;2.22.0;2.21.0:
       config:
@@ -44,3 +60,17 @@ git:
     2.3.3;2.8.1:
       config:
         runtime_deps: [Tcl/8.6.9, Tk/8.6.9]
+
+git-lfs:
+  type: sub_package
+  defaults:
+    compile_in_sourcetree: true
+  versions:
+    3.5.1:
+      config:
+      variants:
+        -
+          kernels: [Linux]
+          target_cpus: [x86_64]
+          urls:
+            - url: https://github.com/git-lfs/git-lfs/releases/download/v3.5.1/git-lfs-linux-amd64-v3.5.1.tar.gz

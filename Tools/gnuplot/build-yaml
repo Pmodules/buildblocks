@@ -1,9 +1,5 @@
 #!/usr/bin/env modbuild
 
-pbuild::pre_configure() {
-	pbuild::add_configure_args '--with-latex=no'
-	pbuild::add_configure_args '--with-qt=no'
-}
 # Local Variables:
 # mode: sh
 # sh-basic-offset: 8

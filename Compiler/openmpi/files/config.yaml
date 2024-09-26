@@ -57,8 +57,17 @@ openmpi:
   versions:
     4.1.6:
       variants:
-        - systems: [merlin-*, ra-*]
+        - systems: [merlin-.*]
           suffix: _slurm
+          relstage: unstable
+          overlay: private
+          use_overlays: [private]
+          group_deps:
+            compiler: {gcc: [9.5.0, 10.4.0, 11.4.0, 12.3.0, 13.1.0]}
+          build_requires: [pmix/4.2.4, ucx/1.14.1_slurm, libfabric/1.18.0, hwloc/2.9.1, patchelf/0.14.5]
+          runtime_deps: [cuda/12.1.1]
+        - systems: [ra-.*]
+          suffix: _ra
           group_deps:
             compiler: {gcc: [9.5.0, 10.4.0, 11.4.0, 12.3.0, 13.1.0]}
           build_requires: [pmix/4.2.4, ucx/1.14.1_slurm, hwloc/2.9.1, patchelf/0.14.5]
