@@ -1,0 +1,15 @@
+format: 1
+anaconda:
+  defaults:
+    group: Programming
+    overlay: base
+    relstage: stable
+
+  versions:
+    2024.08:
+      config:
+        urls:
+          - url: https://repo.anaconda.com/miniconda/Miniconda3-py39_24.5.0-0-Linux-x86_64.sh
+            name: miniconda-2024.08.sh
+            unpacker: none
+        relstage: unstable

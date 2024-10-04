@@ -1,0 +1,29 @@
+# Clean environment based on pure conda-forge packages
+name: datascience_2024_py3.12
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - pandas
+  - xlrd
+  - numpy
+  - scipy
+  - scikit-learn
+  - matplotlib
+  - seaborn
+  - tensorflow
+  - keras
+  - pytorch
+  - pytables
+  - ipython
+  # keras 2.1.6 not available from conda-forge for py37
+  #  - keras=2.1.6
+  - nb_conda_kernels
+  - ipywidgets
+  - plotly
+  - dask
+  - dask-jobqueue
+  - python-graphviz
+  - bayesian-optimization
+  - hdf5storage
+  
