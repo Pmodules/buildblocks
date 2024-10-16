@@ -87,7 +87,7 @@ pbuild::pre_configure() {
 	    std::info "Enabling SLURM."
 	    pbuild::add_configure_args "--with-slurm=yes"
 	fi
-        if pbuild::use_flag slurm || pbuild::use_flag dgx || pbuild::use_flag merlin6; then
+        if pbuild::use_flag dgx || pbuild::use_flag merlin6 || pbuild::use_flag "gpfs"; then
 		std::info "Enabling GPFS."
 		pbuild::add_configure_args "--with-gpfs=/usr/lpp/mmfs"
         fi
