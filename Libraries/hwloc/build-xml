@@ -1,8 +1,0 @@
-#!/usr/bin/env modbuild
-
-pbuild::pre_configure() {
-  pbuild::add_configure_args "--enable-netloc"
-  pbuild::add_configure_args "--enable-plugins"
-}
-
-
