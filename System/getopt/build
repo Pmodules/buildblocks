@@ -1,13 +1,5 @@
 #!/usr/bin/env modbuild
 
-pbuild::set_download_url "http://frodo.looijaard.name/system/files/software/$P/$P-${V_PKG}.tar.gz"
-pbuild::compile_in_sourcetree
-pbuild::add_to_group System
-
-pbuild::pre_configure_Linux() {
-	pbuild::add_patch "files/Makefile.patch"
-}
-
 pbuild::configure() {
 	:
 }

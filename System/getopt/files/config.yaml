@@ -1,0 +1,17 @@
+---
+format: 1
+getopt:
+  defaults:
+    group: System
+    overlay: base
+    relstage: stable
+    patch_files: [files/Makefile.patch]
+    compile_in_sourcetree: true
+    urls:
+      - url: http://frodo.looijaard.name/system/files/software/$P/$P-${V_PKG}.tar.gz
+  shasums:
+    getopt-1.1.6.tar.gz: d0bf1dc642a993e7388a1cddfb9409bed375c21d5278056ccca3a0acd09dc5fe
+  versions:
+    1.1.6:
+      config:
+        build_requires: [gettext/0.19.8]
