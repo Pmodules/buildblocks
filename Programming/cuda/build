@@ -1,29 +1,11 @@
 #!/usr/bin/env modbuild
 
-pbuild::add_to_group 'Programming'
-
-pbuild::prep() {
-	:
-}
-
-pbuild::configure() {
-	:
-}
-
-pbuild::compile() {
-	:
-}
-
-pbuild::install() {
-	:
-}
-
 pbuild::post_install() {
-  if [ -f "/opt/psi/Programming/cuda/${V_PKG}/lib64/stubs/libnvidia-ml.so" ]
-  then
-    if [ ! -f "/opt/psi/Programming/cuda/${V_PKG}/lib64/stubs/libnvidia-ml.so.1" ]
-    then
-      ln -s /opt/psi/Programming/cuda/$V/lib64/stubs/libnvidia-ml.so /opt/psi/Programming/cuda/${V_PKG}/lib64/stubs/libnvidia-ml.so.1
-    fi
-  fi
+	cd "${PREFIX}/lib64/stubs"
+	for lib in lib*; do
+		local soname="$(patchelf --print-soname "${lib}" 2>/dev/null)" || continue
+		if [[ ! -e "${soname}" ]]; then
+			ln -s "${lib}" "${soname}"
+		fi
+	done
 }

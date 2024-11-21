@@ -1,0 +1,95 @@
+---
+format: 1
+cuda:
+  defaults:
+    group: Programming
+    overlay: base
+    relstage: stable
+    build_variants: first_match
+    build_functions:
+      configure: []
+      compile: []
+      install: [pbuild::post_install]
+    urls:
+      - &cuda-12_2_2-aarch64 url: https://developer.download.nvidia.com/compute/cuda/12.2.2/local_installers/cuda_12.2.2_535.104.05_linux_sbsa.run
+        unpacker: none
+      - &cuda-12_2_2-x86_64
+        url: https://developer.download.nvidia.com/compute/cuda/12.2.2/local_installers/cuda_12.2.2_535.104.05_linux.run
+        unpacker: none
+      - &cuda-12_2_0-aarch64
+        url: https://developer.download.nvidia.com/compute/cuda/12.2.0/local_installers/cuda_12.2.0_535.54.03_linux_sbsa.run
+        unpacker: none
+      - &cuda-12_2_0-x86_64
+        url: https://developer.download.nvidia.com/compute/cuda/12.2.0/local_installers/cuda_12.2.0_535.54.03_linux.run
+        unpacker: none
+      - &cuda-12_1_1-aarch64
+        url: https://developer.download.nvidia.com/compute/cuda/12.1.1/local_installers/cuda_12.1.1_530.30.02_linux_sbsa.run
+        unpacker: none
+      - &cuda-12_1_1-x86_64
+        url: https://developer.download.nvidia.com/compute/cuda/12.1.1/local_installers/cuda_12.1.1_530.30.02_linux.run
+        unpacker: none
+
+  shasums:
+    cuda_12.2.2_535.104.05_linux.run: 2b39aae3e7618d9f59a3c8fa1f1bc61f29c0b0e0df75fb05076badb352952ef2
+    cuda_12.2.2_535.104.05_linux_sbsa.run: 4113a15e6b27a02638c72edeb5f89de4c9ea312febba12fc4cefff2edc882268
+    cuda_12.2.0_535.54.03_linux.run: ecf3d2afadcbac029f0f4505785810d52d006e4b87ba79ff3f984336a2bbf518
+    cuda_12.2.0_535.54.03_linux_sbsa.run: 9c90d79bb63952cd30f1f57f9f8fe11e7a8967bba6f824df45d3464b5d37e5d8
+    cuda_12.1.1_530.30.02_linux.run: d74022d41d80105319dfa21beea39b77a5b9919539c0487a05caaf2446d6a70e
+    cuda_12.1.1_530.30.02_linux_sbsa.run: 45ea4cd860f0a26d3db8ce032530f2ee0b55abdd587545213d395a73623b4278
+
+  versions:
+    12.2.2:
+      variants:
+        - target_cpus: [aarch64]
+          systems: [gpu.*.merlin7.psi.ch]
+          relstage: unstable
+          overlay: PSI
+          urls:
+            - *cuda-12_2_2-aarch64
+        - target_cpus: [x86_64]
+          systems: [.*.merlin7.psi.ch]
+          relstage: unstable
+          overlay: PSI
+          urls:
+            - *cuda-12_2_2-x86_64
+        - target_cpus: [x86_64]
+          relstage: unstable
+          urls:
+            - *cuda-12_2_2-x86_64
+
+    12.2.0:
+      variants:
+        - target_cpus: [aarch64]
+          systems: [gpu.*.merlin7.psi.ch]
+          relstage: unstable
+          urls:
+            - *cuda-12_2_0-aarch64
+        - target_cpus: [x86_64]
+          systems: [.*.merlin7.psi.ch]
+          relstage: unstable
+          overlay: PSI
+          urls:
+            - *cuda-12_2_0-x86_64
+        - target_cpus: [x86_64]
+          relstage: unstable
+          urls:
+            - *cuda-12_2_0-x86_64
+
+    12.1.1:
+      variants:
+        - target_cpus: [aarch64]
+          systems: [gpu.*.merlin7.psi.ch]
+          overlay: PSI
+          relstage: unstable
+          urls:
+            - *cuda-12_1_1-aarch64
+
+        - target_cpus: [x86_64]
+          systems: [.*.merlin7.psi.ch]
+          overlay: PSI
+          urls:
+            - *cuda-12_1_1-x86_64
+
+        - target_cpus: [x86_64]
+          urls:
+            - *cuda-12_1_1-x86_64
