@@ -1,6 +1,5 @@
 #!/usr/bin/env modbuild
 
-pbuild::add_to_group 'EM'
 
 
 pbuild::prep() {
@@ -13,6 +12,7 @@ pbuild::prep() {
             --fail \
             --output "$dst" \
             "https://bio3d.colorado.edu/ftp/PEET/linux/Particle_${V_PKG}_linux.sh"
+            --no-check-certificate
     fi
     }
 

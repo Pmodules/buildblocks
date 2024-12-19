@@ -1,8 +1,0 @@
-overlay: base
-relstage: stable
-group: EM
-shasums:
-  PEET/1.15.1a: de4e9104f90b9379502a34b58be33eafd5514d554002a94efe2adba6f44785e6
-
-PEET/1.15.1a:
-  - relstage: unstable

@@ -3,7 +3,7 @@
 module-whatis           "PEET (Particle Estimation for Electron Tomography) is an open-source package for aligning and averaging particles in 3-D subvolumes extracted from tomograms."
 module-url              "https://bio3d.colorado.edu/PEET/"
 module-license	        "GPLv2 license"
-module-maintainer       "Spencer Bliven <spencer.bliven@psi.ch>"
+module-maintainer       "Greta Assmann <greta.assmann@psi.ch>"
 
 module-help	"
 PEET (Particle Estimation for Electron Tomography) is an open-source package

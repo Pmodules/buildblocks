@@ -1,0 +1,16 @@
+---
+format: 1
+PEET:
+  defaults:
+    group: EM
+    overlay: base
+    relstage: unstable
+  versions:
+    1.17.0:
+      variants:
+        - overlay: Alps 
+          systems: [.*.merlin7.psi.ch]
+          relstage: unstable
+          runtime_deps:
+            - gcc/12.3.0
+            - matlab/2022b
