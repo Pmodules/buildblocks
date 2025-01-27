@@ -44,3 +44,12 @@ if { $libcuda eq "" } {
         prepend-path LD_LIBRARY_PATH      $PREFIX/lib/fallback/cuda
     }
 }
+
+if {[info exists ::env(PMIX_VERSION)]} {
+    set pmix_major_version [lindex [split $::env(PMIX_VERSION) "."] 0]
+    setenv SLURM_MPI_TYPE "pmix_v$pmix_major_version"
+}
+
+if { $V_MAJOR >= 5 } {
+    setenv OMPI_MCA_mca_base_component_show_load_errors = '^accelerator,rcache,btl/smcuda'
+}

@@ -1,9 +1,6 @@
 #!/usr/bin/env modbuild
 
 pbuild::pre_configure() {
-        pbuild::add_configure_args "--enable-shared"
-        pbuild::add_configure_args "--enable-static"
-
         if (( V_MAJOR < 5 )); then
 		pbuild::add_configure_args "--enable-mpi-cxx"
 		pbuild::add_configure_args "--enable-mpi-cxx-seek"
@@ -27,12 +24,17 @@ pbuild::pre_configure() {
 	fi
         if (( V_MAJOR >= 4 )); then
 		pbuild::add_configure_args "--enable-mpi-fortran"
+	fi
+        if (( V_MAJOR == 4 )); then
 		pbuild::add_configure_args "--without-verbs"
 	fi
 
 	if [[ -v CUDA_VERSION ]]; then
 		std::info "Enabling CUDA ${CUDA_VERSION}."
 		pbuild::add_configure_args "--with-cuda=${CUDA_HOME}"
+		if (( V_MAJOR >= 5 )); then
+			pbuild::add_configure_args "--with-cuda-libdir=${CUDA_HOME}/lib64/stubs"
+                fi
 	fi
 
         if [[ -v HWLOC_VERSION ]]; then
@@ -77,7 +79,9 @@ pbuild::pre_configure() {
                 pbuild::add_configure_args "FC=ifort"
                 pbuild::add_configure_args "F90=ifort"
                 pbuild::add_configure_args "F77=ifort"
-                pbuild::add_configure_args "LDFLAGS=-Wc,-static-intel,-O0"
+                # -O0 was probably added for enabling debugging:
+                # pbuild::add_configure_args "LDFLAGS=-Wc,-static-intel,-O0"
+                pbuild::add_configure_args "LDFLAGS=-Wc,-static-intel"
         fi
 
         if pbuild::use_flag slurm || \
@@ -118,7 +122,14 @@ pbuild::post_install_no_slurm() {
 
 pbuild::post_install() {
 	if [[ -v CUDA_VERSION ]]; then
-		echo "opal_warn_on_missing_libcuda = 0" >> ${PREFIX}/etc/openmpi-mca-params.conf
+		grep -qxF "opal_warn_on_missing_libcuda = 0"    ${PREFIX}/etc/openmpi-mca-params.conf || \
+		     echo "opal_warn_on_missing_libcuda = 0" >> ${PREFIX}/etc/openmpi-mca-params.conf
+		if (( V_MAJOR == 5 )); then
+			grep -qxF "mca_base_component_show_load_errors = '^accelerator,rcache,btl/smcuda'" ${PREFIX}/etc/openmpi-mca-params.conf || \
+			     echo "mca_base_component_show_load_errors = '^accelerator,rcache,btl/smcuda'" >> ${PREFIX}/etc/openmpi-mca-params.conf
+			grep -qxF "mca_base_component_show_load_errors = '^accelerator,rcache,btl/smcuda'" ${PREFIX}/etc/prte-mca-params.conf || \
+			     echo "mca_base_component_show_load_errors = '^accelerator,rcache,btl/smcuda'" >> ${PREFIX}/etc/prte-mca-params.conf
+                fi
 	fi
 
 	local fname=''

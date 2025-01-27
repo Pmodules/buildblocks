@@ -6,7 +6,6 @@ pmix:
     compile_in_sourcetree: true
     configure_args:
       - --enable-shared
-      - --enable-static
     docfiles:
       - AUTHORS
       - README.md
@@ -30,6 +29,8 @@ pmix:
     1.2.5:
       config:
         relstage: removed
+        configure_args+:
+          - --enable-static
         docfiles:
           - README
           - LICENSE
@@ -38,6 +39,8 @@ pmix:
     2.2.5;3.2.3:
       config:
         relstage: unstable
+        configure_args+:
+          - --enable-static
         runtime_deps: [libevent/2.1.12]
         build_requires: [gcc/12.3.0, hwloc/2.11.1]
       variants:
@@ -48,6 +51,8 @@ pmix:
     3.2.5:
       config:
         relstage: unstable
+        configure_args+:
+          - --enable-static
         runtime_deps: [libevent/2.1.12]
         build_requires: [gcc/12.3.0, hwloc/2.11.1]
       variants:
@@ -57,21 +62,29 @@ pmix:
     4.1.2:
       config:
         relstage: stable
+        configure_args+:
+          - --enable-static
         runtime_deps: [libevent/2.1.12]
         build_requires: [hwloc/2.7.1]
     4.2.3:
       config:
         relstage: stable
+        configure_args+:
+          - --enable-static
         runtime_deps: [libevent/2.1.12]
         build_requires: [hwloc/2.9.1]
     4.2.4:
       config:
         relstage: stable
+        configure_args+:
+          - --enable-static
         runtime_deps: [libevent/2.1.12]
         build_requires: [gcc/10.4.0, hwloc/2.9.1]
     4.2.9:
       config:
-        relstage: unstable
+        relstage: stable
+        configure_args+:
+          - --enable-static
         runtime_deps: [libevent/2.1.12]
         build_requires: [gcc/12.3.0, hwloc/2.11.1]
       variants:
@@ -80,7 +93,9 @@ pmix:
           use_overlays: [PSI]
     5.0.3:
       config:
-        relstage: unstable
+        relstage: stable
+        configure_args+:
+          - --enable-static=no
         runtime_deps: [libevent/2.1.12]
         build_requires: [gcc/12.3.0, hwloc/2.11.1]
       variants:
@@ -95,3 +110,23 @@ pmix:
           # - --with-jansson
           # - --with-curl
         - systems: [rhel.*]
+    # 5.0.4:
+    #   config:
+    #     relstage: unstable
+    #     configure_args+:
+    #       - --enable-static=no
+    #     runtime_deps: [libevent/2.1.12]
+    #     build_requires: [gcc/12.3.0, hwloc/2.11.1]
+    #   variants:
+    #     - systems: [.*.merlin7.psi.ch]
+    #       overlay: Alps
+    #       use_overlays: [PSI]
+    #       configure_args+:
+    #         - --with-lustre
+    #         - --with-cxi
+    #         - --with-cxi-libdir=/opt/cray/libfabric/1.15.2.0/include
+    #         - --with-slingshot
+    #         - --with-zlib
+    #       # - --with-jansson
+    #       # - --with-curl
+    #     - systems: [rhel.*]

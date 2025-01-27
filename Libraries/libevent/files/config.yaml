@@ -22,7 +22,7 @@ libevent:
           overlay: Alps
           use_overlays: [PSI]
           build_requires: []
-          relstage: unstable
+          relstage: stable
         - systems: [rhel.*]
           build_requires: [openssl/1.1.1k]
     2.1.8:
