@@ -1,0 +1,109 @@
+---
+format: 1
+relion:
+  defaults:
+    group: EM
+    overlay: base
+    relstage: unstable
+    build_variants: first_match
+  versions:
+    5.0.0:
+      variants:
+        - overlay: Alps 
+          target_cpus: [x86_64]
+          systems: [.*.merlin7.psi.ch]
+          build_requires:
+            - cmake/3.23.2
+            - git/2.37.0
+            - openmpi/5.0.5 
+          relstage: unstable
+          runtime_deps:
+            - gcc/12.3.0
+            - cuda/12.2.0
+            - openmpi/5.0.5
+          configure_with: cmake
+          configure_args:
+            - "-DTORCH_HOME_PATH=${PREFIX}/torch"
+            - "-DPYTHON_EXE_PATH=${PREFIX}/miniconda/envs/${P}-${V}/bin/python"
+            - "-DFORCE_OWN_FFTW=ON"
+            - "-DFORCE_OWN_FLTK=ON"
+            - "-DFORCE_OWN_TBB=ON" 
+            - "-DCUDA=ON"
+            - "-DCUDA_ARCH=80"             # dep on the cuda arch of the oldest GPU
+            - "-DFETCH_WEIGHTS=OFF"
+        # does not work yet- just an idea... 
+        - overlay: Alps 
+          target_cpus: [aarch64]
+          systems: [gpu0.*.merlin7.psi.ch]
+          build_requires:
+            #- cmake/3.23.2
+            #- git/2.37.0
+            - openmpi/5.0.5 
+            - gcc/12.3.0
+            - cuda/12.2.0
+          relstage: unstable
+          runtime_deps:
+            - gcc/12.3.0
+            - cuda/12.2.0
+            - openmpi/5.0.5
+          configure_with: cmake
+          configure_args:
+            - "-DTORCH_HOME_PATH=${PREFIX}/torch"
+            - "-DPYTHON_EXE_PATH=${PREFIX}/miniconda/envs/${P}-${V}/bin/python"
+            - "-DFORCE_OWN_FFTW=ON"
+            - "-DFORCE_OWN_FLTK=ON"
+            - "-DFORCE_OWN_TBB=ON" 
+            - "-DCUDA=ON"
+            - "-DCUDA_ARCH=90"             # dep on the cuda arch of the oldest GPU
+            - "-DFETCH_WEIGHTS=OFF"
+    #MERLIN7 old (cray)
+    5.0-2beta:
+      variants:
+        - overlay: Alps 
+          systems: [gpu.*.merlin7.psi.ch]
+          build_requires:
+            - cmake/3.23.2
+            - git/2.37.0
+            - libfabric/1.22.0 
+          relstage: unstable
+          runtime_deps:
+            - gcc/12.3.0
+            # - cudatoolkit/23.9_12.2
+            - cuda/12.2.0
+          configure_with: cmake
+          configure_args:
+            - "-DTORCH_HOME_PATH=${PREFIX}/torch"
+            - "-DPYTHON_EXE_PATH=${PREFIX}/miniconda/envs/${P}-${V}/bin/python"
+            - "-DFORCE_OWN_FFTW=ON"
+            - "-DFORCE_OWN_FLTK=ON"
+            - "-DFORCE_OWN_TBB=ON" 
+            - "-DCUDA=ON"
+            - "-DCUDA_ARCH=80"             # dep on the cuda arch of the oldest GPU
+            #- "-DCudaTexture=ON" 
+            - "-DFETCH_WEIGHTS=OFF"
+    #MERLIN6        
+    5.0-1beta:                             
+       variants:
+         - systems: [merlin-.*.psi.ch]
+           build_requires:
+             - gcc/10.4.0
+             - openmpi/4.1.4_slurm
+             - cuda/11.5.1
+             - cmake/3.23.2
+             - git/2.37.0
+           relstage: unstable
+           runtime_deps:
+             - cuda/11.5.1
+             - gcc/10.4.0
+             - openmpi/4.1.4_slurm
+           configure_with: cmake
+           configure_args:
+             - "-DTORCH_HOME_PATH=${PREFIX}/torch"
+             - "-DPYTHON_EXE_PATH=${PREFIX}/miniconda/envs/${P}-${V}/bin/python"
+             - "-DFORCE_OWN_FFTW=ON"
+             - "-DFORCE_OWN_FLTK=ON"
+             - "-DFORCE_OWN_TBB=ON"
+             - "-DCUDA=ON"
+             - "-DCUDA_ARCH=61"             # dep on the cuda arch of the oldest GPU
+             - "-DCudaTexture=ON"
+

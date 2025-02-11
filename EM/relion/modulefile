@@ -25,10 +25,10 @@ Scheres(2012) JSB http://www.sciencedirect.com/science/article/pii/S104784771200
 "
 
 setenv RELION_QUEUE_USE yes
-setenv RELION_QUEUE_NAME gpu
+setenv RELION_QUEUE_NAME general-x64
 setenv RELION_QSUB_COMMAND sbatch
 setenv RELION_THREAD_MAX 44
-setenv RELION_QSUB_EXTRA_COUNT 2
+setenv RELION_QSUB_EXTRA_COUNT 4
 setenv RELION_QSUB_EXTRA1 "Max Time"
 setenv RELION_QSUB_EXTRA1_DEFAULT "1-00:00:00"
 setenv RELION_QSUB_EXTRA1_HELP "Maximum time before the job is killed by slurm. Default: 1-00:00:00"
@@ -36,32 +36,15 @@ setenv RELION_QSUB_EXTRA2 "Extra Slurm Args"
 setenv RELION_QSUB_EXTRA2_DEFAULT ""
 setenv RELION_QSUB_EXTRA2_HELP "Any additional arguments to pass to slurm"
 setenv RELION_SCRATCH_DIR /scratch
-setenv RELION_UNBLUR_EXECUTABLE /opt/psi/EM/Unblur/1.0.2/bin/unblur_openmp_7_17_15.exe
-setenv RELION_SUMMOVIE_EXECUTABLE /opt/psi/EM/Summovie/1.0.2/bin/sum_movie_openmp_7_17_15.exe
 setenv RELION_CTFFIND_EXECUTABLE /opt/psi/EM/ctffind4/4.1.8/bin/ctffind
-setenv RELION_GCTF_EXECUTABLE /opt/psi/EM/Gctf/1.06/bin/Gctf
+#also has internal version, depending on what users want... dont know if it works
 setenv RELION_RESMAP_EXECUTABLE /opt/psi/EM/ResMap/1.1.4/bin/ResMap
-setenv RELION_TOPAZ_EXECUTABLE /opt/psi/EM/relion/5.0-sp/conda_env/5.0-beta/bin/topaz
-setenv RELION_PYTHON_EXECUTABLE /opt/psi/EM/relion/5.0-sp/conda_env/5.0-beta/bin/python
-setenv RELION_TORCH_HOME_PATH /opt/psi/EM/relion/5.0-sp/torch
 # Version-specific variables
-setenv RELION_QSUB_TEMPLATE /opt/psi/EM/relion/$V/scripts/multi_gpu.sh
+setenv RELION_QSUB_TEMPLATE /opt/psi/overlays/Alps/EM/relion/$V/scripts/multi_gpu.sh
 
-# See MC2 compatibility matrix: https://intranet.psi.ch/en/bio/motioncor2
-if {[string match "8.0*" $env(CUDA_VERSION)]} {
-    setenv RELION_MOTIONCOR2_EXECUTABLE "/opt/psi/EM/MotionCor2/1.3.2/bin/MotionCor2_1.3.2-Cuda80"
-} elseif {[string match "11.0*" $env(CUDA_VERSION)]} {
-    setenv RELION_MOTIONCOR2_EXECUTABLE "/opt/psi/EM/MotionCor2/1.4.0/bin/MotionCor2"
-} else {
-    setenv RELION_MOTIONCOR2_EXECUTABLE "/opt/psi/EM/MotionCor2/1.6.4/bin/MotionCor2"
-}
+setenv RELION_MOTIONCOR2_EXECUTABLE "/opt/psi/EM/MotionCor2/1.6.4/bin/MotionCor2"
 
-# relion 5 features
-if {[file exists /opt/psi/EM/relion/$V/conda_env/$V]} {
-    setenv RELION_TOPAZ_EXECUTABLE /opt/psi/EM/relion/$V/conda_env/$V/bin/topaz
-    setenv RELION_PYTHON_EXECUTABLE /opt/psi/EM/relion/$V/conda_env/$V/bin/python
-}
-if {[file exists /opt/psi/EM/relion/$V/torch]} {
-    setenv RELION_TORCH_HOME_PATH /opt/psi/EM/relion/$V/torch
-}
+setenv RELION_TOPAZ_EXECUTABLE /opt/psi/overlays/Alps/EM/relion/$V/miniconda/envs/$P-$V/bin/topaz
+setenv RELION_PYTHON_EXECUTABLE /opt/psi/overlays/Alps/EM/relion/$V/miniconda/envs/$P-$V/bin/python
+setenv RELION_TORCH_HOME_PATH /opt/psi/overlays/Alps/EM/relion/$V/torch/
 

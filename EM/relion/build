@@ -1,7 +1,5 @@
 #!/usr/bin/env modbuild
 
-pbuild::add_to_group 'EM'
-pbuild::use_cmake
 PROFILE="no"
 SP="no"
 
@@ -23,15 +21,22 @@ pbuild::prep() {
         BRANCH="${V_PKG}"
     fi
 
-    git clone --depth=1 -b "$BRANCH" https://github.com/3dem/relion.git "$SRC_DIR" || return $?
+    if [[ -d "$SRC_DIR/.git" ]]; then
+	cd "$SRC_DIR"
+        git pull 
+    else
+        git clone --depth=1 -b "$BRANCH" https://github.com/3dem/relion.git "$SRC_DIR" || return $?
+    fi
 }
+
 
 pbuild::pre_configure() {
 
     # Section will be switched on for -profile version
     #-----------------------------------------------------------
     if [[ "$PROFILE" == "yes" ]]; then
-        pbuild::add_configure_args "-DCMAKE_BUILD_TYPE=BENCHMARKING"
+        # this needs to go into the config.yml file for >5.0-1beta
+        : #pbuild::add_configure_args "-DCMAKE_BUILD_TYPE=BENCHMARKING"
     fi
     #------------------------------------------------------------
 
@@ -40,55 +45,49 @@ pbuild::pre_configure() {
     # Safe memory usage for multibody refinements
     #------------------------------------------------------------
     if [[ "$SP" == "yes" ]]; then
-        pbuild::add_configure_args "-DDoublePrec_CPU=OFF"
+        # this needs to go into the config.yml file for >5.0-1beta
+        : #pbuild::add_configure_args "-DDoublePrec_CPU=OFF"
     fi
     #------------------------------------------------------------
-
 
 
     # The following section will only work for versions >= 5.0-beta 
     # -------------------------------------------------------------
     if [[ "$V_MAJOR" -ge "5" ]]; then
-
-        #download blush weights
-        wget ftp://ftp.mrc-lmb.cam.ac.uk/pub/dari/blush_v1.0.ckpt.gz -P "$PREFIX/torch/hub/checkpoints/relion_blush" \
+        #download blush weights, from zenodo 
+        #mkdir -p "${PREFIX}"
+        wget -q https://zenodo.org/records/10072731/files/blush_v1.0.ckpt.gz -P "$PREFIX/torch/hub/checkpoints/relion_blush" \
         && gunzip "$PREFIX/torch/hub/checkpoints/relion_blush/blush_v1.0.ckpt.gz"
         mv "$PREFIX/torch/hub/checkpoints/relion_blush/blush_v1.0.ckpt" "$PREFIX/torch/hub/checkpoints/relion_blush/v1.0.ckpt" 
         touch  "$PREFIX/torch/hub/checkpoints/relion_blush/v1.0_installed.txt"
+        
+ 	#cp classranker that was downloaded on another machine before from BUILDBLOCK_DIR
+        mkdir -p "$PREFIX/torch/hub/checkpoints/relion_class_ranker"
+        cp "$BUILDBLOCK_DIR/classranker_v1.0.ckpt.gz" "$PREFIX/torch/hub/checkpoints/relion_class_ranker"
+        gunzip "$PREFIX/torch/hub/checkpoints/relion_class_ranker/classranker_v1.0.ckpt.gz" 
+        mv "$PREFIX/torch/hub/checkpoints/relion_class_ranker/classranker_v1.0.ckpt" "$PREFIX/torch/hub/checkpoints/relion_class_ranker/v1.0.ckpt"
+        touch  "$PREFIX/torch/hub/checkpoints/relion_class_ranker/v1.0_installed.txt"
+        
+        # fltk stuff 
+        mkdir -p "$SRC_DIR/external/fltk"
+        cp "$BUILDBLOCK_DIR/fltk-1.3.5-source.tar.gz" "$SRC_DIR/external/fltk/"
+ 
 
-        #Set Torch Home
-        pbuild::add_configure_args "-DTORCH_HOME_PATH=$PREFIX/torch" 
+        #INSTALL Miniconda
+        echo "installing miniconda"
+        mkdir -p  "$PREFIX/miniconda"
+        wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-aarch64.sh -O "$PREFIX/miniconda/miniconda.sh"
+        #wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O "$PREFIX/miniconda/miniconda.sh"
+        bash "$PREFIX/miniconda/miniconda.sh" -b -u -p "$PREFIX/miniconda/"
 
-        #Conda 
-        conda env create -f "$SRC_DIR/environment.yml"  -p "$PREFIX/conda_env/$P_$V" 
-        pbuild::add_configure_args "-DPYTHON_EXE_PATH=$PREFIX/conda_env/$P_$V/bin/python"
+        # Copy manually edited environment.yml file (with cryocare specs) into the folder to substitute the default one
+        #Conda create env with miniconda installation 
+        "$PREFIX/miniconda/condabin/conda" env create --name "${P}-${V}" -f "$SRC_DIR/environment.yml" 
+        "$PREFIX/miniconda/condabin/conda" env list
     fi
 
     #---------------------------------------------------------------
 
 
-    # CMake-based build
-
-    pbuild::add_configure_args "-DFORCE_OWN_FFTW=ON"
-    pbuild::add_configure_args "-DFORCE_OWN_FLTK=ON"
-    pbuild::add_configure_args "-DFORCE_OWN_TBB=ON"
-
-    # CUDA related (set lowest CC to 6.1 for 1080 compatibility)
-    pbuild::add_configure_args "-DCUDA=ON"
-    pbuild::add_configure_args "-DCUDA_ARCH=61"
-    pbuild::add_configure_args "-DCudaTexture=ON"
-    
-    # Since ver3.0 relion cannot have ALTCPU and CUDA activated
-    # at the same time. Otherwise the configuration exits with
-    # an error.
-    if [[ "$V_MAJOR" -le "3" ]]; then
-        pbuild::add_configure_args "-DALTCPU=ON"
-    fi
-
-    if [[ -n "$INTEL_VERSION" ]]; then
-        # Requires intel compiler
-        pbuild::add_configure_args "-DMKLFFT=ON"
-    fi
 }
 
-# vim: ts=4 sw=4 et 
