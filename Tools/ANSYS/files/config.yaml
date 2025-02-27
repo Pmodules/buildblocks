@@ -1,0 +1,28 @@
+format: 1
+ANSYS:
+  defaults:
+    group: Tools
+    relstage: stable
+  shasums:
+  versions:
+    2024R2:
+      variants:
+        - systems: [.*.merlin7.psi.ch]
+          relstage: stable
+          overlay: merlin
+          use_overlays: [PSI]
+          use_flags: [merlin7]
+    2023R2:
+      variants:
+        - systems: [.*.merlin7.psi.ch]
+          relstage: unstable
+          overlay: merlin
+          use_overlays: [PSI]
+          use_flags: [merlin7]
+    2022R2:
+      variants:
+        - systems: [.*.merlin7.psi.ch]
+          relstage: stable
+          overlay: merlin
+          use_overlays: [PSI]
+          use_flags: [merlin7]

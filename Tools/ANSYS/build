@@ -1,7 +1,5 @@
 #!/usr/bin/env modbuild
 
-pbuild::add_to_group 'Tools'
-
 pbuild::prep() {
 	:
 }
