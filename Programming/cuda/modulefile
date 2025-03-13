@@ -13,15 +13,12 @@ harnessing the power of the graphics processing unit (GPU).
 
 prepend-path    CUDA_PATH       "$PREFIX"
 
-# libnvidia-ml.so in GDK package is a stub library that is attached only for build purposes
-prepend-path    LIBRARY_PATH    "$PREFIX/lib64/stubs"
-prepend-path    LIBRARY_PATH    "$PREFIX/targets/x86_64-linux/lib/stubs"
+if {[catch {exec /usr/sbin/modinfo -d nvidia} result]} {
+   # add if the module is *not* loaded => we are on a system without GPU
+   prepend-path    LIBRARY_PATH		"$PREFIX/lib64/stubs"
+   prepend-path    LD_LIBRARY_PATH	"$PREFIX/lib/stubs" 
+}
 
 prepend-path    C_INCLUDE_PATH      "$PREFIX/targets/x86_64-linux/include"
 prepend-path    CPLUS_INCLUDE_PATH  "$PREFIX/targets/x86_64-linux/include"
 
-# We should always run with libnvidia-ml.so that is installed with your NVIDIA Display Driver. 
-# By default it's installed in /usr/lib and /usr/lib64.
-# Therefore, LD_LIBRARY_PATH must not contain any libnvidia-ml.so reference in the GDK package
-#   prepend-path    LD_LIBRARY_PATH    "$PREFIX/lib/stubs" 
-#   prepend-path    LD_LIBRARY_PATH    "$PREFIX/targets/x86_64-linux/lib/stubs"
