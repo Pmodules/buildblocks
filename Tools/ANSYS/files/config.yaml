@@ -7,22 +7,87 @@ ANSYS:
   versions:
     2024R2:
       variants:
+        - relstage: unstable
+        - systems: [merlin-l.*]
+          relstage: unstable
+          overlay: merlin
+          use_flags: [merlin6]
         - systems: [.*.merlin7.psi.ch]
           relstage: stable
           overlay: merlin
           use_overlays: [PSI]
           use_flags: [merlin7]
+    2024R1:
+      variants:
+        - systems: [merlin-l.*]
+          relstage: unstable
+          overlay: merlin
+          use_flags: [merlin6]
     2023R2:
       variants:
-        - systems: [.*.merlin7.psi.ch]
+        - systems: [merlin-l.*]
           relstage: unstable
+          overlay: merlin
+          use_flags: [merlin6]
+        - systems: [.*.merlin7.psi.ch]
+          relstage: deprecated
           overlay: merlin
           use_overlays: [PSI]
           use_flags: [merlin7]
     2022R2:
       variants:
+        - relstage: deprecated
+        - systems: [merlin-l.*]
+          relstage: stable
+          overlay: merlin
+          use_flags: [merlin6]
         - systems: [.*.merlin7.psi.ch]
           relstage: stable
           overlay: merlin
           use_overlays: [PSI]
           use_flags: [merlin7]
+    2022R1:
+      variants:
+        - relstage: deprecated
+        - systems: [merlin-l.*]
+          relstage: deprecated
+          overlay: merlin
+          use_flags: [merlin6]
+    2021R2:
+      variants:
+        - relstage: deprecated
+        - systems: [merlin-l.*]
+          relstage: deprecated
+          overlay: merlin
+          use_flags: [merlin6]
+    2021R1:
+      variants:
+        - relstage: deprecated
+        - systems: [merlin-l.*]
+          relstage: deprecated
+          overlay: merlin
+          use_flags: [merlin6]
+    2020R2:
+      variants:
+        - relstage: deprecated
+        - systems: [merlin-l.*]
+          relstage: deprecated
+          overlay: merlin
+          use_flags: [merlin6]
+    2020R1-1:
+      variants:
+        - relstage: deprecated
+    2020R1:
+      variants:
+        - relstage: deprecated
+        - systems: [merlin-l.*]
+          relstage: deprecated
+          overlay: merlin
+          use_flags: [merlin6]
+    2019R3:
+      variants:
+        - relstage: deprecated
+        - systems: [merlin-l.*]
+          relstage: deprecated
+          overlay: merlin
+          use_flags: [merlin6]
