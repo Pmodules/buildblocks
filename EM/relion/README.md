@@ -23,6 +23,7 @@ https://git.psi.ch/lsm-hpce/relion-scripts
 - The build script was also updated accordingly
 - Also, cryocare is now available in a wrapper from relion, the cryocare installation executables need to be provided (seperate cryocare module). It is crucial to add the cryocare lib path (from the cryocare conda env)  to the LD_LIBRARY_PATH when loading the relion module
 - tiff module no longer required, as this conflicts with the system shared tiff libs (not 100% sure why this canged from previous installations though)
+
 ### 5.0-2beta (ON MERLIN7)
 - no fetching of weights with ftp possible, so cp from other machines into BUILD DIR and using the -DFETCH\_WEIGHTS=OFF option
 - link : ftp://ftp.mrc-lmb.cam.ac.uk/pub/scheres/fltk-1.3.5-source.tar.gz 
@@ -32,7 +33,7 @@ https://git.psi.ch/lsm-hpce/relion-scripts
 - same as 5.0-2beta (especially when it comes to the weights...)
 - copy the fltk and the classranker file into the BUILD Directory. The build script assumes that these two files are in the BUILD\_DIR.   
 - sha256 errors occured during installation: 
-```
+```text
 ERROR: THESE PACKAGES DO NOT MATCH THE HASHES FROM THE REQUIREMENTS FILE. If you have updated the package versions, please update the hashes. Otherwise, examine the package contents carefully; someone may have tampered with them.
     unknown package:
         Expected sha256 20abd2cae58e55ca1af8a8dcf43293336a59adf0391f1917bf8518633cfc2cdf
@@ -40,14 +41,17 @@ ERROR: THESE PACKAGES DO NOT MATCH THE HASHES FROM THE REQUIREMENTS FILE. If you
 ```
 - The download of some packages (.whl files) was blocked by the merlin7 firewall. Google the shasum and find the package name. Try to manually download with curl. If this fails, this is a strong indication for network/firewall issues that need to be adressed by the networking team. .whl files from conda +pip installations are ususally stored in the env in lib/pythonXXX.
 - Also, to not clean up build directories: 
-```
+```text
 --no-clean
 Don't clean up build directories.
 (environment variable: PIP_NO_CLEAN)
 
 ```
+- adding flags to activate more aggressive compiler optimsations (affixing to `x86-64-v3` which is fully support on all EPYC nodes on Merlin7)
+
 ### 5.0.0 for GH 
 
 no successful installation so far - failing for conda env. Elsa G. build some hacky hack that works kind of.. 
 needs to be investigated further. 
 
+- will attempt to build with more aggressive compiler optimisations as proscribed in: <https://docs.nvidia.com/grace-perf-tuning-guide/compilers.html>

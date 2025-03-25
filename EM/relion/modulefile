@@ -44,7 +44,7 @@ setenv RELION_QSUB_TEMPLATE /opt/psi/overlays/Alps/EM/relion/$V/scripts/multi_gp
 
 setenv RELION_MOTIONCOR2_EXECUTABLE "/opt/psi/EM/MotionCor2/1.6.4/bin/MotionCor2"
 
-setenv RELION_TOPAZ_EXECUTABLE /opt/psi/overlays/Alps/EM/relion/$V/miniconda/envs/$P-$V/bin/topaz
-setenv RELION_PYTHON_EXECUTABLE /opt/psi/overlays/Alps/EM/relion/$V/miniconda/envs/$P-$V/bin/python
+setenv RELION_TOPAZ_EXECUTABLE /opt/psi/overlays/Alps/EM/relion/$V/miniconda/envs/relion-5.0/bin/topaz
+setenv RELION_PYTHON_EXECUTABLE /opt/psi/overlays/Alps/EM/relion/$V/miniconda/envs/relion-5.0/bin/python
 setenv RELION_TORCH_HOME_PATH /opt/psi/overlays/Alps/EM/relion/$V/torch/
 
