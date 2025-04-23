@@ -6,16 +6,16 @@ ctffind4:
     overlay: base
     relstage: unstable
     urls:
-      - url: "https://grigoriefflab.umassmed.edu/system/tdf?path=ctffind-${V_PKG}-linux64.tar.gz&file=1&type=node&id=26"
-        name: "ctffind-${V_PKG}.tar.gz"
+      - url: https://grigoriefflab.umassmed.edu/system/tdf?path=ctffind-${V_PKG}-linux64.tar.gz&file=1&type=node&id=26
+        name: ctffind-${V_PKG}.tar.gz
     build_variants: first_match
   versions:
     5.0.2:
       config:
         strip_dirs: 1
         urls:
-          - url: "https://grigoriefflab.umassmed.edu/system/tdf?path=ctffind-${V_PKG}.tar.gz&file=1&type=node&id=26"
-            name: "ctffind-${V_PKG}.tar.gz"
+          - url: https://grigoriefflab.umassmed.edu/system/tdf?path=ctffind-${V_PKG}.tar.gz&file=1&type=node&id=26
+            name: ctffind-${V_PKG}.tar.gz
     4.1.{8,14}:
       config:
         relstage: stable
