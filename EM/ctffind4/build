@@ -2,35 +2,20 @@
 
 # Binary distribution with manual installation. See README.md
 
-pbuild::add_to_group 'EM'
-
-pbuild::set_download_url "https://grigoriefflab.umassmed.edu/system/tdf?path=ctffind-${V_PKG}-linux64.tar.gz&file=1&type=node&id=26"
-
-#pbuild::prep() {
-#    local filename="ctffind-${V_PKG}-linux64.tar.gz"
-#    local dst="$PMODULES_DISTFILESDIR/${filename}"
-#    if [ -f "$dst" ]; then
-#        echo "Found cached $dst" >&2
-#    else
-#        ${curl:-curl} \
-#            --location \
-#            --fail \
-#            --output "$dst" \
-#            "https://grigoriefflab.umassmed.edu/system/tdf?path=${filename}&file=1&type=node&id=26"
-#    fi
-#}
-#
-
-pbuild::configure() {
-    :
+pbuild::post_prep() {
+    sed -i "s|@CTFFINDPATH@|$PREFIX/bin/ctffind.orig|" ctffind_wrapper.c
 }
 
 pbuild::compile() {
-    :
+    gcc -Wall -pedantic -o ctffind_wrapper ctffind_wrapper.c
 }
 
 pbuild::install() {
     mkdir -p "$PREFIX/bin"
     mv "$SRC_DIR/"* "$PREFIX/bin"
+
+    # swap the binary with the wrapper
+    mv "$PREFIX/bin/ctffind" "$PREFIX/bin/ctffind.orig"
+    mv "$PREFIX/bin/ctffind_wrapper" "$PREFIX/bin/ctffind"
 }
 

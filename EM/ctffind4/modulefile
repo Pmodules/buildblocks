@@ -8,6 +8,3 @@ module-maintainer       "HPCE Admins <merlin-admins@lists.psi.ch>"
 module-help     "
 Mindell, JA, Grigorieff N.  2003.  Accurate determination of local defocus and specimen tilt in electron microscopy. J Struct Biol. 142:334-47.
 "
-
-# this is needed to handle locale related limitations for the statically compiled binaries
-setenv LANG C
