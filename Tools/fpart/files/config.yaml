@@ -1,0 +1,18 @@
+---
+format: 1
+fpart:
+  defaults:
+    group: Tools
+    overlay: base
+    relstage: stable
+    configure_with: autotools
+    build_variants: first_match
+    target_cpus: [x86_64]
+    systems: [rhel8]
+    docfiles: [COPYING, README.md, Changelog.md]
+    urls:                                               
+      - url: https://github.com/martymac/$P/archive/refs/tags/$P-${V_PKG}.tar.gz
+  shasums:                                              
+    fpart-1.7.0.tar.gz: e5f82dd90001ed53200b2383bcfd520b1d8ee06d6a2a75b39d37d68daef20c88
+  versions:
+    1.7.0:

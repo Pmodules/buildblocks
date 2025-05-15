@@ -1,0 +1,6 @@
+#!/usr/bin/env modbuild
+
+# we need to generate the configure file
+pbuild::post_prep() {
+  autoreconf -i
+}
