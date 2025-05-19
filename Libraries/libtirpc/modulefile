@@ -1,0 +1,14 @@
+#%Module1.0
+
+module-whatis		"Libtirpc is a port of Suns Transport-Independent RPC library to Linux"
+module-url		"https://sourceforge.net/projects/libtirpc/"
+module-license	 	"BSD 3 Clause"
+module-maintainer	"Hans-Nikolai Viessmann <hans-nikolai.viessmann@psi.ch"
+
+module-help	"
+TI-RPC is an enhanced version of TS-RPC that requires the UNIX System V
+Transport Layer Interface (TLI) or an equivalent X/Open Transport Interface
+(XTI).  TI-RPC is on-the-wire compatible with the TS-RPC, which is supported
+by almost 70 vendors on all major operating systems.  TS-RPC source code
+(RPCSRC 4.0) remains available from several internet sites.
+"

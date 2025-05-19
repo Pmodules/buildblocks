@@ -1,0 +1,18 @@
+---
+format: 1
+libtirpc:
+  defaults:
+    group: Libraries
+    overlay: base
+    relstage: stable
+    configure_with: autotools
+    build_variants: first_match
+    target_cpus: [x86_64]
+    systems: [rhel8]
+    docfiles: [COPYING, README, NEWS]
+    urls:                                               
+      - url: https://downloads.sourceforge.net/project/libtirpc/$P/${V_PKG}/$P-${V_PKG}.tar.bz2
+  shasums:                                              
+    libtirpc-1.3.6.tar.bz2 : bbd26a8f0df5690a62a47f6aa30f797f3ef8d02560d1bc449a83066b5a1d3508
+  versions:
+    1.3.6:

@@ -1,0 +1,9 @@
+#!/usr/bin/env modbuild
+
+pbuild::post_install() {
+  # create a symlink to the headers to make it compatible with the GNU SUNRPC
+  # header file layout
+  mv ${PREFIX}/include/tirpc/* ${PREFIX}/include/
+  rmdir ${PREFIX}/include/tirpc
+  ln --symbolic . ${PREFIX}/include/tirpc
+}
