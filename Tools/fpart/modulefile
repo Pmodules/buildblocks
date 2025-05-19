@@ -6,7 +6,7 @@ module-license	 	"BSD 2 Clause"
 module-maintainer	"Hans-Nikolai Viessmann <hans-nikolai.viessmann@psi.ch"
 
 module-help	"
-Fpart is a Filesystem partitioner. It helps you sort file trees and pack them into bags (called "partitions"). It is developed in C and available under the BSD license.
+Fpart is a Filesystem partitioner. It helps you sort file trees and pack them into bags (called partitions). It is developed in C and available under the BSD license.
 
 Fpsync, a powerful file-migration tool is also provided. See https://www.fpart.org/ for more details and examples.
 "
