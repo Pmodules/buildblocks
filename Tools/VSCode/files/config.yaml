@@ -19,3 +19,9 @@ VSCode:
     1.100.2:
       config:
         relstage: unstable
+    1.87.0:
+      config:
+        relstage: stable
+    1.38.1_rhel7;1.73.1:
+      config:
+        relstage: deprecated
