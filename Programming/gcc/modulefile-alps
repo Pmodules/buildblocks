@@ -1,0 +1,28 @@
+#%Module1.0
+
+module-whatis		"GNU Compiler Collection"
+module-url		"http://gcc.gnu.org/"
+module-license		"GNU GPL v2/v3"
+module-maintainer	"Achim Gsell <achim.gsell@psi.ch>"
+
+module-help	"
+The GNU Compiler Collection includes front ends for C, C++, Objective-C,
+Fortran, Java, Ada, and Go, as well as libraries for these languages
+(libstdc++, libgcj,...). GCC was originally written as the compiler for
+the GNU operating system.
+
+This module includes compilers for
+- C/C++
+- Objective-C/Objective-C++
+- Fortran
+"
+
+module-addgroup "Compiler"
+
+setenv		CC			$PREFIX/bin/gcc
+setenv		CXX			$PREFIX/bin/g++
+setenv		F77			$PREFIX/bin/gfortran
+setenv		F90			$PREFIX/bin/gfortran
+setenv		FC			$PREFIX/bin/gfortran
+setenv		FORTRAN			$PREFIX/bin/gfortran
+
