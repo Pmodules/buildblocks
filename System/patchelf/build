@@ -1,11 +1,5 @@
 #!/usr/bin/env modbuild
 
-# :FIXME: needs review
-
-pbuild::set_download_url "https://github.com/NixOS/$P/archive/$V.tar.gz" "$P-$V.tar.gz"
-
-pbuild::add_to_group 'System'
-
 pbuild::post_prep() {
 	cd "${SRC_DIR}"
 	./bootstrap.sh
