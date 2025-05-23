@@ -1,0 +1,11 @@
+#!/usr/bin/env modbuild
+
+pbuild::install() {
+	install -m 0755 -d "${PREFIX}/bin"
+	install -m 0755 "${SRC_DIR}/restic_${V_PKG}_linux_amd64" "${PREFIX}/bin/restic"
+}
+# Local Variables:
+# mode: sh
+# sh-basic-offset: 8
+# tab-width: 8
+# End:

@@ -1,0 +1,20 @@
+format: 1
+restic:
+  defaults:
+    group: Tools
+    overlay: base 
+    relstage: stable
+    systems: [.*]
+    docfiles: []
+    build_functions:
+      configure: []
+      compile: []
+  shasums:
+    restic_0.18.0_linux_amd64.bz2: 98f6dd8bf5b59058d04bfd8dab58e196cc2a680666ccee90275a3b722374438e
+  versions:
+    0.18.0:
+      config:
+        target_cpus: [x86_64]
+        urls:
+          - url: https://github.com/restic/restic/releases/download/v${V_PKG}/restic_${V_PKG}_linux_amd64.bz2
+            unpacker: 7z
