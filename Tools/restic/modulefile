@@ -1,0 +1,13 @@
+#%Pmodule
+
+module-whatis		"fast and secure backup program"
+module-url		"https://restic.readthedocs.io/en/stable/index.html"
+module-license		"BSD 2-Clause License"
+module-maintainer	"Achim Gsell <achim.gsell@psi.ch>"
+
+module-help		"
+Restic is a fast and secure backup program. In the following sections, we
+will present typical workflows, starting with installing, preparing a new
+repository, and making the first backup.
+"
+
