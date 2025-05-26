@@ -1,0 +1,37 @@
+---
+# yamllint disable rule:line-length
+format: 1
+arpack-ng:
+  defaults:
+    group: MPI
+    overlay: base
+    relstage: stable
+    systems: [.*]
+    docfiles:
+      - Copyright.txt
+      - LICENSE
+      - README
+      - RELEASE_NOTES
+    urls:
+      - url: https://github.com/opencollab/$P/archive/refs/tags/${V_PKG}.tar.gz
+        name: $P-${V_PKG}.tar.gz
+
+  shasums:
+    arpack-ng-3.9.0.tar.gz: 24f2a2b259992d3c797d80f626878aa8e2ed5009d549dad57854bbcfb95e1ed0
+
+  versions:
+    3.9.0:
+      variants:
+        - group_deps:
+            compiler:
+              intel: [22.2]
+            mpi:
+              impi: [22.2]
+          configure_args:
+            - -DCMAKE_BUILD_TYPE:STRING=Release
+            - -DMPI="ON"
+            - -DICB="ON"
+            - -DBUILD_SHARED_LIBS="ON"
+            - -DCMAKE_POSITION_INDEPENDENT_CODE="ON"
+          build_requires: [cmake/3.25.2]
+
