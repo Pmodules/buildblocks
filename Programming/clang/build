@@ -1,9 +1,5 @@
 #!/usr/bin/env modbuild
 
-pbuild::add_to_group 'Programming'
-
-pbuild::set_download_url \
-    "https://github.com/llvm/llvm-project/releases/download/llvmorg-${V_PKG}/llvm-project-${V_PKG}.src.tar.xz"
 
 #pbuild::install_docfiles 'AUTHORS' 'LICENSE' 'NEWS' 'README'
 
@@ -20,7 +16,6 @@ pbuild::configure() {
         -DCMAKE_CXX_LINK_FLAGS="-Wl,-R,${GCC_CXXLIBDIR} -L${GCC_CXXLIBDIR}" \
         -DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra;lldb;lld;openmp" \
         -DLLVM_ENABLE_RUNTIMES="libunwind" \
-        "${CONFIGURE_ARGS[@]}" \
         -G "Unix Makefiles" \
         "${SRC_DIR}/llvm" \
     || exit 1

@@ -1,0 +1,66 @@
+---
+format: 1
+clang:
+  defaults:
+    group: Programming
+    overlay: base
+    relstage: stable
+    docfiles:
+      - CODE_OF_CONDUCT.md
+      - CONTRIBUTING.md
+      - LICENSE.TXT
+      - README.md
+      - SECURITY.md
+    urls:
+      - url: https://github.com/llvm/llvm-project/releases/download/llvmorg-${V_PKG}/llvm-project-${V_PKG}.src.tar.xz
+
+  shasums:
+    llvm-project-16.0.6.src.tar.xz: ce5e71081d17ce9e86d7cbcfa28c4b04b9300f8fb7e78422b1feb6bc52c3028e
+    llvm-project-20.1.5.src.tar.xz: a069565cd1c6aee48ee0f36de300635b5781f355d7b3c96a28062d50d575fa3e
+    llvm-project-12.0.0.tar.xz: 0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5
+    llvm-project-12.0.0.src.tar.xz: 9ed1688943a4402d7c904cc4515798cdb20080066efa010fe7e1f2551b423628
+    llvm-project-10.0.1.tar.xz: 82ce06e7c2b6a688dd0aa8f0aaa20f44850b1e692cf6c59bf7eebdc28440abea
+
+  versions:
+    20.1.5:
+      config:
+        build_requires:
+          - cmake/3.26.3
+          - gcc/12.4.0
+          - Python/3.13.2
+          - xz/5.8.0
+          - binutils/2.37
+ 
+    16.0.6:
+      config:
+        build_requires:
+          - cmake/3.26.3
+          - gcc/12.4.0
+          - Python/3.13.2
+          - xz/5.8.0
+          - binutils/2.37
+
+    15.0.6_rhel7:
+      config:
+        relstage: deprecated
+        build_requires:
+          - cmake/3.23.2
+          - gcc/12.1.0
+          - Python/3.9.10
+          - xz/5.2.4
+          - binutils/2.37
+    12.0.0_rhel7:
+        relstage: deprecated
+        build_requires:
+          - cmake/3.15.5
+          - gcc/9.3.0
+          - Python/3.8.4
+          - xz/5.2.4
+          - binutils/2.29
+    10.0.1:
+      config:
+        relstage: deprecated
+        build_requires:
+          - cmake/3.15.5
+          - gcc/8.4.0
+          - Python/3.8.4

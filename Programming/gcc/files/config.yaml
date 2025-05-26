@@ -82,8 +82,6 @@ gcc:
         configure_args+:
           - --enable-languages=c,c++,objc,obj-c++,lto,fortran,go
       variants:
-        - overlay: base
-          systems: [rhel.*]
         - overlay: PSI
           systems: [login.*.merlin7.psi.ch, cn.*.merlin7.psi.ch, gpu.*.merlin7.psi.ch]
           modulefile: modulefile-alps
