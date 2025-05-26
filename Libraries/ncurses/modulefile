@@ -1,0 +1,12 @@
+#%Module1.0
+
+module-whatis		"GNU Mpc"
+module-url		"http://www.multiprecision.org"
+module-license		"GNU LGPL v3"
+module-maintainer	"Achim Gsell <achim.gsell@psi.ch>"
+
+module-help		"
+Gnu Mpc is a C library for the arithmetic of complex numbers with
+arbitrarily high precision and correct rounding of the result.
+"
+

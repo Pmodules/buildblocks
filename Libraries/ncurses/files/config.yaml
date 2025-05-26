@@ -1,0 +1,26 @@
+---
+format: 1
+ncurses:
+  defaults:
+    group: Libraries
+    overlay: base
+    relstage: stable
+    docfiles: []
+    configure_args:
+      - --with-shared
+      - --disable-db-install
+      - --with-termlib
+    urls:
+      - url: https://invisible-island.net/archives/${P}/${P}-${V_PKG}.tar.gz
+
+  shasums:
+    ncurses-6.5.tar.gz: 136d91bc269a9a5785e5f9e980bc76ab57428f604ce3e5a5a90cebc767971cc6
+    ncurses-6.3.tar.gz: 97fc51ac2b085d4cde31ef4d2c3122c21abc217e9090a43a30fc5ec21684e059
+
+  versions:
+    6.5:
+      config:
+        relstage: stable
+    6.3:
+      config:
+        relstage: deprecated

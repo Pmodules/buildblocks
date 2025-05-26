@@ -1,0 +1,3 @@
+#!/usr/bin/env modbuild
+
+export LC_ALL=C
