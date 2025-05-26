@@ -1,20 +1,2 @@
 #!/usr/bin/env modbuild
 
-pbuild::add_to_group 'Compiler'
-
-pbuild::prep() {
-	:
-}
-
-pbuild::configure() {
-	:
-}
-
-pbuild::compile() {
-	:
-}
-
-pbuild::install() {
-	:
-}
-

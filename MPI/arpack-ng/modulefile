@@ -1,10 +1,17 @@
 #%Module1.0
 
-module-whatis		"ARPACK-NG is a collection of Fortran77 subroutines designed to solve large scale eigenvalue problems"
+module-whatis		"collection of Fortran77 subroutines designed to solve large scale eigenvalue problems"
 module-url		"https://github.com/opencollab/arpack-ng/tree/master"
 module-license		"BSD Software License"
 module-maintainer	"Elsa Germann <elsa.germann@psi.ch>"
 
 module-help		"
-This project started as a joint project between Debian, Octave and Scilab in order to provide a common and maintained version of arpack. This is now a community project maintained by a few volunteers. Indeed, no single release has been published by Rice university for the last few years and since many software (Octave, Scilab, R, Matlab...) forked it and implemented their own modifications, arpack-ng aims to tackle this by providing a common repository, maintained versions with a testsuite. arpack-ng is replacing arpack almost everywhere.
+This project started as a joint project between Debian, Octave and Scilab
+in order to provide a common and maintained version of arpack. This is now
+a community project maintained by a few volunteers. Indeed, no single release
+has been published by Rice university for the last few years and since many
+software (Octave, Scilab, R, Matlab...) forked it and implemented their own
+modifications, arpack-ng aims to tackle this by providing a common repository,
+maintained versions with a testsuite. arpack-ng is replacing arpack almost
+everywhere.
 "

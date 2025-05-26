@@ -1,24 +1,2 @@
 #!/usr/bin/env modbuild
 
-pbuild::set_download_url \
-	"https://github.com/opencollab/$P/archive/refs/tags/${V_PKG}.tar.gz"
-
-pbuild::set_sha256sum \
-	"3.9.0.tar.gz:24f2a2b259992d3c797d80f626878aa8e2ed5009d549dad57854bbcfb95e1ed0"
-
-declare -rx AR=ar
-
-pbuild::configure() {
-	cmake  \
-           -DCMAKE_BUILD_TYPE:STRING=Release \
-           -DCMAKE_INSTALL_PREFIX:PATH=$PREFIX \
-           -DMPI="ON" \
-           -DICB="ON" \
-           -DBUILD_SHARED_LIBS="ON" \
-           -DCMAKE_POSITION_INDEPENDENT_CODE="ON" \
-           "${SRC_DIR}" || exit 1
-}
-
-pbuild::add_to_group 'MPI'
-pbuild::install_docfiles Copyright.txt LICENSE README RELEASE_NOTES
-
