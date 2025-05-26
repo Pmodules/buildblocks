@@ -5,8 +5,11 @@ visit:
     group: Tools
     overlay: base
     relstage: stable
-    systems: [sles15.5]
+    systems: [sles.*, rhel.*]
     docfiles: [Copyright, NEWS, README]
+    build_functions:
+      configure: []
+      compile: []
   versions:
     3.4.2:
       config:
@@ -18,5 +21,4 @@ visit:
             name: visit3_4_2.linux-x86_64.tar.gz
             unpacker: none
         relstage: unstable
-        systems: [sles*]
 

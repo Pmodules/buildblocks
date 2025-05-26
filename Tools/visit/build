@@ -1,13 +1,5 @@
 #!/usr/bin/env modbuild
 
-pbuild::configure() {
-        :
-}
-
-pbuild::compile() {
-        :
-}
-
 pbuild::install() {
 	cd "${PMODULES_DISTFILESDIR}"
 	bash "./visit-install-${V_PKG}" ${V} linux-$(uname -p) ${PREFIX}
