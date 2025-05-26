@@ -13,14 +13,14 @@ awscli:
   versions:
     2.27.22:
       config:
-        relstage: unstable
+        relstage: stable
         urls:
           - url: https://awscli.amazonaws.com/$P-exe-linux-x86_64-$V.zip
             name: $P-${V_PKG}.zip
             unpacker: none
     2.9.21:
       config:
-        relstage: stable
+        relstage: deprecated
         urls:
           - url: https://awscli.amazonaws.com/$P-exe-linux-x86_64-$V.zip
             name: $P-${V_PKG}.zip

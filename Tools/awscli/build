@@ -1,23 +1,10 @@
 #!/usr/bin/env modbuild
 
-# download url actually not used, but the build script fails without it
-pbuild::set_download_url "https://github.com/aws/aws-cli/archive/refs/tags/$V.tar.gz"
-# pbuild::set_sha256sum 'gnuplot-5.2.4.tar.gz:1515f000bd373aaa53b16183f274189d4f5e0ae47d22f434857933d16a4770cb'
-# pbuild::install_docfiles 'Copyright' 'NEWS' 'README'
-
-pbuild::add_to_group 'Tools'
-
-pbuild::configure() {
-    :
-}
-pbuild::compile() {
-    :
-}
 pbuild::install() {
-    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-$V.zip" -o "awscliv2.zip"
-    unzip awscliv2.zip
-    ./aws/install -i $PREFIX -b ${PREFIX}/bin --update
+	unzip "${PMODULES_DISTFILESDIR}/awscliv2.zip"
+	./aws/install -i $PREFIX -b ${PREFIX}/bin --update
 }
+
 # Local Variables:
 # mode: sh
 # sh-basic-offset: 8
