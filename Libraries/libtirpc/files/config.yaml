@@ -16,3 +16,8 @@ libtirpc:
     libtirpc-1.3.6.tar.bz2 : bbd26a8f0df5690a62a47f6aa30f797f3ef8d02560d1bc449a83066b5a1d3508
   versions:
     1.3.6:
+      variants:
+        - overlay: PSI
+          systems: [login.*.merlin7.psi.ch, cn.*.merlin7.psi.ch, gpu.*.merlin7.psi.ch]
+        - overlay: base
+          systems: [rhel.*]
