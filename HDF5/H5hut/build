@@ -1,13 +1,10 @@
 #!/usr/bin/env modbuild
 
-pbuild::set_download_url "http://amas.web.psi.ch/Downloads/$P/$P-${V_PKG}.tar.gz"
-pbuild::add_to_group 'HDF5'
-pbuild::install_docfiles 'AUTHORS' 'COPYING'
+#if [[ ${V_MAJOR} == 1 ]]; then
+#	pbuild::compile_in_sourcetree
+#fi
 
-if [[ ${V_MAJOR} == 1 ]]; then
-	pbuild::compile_in_sourcetree
-fi
-
+export LC_CTYPE=C
 pbuild::post_prep() {
 	./autogen.sh
 }

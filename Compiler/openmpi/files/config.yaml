@@ -173,6 +173,9 @@ openmpi:
             compiler: {intelcc: [22.2]}
           build_requires: [pmix/4.2.4, ucx/1.14.1_slurm, libfabric/1.18.0, hwloc/2.9.1, patchelf/0.14.5]
           runtime_deps: [cuda/12.1.1]
+        - systems: [.*]
+          group_deps:
+            compiler: {gcc: [10.4.0, 12.3.0]}
 
     4.1.4_slurm:
       config:

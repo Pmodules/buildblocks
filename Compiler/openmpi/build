@@ -1,5 +1,7 @@
 #!/usr/bin/env modbuild
 
+export LC_CTYPE=C
+
 pbuild::pre_configure() {
         if (( V_MAJOR < 5 )); then
 		pbuild::add_configure_args "--enable-mpi-cxx"

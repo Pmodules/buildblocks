@@ -1,0 +1,40 @@
+---
+# yamllint disable rule:line-length
+format: 1
+H5hut:
+  defaults:
+    group: HDF5
+    overlay: base
+    relstage: stable
+    docfiles: [AUTHORS, COPYING]
+    urls:
+      - url: http://amas.web.psi.ch/Downloads/$P/$P-${V_PKG}.tar.gz
+
+  versions:
+    2.0.0rc6:
+      variants:
+        - systems: [merlin-.*.psi.ch]
+          relstage: stable
+          group_deps:
+            compiler: {gcc: [10.4.0]}
+            mpi: {openmpi: [4.1.4_slurm, 4.1.5_slurm]}
+            hdf5: {hdf5: [1.10.8_slurm]}
+          build_requires: []
+
+#Loading module: gcc/10.4.0
+#Loading module: openmpi/4.1.5_slurm
+#Loading module: hdf5/1.10.8_slurm
+
+
+
+#H5hut/2.0.0rc6       stable     gcc/10.3.0 openmpi/4.0.5 hdf5/1.10.7
+#H5hut/2.0.0rc6       stable     gcc/10.4.0 openmpi/4.1.4 hdf5/1.10.8
+#H5hut/2.0.0rc6       unstable   gcc/10.4.0 openmpi/4.1.5 hdf5/1.10.8
+#H5hut/2.0.0rc6_slurm stable     gcc/7.5.0 openmpi/3.1.6_slurm hdf5/1.10.6_slurm
+#H5hut/2.0.0rc6_slurm stable     gcc/8.4.0 openmpi/3.1.6_slurm hdf5/1.10.6_slurm
+#H5hut/2.0.0rc6_slurm stable     gcc/9.3.0 openmpi/3.1.6_slurm hdf5/1.10.6_slurm
+#H5hut/2.0.0rc6_slurm unstable   gcc/9.5.0 openmpi/4.1.5_slurm hdf5/1.10.8_slurm
+#H5hut/2.0.0rc6_slurm stable     gcc/10.3.0 openmpi/4.0.5-1_slurm hdf5/1.10.7_slurm
+#H5hut/2.0.0rc6_slurm unstable   gcc/11.4.0 openmpi/4.1.5_slurm hdf5/1.10.8_slurm
+#H5hut/2.0.0rc6_slurm unstable   gcc/12.3.0 openmpi/4.1.5_slurm hdf5/1.10.8_slurm
+#H5hut/2.0.0rc6_slurm unstable   gcc/13.1.0 openmpi/4.1.5_slurm hdf5/1.10.8_slurm

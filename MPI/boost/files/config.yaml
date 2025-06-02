@@ -1,7 +1,7 @@
 ---
 # yamllint disable rule:line-length
 format: 1
-parmetis:
+boost:
   defaults:
     group: MPI
     overlay: base
@@ -12,17 +12,20 @@ parmetis:
         name: $P-${V_PKG}.tar.gz
 
   shasums:
-    parmetis-4.0.3.tar.gz: f2d9a231b7cf97f1fee6e8c9663113ebf6c240d407d3c118c55b3633d6be6e5f
 
   versions:
-    4.0.3:
+    1.82.0:
+      config:
+        urls:
+          - url: https://boostorg.jfrog.io/artifactory/main/release/${V_PKG}/source/$P-1_82_0.tar.gz
+            name: $P-$V_PKG.tar.gz
       variants:
         - systems: [merlin-.*]
+          suffix: _slurm
           group_deps:
             compiler:
               gcc: [9.5.0, 10.4.0, 11.4.0, 12.3.0, 13.1.0]
             mpi:
               openmpi: [4.1.5_slurm]
-          build_requires: [cmake/3.20.5]
-          suffix: _slurm
+          build_requires: [zlib/1.2.13]
 

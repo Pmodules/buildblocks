@@ -1,16 +1,10 @@
 #!/usr/bin/env modbuild
 
-# pbuild::set_download_url "https://sourceforge.net/projects/boost/files/boost/${V_PKG}/boost_${V_PKG//./_}.tar.gz"
-pbuild::set_download_url "https://boostorg.jfrog.io/artifactory/main/release/${V_PKG}/source/boost_${V_PKG//./_}.tar.gz"
-
-pbuild::add_to_group 'MPI'
-
-if (( V_MAJOR == 1 )); then
-  if (( V_MINOR >= 78 && V_MINOR < 80 )); then
-    pbuild::add_patch "files/intel-linux.patch"
-  fi
-fi
-
+#if (( V_MAJOR == 1 )); then
+#        if (( V_MINOR >= 78 && V_MINOR < 80 )); then
+#                pbuild::add_patch "files/intel-linux.patch"
+#        fi
+#fi
 
 BOOST_BUILD_PATH="${BUILD_DIR}"
 
