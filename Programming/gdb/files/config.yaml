@@ -18,7 +18,8 @@ gdb:
       - url: https://ftp.gnu.org/gnu/$P/$P-${V_PKG}.tar.xz
 
   shasums:
-
+    gdb-13.1.tar.xz: 115ad5c18d69a6be2ab15882d365dda2a2211c14f480b3502c6eba576e2e95a0
+    gdb-16.3.tar.xz: bcfcd095528a987917acf9fff3f1672181694926cc18d609c99d0042c00224c5
   versions:
     16.3:
       config:
