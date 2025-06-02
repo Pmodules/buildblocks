@@ -10,6 +10,11 @@ binutils:
       - url: http://ftp.gnu.org/gnu/binutils/$P-${V_PKG}.tar.gz
 
   shasums:
-
+    binutils-2.25.tar.gz: cccf377168b41a52a76f46df18feb8f7285654b3c1bd69fc8265cb0fc6902f2d
+    binutils-2.29.tar.gz: 172e8c89472cf52712fd23a9f14e9bca6182727fb45b0f8f482652a83d5a11b4
+    binutils-2.36.1.tar.gz: e68edeaaeb6ca9687b6dcbaedd1b376506baad2d48de26a885fc5ab6acb839da
+    binutils-2.37.tar.gz: c44968b97cd86499efbc4b4ab7d98471f673e5414c554ef54afa930062dbbfcb
+    binutils-2.41.tar.gz: 48d00a8dc73aa7d2394a7dc069b96191d95e8de8f0da6dc91da5cce655c20e45
+    binutils-2.43.1.tar.gz: e4c38b893f590853fbe276a6b8a1268101e35e61849a07f6ee97b5ecc97fbff8
   versions:
     2.25;2.29;2.37;2.41;2.43.1:
