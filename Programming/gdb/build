@@ -1,19 +1,5 @@
 #!/usr/bin/env modbuild
 
-pbuild::set_download_url \
-	"https://ftp.gnu.org/gnu/$P/$P-${V_PKG}.tar.xz"
-pbuild::install_docfiles \
-	COPYING \
-	COPYING.LIB \
-	COPYING3 \
-	COPYING3.LIB \
-	ChangeLog \
-	MAINTAINERS \
-	README \
-	README-maintainer-mode
-
-pbuild::add_to_group 'Programming'
-
 # Local Variables:
 # mode: sh
 # sh-basic-offset: 8

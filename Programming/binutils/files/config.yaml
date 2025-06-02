@@ -1,0 +1,15 @@
+---
+format: 1
+binutils:
+  defaults:
+    group: Programming
+    overlay: base
+    relstage: stable
+    docfiles:
+    urls:
+      - url: http://ftp.gnu.org/gnu/binutils/$P-${V_PKG}.tar.gz
+
+  shasums:
+
+  versions:
+    2.25;2.29;2.37;2.41;2.43.1:
