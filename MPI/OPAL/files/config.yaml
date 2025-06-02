@@ -1,0 +1,40 @@
+---
+# yamllint disable rule:line-length
+format: 1
+OPAL:
+  defaults:
+    group: MPI
+    overlay: base
+    relstage: stable
+    docfiles: []
+    urls:
+      - url: http://amas.web.psi.ch/Downloads/$P/src/$P-${V_PKG}.tar.xz 
+
+  shasums:
+
+  versions:
+    2024.1.0:
+      variants:
+        - systems: [merlin-*, ra-*]
+          suffix: _slurm
+          relstage: stable
+          group_deps:
+            compiler:
+              gcc:
+                - 10.4.0
+            mpi:
+              openmpi:
+                - 4.1.5_slurm
+          build_requires:
+            - cmake/3.20.5
+            - gtest/1.13.0-1
+          runtime_deps:
+            - hdf5/1.10.8_slurm
+            - gsl/2.7
+            - H5hut/2.0.0rc6_slurm
+            - boost/1.82.0_slurm
+            - amrex/18.07.1_3d_slurm
+            - OpenBLAS/0.3.23
+            - parmetis/4.0.3_slurm
+            - trilinos/13.4.0_slurm
+            - MITHRA/2.0_slurm

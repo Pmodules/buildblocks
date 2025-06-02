@@ -1,8 +1,5 @@
 #!/usr/bin/env modbuild
 
-pbuild::set_download_url "http://amas.web.psi.ch/Downloads/$P/src/$P-${V_PKG}.tar.xz"
-pbuild::add_to_group 'MPI'
-
 pbuild::pre_configure_Linux() {
 	if (( V_MAJOR < 2)); then
 		pbuild::add_configure_args '-DENABLE_DKS=ON'

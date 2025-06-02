@@ -1,14 +1,5 @@
 #!/usr/bin/env modbuild
 
-pbuild::set_download_url \
-	"https://github.com/$P/$P/tarball/$P-release-${V//./-}" \
-	"$P-${V_PKG}.tar.gz"
-
-pbuild::set_sha256sum \
-	"trilinos-12.12.1.tar.gz:c8f2029fa36230b9f384c56139aaa33111227bcf653e73f7daf3c9efdecc1d2d"
-
-declare -rx AR=ar
-
 pbuild::configure() {
 	declare config_args=()
 	if [[ "${OS}" == "Linux" ]]; then
@@ -84,7 +75,4 @@ pbuild::configure() {
 	   "${config_args[@]}" \
            "${SRC_DIR}" || exit 1
 }
-
-pbuild::add_to_group 'MPI'
-pbuild::install_docfiles Copyright.txt LICENSE README RELEASE_NOTES
 

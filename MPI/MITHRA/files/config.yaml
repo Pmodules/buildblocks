@@ -1,0 +1,46 @@
+---
+# yamllint disable rule:line-length
+format: 1
+MITHRA:
+  defaults:
+    group: MPI
+    overlay: base
+    relstage: stable
+    compile_in_sourcetree: true
+    docfiles: [README.md]
+    urls:
+      - url: https://github.com/aryafallahi/mithra/archive/${V_PKG}.tar.gz
+        name: $P-${V_PKG}.tar.gz
+
+  shasums:
+
+  versions:
+    2.0:
+      variants:
+        - systems: [merlin-.*]
+          suffix: _slurm
+          group_deps:
+            compiler:
+              gcc: [9.5.0, 10.4.0, 11.4.0, 12.3.0, 13.1.0]
+            mpi:
+              openmpi: [4.1.5_slurm]
+
+    2020.8.27:
+      config:
+      urls:
+        - url: https://github.com/aryafallahi/mithra/archive/0bf2a64.tar.gz
+          name: $P-${V_PKG}.tar.gz
+
+#MITHRA/2.0_slurm       stable     MPI          base         gcc/10.4.0 openmpi/4.1.4_slurm
+
+#MITHRA/2.0_slurm       stable     MPI          base         gcc/10.3.0 openmpi/4.0.5-1_slurm
+
+#MITHRA/2.0_slurm       stable     MPI          base         gcc/8.4.0 openmpi/3.1.6_slurm
+
+#MITHRA/2.0             stable     MPI          base         gcc/8.4.0 openmpi/3.1.6
+#MITHRA/2.0             stable     MPI          base         gcc/10.3.0 openmpi/4.0.5
+#MITHRA/2.0             stable     MPI          base         gcc/10.4.0 openmpi/4.1.4
+#MITHRA/2.0             unstable   MPI          base         gcc/10.4.0 openmpi/4.1.5
+
+#MITHRA/2020.8.27       deprecated MPI          base         gcc/8.4.0 openmpi/3.1.6
+#MITHRA/2020.8.27_slurm deprecated MPI          base         gcc/8.4.0 openmpi/3.1.6_slurm
