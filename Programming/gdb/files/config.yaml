@@ -1,0 +1,37 @@
+---
+format: 1
+gdb:
+  defaults:
+    group: Programming
+    overlay: base
+    relstage: stable
+    docfiles:
+      - COPYING
+      - COPYING.LIB
+      - COPYING3
+      - COPYING3.LIB
+      - ChangeLog
+      - MAINTAINERS
+      - README
+      - README-maintainer-mode
+    urls:
+      - url: https://ftp.gnu.org/gnu/$P/$P-${V_PKG}.tar.xz
+
+  shasums:
+    gdb-13.1.tar.xz: 115ad5c18d69a6be2ab15882d365dda2a2211c14f480b3502c6eba576e2e95a0
+    gdb-16.3.tar.xz: bcfcd095528a987917acf9fff3f1672181694926cc18d609c99d0042c00224c5
+  versions:
+    16.3:
+      config:
+        runtime_deps:
+          - Python/3.13.2
+        build_requires:
+          - gmp/6.3.0
+          - mpfr/4.2.1
+          - binutils/2.41
+    13.1:
+      config:
+        build_requires:
+          - gmp/6.2.1
+          - mpfr/4.1.0
+          - Python/3.9.10
