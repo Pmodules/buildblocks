@@ -4,11 +4,11 @@ warp:
   defaults:
     group: EM
     overlay: base
-    relstage: unstable
+    relstage: stable
 
   versions:
     2.0.0dev33:
       variants:
         - overlay: Alps
           systems: [.*.merlin7.psi.ch]
-          relstage: unstable
+          relstage: stable
