@@ -1,0 +1,47 @@
+#%Module1.0
+
+module-whatis       "napari-tomoslice is a tool for tomogram visualisation and annotation in napari."
+module-url          "https://github.com/napari-tomoslice/napari-tomoslice"
+module-license      "BSD-3-Clause license"
+module-maintainer   "João Pedro Agostinho de Sousa <joao.agostinho-de-sousa@psi.ch>"
+
+module-help "
+napari-tomoslice is a tool for tomogram visualisation and annotation in napari.
+
+napari-tomoslice allows you to quickly annotate:
+
+points
+paths
+spheres
+
+Annotations are saved in the STAR file format and can be easily manipulated in Python using starfile.
+"
+
+# Determine the user's shell type
+set shelltype [module-info shelltype]
+
+switch -- $shelltype {
+    "sh" {
+        # Initialize conda for POSIX-compatible shells
+        puts stdout "conda() { :; };"
+        puts stdout "set +u"
+        puts stdout "source \"${PREFIX}/miniforge/etc/profile.d/conda.sh\";\n"
+    }
+    default {
+        # Unsupported shell type
+        puts stderr "Error: Shell type '$shelltype' is not supported by this module.\n"
+    }
+}
+
+# Handle module load/unload actions
+switch [module-info mode] {
+    "load" {
+        # Activate the specific conda environment
+        puts stdout "conda activate ${P}_${V_PKG};\n"
+    }
+    "unload" -
+    "remove" {
+        # Deactivate the conda environment
+        puts stdout "conda deactivate;\n"
+    }
+}
