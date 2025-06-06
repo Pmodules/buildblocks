@@ -45,3 +45,6 @@ switch [module-info mode] {
         puts stdout "conda deactivate;\n"
     }
 }
+
+# Environment variables
+setenv PYTHONWARNINGS ignore::UserWarning # To ignore Pydantic v2 compability warnings 
