@@ -1,4 +1,9 @@
 # ChimeraX
+UCSF ChimeraX (or simply ChimeraX) is the next-generation molecular
+visualization program from the Resource for Biocomputing, Visualization, and
+Informatics (RBVI), following UCSF Chimera.
+
+https://www.cgl.ucsf.edu/chimerax/
 
 ## Installation
 The ChimeraX installation can be performed with .rpm or .deb files. The other 
