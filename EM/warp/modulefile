@@ -1,0 +1,40 @@
+#%Module1.0
+
+module-whatis       "Warp is a set of tools for cryo-EM and cryo-ET data processing."
+module-url          "https://github.com/warpem/warp"
+module-license      "GPL-3.0 license"
+module-maintainer   "João Pedro Agostinho de Sousa <joao.agostinho-de-sousa@psi.ch>"
+
+module-help "
+Warp is a set of tools for cryo-EM and cryo-ET data processing including, among
+other tools: Warp, M, WarpTools, MTools, MCore, and Noise2Map.
+"
+
+# Determine the user's shell type
+set shelltype [module-info shelltype]
+
+switch -- $shelltype {
+    "sh" {
+        # Initialize conda for POSIX-compatible shells
+        puts stdout "conda() { :; };"
+        puts stdout "set +u"
+        puts stdout "source \"${PREFIX}/miniforge/etc/profile.d/conda.sh\";\n"
+    }
+    default {
+        # Unsupported shell type
+        puts stderr "Error: Shell type '$shelltype' is not supported by this module.\n"
+    }
+}
+
+# Handle module load/unload actions
+switch [module-info mode] {
+    "load" {
+        # Activate the specific conda environment
+        puts stdout "conda activate ${P}_${V};\n"
+    }
+    "unload" -
+    "remove" {
+        # Deactivate the conda environment
+        puts stdout "conda deactivate;\n"
+    }
+}
