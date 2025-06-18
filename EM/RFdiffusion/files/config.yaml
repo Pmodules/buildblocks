@@ -1,0 +1,14 @@
+---
+format: 1
+RFdiffusion:
+  defaults:
+    group: EM
+    overlay: base
+    relstage: unstable
+
+  versions:
+    1.1.0-dev:
+      variants:
+        - overlay: Alps
+          systems: [.*.merlin7.psi.ch]
+          relstage: unstable

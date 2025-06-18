@@ -1,0 +1,21 @@
+#!/usr/bin/env modbuild
+
+pbuild::prep() {
+    # Create bin/ in the installation directory
+    mkdir -p $PREFIX/bin/
+
+    # Copy executable script to the installation directory
+    cp -n "$BUILDBLOCK_DIR/run_inference.py" "$PREFIX/bin/"
+}
+
+pbuild::configure() {
+    :
+}
+
+pbuild::compile() {
+    :
+}
+
+pbuild::install() {
+    :
+}
