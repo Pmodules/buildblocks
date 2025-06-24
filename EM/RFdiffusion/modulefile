@@ -1,0 +1,17 @@
+#%Module1.0
+
+module-whatis       "RFdiffusion is an open source method for structure generation."
+module-url          "https://github.com/RosettaCommons/RFdiffusion"
+module-license	    "BSD License"
+module-maintainer   "João Pedro Agostinho de Sousa <joao.agostinho-de-sousa@psi.ch>"
+
+module-help         "
+RFdiffusion is an open source method for structure generation, with or without
+conditional information (a motif, target etc). It can perform a whole range of
+protein design challenges as outlined in the RFdiffusion paper
+(https://www.nature.com/articles/s41586-023-06415-8).
+"
+
+# Environment variables
+setenv APPTAINER_IMAGE /data/project/bio/shared/containers/rfdiffusion/dev/rfdiffusion.sif
+setenv MODEL_DIRECTORY_PATH /data/project/bio/shared/rfdiffusion/models
