@@ -1,0 +1,25 @@
+---
+# yamllint disable rule:line-length
+format: 1
+ProteinMPNN:
+  defaults:
+    group: EM
+    overlay: base
+    relstage: unstable
+    urls:
+      - url: https://github.com/dauparas/${P}/archive/refs/tags/v${V_PKG}.tar.gz
+
+  shasums:
+    v1.0.1.tar.gz: b2d87fb99c552a17404a44b7dae050aa4cd1af3c8816dd2c281952b99da7175e
+
+  versions:
+    1.0.1:
+      variants:
+        - overlay: Alps
+          systems: [.*.merlin7.psi.ch]
+          relstage: unstable
+    dev:
+      variants:
+        - overlay: Alps
+          systems: [.*.merlin7.psi.ch]
+          relstage: unstable
