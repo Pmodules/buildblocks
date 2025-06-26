@@ -1,0 +1,21 @@
+#%Module1.0
+
+module-whatis       "
+ColabFold is a community implementation of a Colab for running AlphaFold2.
+"
+module-url          "https://github.com/sokrypton/ColabFold"
+module-license	    "MIT License"
+module-maintainer   "João Pedro Agostinho de Sousa <joao.agostinho-de-sousa@psi.ch>"
+
+module-help         "
+ColabFold offers accelerated prediction of protein structures and complexes by
+combining the fast homology search of MMseqs2 with AlphaFold2 or RoseTTAFold.
+ColabFold’s 40−60-fold faster search and optimized model utilization enables
+prediction of close to 1,000 structures per day on a server with one graphics
+processing unit. Coupled with Google Colaboratory, ColabFold becomes a free and
+accessible platform for protein folding.
+"
+
+# Environment variables
+setenv APPTAINER_IMAGE /data/project/bio/shared/containers/colabfold/1.5.5/colabfold_1.5.5-cuda12.2.2.sif
+setenv MODEL_WEIGHTS_DIR /data/project/bio/shared/colabfold/model_weights
