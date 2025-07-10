@@ -1,0 +1,77 @@
+diff '--color=auto' -ur 12.4.0/epics/extensions/src/SDDS/hdf5/Makefile 12.4.0.psi/epics/extensions/src/SDDS/hdf5/Makefile
+--- 12.4.0/epics/extensions/src/SDDS/hdf5/Makefile	2025-04-16 00:04:10.000000000 +0200
++++ 12.4.0.psi/epics/extensions/src/SDDS/hdf5/Makefile	2025-06-27 11:36:23.000000000 +0200
+@@ -371,7 +371,6 @@
+ 	src/H5Znbit.c \
+ 	src/H5Zshuffle.c \
+ 	src/H5Zscaleoffset.c \
+-	src/H5Zszip.c \
+ 	src/H5Ztrans.c
+ 
+ # Corresponding object files (.o for gcc) for each source
+diff '--color=auto' -ur 12.4.0/epics/extensions/src/SDDS/hdf5/src/H5config.h 12.4.0.psi/epics/extensions/src/SDDS/hdf5/src/H5config.h
+--- 12.4.0/epics/extensions/src/SDDS/hdf5/src/H5config.h	2025-04-16 00:04:38.000000000 +0200
++++ 12.4.0.psi/epics/extensions/src/SDDS/hdf5/src/H5config.h	2025-06-27 11:35:20.000000000 +0200
+@@ -341,7 +341,7 @@
+ #define HAVE_SYS_TYPES_H 1
+ 
+ /* Define to 1 if you have the <szlib.h> header file. */
+-#define HAVE_SZLIB_H 1
++#undef HAVE_SZLIB_H
+ 
+ /* Define if we have thread safe support */
+ /* #undef HAVE_THREADSAFE */
+diff '--color=auto' -ur 12.4.0/epics/extensions/src/SDDS/hdf5/src/H5pubconf.h 12.4.0.psi/epics/extensions/src/SDDS/hdf5/src/H5pubconf.h
+--- 12.4.0/epics/extensions/src/SDDS/hdf5/src/H5pubconf.h	2025-04-16 00:04:41.000000000 +0200
++++ 12.4.0.psi/epics/extensions/src/SDDS/hdf5/src/H5pubconf.h	2025-06-27 11:57:25.000000000 +0200
+@@ -134,7 +134,7 @@
+ #define H5_HAVE_FILTER_DEFLATE 1
+ 
+ /* Define if support for szip filter is enabled */
+-#define H5_HAVE_FILTER_SZIP 1
++#undef H5_HAVE_FILTER_SZIP
+ 
+ /* Determine if __float128 will be used in the Fortran wrappers */
+ /* #undef H5_HAVE_FLOAT128 */
+@@ -341,7 +341,7 @@
+ #define H5_HAVE_SYS_TYPES_H 1
+ 
+ /* Define to 1 if you have the <szlib.h> header file. */
+-#define H5_HAVE_SZLIB_H 1
++#undef H5_HAVE_SZLIB_H
+ 
+ /* Define if we have thread safe support */
+ /* #undef H5_HAVE_THREADSAFE */
+diff '--color=auto' -ur 12.4.0/epics/extensions/src/SDDS/Makefile 12.4.0.psi/epics/extensions/src/SDDS/Makefile
+--- 12.4.0/epics/extensions/src/SDDS/Makefile	2025-04-16 00:03:33.000000000 +0200
++++ 12.4.0.psi/epics/extensions/src/SDDS/Makefile	2025-06-27 12:18:14.000000000 +0200
+@@ -63,14 +63,14 @@
+ DIRS += png
+ DIRS += gd
+ DIRS += tiff
+-DIRS += SDDSaps
+-DIRS += SDDSaps/sddsplots
++#DIRS += SDDSaps
++#DIRS += SDDSaps/sddsplots
+ #DIRS += SDDSaps/sddsplots/winMotifDriver
+ #DIRS += SDDSaps/sddsplots/motifDriver
+-DIRS += $(PLOT_DRIVER)
+-DIRS += SDDSaps/sddscontours
+-DIRS += SDDSaps/pseudoInverse
+-DIRS += levmar
++#DIRS += $(PLOT_DRIVER)
++#DIRS += SDDSaps/sddscontours
++#DIRS += SDDSaps/pseudoInverse
++#DIRS += levmar
+ ifneq ($(MPI_CC),)
+ DIRS += pgapack
+ endif
+diff '--color=auto' -ur 12.4.0/oag/apps/configure/RELEASE 12.4.0.psi/oag/apps/configure/RELEASE
+--- 12.4.0/oag/apps/configure/RELEASE	2020-10-28 16:39:15.000000000 +0100
++++ 12.4.0.psi/oag/apps/configure/RELEASE	2025-06-27 12:20:31.000000000 +0200
+@@ -9,3 +9,5 @@
+ EPICS_EXTENSIONS=$(TOP)/../../epics/extensions
+ 
+ OAG_APPS=$(TOP)/../apps
++EPICS_BASE=/opt/psi/overlays/Alps/MPI/elegant/openmpi/5.0.5/gcc/12.4.0/epics/base
++EPICS_EXTENSIONS=/opt/psi/overlays/Alps/MPI/elegant/openmpi/5.0.5/gcc/12.4.0/epics/extensions

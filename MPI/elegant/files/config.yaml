@@ -1,0 +1,61 @@
+---
+# yamllint disable rule:line-length
+format: 1
+elegant:
+  defaults:
+    group: MPI
+    overlay: base
+    relstage: stable
+    compile_in_sourcetree: true
+    systems: [.*]
+  shasums:
+
+  versions:
+    2025.2.0:
+      config:
+        sources:
+          - url: https://epics.anl.gov/download/base/base-7.0.9.tar.gz
+            unpack_dir: ${PREFIX}/epics
+            strip_dirs: 0
+          - url: https://ops.aps.anl.gov/downloads/SDDS.5.8.tar.gz
+            name: SDDS-5.8.tar.gz
+            unpack_dir: ${PREFIX}
+            strip_dirs: 0
+          - url: https://ops.aps.anl.gov/downloads/SDDSepics.5.8.tar.gz
+            name: SDDSepics-5.8.tar.gz
+            unpack_dir: ${PREFIX}
+            strip_dirs: 0
+          - url: https://ops.aps.anl.gov/downloads/oag.apps.configure.tar.gz
+            unpack_dir: ${PREFIX}
+            strip_dirs: 0
+          - url: https://ops.aps.anl.gov/downloads/oag.1.29.tar.gz
+            name: oag-1.29.tar.gz
+            unpack_dir: ${PREFIX}
+            strip_dirs: 0
+          - url: https://ops.aps.anl.gov/downloads/elegant.2025.2.0.tar.gz
+            name: elegant-2025.2.0.tar.gz
+            unpack_dir: ${PREFIX}
+            strip_dirs: 0
+          - url: https://ops.aps.anl.gov/downloads/defns.rpn
+            unpack_dir: ${PREFIX}
+            unpacker: none
+          - patch_file: elegant.diff
+            patch_strip: 1
+            unpack_dir: ${PREFIX}
+          - patch_file: MPI.diff
+            patch_strip: 1
+            unpack_dir: ${PREFIX}
+        build_requires: []
+      variants:
+        - systems: [merlin-.*.psi.ch]
+          group_deps:
+            compiler: {gcc: [12.3.0]}
+            mpi: {openmpi: [4.1.6_slurm]}
+          relstage: unstable
+        - target_cpus: [x86_64]
+          systems: [.*.merlin7.psi.ch]
+          overlay: Alps
+          relstage: unstable
+          group_deps:
+            compiler: {gcc: [12.3.0]}
+            mpi: {openmpi: [5.0.5]}

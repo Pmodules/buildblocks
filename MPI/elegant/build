@@ -1,16 +1,86 @@
 #!/usr/bin/env modbuild
 
-pbuild::add_to_group 'MPI'
+export LC_ALL=C
 
-pbuild::prep() {
-	:
+export HOST_ARCH=linux-x86_64
+export EPICS_HOST_ARCH=linux-x86_64
+export RPN_DEFNS=${PREFIX}/defns.rpn
+
+pbuild::pre_prep() {
+	mkdir -p "${PREFIX}/epics"
 }
+
+pbuild::post_prep() {
+	cd "${PREFIX}/epics"
+	ln -s base-* base
+	cd extensions
+	git init
+	git remote add origin https://github.com/epics-extensions/extensions
+	git fetch
+	git checkout master
+}
+
 pbuild::configure() {
-	:
+	local -- dir="${PREFIX}/epics/base/configure"
+	echo "SHARED_LIBRARIES=NO" >> "${dir}/CONFIG"
+	echo "LINKER_USE_RPATH=NO" >> "${dir}/CONFIG"
+	echo "COMMANDLINE_LIBRARY=" >> "${dir}/CONFIG"
 }
+
 pbuild::compile() {
-	:
+	C_INCLUDE_PATH+=:"${PREFIX}/epics/extensions/src/SDDS/hdf5/src"
+	C_INCLUDE_PATH+=:"${PREFIX}/epics/extensions/src/SDDS/hdf5/src/H5FDsubfiling"
+	export C_INCLUDE_PATH
+
+	cd "${PREFIX}/epics/base"
+	make -j 5 || exit 42
+
+	cd "${PREFIX}/epics/extensions/configure"
+	make clean all || exit 42
+
+	cd "${PREFIX}/epics/extensions/src/SDDS"
+	make clean
+	make || exit 42
+	make || exit 42
+	make || exit 42
+
+	cd "${PREFIX}/epics/extensions/src/oagca"
+	make clean
+	make -j || exit 42
+
+	cd "${PREFIX}/epics/extensions/src/SDDSepics"
+	make clean
+	make -j || exit 42
+
+	cd "${PREFIX}/oag/apps/configure"
+	echo "EPICS_BASE=${PREFIX}/epics/base" >> RELEASE
+	echo "EPICS_EXTENSIONS=${PREFIX}/epics/extensions" >> RELEASE
+	make clean all || exit 42
+
+	cd "${PREFIX}/oag/apps/src/tcltklib"
+	make clean all || exit 42
+
+	cd "${PREFIX}/oag/apps/src/tcltkapp/oagapp"
+	make clean all || exit 42
+
+	cd "${PREFIX}/oag/apps/src/elegant"
+	make clean || exit 42
+	make -j || exit 42
+
+	# build the parallel version of Elegant
+	mpicc="${OPENMPI_DIR}/bin/mpicc"
+	mpicxx="${OPENMPI_DIR}/bin/mpic++"
+	fortran="${GCC_DIR}/bin/gfortran -m64 -ffixed-line-length-132"
+
+	cd "${PREFIX}/epics/extensions/src/SDDS/SDDSlib"
+	make clean
+	make -e -j F77="${fortran}" MPI_CC="${mpicc}" MPI_CCC="${mpicxx}"
+
+	cd "${PREFIX}/oag/apps/src/elegant"
+	make clean
+	make -e -j F77="${fortran}" MPI_CC="${mpicc}" MPI_CCC="${mpicxx}"
 }
+
 pbuild::install() {
 	:
 }

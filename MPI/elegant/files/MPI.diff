@@ -1,0 +1,11 @@
+--- 12.3.0.orig/oag/apps/src/elegant/src/Makefile.mpi	2025-07-07 11:16:47.000000000 +0200
++++ 12.3.0/oag/apps/src/elegant/src/Makefile.mpi	2025-07-07 16:42:24.000000000 +0200
+@@ -210,7 +210,7 @@
+ include ../Makefile.build
+ 
+ $(OBJ_DIR)/Pelegant$(EXEEXT): $(Pelegant_OBJS) $(PROD_DEPS)
+-	$(LINKEXE) $(OUTPUTEXE) $(Pelegant_OBJS) $(LDFLAGS) $(LIB_LINK_DIRS) $(PROD_LIBS) $(PROD_LIBS_SDDS) $(PROD_SYS_LIBS)
++	LD_LIBRARY_PATH=/opt/psi/Programming/cuda/12.2.0/lib64:/opt/cray/libfabric/1.22.0/lib64 $(LINKEXE) $(OUTPUTEXE) $(Pelegant_OBJS) $(LDFLAGS) $(LIB_LINK_DIRS) $(PROD_LIBS) $(PROD_LIBS_SDDS) $(PROD_SYS_LIBS)
+ 	cp -f $@ $(BIN_DIR)/
+ 	@if [ -n "$(EPICS_BIN_DIR)" ]; then echo cp -f $@ $(EPICS_BIN_DIR)/; fi
+ 	@if [ -n "$(EPICS_BIN_DIR)" ]; then cp -f $@ $(EPICS_BIN_DIR)/; fi
