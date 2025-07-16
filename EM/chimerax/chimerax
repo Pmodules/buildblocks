@@ -11,4 +11,11 @@ if [[ -z "$APPTAINER_IMAGE" || ! -f "$APPTAINER_IMAGE" || "${APPTAINER_IMAGE##*.
 fi
 
 # Execute ChimeraX inside the container
-singularity exec "$APPTAINER_IMAGE" /usr/bin/chimerax "$@"
+singularity exec \
+    --nv \
+    --bind "/data/scratch/shared:/data/scratch/shared" \
+    --bind "/data/user:/data/user" \
+    --bind "/data/project:/data/project" \
+    --bind "/scratch:/scratch" \
+    --bind "/tmp:/tmp" \
+    "$APPTAINER_IMAGE" /usr/bin/chimerax "$@"
