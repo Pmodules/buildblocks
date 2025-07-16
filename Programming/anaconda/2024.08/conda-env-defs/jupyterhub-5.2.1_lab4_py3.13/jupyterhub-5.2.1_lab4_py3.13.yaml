@@ -1,0 +1,28 @@
+name: jupyterhub-5.2.1_lab4_py3.13
+channels:
+  - conda-forge
+dependencies:
+  - python=3.13
+  - jupyterhub=5.2.1
+  - jupyterlab>4
+  - nb_conda
+  - nb_conda_kernels
+  - jupyter_contrib_nbextensions
+  - ipywidgets
+  - batchspawner
+  # - jupyter_server<2.11
+  # needed for widgets!
+  - ipympl
+  - pip
+  - jupytext
+  - jupyterlab-git
+  - git
+  - psycopg2
+  - plotly
+  - jupyterlab-plotly-extension
+  - flask
+  #  - sqlalchemy=1.4.39
+  ################# PIP packages
+  # - pip:
+  #  - git+https://github.com/jupyterhub/batchspawner.git@e89bf6a
+
