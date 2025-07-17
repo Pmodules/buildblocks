@@ -4,11 +4,11 @@ af3x:
   defaults:
     group: EM
     overlay: base
-    relstage: unstable
+    relstage: stable
 
   versions:
     dev:
       variants:
         - overlay: Alps
           systems: [.*.merlin7.psi.ch]
-          relstage: unstable
+          relstage: stable
