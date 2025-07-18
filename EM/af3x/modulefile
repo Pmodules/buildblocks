@@ -1,0 +1,19 @@
+#%Module1.0
+
+module-whatis       "Custom modification of AlphaFold 3 enabling explicit modeling of crosslinks."
+module-url          "https://github.com/KosinskiLab/af3x"
+module-license	    "Attribution-NonCommercial-ShareAlike 4.0 International"
+module-maintainer   "João Pedro Agostinho de Sousa <joao.agostinho-de-sousa@psi.ch>"
+
+module-help         "
+Most crosslink-based modeling programs implicitly model crosslinks by adding
+distance restraints between crosslinked residues. This program explicitly
+models crosslinks by adding crosslinker molecules as ligands and setting bonds
+to the crosslinked residues. This allows for more realistic modeling of
+crosslinks, and sometimes gives good results. The results are also more
+visually appealing.
+"
+
+# Environment variables
+setenv APPTAINER_IMAGE /data/project/bio/shared/containers/af3x/dev/af3x.sif
+setenv PUBLIC_DATABASES_DIR /data/project/bio/shared/alphafold3/public_databases
