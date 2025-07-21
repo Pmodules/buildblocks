@@ -1,0 +1,23 @@
+#!/usr/bin/env modbuild
+
+pbuild::prep() {
+    # Clone the repository with shallow depth
+    git clone --depth=1 -b "main" "https://github.com/czimaginginstitute/${P}.git" "$SRC_DIR"
+
+    # Ensure the bin directory exists in the installation path
+    mkdir -p "$PREFIX/bin"
+}
+
+pbuild::configure() {
+    :
+}
+
+pbuild::compile() {
+    cd "$SRC_DIR"
+    make exe -f makefile11 CUDAHOME="$CUDA_HOME"
+}
+
+pbuild::install() {
+    # Copy the compiled binary to the installation directory
+    install "$SRC_DIR/${P}" "$PREFIX/bin/"
+}
