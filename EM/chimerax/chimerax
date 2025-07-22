@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Set UTF-8 locale
+export LANG=C.UTF-8
+export LC_ALL=C.UTF-8
+
+# Check if APPTAINER_IMAGE is set, exists, and is a .sif file
+if [[ -z "$APPTAINER_IMAGE" || ! -f "$APPTAINER_IMAGE" || "${APPTAINER_IMAGE##*.}" != "sif" ]]; then
+    echo "Error: Valid Apptainer (.sif) image not found. Please contact the system administrators."
+    exit 1
+fi
+
+# Execute ChimeraX inside the container
+singularity exec \
+    --nv \
+    --bind "/data/scratch/shared:/data/scratch/shared" \
+    --bind "/data/user:/data/user" \
+    --bind "/data/project:/data/project" \
+    --bind "/scratch:/scratch" \
+    --bind "/tmp:/tmp" \
+    --bind "/etc/ssl/ca-bundle.pem:/etc/ssl/ca-bundle.pem" \
+    "$APPTAINER_IMAGE" /usr/bin/chimerax "$@"
