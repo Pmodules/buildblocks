@@ -6,9 +6,10 @@ pbuild::pre_configure() {
         pbuild::add_configure_args "--enable-shared"
         pbuild::add_configure_args "--enable-static"
 
-        if [[ -v CUDA_VERSION ]]; then
+        if [[ -v CUDA_VERSION ]] || pbuild::use_flag cuda; then
                 std::info "Enabling CUDA ${CUDA_VERSION}."
                 pbuild::add_configure_args "--with-cuda=${CUDA_HOME}"
+                pbuild::add_configure_args "--with-cuda-lib=${CUDA_HOME}/lib64/stubs"
         fi
 
         if [[ -v HWLOC_VERSION ]]; then

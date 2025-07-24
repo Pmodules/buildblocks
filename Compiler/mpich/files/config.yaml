@@ -15,19 +15,69 @@ mpich:
   shasums:
     mpich-3.3.2.tar.gz: 4bfaf8837a54771d3e4922c84071ef80ffebddbb6971a006038d91ee7ef959b9
     mpich-4.2.3.tar.gz: 7a019180c51d1738ad9c5d8d452314de65e828ee240bcb2d1f80de9a65be88a8
+    mpich-4.3.1.tar.gz: acc11cb2bdc69678dc8bba747c24a28233c58596f81f03785bf2b7bb7a0ef7dc
 
   versions:
-    4.2.3:
+    4.3.1:
       variants:
-        - systems: [.*.merlin7.psi.ch]
-          relstage: unstable
+        - systems: [login.*.merlin7.psi.ch, cn.*.merlin7.psi.ch]
+          relstage: stable
           overlay: Alps
-          use_overlays: [PSI]
+          target_cpus: ['x86_64'] # MC
+          use_overlays: [PSI, Alps]
           use_flags: [merlin7, slurm]
           group_deps:
+            compiler: {gcc: [8.5.0,12.3.0]}
+          build_requires: [hwloc/2.12.0, patchelf/0.14.5]
+          runtime_deps: [libfabric/2.2.0-oss]
+          configure_args+:
+            - --with-pm=hydra,gforker
+        - systems: [gpu.*.merlin7.psi.ch]
+          relstage: stable
+          overlay: Alps_A100
+          target_cpus: ['x86_64'] # GPU A100
+          use_overlays: [PSI, Alps_A100]
+          use_flags: [merlin7, slurm, cuda]
+          group_deps:
+            compiler: {gcc: [8.5.0,12.3.0]}
+          build_requires: [hwloc/2.12.0, patchelf/0.14.5]
+          runtime_deps: [cuda/12.9.1,libfabric/2.2.0-oss]
+          configure_args+:
+            - --with-pm=hydra,gforker
+        - systems: [gpu.*.merlin7.psi.ch]
+          relstage: unstable
+          overlay: Alps
+          target_cpus: ['aarch64'] # GPU GH
+          use_overlays: [PSI, Alps]
+          use_flags: [merlin7, slurm, cuda]
+          group_deps:
             compiler: {gcc: [12.3.0]}
-          build_requires: [hwloc/2.11.1, libfabric/1.15.2.0, patchelf/0.14.5]
-          runtime_deps: [cuda/12.2.0]
+          build_requires: [hwloc/2.12.0, patchelf/0.14.5]
+          runtime_deps: [cuda/12.9.1,libfabric/2.2.0-oss]
+          configure_args+:
+            - --with-pm=hydra,gforker
+    4.2.3:
+      variants:
+        - systems: ['login.*.merlin7.psi.ch', 'cn.*.merlin7.psi.ch']
+          relstage: stable
+          overlay: Alps
+          use_overlays: [PSI, Alps]
+          use_flags: [merlin7, slurm]
+          group_deps:
+            compiler: {gcc: [8.5.0,12.3.0]}
+          build_requires: [hwloc/2.12.0, patchelf/0.14.5]
+          runtime_deps: [libfabric/2.2.0-oss]
+          configure_args+:
+            - --with-pm=hydra,gforker
+        - systems: [gpu.*.merlin7.psi.ch]
+          relstage: stable
+          overlay: Alps_A100
+          use_overlays: [PSI, Alps_A100]
+          use_flags: [merlin7, slurm, cuda]
+          group_deps:
+            compiler: {gcc: [8.5.0,12.3.0]}
+          build_requires: [hwloc/2.12.0, patchelf/0.14.5]
+          runtime_deps: [cuda/12.9.1,libfabric/2.2.0-oss]
           configure_args+:
             - --with-pm=hydra,gforker
     3.3.2:
