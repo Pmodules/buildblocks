@@ -3,7 +3,7 @@
 module-whatis           "CTF estimation from electron micrographs"
 module-url              "https://grigoriefflab.umassmed.edu/ctffind4"
 module-license          "The Janelia Research Campus Software License 1.2 http://license.janelia.org/license/janelia_license_1_2.html"
-module-maintainer       "Spencer Bliven <spencer.bliven@psi.ch>"
+module-maintainer       "HPCE Admins <merlin-admins@lists.psi.ch>"
 
 module-help     "
 Mindell, JA, Grigorieff N.  2003.  Accurate determination of local defocus and specimen tilt in electron microscopy. J Struct Biol. 142:334-47.

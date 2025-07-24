@@ -6,3 +6,7 @@
 
 Installs the pre-build binaries.
 
+## Note
+
+That in some cases `export LANG=C` has to be used, otherwise the static binaries segfault.
+
