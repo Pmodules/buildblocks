@@ -1,13 +1,9 @@
 #!/usr/bin/env modbuild
 
-pbuild::set_download_url "https://github.com/NVIDIA/gdrcopy/archive/v${V_MAJOR}.${V_MINOR}.tar.gz"
-pbuild::add_to_group 'Libraries'
-
-pbuild::install_docfiles README.md CHANGELOG.md LICENSE
-
-pbuild::compile_in_sourcetree
-
-pbuild::install() {
+pbuild::compile() {
   PKG_CONFIG_PATH="${PREFIX}" make prefix="${PREFIX}" CUDA="${CUDA_HOME}" all install
 }
 
+pbuild::install() {
+  ./insmod.sh
+}

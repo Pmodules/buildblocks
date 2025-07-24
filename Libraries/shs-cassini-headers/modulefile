@@ -1,0 +1,9 @@
+#%Module1.0
+
+module-whatis		"Slingshot Cassini Headers"
+module-url		"https://github.com/HewlettPackard/shs-cassini-headers"
+module-maintainer	"Marc Caubet Serrabou <marc.caubet@psi.ch>"
+
+module-help		"
+This module contains the OSS Slingshot Cassini Headers.
+"

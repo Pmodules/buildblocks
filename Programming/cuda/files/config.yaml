@@ -11,6 +11,12 @@ cuda:
       compile: []
       install: [pbuild::post_install]
     urls:
+      - &cuda-12_9_1-aarch64
+        url: https://developer.download.nvidia.com/compute/cuda/12.9.1/local_installers/cuda_12.9.1_575.57.08_linux_sbsa.run
+        unpacker: none
+      - &cuda-12_9_1-x86_64
+        url: https://developer.download.nvidia.com/compute/cuda/12.9.1/local_installers/cuda_12.9.1_575.57.08_linux.run
+        unpacker: none
       - &cuda-12_8_1-aarch64
         url: https://developer.download.nvidia.com/compute/cuda/12.8.1/local_installers/cuda_12.8.1_570.124.06_linux_sbsa.run
         unpacker: none
@@ -37,6 +43,8 @@ cuda:
         unpacker: none
 
   shasums:
+    cuda_12.9.1_575.57.08_linux.run: 0f6d806ddd87230d2adbe8a6006a9d20144fdbda9de2d6acc677daa5d036417a
+    cuda_12.9.1_575.57.08_linux_sbsa.run: 64f47ab791a76b6889702425e0755385f5fa216c5a9f061875c7deed5f08cdb6
     cuda_12.8.1_570.124.06_linux.run: 228f6bcaf5b7618d032939f431914fc92d0e5ed39ebe37098a24502f26a19797
     cuda_12.8.1_570.124.06_linux_sbsa.run: 353cbab1b57282a1001071796efd95c1e40ec27a3375e854d12637eaa1c6107c
     cuda_12.2.2_535.104.05_linux.run: 2b39aae3e7618d9f59a3c8fa1f1bc61f29c0b0e0df75fb05076badb352952ef2
@@ -47,6 +55,24 @@ cuda:
     cuda_12.1.1_530.30.02_linux_sbsa.run: 45ea4cd860f0a26d3db8ce032530f2ee0b55abdd587545213d395a73623b4278
 
   versions:
+    12.9.1:
+      variants:
+        - target_cpus: [aarch64]
+          systems: [gpu.*.merlin7.psi.ch]
+          relstage: stable
+          overlay: PSI
+          urls:
+            - *cuda-12_9_1-aarch64
+        - target_cpus: [x86_64]
+          systems: [.*.merlin7.psi.ch]
+          relstage: stable
+          overlay: PSI
+          urls:
+            - *cuda-12_9_1-x86_64
+        - target_cpus: [x86_64]
+          relstage: stable
+          urls:
+            - *cuda-12_9_1-x86_64
     12.8.1:
       variants:
         - target_cpus: [aarch64]

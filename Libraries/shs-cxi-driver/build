@@ -1,0 +1,49 @@
+#!/usr/bin/env modbuild
+
+# Check 'version-to-gitcommit.txt'
+#   - If version exists, we will compile directly from GIT cloned commit.
+#   - If version does not exist, install from GIT repository package (tag).
+GITURL=$(grep -E "^${V}" files/from-git.txt | awk '{print $2}')
+BRANCH=$(grep -E "^${V}" files/from-git.txt | awk '{print $3}')
+CHERRY=$(grep -E "^${V}" files/from-git.txt | awk -F'cherry-pick:' '{print $2}')
+CHERRY_COMMIT=$(echo "$CHERRY" | awk -F'|' '{print $1}')
+CHERRY_REPO=$(echo "$CHERRY" | awk -F'|' '{print $2}')
+
+if [[ -n ${GITURL} ]]; then
+  pbuild::pre_prep() {
+    if [[ ! -f ${PMODULES_DISTFILESDIR}/${P}-${V}.tar.bz2 ]]; then
+      git clone ${GITURL} ${P}
+      cd ${P}
+      if [[ -n ${BRANCH} ]]; then
+        git fetch -a
+        git checkout ${BRANCH}
+      fi
+      if [[ -n ${CHERRY_REPO} ]]; then
+        git remote add remotetmp $CHERRY_REPO
+        git fetch --all
+      fi
+ 
+      if [[ -n ${CHERRY_COMMIT} ]]; then
+        git cherry-pick $CHERRY_COMMIT
+      fi
+       
+      # Use archive with top-level directory
+      git archive \
+         --format=tar \
+         --prefix="${P}-${V}/" \
+         HEAD > "${PMODULES_DISTFILESDIR}/${P}-${V}.tar"
+
+      bzip2 "${PMODULES_DISTFILESDIR}/${P}-${V}.tar"
+      cd ..
+    fi
+  }
+fi
+
+pbuild::compile() {
+  :
+}
+
+pbuild::install() {
+  mkdir -p "${PREFIX}/include"
+  cp -r include/* "${PREFIX}/include/"
+}

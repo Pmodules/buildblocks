@@ -1,0 +1,24 @@
+format: 1
+shs-cassini-headers:
+  defaults:
+    group: Libraries
+    compile_in_sourcetree: true
+    relstage: unstable
+    urls:
+      - url: https://github.com/HewlettPackard/shs-cassini-headers/archive/refs/heads/main.zip
+        name: shs-cassini-headers-main.zip
+  shasums:
+    shs-cassini-headers-12.0.1.tar.gz: db338e6af8bff8c5acd0556bbad81eba5365db9eec918d46021483861a386792
+  versions:
+    12.0.1:
+      config:
+        relstage: stable
+        urls:
+          - url: https://github.com/HewlettPackard/shs-cassini-headers/archive/refs/tags/release/shs-12.0.1.tar.gz
+            name: shs-cassini-headers-12.0.1.tar.bz2
+      variants:
+        - systems: [.*.merlin7.psi.ch]
+          overlay: Alps
+          suffix: '-oss'
+          use_overlays: [PSI]
+          use_flags: [merlin7]

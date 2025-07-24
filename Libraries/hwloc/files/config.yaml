@@ -10,10 +10,15 @@ hwloc:
       - --enable-netloc
       - --enable-plugins
   shasums:
+    hwloc-2.12.0.tar.gz: 1897f5b4a3753627d21f06e976795364d6f69e14b52b29ac871ec22ecb8bdced
     hwloc-2.11.1.tar.gz: 9f320925cfd0daeaf3a3d724c93e127ecac63750c623654dca0298504aac4c2c
     hwloc-2.9.1.tar.gz: a440e2299f7451dc10a57ddbfa3f116c2a6c4be1bb97c663edd3b9c7b3b3b4cf
     hwloc-2.7.1.tar.gz: 4cb0a781ed980b03ad8c48beb57407aa67c4b908e45722954b9730379bc7f6d5
   versions:
+    2.12.0:
+      config:
+        relstage: stable
+        build_requires: [cuda/12.9.1]
     2.11.1:
       config:
         relstage: unstable

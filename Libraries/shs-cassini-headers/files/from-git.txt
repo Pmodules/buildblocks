@@ -1,0 +1,1 @@
+2.0.0 https://github.com/HewlettPackard/shs-cassini-headers.git 9a8a738a879f007849fbc69be8e3487a4abf0952

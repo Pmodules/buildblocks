@@ -1,0 +1,2 @@
+12.1.0 https://github.com/HewlettPackard/shs-libcxi.git d47aa97d78b04103829da79e4807ae9f52b1ea6c
+12.0.1 https://github.com/HewlettPackard/shs-libcxi.git 1571bd348bb75a8fe4a40c58240b0f687d6d5537

@@ -1,0 +1,47 @@
+format: 1
+GDRCopy:
+  defaults:
+    group: Libraries
+    relstage: stable
+    compile_in_sourcetree: true
+    docfiles:
+      - LICENSE
+      - README.md
+      - CHANGELOG.md
+    urls:
+      - url: https://github.com/NVIDIA/gdrcopy/archive/refs/tags/v${V_PKG}.tar.gz
+        name: gdrcopy-${V_PKG}.tar.gz
+
+  shasums:
+    gdrcopy-2.5.tar.gz: 196400877be7e511edcf2a87b21a605cca99522ff217c97429348fd9153b30d7
+    v2.4.4.tar.gz: 8802f7bc4a589a610118023bdcdd83c10a56dea399acf6eeaac32e8cc10739a8
+    v2.3.0.tar.gz: b85d15901889aa42de6c4a9233792af40dd94543e82abe0439e544c87fd79475
+    v2.2.0.tar.gz: e4be119809391b18c735346d24b3b398dd9421cbff47ef12befbae40d61da45f
+  versions:
+    2.5:
+      config:
+        relstage: stable
+      variants:
+        - systems: [.*.merlin7.psi.ch]
+          overlay: Alps
+          use_overlays: [PSI]
+          use_flags: [merlin7]
+          build_requires: [cuda/12.9.1]
+    2.4.4:
+      config:
+        relstage: unstable
+      variants:
+        - systems: [.*.merlin7.psi.ch]
+          overlay: Alps
+          use_overlays: [PSI]
+          use_flags: [merlin7]
+          build_requires: [cuda/12.8.1]
+        - build_requires: [cuda/12.8.1]
+    2.3.0:
+      config:
+        relstage: unstable
+        build_requires: [cuda/12.1.1]
+    2.2.0:
+      config:
+        relstage: unstable
+        build_requires: [cuda/11.2.2]

@@ -110,23 +110,17 @@ pmix:
           # - --with-jansson
           # - --with-curl
         - systems: [rhel.*]
-    # 5.0.4:
-    #   config:
-    #     relstage: unstable
-    #     configure_args+:
-    #       - --enable-static=no
-    #     runtime_deps: [libevent/2.1.12]
-    #     build_requires: [gcc/12.3.0, hwloc/2.11.1]
-    #   variants:
-    #     - systems: [.*.merlin7.psi.ch]
-    #       overlay: Alps
-    #       use_overlays: [PSI]
-    #       configure_args+:
-    #         - --with-lustre
-    #         - --with-cxi
-    #         - --with-cxi-libdir=/opt/cray/libfabric/1.15.2.0/include
-    #         - --with-slingshot
-    #         - --with-zlib
-    #       # - --with-jansson
-    #       # - --with-curl
-    #     - systems: [rhel.*]
+    5.0.8:
+      config:
+        relstage: stable
+        configure_args+:
+          - --enable-static=no
+        runtime_deps: [libevent/2.1.12]
+        build_requires: [gcc/12.3.0, hwloc/2.12.0]
+      variants:
+        - systems: [.*.merlin7.psi.ch]
+          overlay: Alps
+          use_overlays: [PSI]
+          configure_args+:
+            - --with-zlib
+        - systems: [rhel.*]
