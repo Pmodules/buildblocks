@@ -1,0 +1,21 @@
+#%Module1.0
+
+module-whatis       "
+AlphaFold 3 provides accurate structure predictions for how proteins interact
+with other molecules, like DNA, RNA and more.
+"
+module-url          "https://github.com/google-deepmind/alphafold3"
+module-license	    "Attribution-NonCommercial-ShareAlike 4.0 International"
+module-maintainer   "João Pedro Agostinho de Sousa <joao.agostinho-de-sousa@psi.ch>"
+
+module-help         "
+AlphaFold3 is a deep learning model developed by DeepMind that predicts the 3D
+structure of not just proteins (like AlphaFold2) but also DNA, RNA, ligands,
+and other molecules in complex biological systems. It significantly improves
+accuracy in modeling protein–protein, protein–nucleic acid, and protein–ligand
+interactions.
+"
+
+# Environment variables
+setenv APPTAINER_IMAGE /data/project/bio/shared/containers/alphafold3/3.0.1/alphafold3.sif
+setenv PUBLIC_DATABASES_DIR /data/project/bio/shared/alphafold3/public_databases

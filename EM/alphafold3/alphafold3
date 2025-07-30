@@ -1,0 +1,55 @@
+#!/bin/bash
+
+# Validate that the AlphaFold3 image is specified and exists
+if [[ -z "${APPTAINER_IMAGE:-}" || ! -f "$APPTAINER_IMAGE" ]]; then
+    echo "Error: AlphaFold3 image not found or is not set."
+    echo "Please contact the system administrators for assistance."
+    exit 1
+fi
+
+IMAGE="$APPTAINER_IMAGE"
+
+# Parse arguments to extract --db_dir and preserve the rest
+DB_DIR=""
+PARSED_ARGS=()
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --db_dir=*)
+            DB_DIR="${1#*=}"
+            shift
+            ;;
+        --db_dir)
+            DB_DIR="$2"
+            shift 2
+            ;;
+        *)
+            PARSED_ARGS+=("$1")
+            shift
+            ;;
+    esac
+done
+
+# Fallback to PUBLIC_DATABASES_DIR if --db_dir was not provided
+if [[ -z "$DB_DIR" ]]; then
+    DB_DIR="$PUBLIC_DATABASES_DIR"
+fi
+
+# Validate the final database directory
+if [[ -z "$DB_DIR" || ! -d "$DB_DIR" ]]; then
+    echo "Error: Database directory '$DB_DIR' does not exist or is not set."
+    echo "Use --db_dir=/your/path to specify a valid directory."
+    exit 1
+fi
+
+# Run AlphaFold3 inside the Singularity container
+singularity exec \
+    --nv \
+    --bind "/data/scratch/shared:/data/scratch/shared" \
+    --bind "/data/user:/data/user" \
+    --bind "/data/project:/data/project" \
+    --bind "/scratch:/scratch" \
+    --bind "/tmp:/tmp" \
+    --bind "/etc/ssl/ca-bundle.pem:/etc/ssl/ca-bundle.pem" \
+    "$IMAGE" \
+    python /app/alphafold/run_alphafold.py --db_dir="$DB_DIR" "${PARSED_ARGS[@]}"
