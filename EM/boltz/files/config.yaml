@@ -1,0 +1,24 @@
+---
+# yamllint disable rule:line-length
+format: 1
+boltz:
+  defaults:
+    group: EM
+    overlay: base
+    relstage: stable
+    urls:
+      - url: https://github.com/jwohlwend/${P}/archive/refs/tags/v${V_PKG}.tar.gz
+
+  shasums:
+    v2.2.0.tar.gz: 7671d361ce6f90818956d32867fb9c96c065730e5784e628eb9f774a8bcc0320
+
+  versions:
+    2.2.0:
+      variants:
+        - overlay: Alps
+          systems: [.*.merlin7.psi.ch]
+          relstage: stable
+          build_requires:
+            - cuda/12.8.1
+          runtime_deps:
+            - cuda/12.8.1
