@@ -44,6 +44,9 @@ pbuild::compile() {
 	make || exit 42
 	make || exit 42
 
+	cd "${PREFIX}/epics/extensions/src/SDDSaps"
+	make || exit 42
+
 	cd "${PREFIX}/epics/extensions/src/oagca"
 	make clean
 	make -j || exit 42
