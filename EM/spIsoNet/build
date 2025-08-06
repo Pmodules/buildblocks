@@ -1,0 +1,49 @@
+#!/usr/bin/env modbuild
+
+pbuild::configure() {
+    # Install Miniforge
+    mkdir -p "$PREFIX/miniforge"
+    wget "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh" -O "$PREFIX/miniforge/miniforge.sh"
+    bash "$PREFIX/miniforge/miniforge.sh" -b -u -p "$PREFIX/miniforge/"
+
+    # Initialize conda for script use
+    source "$PREFIX/miniforge/etc/profile.d/conda.sh"
+
+    # Create the conda environment
+    conda create -y --name "${P}_${V_PKG}" python=3.10
+}
+
+pbuild::compile() {
+    :
+}
+
+pbuild::install() {
+    # Ensure conda is initialized
+    source "$PREFIX/miniforge/etc/profile.d/conda.sh"
+
+    # Activate the conda environment
+    conda activate "${P}_${V_PKG}"
+
+    # Install the CUDA toolkit
+    conda install -y -c "nvidia/label/cuda-11.8.0" cuda-toolkit
+
+    # Set the source directory
+    cd "$SRC_DIR"
+
+    # Install required packages
+    pip install torch --index-url https://download.pytorch.org/whl/cu118
+    pip install -r requirements.txt
+
+    # Create bin/ in the installation directory
+    mkdir -p "$PREFIX/bin"
+
+    # Copy Python scripts to bin
+    cp "${P}/bin/"*.py "$PREFIX/bin/"
+
+    # Give execute permission to the script spisonet.py
+    chmod +x "$PREFIX/bin/spisonet.py"
+
+    # Copy repository folder to $PREFIX and change the name to ${P}
+    cp -r . "$PREFIX/${P}"
+}
+

@@ -1,0 +1,24 @@
+#%Module1.0
+
+module-whatis       "spIsoNet is designed to correct for the preferred orientation problem in cryoEM by self-supervised deep learning"
+module-url          "https://github.com/IsoNet-cryoET/spIsoNet"
+module-license      "MIT license"
+module-maintainer   "João Pedro Agostinho de Sousa <joao.agostinho-de-sousa@psi.ch>"
+
+module-help         "
+Single Particle spIsoNet (spIsoNet) is designed to correct for the preferred
+orientation problem in cryoEM by self-supervised deep learning, by recovering
+missing information from well-sampled orientations in Fourier space. Unlike
+conventional supervised deep learning methods that need explicit input-output
+pairs for training, spIsoNet autonomously extracts supervisory signals from the
+original data, ensuring the reliability of the information used for training.
+"
+
+# Add conda env bin directory to PATH
+prepend-path PATH "${PREFIX}/miniforge/envs/${P}_${V_PKG}/bin"
+
+# Add IsoNet repository to PYTHONPATH
+prepend-path PYTHONPATH "${PREFIX}/${P}"
+
+# Setup RELION_EXTERNAL_RECONSTRUCT_EXECUTABLE
+setenv RELION_EXTERNAL_RECONSTRUCT_EXECUTABLE="python ${PREFIX}/bin/relion_wrapper.py"
