@@ -47,6 +47,12 @@ pbuild::compile() {
 	cd "${PREFIX}/epics/extensions/src/SDDSaps"
 	make || exit 42
 
+	cd "${PREFIX}/epics/extensions/src/SDDSaps/sddsplot"
+	make || exit 42
+
+	cd "${PREFIX}/epics/extensions/src/SDDSaps/sddsplot/qtDriver"
+	make || exit 42
+
 	cd "${PREFIX}/epics/extensions/src/oagca"
 	make clean
 	make -j || exit 42
