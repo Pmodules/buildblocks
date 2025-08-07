@@ -1,0 +1,20 @@
+# yamllint disable rule:line-length
+format: 1
+sratoolkit:
+  defaults:
+    group: EM
+    overlay: base
+    relstage: stable
+    urls:
+      - url: https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/${V_PKG}/${P}.${V_PKG}-ubuntu64.tar.gz
+
+  shasums:
+    sratoolkit.3.2.1-ubuntu64.tar.gz: e48add68c9a2ce8a38d1223e5b48a460201aa3e37db01c319fcbe7d758c67335
+
+  versions:
+    3.2.1:
+      variants:
+        - overlay: Alps
+          systems: [.*.merlin7.psi.ch]
+          relstage: stable
+
