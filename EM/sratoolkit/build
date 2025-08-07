@@ -1,0 +1,20 @@
+#!/usr/bin/env modbuild
+
+pbuild::configure() {
+    :
+}
+
+pbuild::compile() {
+    :
+}
+
+pbuild::install() {
+    # Access the source directory
+    cd "$SRC_DIR"
+
+    # Create bin/ in the installation directory
+    mkdir -p "$PREFIX/bin"
+
+    # Copy all contents of bin/ to $PREFIX/bin
+    cp -r bin/* "$PREFIX/bin/"
+}
