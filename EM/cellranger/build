@@ -1,0 +1,23 @@
+#!/usr/bin/env modbuild
+
+pbuild::configure() {
+
+    mkdir -p "$PREFIX/${P}-download"
+
+    # Download the 10x Genomics Cell Ranger package
+    wget -O "$PREFIX/${P}-download/${P}-${V_PKG}.tar.gz" "https://cf.10xgenomics.com/releases/cell-exp/${P}-${V_PKG}.tar.gz?Expires=1754687396&Key-Pair-Id=APKAI7S6A5RYOXBWRPDA&Signature=SznmXMDixdPwcgTKOd~9kravaqWpxUehte7UsknWbmSo0SgDRU8YAIWpTNssq~Eqx3d0DSsIdeMpZdw~fRatAbkaNh5iUDQ22VWTaeatMYyAw5tmF4bpBLdyMnvMVm5AK0NCTYdrebhYt-qZE3jp5uCvzRkdCct6f-NnDh8mayqsoudlpvj~WTbVrKCythmGdssT7hqWMQ8NuMbItwvW0-D9bVg9rqw5rZZtnzpFnOWm-Dw0YPP6enp1UWyUri1jzLLej9zhA1ywSML6Y7j~CZgbcPM259PPTVVZkwBax3CCu-e0wmEMIIkh0JrpT3cVFrJG1E30fhnynAiEYzYxCw__"
+
+    # Extract the downloaded package
+    tar -xzf "$PREFIX/${P}-download/${P}-${V_PKG}.tar.gz" -C "$PREFIX"
+
+    # Remove the ${P}-download directory
+    rm -r "$PREFIX/${P}-download"
+}
+
+pbuild::compile() {
+    :
+}
+
+pbuild::install() {
+    :
+}
