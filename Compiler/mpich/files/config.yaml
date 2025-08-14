@@ -21,6 +21,18 @@ mpich:
     4.3.1:
       variants:
         - systems: [login.*.merlin7.psi.ch, cn.*.merlin7.psi.ch]
+          relstage: unstable
+          overlay: Alps
+          target_cpus: ['x86_64'] # MC
+          use_overlays: [PSI, Alps]
+          use_flags: [merlin7, slurm]
+          group_deps:
+            compiler: {intelcc: [22.2]}
+          build_requires: [hwloc/2.12.0, patchelf/0.14.5]
+          runtime_deps: [libfabric/2.2.0-oss]
+          configure_args+:
+            - --with-pm=hydra,gforker
+        - systems: [login.*.merlin7.psi.ch, cn.*.merlin7.psi.ch]
           relstage: stable
           overlay: Alps
           target_cpus: ['x86_64'] # MC
