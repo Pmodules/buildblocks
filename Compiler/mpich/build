@@ -1,7 +1,22 @@
 #!/usr/bin/env modbuild
 
 pbuild::pre_configure() {
-        unset F90
+        # It seems 'unset F90' is here since 2015-10-14
+        # Probably some old gcc or mpich versions had problems with it
+        # To review for gcc, but I think this should be not set anymore
+        #
+        # The versions compiled with 'unset F90' on Merlin7 are:
+        #   mpich/3.3.2 unstable   Compiler     Alps         gcc/8.4.0
+        #   mpich/4.2.3 stable     Compiler     Alps         gcc/8.5.0
+        #   mpich/4.2.3 stable     Compiler     Alps         gcc/12.3.0
+        #   mpich/4.3.1 stable     Compiler     Alps         gcc/8.5.0
+        #   mpich/4.3.1 stable     Compiler     Alps         gcc/12.3.0
+        #
+        # Finally, compiling with 'unset F90' crashes IntelCC based compilations
+        # which require it
+        #
+        # Commented out from now on:
+        #   unset F90
 
         pbuild::add_configure_args "--enable-shared"
         pbuild::add_configure_args "--enable-static"
@@ -47,13 +62,17 @@ pbuild::pre_configure() {
 		pbuild::add_configure_args "--with-ucx=${UCX_PREFIX}"
 	fi
 
-        if [[ -v INTEL_VERSION ]]; then
-                pbuild::add_configure_args "CC=icc"
-                pbuild::add_configure_args "CXX=icpc"
-                pbuild::add_configure_args "FC=ifort"
-                pbuild::add_configure_args "F90=ifort"
-                pbuild::add_configure_args "F77=ifort"
-                pbuild::add_configure_args "LDFLAGS=-Wc,-static-intel,-O0"
+        if [[ -v INTEL_VERSION ]] || [[ -v INTELCC_VERSION ]]; then
+                # Commented out, since this comes with the Intel/IntelCC modules
+                #
+                #   pbuild::add_configure_args "CC=$(which icc)"
+                #   pbuild::add_configure_args "CXX=$(which icpc)"
+                #   pbuild::add_configure_args "FC=$(which ifort)"
+                #   pbuild::add_configure_args "F90=$(which ifort)"
+                #   pbuild::add_configure_args "F77=$(which ifort)"
+                #   pbuild::add_configure_args "LDFLAGS=-Wc,-static-intel,-O0"
+                #
+                # In general, any extra configure args should go to config.yaml
         fi
 
         if pbuild::use_flag slurm || \
