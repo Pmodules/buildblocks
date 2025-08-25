@@ -1,0 +1,14 @@
+---
+format: 1
+cryodrgn:
+  defaults:
+    group: EM
+    overlay: base
+    relstage: stable
+
+  versions:
+    3.4.4:
+      variants:
+        - overlay: Alps
+          systems: [.*.merlin7.psi.ch]
+          relstage: stable
