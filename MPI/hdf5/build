@@ -1,12 +1,5 @@
 #!/usr/bin/env modbuild
 
-pbuild::set_download_url "https://support.hdfgroup.org/ftp/HDF5/releases/$P-${V_MAJOR}.${V_MINOR}/$P-${V_PKG}/src/hdf5-${V_PKG}.tar.bz2"
-pbuild::add_to_group 'MPI'
-
-pbuild::install_docfiles ACKNOWLEDGMENTS
-pbuild::install_docfiles COPYING
-pbuild::install_docfiles MANIFEST
-pbuild::install_docfiles README*
 
 pbuild::pre_configure() {
 	pbuild::add_configure_args "CC=${MPICC}"
@@ -41,11 +34,6 @@ pbuild::pre_configure() {
 			eval $(pgcc -show 2>/dev/null | \
 				awk '/^GCCDIR[[:space:]]*=/{gsub(/[[:space:]]/,""); print $0}')
 			pbuild::add_configure_args "CPP=${GCCDIR%%/..*}/cpp"
-			pbuild::add_configure_args "CFLAGS=-fPIC"
-			pbuild::add_configure_args "CXXFLAGS=-fPIC"
-			pbuild::add_configure_args "FCFLAGS=-fPIC"
-			;;
-		nvhpc )
 			pbuild::add_configure_args "CFLAGS=-fPIC"
 			pbuild::add_configure_args "CXXFLAGS=-fPIC"
 			pbuild::add_configure_args "FCFLAGS=-fPIC"

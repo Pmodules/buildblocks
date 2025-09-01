@@ -6,7 +6,11 @@ hdf5:
     group: MPI
     overlay: base
     relstage: stable
-    systems: [rhel7, rhel8, rhel9]
+    docfiles:
+      - ACKNOWLEDGMENTS
+      - COPYING
+      - MANIFEST
+      - README.md
     urls:
       - url: https://support.hdfgroup.org/ftp/HDF5/releases/$P-${V_MAJOR}.${V_MINOR}/$P-${V_PKG}/src/$P-${V_PKG}.tar.bz2
   shasums:
@@ -38,6 +42,50 @@ hdf5:
     hdf5-1.13.1.tar.bz2: e16973ec893e2d5aa9c8dc73e196db9b99a605578e7317b421c713936f8bf57d
 
   versions:
+    1.14.4-3:
+      variants:
+        - systems:
+            - merlin-[cl]-.*.psi.ch
+          relstage: stable
+          suffix: _slurm
+          urls:
+            - url: https://github.com/HDFGroup/hdf5/releases/download/hdf5_1.14.4.3/hdf5-1.14.4-3.tar.gz
+              name: hdf5-1.14.4-3.tar.gz
+              strip_dirs: 2
+          group_deps:
+            compiler: {gcc: [14.2.0, 14.3.0, 15.1.0]}
+            mpi: {openmpi: [4.1.6_slurm]}
+        - systems:
+            - gpu008.merlin7.psi.ch
+          relstage: unstable
+          group: Compiler
+          urls:
+            - url: https://github.com/HDFGroup/hdf5/releases/download/hdf5_1.14.4.3/hdf5-1.14.4-3.tar.gz
+              name: hdf5-1.14.4-3.tar.gz
+              strip_dirs: 2
+          group_deps:
+            compiler: {gcc: [12.3.0]}
+          runtime_deps:
+            - cray-mpich/8.1.28
+    1.13.1:
+      variants:
+        - systems:
+            - merlin-[cl]-.*.psi.ch
+          relstage: unstable
+          suffix: _slurm
+          group_deps:
+            compiler: {gcc: [11.2.0]}
+            mpi: {openmpi: [4.1.3_slurm]}
+        - systems:
+            - merlin-[cl]-.*.psi.ch
+          relstage: unstable
+          suffix: _slurm
+          group_deps:
+            compiler:
+              gcc: [13.1.0]
+              pgi: [21.5]
+            mpi: {openmpi: [4.1.5_slurm]}
+
     1.8.12:
       config:
         relstage: deprecated
@@ -279,9 +327,3 @@ hdf5:
             compiler: {pgi: [21.5]}
             mpi: {pgi-mpi: [21.5]}
 
-    1.13.1_slurm:
-      variants:
-        - relstage: unstable
-          group_deps:
-            compiler: {gcc: [11.2.0]}
-            mpi: {openmpi: [4.1.3_slurm]}
