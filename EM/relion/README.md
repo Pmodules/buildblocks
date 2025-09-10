@@ -51,7 +51,8 @@ Don't clean up build directories.
 
 ### 5.0.0 for GH 
 
-no successful installation so far - failing for conda env. Elsa G. build some hacky hack that works kind of.. 
-needs to be investigated further. 
-
-- will attempt to build with more aggressive compiler optimisations as proscribed in: <https://docs.nvidia.com/grace-perf-tuning-guide/compilers.html>
+- Installation updated to be compiled in the Grace-Hopper chips.
+- Custom conda environment created. Modified from the original conda environment.yml.
+- Avoid recompiling FFTW
+- Install model-angelo separatelly into the conda environment with pyhmmer==0.11.1
+- Installation requires cuda/12.8

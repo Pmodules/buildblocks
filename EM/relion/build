@@ -19,9 +19,14 @@ pbuild::prep() {
         BRANCH="${V_PKG}"
     fi
 
+    # Load modules for aarch64 builds for version 5.0.0-perf
+    if [[ $(uname -m) == "aarch64" && $V == "5.0.0-perf" ]]; then
+        module switch cuda/12.8.1
+    fi
+
     if [[ -d "$SRC_DIR/.git" ]]; then
         cd "$SRC_DIR"
-        git pull 
+        git pull
     else
         git clone --depth=1 -b "$BRANCH" https://github.com/3dem/relion.git "$SRC_DIR" || return $?
     fi
@@ -39,7 +44,7 @@ pbuild::pre_configure() {
     fi
     #------------------------------------------------------------
 
-    # Section will be switched on for single-precision  version 
+    # Section will be switched on for single-precision  version
     # Safe memory usage for multibody refinements
     #------------------------------------------------------------
     if [[ "$SP" == "yes" ]]; then
@@ -59,20 +64,20 @@ pbuild::pre_configure() {
         case "$(uname -m)" in
             "aarch64")
                 export CC=gcc
-                export CFLAGS='-mcpu=neoverse-v2 -O3 -pipe -Wno-error'
+                export CFLAGS='-march=native -O3 -pipe -Wno-error'
                 export CXX=g++
-                export CXXFLAGS='-mcpu=neoverse-v2 -O3 -pipe -Wno-error'
-                export FCFLAGS='-mcpu=neoverse-v2 -O3 -pipe'
-                export FFLAGS='-mcpu=neoverse-v2 -O3 -pipe'
+                export CXXFLAGS='-march=native -O3 -pipe -Wno-error'
+                export FCFLAGS='-march=native -O3 -pipe'
+                export FFLAGS='-march=native -O3 -pipe'
                 export LDFLAGS='-Wl,--as-needed'
                 ;;
             "x86_64")
                 export CC=gcc
-                export CFLAGS='-march=x86-64-v3 -mtune=znver1 -O3 -pipe -Wno-error'
+                export CFLAGS='-march=znver2 -mtune=znver2 -O3 -pipe -Wno-error'
                 export CXX=g++
-                export CXXFLAGS='-march=x86-64-v3 -mtune=znver1 -O3 -pipe -Wno-error'
-                export FCFLAGS='-march=x86-64-v3 -mtune=znver1 -O3 -pipe'
-                export FFLAGS='-march=x86-64-v3 -mtune=znver1 -O3 -pipe'
+                export CXXFLAGS='-march=znver2 -mtune=znver2 -O3 -pipe -Wno-error'
+                export FCFLAGS='-march=znver2 -mtune=znver2 -O3 -pipe'
+                export FFLAGS='-march=znver2 -mtune=znver2 -O3 -pipe'
                 export LDFLAGS='-Wl,--as-needed'
                 ;;
             *)
@@ -92,7 +97,7 @@ pbuild::pre_configure() {
     # -------------------------------------------------------------
 
 
-    # The following section will only work for versions >= 5.0-beta 
+    # The following section will only work for versions >= 5.0-beta
     # -------------------------------------------------------------
     if [[ "$V_MAJOR" -ge "5" ]]; then
         #download blush weights, from zenodo
@@ -100,9 +105,9 @@ pbuild::pre_configure() {
         mkdir -p "$PREFIX/torch/hub/checkpoints/relion_blush"
         wget -q https://zenodo.org/records/10072731/files/blush_v1.0.ckpt.gz -P "$PREFIX/torch/hub/checkpoints/relion_blush" \
         && gunzip "$PREFIX/torch/hub/checkpoints/relion_blush/blush_v1.0.ckpt.gz"
-        mv "$PREFIX/torch/hub/checkpoints/relion_blush/blush_v1.0.ckpt" "$PREFIX/torch/hub/checkpoints/relion_blush/v1.0.ckpt" 
+        mv "$PREFIX/torch/hub/checkpoints/relion_blush/blush_v1.0.ckpt" "$PREFIX/torch/hub/checkpoints/relion_blush/v1.0.ckpt"
         touch  "$PREFIX/torch/hub/checkpoints/relion_blush/v1.0_installed.txt"
-        
+
         #cp classranker that was downloaded on another machine before from BUILDBLOCK_DIR
         echo "> downloading classranker"
         mkdir -p "$PREFIX/torch/hub/checkpoints/relion_class_ranker"
@@ -110,30 +115,43 @@ pbuild::pre_configure() {
         && gunzip "$PREFIX/torch/hub/checkpoints/relion_class_ranker/classranker_v1.0.ckpt.gz"
         mv "$PREFIX/torch/hub/checkpoints/relion_class_ranker/classranker_v1.0.ckpt" "$PREFIX/torch/hub/checkpoints/relion_class_ranker/v1.0.ckpt"
         touch  "$PREFIX/torch/hub/checkpoints/relion_class_ranker/v1.0_installed.txt"
-        
-        # fltk stuff 
+
+        # fltk stuff
         echo "> downloading FLTK"
         mkdir -p "$SRC_DIR/external/fltk"
         wget -q ftp://ftp.mrc-lmb.cam.ac.uk/pub/scheres/fltk-1.3.5-source.tar.gz -P "$SRC_DIR/external/fltk/"
 
-        # Install Miniconda
-        echo "> installing miniconda"
-        mkdir -p  "$PREFIX/miniconda"
-        if [[ "$(uname -m)" =~ "aarch64" ]]; then
-            wget -q https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-aarch64.sh -O "$PREFIX/miniconda/miniconda.sh"
-        else
-            wget -q https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O "$PREFIX/miniconda/miniconda.sh"
-        fi
-        bash "$PREFIX/miniconda/miniconda.sh" -b -u -p "$PREFIX/miniconda/"
+        # Install Miniforge
+        echo "> installing miniforge"
+        mkdir -p  "$PREFIX/miniforge"
+        wget "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh" -O "$PREFIX/miniforge/miniforge.sh"
+        bash "$PREFIX/miniforge/miniforge.sh" -b -u -p "$PREFIX/miniforge/"
 
         # Setup conda env; switch into relion repo directory to capture local
         # `.[vis]` pip package dependencies
-        echo "> building conda env"
-        pushd "$SRC_DIR"
-        "$PREFIX/miniconda/condabin/conda" env create -q -f environment.yml
-        "$PREFIX/miniconda/condabin/conda" env list
-        popd
+        if [[ $(uname -m) == "aarch64" ]]; then
+            echo "> building conda env (GH200)"
+            pushd "$SRC_DIR"
+	    cp "$BUILDBLOCK_DIR/environment_gh200.yml" .
+	    "$PREFIX/miniforge/condabin/conda" env create -q -f environment_gh200.yml
+            "$PREFIX/miniforge/condabin/conda" env list
+	    
+            echo "> cloning model-angelo"
+            git clone https://github.com/3dem/model-angelo "$SRC_DIR/model-angelo"
+
+            pushd "$SRC_DIR/model-angelo"
+            echo "> fixing pyhmmer version in setup.py"
+	    sed -i 's/pyhmmer==[0-9\.]\+/pyhmmer==0.11.1/' setup.py
+            echo "> installing model-angelo"
+            "$PREFIX/miniforge/condabin/conda" run -n ${P}-${V_MAJOR}.${V_MINOR} python -m pip install .          
+            popd
+        fi
+        else
+            echo "> building conda env"
+            pushd "$SRC_DIR"
+            "$PREFIX/miniforge/condabin/conda" env create -q -f environment.yml
+            "$PREFIX/miniforge/condabin/conda" env list
+            popd
     fi
-    
     #---------------------------------------------------------------
 }

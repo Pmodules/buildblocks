@@ -1,11 +1,10 @@
 #%Module1.0
 
-module-whatis	        "3D reconstructions or 2D class averages in electron cryo-microscopy (cryo-EM)"
-module-url		"https://www2.mrc-lmb.cam.ac.uk/relion/index.php/Main_Page"
-module-license	        "GPLv2 license"
-module-maintainer	"Greta Assmann <greta.assmann@psi.ch>"
-
-module-help	"
+module-whatis       "3D reconstructions or 2D class averages in electron cryo-microscopy (cryo-EM)"
+module-url          "https://www2.mrc-lmb.cam.ac.uk/relion/index.php/Main_Page"
+module-license      "GPLv2 license"
+module-maintainer   "João Pedro Agostinho de Sousa <joao.agostinho-de-sousa@psi.ch>"
+module-help "
 RELION (for REgularised LIkelihood OptimisatioN, pronounce rely-on) is a
 stand-alone computer program that employs an empirical Bayesian approach to
 refinement of (multiple) 3D reconstructions or 2D class averages in electron
@@ -18,33 +17,72 @@ statistical model are learned from the data, which leads to objective and
 high-quality results without the need for user expertise. The underlying theory
 is given in Scheres (2012) JMB. A more detailed description of its
 implementation is given in Scheres (2012) JSB. If RELION is useful in your
-work, please cite at least one of these papers. 
+work, please cite at least one of these papers.
 
-Scheres(2012) JMB http://www.sciencedirect.com/science/article/pii/S0022283611012290
-Scheres(2012) JSB http://www.sciencedirect.com/science/article/pii/S1047847712002481
+Scheres (2012) JMB: http://www.sciencedirect.com/science/article/pii/S0022283611012290
+Scheres (2012) JSB: http://www.sciencedirect.com/science/article/pii/S1047847712002481
 "
 
-setenv RELION_QUEUE_USE yes
-setenv RELION_QUEUE_NAME general-x64
-setenv RELION_QSUB_COMMAND sbatch
-setenv RELION_THREAD_MAX 44
-setenv RELION_QSUB_EXTRA_COUNT 4
-setenv RELION_QSUB_EXTRA1 "Max Time"
-setenv RELION_QSUB_EXTRA1_DEFAULT "1-00:00:00"
-setenv RELION_QSUB_EXTRA1_HELP "Maximum time before the job is killed by slurm. Default: 1-00:00:00"
-setenv RELION_QSUB_EXTRA2 "Extra Slurm Args"
-setenv RELION_QSUB_EXTRA2_DEFAULT ""
-setenv RELION_QSUB_EXTRA2_HELP "Any additional arguments to pass to slurm"
-setenv RELION_SCRATCH_DIR /scratch
-setenv RELION_CTFFIND_EXECUTABLE /opt/psi/EM/ctffind4/4.1.8/bin/ctffind
-#also has internal version, depending on what users want... dont know if it works
-setenv RELION_RESMAP_EXECUTABLE /opt/psi/EM/ResMap/1.1.4/bin/ResMap
-# Version-specific variables
-setenv RELION_QSUB_TEMPLATE /opt/psi/overlays/Alps/EM/relion/$V/scripts/multi_gpu.sh
+# --------------------------------------------------------------------------
+# Required Modules
+# --------------------------------------------------------------------------
 
-setenv RELION_MOTIONCOR2_EXECUTABLE "/opt/psi/EM/MotionCor2/1.6.4/bin/MotionCor2"
+# Detect architecture
+set arch [exec uname -m]
 
-setenv RELION_TOPAZ_EXECUTABLE /opt/psi/overlays/Alps/EM/relion/$V/miniconda/envs/relion-5.0/bin/topaz
-setenv RELION_PYTHON_EXECUTABLE /opt/psi/overlays/Alps/EM/relion/$V/miniconda/envs/relion-5.0/bin/python
-setenv RELION_TORCH_HOME_PATH /opt/psi/overlays/Alps/EM/relion/$V/torch/
+# Load modules for aarch64 builds for version 5.0.0-perf
+if { $arch == "aarch64" && $V == "5.0.0-perf" } {
+  module switch cuda cuda/12.8.1
+}
 
+# --------------------------------------------------------------------------
+# General Settings
+# --------------------------------------------------------------------------
+setenv RELION_MPI_MAX                        16
+setenv RELION_THREAD_MAX                     36
+setenv RELION_SCRATCH_DIR                    /scratch
+setenv RELION_QUEUE_USE                      yes
+setenv RELION_QSUB_COMMAND                   sbatch
+setenv RELION_QUEUE_NAME                     daily
+setenv RELION_PDFVIEWER_EXECUTABLE           evince
+setenv RELION_QSUB_TEMPLATE                  /opt/psi/overlays/Alps/EM/relion/$V/scripts/CPU.sh
+setenv RELION_MINIMUM_DEDICATED              1
+setenv RELION_ALLOW_CHANGE_MINIMUM_DEDICATED 0
+setenv RELION_STACK_BUFFER                   0
+
+# --------------------------------------------------------------------------
+# SLURM Extra Parameters
+# --------------------------------------------------------------------------
+setenv RELION_QSUB_EXTRA_COUNT           5
+
+setenv RELION_QSUB_EXTRA1                "Time limit:"
+setenv RELION_QSUB_EXTRA1_DEFAULT        "1-00:00:00"
+setenv RELION_QSUB_EXTRA1_HELP           "Maximum runtime before the job is terminated by SLURM. Format: days-hh:mm:ss"
+
+setenv RELION_QSUB_EXTRA2                "Additional sbatch arguments:"
+setenv RELION_QSUB_EXTRA2_DEFAULT        ""
+setenv RELION_QSUB_EXTRA2_HELP           "Any extra SLURM sbatch arguments to include."
+
+setenv RELION_QSUB_EXTRA3                "Number of nodes:"
+setenv RELION_QSUB_EXTRA3_DEFAULT        "1"
+setenv RELION_QSUB_EXTRA3_HELP           "Total number of compute nodes to request."
+
+setenv RELION_QSUB_EXTRA4                "Total memory per node:"
+setenv RELION_QSUB_EXTRA4_DEFAULT        "62G"
+setenv RELION_QSUB_EXTRA4_HELP           "Amount of memory to allocate per node."
+
+setenv RELION_QSUB_EXTRA5                "(GPU jobs) Number of GPUs per node:"
+setenv RELION_QSUB_EXTRA5_DEFAULT        "1"
+setenv RELION_QSUB_EXTRA5_HELP           "Amount of GPUs to allocate per node. This option is only valid for GPU jobs."
+
+# --------------------------------------------------------------------------
+# External Tool Paths
+# --------------------------------------------------------------------------
+setenv RELION_RESMAP_EXECUTABLE          /opt/psi/EM/ResMap/1.1.4/bin/ResMap
+setenv RELION_CTFFIND_EXECUTABLE         /opt/psi/EM/ctffind4/4.1.14/bin/ctffind
+setenv RELION_MOTIONCOR2_EXECUTABLE      /opt/psi/overlays/Alps/EM/MotionCor3/1.2.1/bin/MotionCor3
+setenv RELION_TOPAZ_EXECUTABLE           /opt/psi/overlays/Alps/EM/relion/$V/miniconda/envs/relion-5.0/bin/topaz
+setenv RELION_PYTHON_EXECUTABLE          /opt/psi/overlays/Alps/EM/relion/$V/miniconda/envs/relion-5.0/bin/python
+setenv RELION_TORCH_HOME_PATH            /opt/psi/overlays/Alps/EM/relion/$V/torch/
+setenv RELION_BATCHTOMO_EXECUTABLE       /opt/psi/overlays/Alps/EM/IMOD/5.0.0/imod_5.0.0/bin/batchruntomo
+setenv RELION_ARETOMO_EXECUTABLE         /opt/psi/overlays/Alps/EM/AreTomo2/1.1.2/bin/AreTomo2
