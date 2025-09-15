@@ -13,7 +13,7 @@ singularity pull docker://ghcr.io/sokrypton/colabfold:1.5.5-cuda12.2.2
 
 2. Set the environamental variable APPTAINER_IMAGE to the directory where the .sif file is located.
 Also set the variable MODEL_WEIGHTS_DIR to the directory of where the model weights are stored.
-`setenv APPTAINER_IMAGE /data/project/bio/shared/containers/colabfold/1.5.5/colabfold_1.5.5-cuda12.2.2.sif`
-`setenv MODEL_WEIGHTS_DIR /data/project/bio/shared/alphafold/versions/v2.3.2/latest`
+`setenv APPTAINER_IMAGE /data/project/cls/shared/containers/colabfold/1.5.5/colabfold_1.5.5-cuda12.2.2.sif`
+`setenv MODEL_WEIGHTS_DIR /data/project/cls/shared/models/colabfold/model_weights`
 
 3. Build the module.

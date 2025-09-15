@@ -17,5 +17,5 @@ accessible platform for protein folding.
 "
 
 # Environment variables
-setenv APPTAINER_IMAGE /data/project/bio/shared/containers/colabfold/1.5.5/colabfold_1.5.5-cuda12.2.2.sif
-setenv MODEL_WEIGHTS_DIR /data/project/bio/shared/colabfold/model_weights
+setenv APPTAINER_IMAGE /data/project/cls/shared/containers/colabfold/1.5.5/colabfold_1.5.5-cuda12.2.2.sif
+setenv MODEL_WEIGHTS_DIR /data/project/cls/shared/models/colabfold/model_weights
