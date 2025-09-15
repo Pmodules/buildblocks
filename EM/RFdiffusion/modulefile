@@ -13,5 +13,5 @@ protein design challenges as outlined in the RFdiffusion paper
 "
 
 # Environment variables
-setenv APPTAINER_IMAGE /data/project/bio/shared/containers/rfdiffusion/dev/rfdiffusion.sif
-setenv MODEL_DIRECTORY_PATH /data/project/bio/shared/rfdiffusion/models
+setenv APPTAINER_IMAGE /data/project/cls/shared/containers/rfdiffusion/dev/rfdiffusion.sif
+setenv MODEL_DIRECTORY_PATH /data/project/cls/shared/models/rfdiffusion/models

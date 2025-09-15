@@ -60,7 +60,7 @@ chmod 775 rfdiffusion.sif
 
 5. Set the environamental variable APPTAINER_IMAGE to the directory where the .sif file is located.
 Also set the variable MODEL_DIRECTORY_PATH to the directory of the models to allow users to have that option without having to download the models.
-`setenv APPTAINER_IMAGE /data/project/bio/shared/containers/rfdiffusion/dev/rfdiffusion.sif`
-`setenv MODEL_DIRECTORY_PATH /data/project/bio/shared/rfdiffusion/models`
+`setenv APPTAINER_IMAGE /data/project/cls/shared/containers/rfdiffusion/dev/rfdiffusion.sif`
+`setenv MODEL_DIRECTORY_PATH /data/project/cls/shared/models/rfdiffusion/models`
 
 6. Build the module.
