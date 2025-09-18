@@ -1,9 +1,9 @@
 #%Module
 
-module-whatis	        "crYOLO is a fast and accurate particle picking procedure for electron microscopy"
-module-url		"http://sphire.mpg.de/wiki/doku.php?id=pipeline:window:cryolo"
-module-license	        "SPHIRE-crYOLO Complimentary Science Software License (http://sphire.mpg.de/wiki/doku.php?id=cryolo_license). Non-commercial academic and research purposes only"
-module-maintainer	"Greta Assmann  <greta.assmann@psi.ch>"
+module-whatis     "crYOLO is a fast and accurate particle picking procedure for electron microscopy"
+module-url		    "https://cryolo.readthedocs.io/en/stable/"
+module-license    "SPHIRE-crYOLO Complimentary Science Software License (https://cryolo.readthedocs.io/en/stable/other/license.html)"
+module-maintainer	"João Pedro Agostinho de Sousa <joao.agostinho-de-sousa@psi.ch>"
 
 module-help	"
 CrYOLO is a fast and accurate particle picking procedure. It's based on
@@ -22,28 +22,5 @@ convolutional neural networks and utilizes the popular You Only Look Once
     of micrographs.
 "
 
-# Check for supported shell types
-set shelltype [module-info shelltype]
-switch -- $shelltype {
-    "sh" {
-        puts stdout "conda(){ :; };"
-        puts stdout "set +u"
-        puts stdout "source \"${PREFIX}\"/miniconda/etc/profile.d/conda.sh;\n"
-    }
-    default {
-        puts stderr "Shells of type '$shelltype' are NOT supported!"
-    }
-}
-
-
-switch [module-info mode] {
-    "load" {
-      # Relies on the anaconda module being loaded since we need to update the path
-      puts stdout "conda activate ${P}_${V};\n"
-    }
-    "unload" -
-    "remove" {
-        puts stdout "conda deactivate;\n"
-    }
-}
-
+# Add conda env bin directory to PATH
+prepend-path PATH "${PREFIX}/miniforge/envs/${P}_${V_PKG}/bin"

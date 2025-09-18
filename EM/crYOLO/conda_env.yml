@@ -1,0 +1,15 @@
+name: crYOLO
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  - pyqt=5
+  - python=3
+  - numpy=1.18.5
+  - libtiff
+  - wxPython=4.1.1
+  - adwaita-icon-theme
+  - 'setuptools<66'
+  - pip
+  - pip:
+      - nvidia-pyindex
