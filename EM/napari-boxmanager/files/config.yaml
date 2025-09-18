@@ -1,0 +1,14 @@
+---
+format: 1
+napari-boxmanager:
+  defaults:
+    group: EM
+    overlay: base
+    relstage: stable
+
+  versions:
+    0.4.14:
+      variants:
+        - overlay: Alps
+          systems: [.*.merlin7.psi.ch]
+          relstage: stable
