@@ -14,3 +14,11 @@ code for the SciCat GUI is available from PSI at
 https://git.psi.ch/MELANIE/rollout 
 
 "
+
+switch -- [module-info mode] {
+    "load" {
+        if { $V_MAJOR >= 3 } {
+            puts stderr "Warning: This version is currently compatible only with SciCat v4. Please use --devenv or --testenv options"
+        }
+    }
+}
