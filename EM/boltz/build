@@ -28,5 +28,5 @@ pbuild::install() {
     cd "$SRC_DIR"
 
     # Install the package using pip within the conda environment
-    pip install ".[cuda]"
+    pip install --no-cache-dir ".[cuda]"
 }
