@@ -10,7 +10,7 @@ pbuild::configure() {
     source "$PREFIX/miniforge/etc/profile.d/conda.sh"
 
     # Create the conda environment
-    conda create -y --name "${P}_${V_PKG}" python=3.10
+    conda create -y --name "${P}_${V_PKG}" python=3.12
 }
 
 pbuild::compile() {
@@ -25,5 +25,8 @@ pbuild::install() {
     conda activate "${P}_${V_PKG}"
 
     # Install the package
+    if [[ $(uname -m) == "aarch64" ]]; then 	
+        pip install --no-cache-dir torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124
+    fi
     pip install --no-cache-dir chai_lab=="${V_PKG}"
 }

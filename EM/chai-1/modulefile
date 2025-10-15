@@ -17,3 +17,6 @@ prepend-path PATH "${PREFIX}/miniforge/envs/${P}_${V_PKG}/bin"
 
 # Disable Pandera import warnings
 setenv DISABLE_PANDERA_IMPORT_WARNING True
+
+# Set download directory
+setenv CHAI_DOWNLOADS_DIR /data/project/cls/shared/models/chai-1
