@@ -1,0 +1,19 @@
+name: napari-boxmanager
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  - python=3.10
+  - napari==0.4.17
+  - pyqt
+  - tifffile
+  - numpy
+  - matplotlib
+  - scipy
+  - tqdm
+  - pandas>=2
+  - pip
+  - pip:
+      - pystardb>=0.4.2
+      - zarr==2.16.1
+      - distributed==2024.8.1
