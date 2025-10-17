@@ -1,0 +1,19 @@
+---
+format: 1
+MotionCor3:
+  defaults:
+    group: EM
+    overlay: base
+    relstage: stable
+
+  versions:
+    1.2.1:
+      variants:
+        - overlay: Alps
+          systems: [.*.merlin7.psi.ch]
+          relstage: stable
+          build_requires:
+            - gcc/12.3.0
+            - cuda/12.2.0
+          runtime_deps:
+            - cuda/12.2.0
