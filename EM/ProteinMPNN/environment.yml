@@ -1,0 +1,9 @@
+channels:
+  - pytorch
+  - conda-forge
+dependencies:
+  - pytorch
+  - torchvision
+  - torchaudio
+  - cudatoolkit=11.3
+  - pandas
