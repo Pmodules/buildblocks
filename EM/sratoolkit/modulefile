@@ -1,0 +1,11 @@
+#%Module1.0
+
+module-whatis       "A collection of command-line tools and libraries developed by NCBI for working with data in the Sequence Read Archive (SRA)"
+module-url          "https://github.com/ncbi/sra-tools"
+module-license      "Public Domain Notice (https://github.com/ncbi/sra-tools?tab=License-1-ov-file)"
+module-maintainer   "João Pedro Agostinho de Sousa <joao.agostinho-de-sousa@psi.ch>"
+
+module-help         "
+The SRA Toolkit and SDK from NCBI is a collection of tools and libraries for
+using data in the INSDC Sequence Read Archives.
+"
