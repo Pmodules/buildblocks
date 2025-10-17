@@ -1,0 +1,19 @@
+# yamllint disable rule:line-length
+format: 1
+fastqc:
+  defaults:
+    group: EM
+    overlay: base
+    relstage: stable
+    urls:
+      - url: https://github.com/s-andrews/FastQC/archive/refs/tags/v${V_PKG}.tar.gz
+
+  shasums:
+    v0.12.1.tar.gz: cad8bfd11ecf388204c28a62b162dda032aac8ecd08819c49b053aa66613e92b
+
+  versions:
+    0.12.1:
+      variants:
+        - overlay: Alps
+          systems: [.*.merlin7.psi.ch]
+          relstage: stable

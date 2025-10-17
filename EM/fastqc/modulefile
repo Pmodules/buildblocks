@@ -1,0 +1,14 @@
+#%Module1.0
+
+module-whatis       "A quality control tool for high throughput sequence data"
+module-url          "https://www.bioinformatics.babraham.ac.uk/projects/fastqc/"
+module-license      "GNU General Public License v3.0"
+module-maintainer   "João Pedro Agostinho de Sousa <joao.agostinho-de-sousa@psi.ch>"
+
+module-help         "
+FastQC aims to provide a simple way to do some quality control checks on raw
+sequence data coming from high throughput sequencing pipelines. It provides a
+modular set of analyses which you can use to give a quick impression of whether
+your data has any problems of which you should be aware before doing any
+further analysis.
+"
