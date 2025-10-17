@@ -1,0 +1,14 @@
+---
+format: 1
+af3x:
+  defaults:
+    group: EM
+    overlay: base
+    relstage: stable
+
+  versions:
+    dev:
+      variants:
+        - overlay: Alps
+          systems: [.*.merlin7.psi.ch]
+          relstage: stable
