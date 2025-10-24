@@ -13,11 +13,15 @@ turbovnc:
           target_cpus: [x86_64]
           systems: [.*.merlin7.psi.ch]
           relstage: stable
+          build_requires:
+            - openjdk/25.0.1
           runtime_deps:
             - openjdk/25.0.1
         - overlay: base
           target_cpus: [aarch64]
           systems: [gpu0.*.merlin7.psi.ch]
           relstage: stable
+          build_requires:
+            - openjdk/25.0.1          
           runtime_deps:
             - openjdk/25.0.1
