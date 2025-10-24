@@ -1,0 +1,15 @@
+#%Module1.0
+
+module-whatis       "OpenJDK (Open Java Development Kit) is a free and open-source implementation of the Java Platform, Standard Edition (Java SE)"
+module-url          "https://openjdk.org"
+module-license      "GPLv2 license"
+module-maintainer   "João Pedro Agostinho de Sousa <joao.agostinho-de-sousa@psi.ch>"
+module-help "
+OpenJDK is the free, open-source implementation of the Java Platform, Standard
+Edition (Java SE) that serves as the reference implementation for Java. It is a
+community-driven project, initially started by Sun Microsystems and now
+maintained by Oracle, Red Hat, and others, and is licensed under the GNU
+General Public License (GPL). Many Linux distributions use OpenJDK as their
+default Java SE implementation, and it can be used to build other Java
+platforms.
+"

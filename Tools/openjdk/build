@@ -1,0 +1,25 @@
+#!/usr/bin/env modbuild
+
+pbuild::configure() {
+    arch="$(uname -s | tr '[:upper:]' '[:lower:]')-$(uname -m | sed 's/x86_64/x64/; s/arm64/aarch64/')"
+    tar_gz_file="${SRC_DIR}/${P}-${V_PKG}_${arch}_bin.tar.gz"
+    url="https://download.java.net/java/GA/jdk${V_PKG}/2fbf10d8c78e40bd87641c434705079d/8/GPL/${P}-${V_PKG}_${arch}_bin.tar.gz"
+
+    echo "==> Downloading ${url}"
+    wget -O "${tar_gz_file}" "${url}"
+
+    echo "==> Extracting ${tar_gz_file}"
+    tar -xzf "${tar_gz_file}" -C "${SRC_DIR}"
+
+    echo "==> Cleaning up"
+    rm -f "${tar_gz_file}"
+}
+
+pbuild::compile() {
+    :
+}
+
+pbuild::install() {
+    echo "==> Installing opendjk"
+    cp -r "${SRC_DIR}/jdk-${V_PKG}/." "${PREFIX}/"
+}
