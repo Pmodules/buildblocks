@@ -1,0 +1,14 @@
+#%Module1.0
+
+module-whatis       "TurboVNC is a derivative of VNC (Virtual Network Computing) that is tuned to provide peak performance for 3D and video workloads"
+module-url          "https://turbovnc.org"
+module-license      "GPLv2 license"
+module-maintainer   "João Pedro Agostinho de Sousa <joao.agostinho-de-sousa@psi.ch>"
+module-help "
+TurboVNC is a high-speed version of VNC derived from TightVNC. It contains a
+variant of Tight encoding that is tuned to maximize performance for
+image-intensive applications (such as VirtualGL, video applications, and image
+editors) while still providing excellent performance for other types of
+applications. TurboVNC, in combination with VirtualGL, provides a complete
+solution for remotely displaying 3D applications with interactive performance.
+"

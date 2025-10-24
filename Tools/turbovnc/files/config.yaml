@@ -1,0 +1,23 @@
+---
+format: 1
+turbovnc:
+  defaults:
+    group: Tools
+    overlay: base
+    relstage: stable
+
+  versions:
+    3.2.1:
+      variants:
+        - overlay: base
+          target_cpus: [x86_64]
+          systems: [.*.merlin7.psi.ch]
+          relstage: stable
+          runtime_deps:
+            - openjdk/25.0.1
+        - overlay: base
+          target_cpus: [aarch64]
+          systems: [gpu0.*.merlin7.psi.ch]
+          relstage: stable
+          runtime_deps:
+            - openjdk/25.0.1
