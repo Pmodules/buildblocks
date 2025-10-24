@@ -1,10 +1,16 @@
 ---
+# yamllint disable rule:line-length
 format: 1
 turbovnc:
   defaults:
     group: Tools
     overlay: base
     relstage: stable
+    urls:
+      - url: https://github.com/TurboVNC/${P}/releases/download/${V_PKG}/${P}-${V_PKG}.tar.gz
+
+  shasums:
+    turbovnc-3.2.1.tar.gz: e5b853b832808d796764e17a85396de62bc65f21e8b98056f6de333a2ef64720
 
   versions:
     3.2.1:
@@ -14,14 +20,27 @@ turbovnc:
           systems: [.*.merlin7.psi.ch]
           relstage: stable
           build_requires:
+            - gcc/12.3.0
+            - cmake/3.26.3
             - openjdk/25.0.1
+            - zlib-ng/2.2.5
           runtime_deps:
             - openjdk/25.0.1
+          configure_with: cmake
+          configure_args:
+            - "-DTJPEG_LIBRARY=/opt/psi/Libraries/libjpeg-turbo/3.1.2/lib64/libturbojpeg.so"
+            - "-DTJPEG_INCLUDE_DIR=/opt/psi/Libraries/libjpeg-turbo/3.1.2/include"
         - overlay: base
           target_cpus: [aarch64]
           systems: [gpu0.*.merlin7.psi.ch]
           relstage: stable
           build_requires:
-            - openjdk/25.0.1          
+            - gcc/12.3.0
+            - openjdk/25.0.1
+            - zlib-ng/2.2.5
           runtime_deps:
             - openjdk/25.0.1
+          configure_with: cmake
+          configure_args:
+            - "-DTJPEG_LIBRARY=/opt/psi/Libraries/libjpeg-turbo/3.1.2/lib64/libturbojpeg.so"
+            - "-DTJPEG_INCLUDE_DIR=/opt/psi/Libraries/libjpeg-turbo/3.1.2/include"
