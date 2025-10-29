@@ -1,0 +1,16 @@
+#%Module1.0
+
+module-whatis       "The Jupyter notebook is a web-based notebook environment for interactive computing"
+module-url          "https://github.com/jupyter/notebook"
+module-license      "BSD-3-Clause license"
+module-maintainer   "João Pedro Agostinho de Sousa <joao.agostinho-de-sousa@psi.ch>"
+
+module-help "
+Jupyter Notebook is a notebook authoring application, under the Project Jupyter
+umbrella. Built on the power of the computational notebook format, Jupyter
+Notebook offers fast, interactive new ways to prototype and explain your code,
+explore and visualize your data, and share your ideas with others.
+"
+
+# Add conda env bin directory to PATH
+prepend-path PATH "${PREFIX}/miniforge/envs/${P}_${V_PKG}/bin"
