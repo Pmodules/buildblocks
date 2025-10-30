@@ -1,0 +1,26 @@
+#!/usr/bin/env modbuild
+
+pbuild::configure() {
+    # Determine architecture
+    ARCH=""
+    if [[ "$(uname -i)" == "x86_64" ]]; then
+        ARCH="amd64"
+    elif [[ "$(uname -i)" == "aarch64" ]]; then
+        ARCH="arm64"
+    else
+        echo "Unsupported architecture: $(uname -i)"
+        return 1
+    fi
+
+    # Download the release archive
+    wget "https://github.com/coder/${P}/releases/download/v${V_PKG}/${P}-${V_PKG}-linux-${ARCH}.tar.gz" -O "$SRC_DIR/${P}-${V_PKG}-linux-${ARCH}.tar.gz"
+}
+
+pbuild::compile() {
+    :
+}
+
+pbuild::install() {
+    # Extract to $PREFIX
+    tar -xzf "$SRC_DIR/${P}-${V_PKG}-linux-${ARCH}.tar.gz" -C "$PREFIX" --strip-components=1
+}

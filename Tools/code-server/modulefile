@@ -1,0 +1,13 @@
+#%Module1.0
+
+module-whatis       "Code-server is VS Code running on a remote server, accessible through the browser."
+module-url          "https://github.com/coder/code-server"
+module-license      "MIT License"
+module-maintainer   "João Pedro Agostinho de Sousa <joao.agostinho-de-sousa@psi.ch>"
+
+module-help "
+Run VS Code on any machine anywhere and access it in the browser.
+- Code on any device with a consistent development environment
+- Use cloud servers to speed up tests, compilations, downloads, and more
+- Preserve battery life when you're on the go; all intensive tasks run on your server
+"
