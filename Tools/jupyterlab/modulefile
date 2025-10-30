@@ -1,0 +1,13 @@
+#%Module1.0
+
+module-whatis       "JupyterLab: A Next-Generation Notebook Interface"
+module-url          "https://jupyter.org"
+module-license      "BSD License (Copyright (c) 2015-2025 Project Jupyter Contributors)"
+module-maintainer   "João Pedro Agostinho de Sousa <joao.agostinho-de-sousa@psi.ch>"
+
+module-help "
+JupyterLab is the latest web-based interactive development environment for notebooks, code, and data.
+"
+
+# Add conda env bin directory to PATH
+prepend-path PATH "${PREFIX}/miniforge/envs/${P}_${V_PKG}/bin"
