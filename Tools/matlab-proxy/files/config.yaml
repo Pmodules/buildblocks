@@ -13,7 +13,11 @@ matlab-proxy:
           target_cpus: [x86_64]
           systems: [.*.merlin7.psi.ch]
           relstage: stable
+          runtime_deps:
+            - fluxbox/1.3.7
         - overlay: base
           target_cpus: [aarch64]
           systems: [gpu0.*.merlin7.psi.ch]
           relstage: stable
+          runtime_deps:
+            - fluxbox/1.3.7
