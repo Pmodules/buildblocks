@@ -1,0 +1,13 @@
+#%Module1.0
+
+module-whatis       "A Python package to start MATLAB and access it from a web browser"
+module-url          "https://github.com/mathworks/matlab-proxy"
+module-license      "Mathworks cloud reference architecture license"
+module-maintainer   "João Pedro Agostinho de Sousa <joao.agostinho-de-sousa@psi.ch>"
+
+module-help "
+The executable 'matlab-proxy-app' starts MATLAB and provides you a URL to access it.
+"
+
+# Add conda env bin directory to PATH
+prepend-path PATH "${PREFIX}/miniforge/envs/${P}_${V_PKG}/bin"
