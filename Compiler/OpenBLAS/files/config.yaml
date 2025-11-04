@@ -6,7 +6,6 @@ OpenBLAS:
     group: Compiler
     overlay: base
     relstage: stable
-    systems: [rhel6, rhel7, rhel8]
     urls:
       - url: http://github.com/xianyi/$P/archive/v${V_PKG}.tar.gz
         name: OpenBLAS-${V_PKG}.tar.gz
@@ -32,18 +31,31 @@ OpenBLAS:
     OpenBLAS-0.3.24.tar.gz: ceadc5065da97bd92404cac7254da66cc6eb192679cf1002098688978d4d5132
 
   versions:
-    0.3.28:
+    0.3.30:
       config:
         group_deps:
           compiler:
-            gcc: [12.3.0, 12.4.0, 13.3.0, 14.2.0]
+            gcc: [12.3.0, 12.4.0, 13.3.0, 13.4.0, 14.2.0, 14.3.0, 15.2.0]
         build_requires: [cmake/3.23.2]
         relstage: unstable
       variants:
         - systems: [rhel.*]
-          overlay: devel
-        - systems: [login.*.merlin7.psi.ch]
-          overlay: Alps
+        - systems: [.*.merlin7.psi.ch]
+          target_cpus: [x86_64]
+          overlay: PSI
+          use_overlays: [PSI, Alps]
+    0.3.28:
+      config:
+        group_deps:
+          compiler:
+            gcc: [12.3.0, 12.4.0, 13.3.0, 13.4.0, 14.2.0, 14.3.0, 15.2.0]
+        build_requires: [cmake/3.23.2]
+        relstage: unstable
+      variants:
+        - systems: [rhel.*]
+        - systems: [.*.merlin7.psi.ch]
+          target_cpus: [x86_64]
+          overlay: PSI
           use_overlays: [PSI, Alps]
     0.3.24:
       config:

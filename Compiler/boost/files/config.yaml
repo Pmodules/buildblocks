@@ -1,0 +1,43 @@
+---
+# yamllint disable rule:line-length
+format: 1
+boost:
+  defaults:
+    group: Compiler
+    overlay: base
+    relstage: stable
+  shasums:
+
+  versions:
+    1.88.0;1.87.0:
+      config:
+        urls:
+          - url: https://archives.boost.io/release/${V_PKG}/source/boost_${V_MAJOR}_${V_MINOR}_0.tar.gz
+            name: boost-${V_MAJOR}.${V_MINOR}.0.tar.gz
+        group_deps:
+          compiler:
+            gcc: [12.3.0, 12.4.0, 13.3.0, 13.4.0, 14.2.0, 14.3.0, 15.2.0]
+        relstage: unstable
+      variants:
+        - target_cpus: [aarch64]
+          systems: [gpu0.*.merlin7.psi.ch]
+        - target_cpus: [x86_64]
+          systems: [.*.merlin7.psi.ch]
+          overlay: Alps
+        - target_cpus: [x86_64]
+          systems: [.*]
+          overlay: base
+    1.86.0:
+      config:
+        urls:
+          - url: https://archives.boost.io/release/$V/source/boost_1_86_0.tar.gz
+        group_deps:
+          compiler:
+            gcc: [12.3.0, 12.4.0, 13.3.0, 14.2.0]
+        relstage: unstable
+      variants:
+        - target_cpus: [aarch64]
+          systems: [gpu0.*.merlin7.psi.ch]
+        - target_cpus: [x86_64]
+          systems: [.*.merlin7.psi.ch]
+          overlay: Alps

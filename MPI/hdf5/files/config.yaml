@@ -38,6 +38,30 @@ hdf5:
     hdf5-1.13.1.tar.bz2: e16973ec893e2d5aa9c8dc73e196db9b99a605578e7317b421c713936f8bf57d
 
   versions:
+    1.14.6:
+      config:
+        urls:
+         - url: https://github.com/HDFGroup/hdf5/archive/refs/tags/hdf5_${V_PKG}.tar.gz
+           name: hdf5-${V_PKG}.tar.gz
+      variants:
+        - systems: [.*.merlin7.psi.ch]
+          overlay: Alps
+          relstage: unstable
+          group_deps:
+            compiler: {gcc: [12.4.0, 13.3.0, 13.4.0, 14.3.0, 15.2.0]}
+            mpi: {openmpi: [5.0.8]}
+        - systems: [.*.merlin7.psi.ch]
+          overlay: Alps
+          group_deps:
+            compiler: {gcc: [12.3.0, 14.2.0]}
+            mpi: {openmpi: [5.0.8]}
+        - systems: [rhel.*]
+          overlay: base
+          group_deps:
+            compiler: {gcc: [12.3.0, 12.4.0, 13.3.0, 13.4.0, 14.2.0, 14.3.0, 15.2.0]}
+            mpi: {openmpi: [5.0.8]}
+ 
+
     1.8.12:
       config:
         relstage: deprecated
