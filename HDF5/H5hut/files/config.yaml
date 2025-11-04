@@ -11,6 +11,24 @@ H5hut:
       - url: http://amas.web.psi.ch/Downloads/$P/$P-${V_PKG}.tar.gz
 
   versions:
+    2.0.0rc7:
+      variants:
+        - systems: [.*.merlin7.psi.ch]
+          overlay: Alps
+          relstage: unstable
+          group_deps:
+            compiler: {gcc: [12.4.0, 13.4.0, 14.3.0, 15.2.0]}
+            mpi: {openmpi: [5.0.8]}
+            hdf5: {hdf5: [1.14.6]}
+          build_requires: []
+        - systems: [.*.merlin7.psi.ch]
+          overlay: Alps
+          relstage: stable
+          group_deps:
+            compiler: {gcc: [12.3.0, 14.2.0]}
+            mpi: {openmpi: [5.0.8]}
+            hdf5: {hdf5: [1.14.6]}
+          build_requires: []
     2.0.0rc6:
       variants:
         - systems: [merlin-.*.psi.ch]

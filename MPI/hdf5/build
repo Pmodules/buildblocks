@@ -6,6 +6,13 @@ pbuild::install_docfiles MANIFEST
 pbuild::install_docfiles README*
 
 pbuild::pre_configure() {
+	declare -g CC="${MPICC}"
+	declare -g CXX="${MPICXX}"
+	if [[ -v CPATH ]]; then
+		declare -g CPATH="${CPATH}:${LIBRARY_PATH}"
+	else
+		declare -g CPATH="${LIBRARY_PATH}"
+	fi
 	pbuild::add_configure_args "CC=${MPICC}"
 	pbuild::add_configure_args "CXX=${MPICXX}"
 
@@ -45,12 +52,14 @@ pbuild::pre_configure() {
 	esac
 
 	if [[ "${enable_fortran}" == 'yes' ]]; then
+		declare -g F77="${MPIF77}"
+		declare -g F90="${MPIF90}"
+		declare -g FC="${MPIFC}"
 		pbuild::add_configure_args "F77=${MPIF77}"
 		pbuild::add_configure_args "F90=${MPIF90}"
 		pbuild::add_configure_args "FC=${MPIFC}"
 		pbuild::add_configure_args "FORTRAN=${MPIFORTRAN}"
 		pbuild::add_configure_args "--enable-fortran"
 	fi
-
 }
 
