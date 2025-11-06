@@ -1,0 +1,25 @@
+---
+# yamllint disable rule:line-length
+format: 1
+fluxbox:
+  defaults:
+    group: Tools
+    overlay: base
+    relstage: stable
+    urls:
+      - url: https://sourceforge.net/projects/${P}/files/${P}/${V_PKG}/${P}-${V_PKG}.tar.gz/download
+
+  shasums:
+    fluxbox-1.3.7.tar.gz: c99e2baa06fff1e96342b20415059d12ff1fa2917ade0173c75b2fa570295b9f
+
+  versions:
+    1.3.7:
+      variants:
+        - overlay: base
+          target_cpus: [x86_64]
+          systems: [.*.merlin7.psi.ch]
+          relstage: stable
+        - overlay: base
+          target_cpus: [aarch64]
+          systems: [gpu0.*.merlin7.psi.ch]
+          relstage: stable
