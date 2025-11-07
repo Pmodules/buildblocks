@@ -1,0 +1,19 @@
+---
+format: 1
+paraview:
+  defaults:
+    group: Tools
+    overlay: base
+    relstage: stable
+  shasums:
+  versions:
+    5.13.3:
+      config:
+        urls:
+          - url: https://www.paraview.org/paraview-downloads/download.php?submit=Download&version=v5.13&type=binary&os=Linux&downloadFile=ParaView-5.13.3-MPI-Linux-Python3.10-x86_64.tar.gz
+            name: ParaView-5.13.3-MPI-Linux-Python3.10-x86_64.tar.gz
+    6.0.1:
+      config:
+        urls:
+          - url: https://www.paraview.org/paraview-downloads/download.php?submit=Download&version=v6.0&type=binary&os=Linux&downloadFile=ParaView-6.0.1-MPI-Linux-Python3.12-x86_64.tar.gz
+            name: ParaView-6.0.1-MPI-Linux-Python3.12-x86_64.tar.gz

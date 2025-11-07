@@ -1,13 +1,5 @@
 #!/usr/bin/env modbuild
 
-
-URL=$(grep -E "^${V_PKG}" files/version-to-tarname.txt | awk '{print $2}')
-FILENAME=$(grep -E "^${V_PKG}" files/version-to-tarname.txt | sed 's/"//g' | awk -F'downloadFile=' '{print $2}')
-
-pbuild::set_download_url "${URL}" "${FILENAME}"
-
-pbuild::add_to_group 'Tools'
-
 pbuild::configure() {
 	:
 }
