@@ -12,6 +12,16 @@ paraview:
         urls:
           - url: https://www.paraview.org/paraview-downloads/download.php?submit=Download&version=v5.13&type=binary&os=Linux&downloadFile=ParaView-5.13.3-MPI-Linux-Python3.10-x86_64.tar.gz
             name: ParaView-5.13.3-MPI-Linux-Python3.10-x86_64.tar.gz
+    5.13.3-osmesa:
+      config:
+        urls:
+          - url: https://www.paraview.org/paraview-downloads/download.php?submit=Download&version=v5.13&type=binary&os=Linux&downloadFile=ParaView-5.13.3-osmesa-MPI-Linux-Python3.10-x86_64.tar.gz
+            name: ParaView-5.13.3-osmesa-MPI-Linux-Python3.10-x86_64.tar.gz
+    5.13.3-egl:
+      config:
+        urls:
+          - url: https://www.paraview.org/paraview-downloads/download.php?submit=Download&version=v5.13&type=binary&os=Linux&downloadFile=ParaView-5.13.3-egl-MPI-Linux-Python3.10-x86_64.tar.gz
+            name: ParaView-5.13.3-egl-MPI-Linux-Python3.10-x86_64.tar.gz
     6.0.1:
       config:
         urls:
