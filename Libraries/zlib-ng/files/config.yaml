@@ -1,0 +1,32 @@
+---
+# yamllint disable rule:line-length
+format: 1
+zlib-ng:
+  defaults:
+    group: Libraries
+    overlay: base
+    relstage: stable
+    urls:
+      - url: https://github.com/${P}/${P}/archive/refs/tags/${V_PKG}.tar.gz
+
+  shasums:
+    2.2.5.tar.gz: 5b3b022489f3ced82384f06db1e13ba148cbce38c7941e424d6cb414416acd18
+
+  versions:
+    2.2.5:
+      variants:
+        - overlay: base
+          target_cpus: [x86_64]
+          systems: [.*.merlin7.psi.ch]
+          relstage: stable
+          build_requires:
+            - gcc/12.3.0
+            - cmake/3.26.3
+          configure_with: cmake
+        - overlay: base
+          target_cpus: [aarch64]
+          systems: [gpu0.*.merlin7.psi.ch]
+          relstage: stable
+          build_requires:
+            - gcc/12.3.0
+          configure_with: cmake

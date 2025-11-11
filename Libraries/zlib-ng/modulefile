@@ -1,0 +1,13 @@
+#%Module1.0
+
+module-whatis       "zlib data compression library for the next generation systems"
+module-url          "https://github.com/zlib-ng/zlib-ng"
+module-license      "Zlib license (https://github.com/zlib-ng/zlib-ng?tab=Zlib-1-ov-file#readme)"
+module-maintainer   "João Pedro Agostinho de Sousa <joao.agostinho-de-sousa@psi.ch>"
+module-help "
+zlib-ng is a zlib replacement fork for next generation systems. It removes
+workaround code for compilers that do not support ANSI C, integrates Cloudflare
+and Intel optimizations, adds hardware acceleration (SIMD and intrinsic
+functions), and uses code sanitizers, fuzzing, and code coverage to help find
+bugs.
+"
