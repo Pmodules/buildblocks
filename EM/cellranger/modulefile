@@ -1,0 +1,15 @@
+#%Module1.0
+
+module-whatis       "Cell Ranger is a suite of pipelines for processing and analyzing 10x Genomics Chromium Single Cell data."
+module-url          "https://www.10xgenomics.com/support/software/cell-ranger/latest"
+module-license      "https://github.com/10XGenomics/cellranger?tab=License-1-ov-file#readme"
+module-maintainer   "João Pedro Agostinho de Sousa <joao.agostinho-de-sousa@psi.ch>"
+
+module-help         "
+A set of analysis pipelines that perform sample demultiplexing, barcode
+processing, single cell 3' and 5' gene counting, V(D)J transcript sequence
+assembly and annotation, and Feature Barcode analysis from single cell data.
+"
+
+# Add the package directory to PATH
+prepend-path PATH "${PREFIX}/${P}-${V_PKG}"
