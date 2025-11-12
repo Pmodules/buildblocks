@@ -1,0 +1,18 @@
+#!/usr/bin/env modbuild
+
+pbuild::configure() {
+    :
+}
+
+pbuild::compile() {
+    cd "$SRC_DIR"
+    make exe -f makefile11 CUDAHOME="$CUDA_HOME"
+}
+
+pbuild::install() {
+    # Ensure target directory exists
+    mkdir -p "$PREFIX/bin"
+
+    # Copy the compiled binary to the installation directory
+    install "$SRC_DIR/${P}" "$PREFIX/bin/"
+}
