@@ -1,0 +1,23 @@
+---
+# yamllint disable rule:line-length
+format: 1
+IsoNet:
+  defaults:
+    group: EM
+    overlay: base
+    relstage: stable
+    urls:
+      - url: https://github.com/IsoNet-cryoET/${P}/archive/refs/tags/v${V_PKG}.tar.gz
+
+  shasums:
+    v0.3.tar.gz: ae80388b97b02b47aaf2f1abf9cea3f9984e27c03fe0079a4e23d712b0446c40
+
+  versions:
+    0.3:
+      variants:
+        - overlay: Alps
+          systems: [.*.merlin7.psi.ch]
+          relstage: stable
+          runtime_deps:
+            - cuda/12.2.0
+
