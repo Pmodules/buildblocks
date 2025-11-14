@@ -1,0 +1,25 @@
+---
+# yamllint disable rule:line-length
+format: 1
+AreTomo2:
+  defaults:
+    group: EM
+    overlay: base
+    relstage: stable
+    urls:
+      - url: https://github.com/czimaginginstitute/${P}/archive/refs/tags/v${V_PKG}.tar.gz
+
+  shasums:
+    v1.1.2.tar.gz: 4cbb4d25d28778041d80ef2c598519b17b9a40aa84e1e99daf48ad5a90d946b4
+
+  versions:
+    1.1.2:
+      variants:
+        - overlay: Alps
+          systems: [.*.merlin7.psi.ch]
+          relstage: stable
+          build_requires:
+            - gcc/12.3.0
+            - cuda/12.2.0
+          runtime_deps:
+            - cuda/12.2.0
