@@ -1,0 +1,22 @@
+---
+format: 1
+Tensorflow:
+  defaults:
+    group: Programming
+    overlay: base
+    relstage: stable
+  versions:
+    2.20.0:
+      variants:
+        - overlay: base
+          target_cpus: [x86_64]
+          systems: [.*.merlin7.psi.ch]
+          relstage: stable
+          build_requires: ['cuda/12.9.1']
+          runtime_deps: ['cuda/12.9.1']
+        - overlay: base
+          target_cpus: [aarch64]
+          systems: [gpu0.*.merlin7.psi.ch]
+          relstage: unstable
+          build_requires: ['cuda/12.9.1']
+          runtime_deps: ['cuda/12.9.1']

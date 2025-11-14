@@ -1,0 +1,17 @@
+#%Module
+
+module-whatis       "TensorFlow is an open-source machine learning framework"
+module-url          "https://www.tensorflow.org"
+module-license      "Apache Software License (Apache 2.0)"
+module-maintainer   "João Pedro Agostinho de Sousa <joao.agostinho-de-sousa@psi.ch>"
+
+module-help	"
+TensorFlow is a software library for machine learning and artificial
+intelligence. It can be used across a range of tasks, but is used mainly for
+training and inference of neural networks. It is one of the most popular deep
+learning frameworks, alongside others such as PyTorch. It is free and
+open-source software released under the Apache License 2.0.
+"
+
+# Add conda env bin directory to PATH
+prepend-path PATH "${PREFIX}/miniforge/envs/${P}_${V_PKG}/bin"
