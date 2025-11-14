@@ -1,0 +1,25 @@
+---
+# yamllint disable rule:line-length
+format: 1
+kalign:
+  defaults:
+    group: EM
+    overlay: base
+    relstage: stable
+    urls:
+      - url: https://github.com/TimoLassmann/${P}/archive/refs/tags/v${V_PKG}.tar.gz
+
+  shasums:
+    v3.4.0.tar.gz: 67d1a562d54b3b7622cc3164588c05b9e2bf8f1a5140bb48a4e816c61a87d4a8 
+
+  versions:
+    3.4.0:
+      variants:
+        - overlay: Alps
+          target_cpus: [x86_64]
+          systems: [.*.merlin7.psi.ch]
+          relstage: stable
+        - overlay: Alps
+          target_cpus: [aarch64]
+          systems: [gpu0.*.merlin7.psi.ch]
+          relstage: stable

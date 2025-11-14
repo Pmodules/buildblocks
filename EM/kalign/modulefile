@@ -1,0 +1,11 @@
+#%Module1.0
+
+module-whatis       "Kalign is a fast multiple sequence alignment program for biological sequences"
+module-url          "https://github.com/TimoLassmann/kalign"
+module-license      "GPL-3.0 license"
+module-maintainer   "João Pedro Agostinho de Sousa <joao.agostinho-de-sousa@psi.ch>"
+
+module-help "
+Kalign is an efficient multiple sequence alignment (MSA) program capable of
+aligning thousands of protein or nucleotide sequences.
+"
