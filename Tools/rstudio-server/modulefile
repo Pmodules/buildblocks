@@ -1,0 +1,12 @@
+#%Module1.0
+
+module-whatis       "RStudio is an integrated development environment (IDE) for the R programming language"
+module-url          "https://posit.co/products/open-source/rstudio-server/"
+module-license      "GNU Affero General Public License"
+module-maintainer   "João Pedro Agostinho de Sousa <joao.agostinho-de-sousa@psi.ch>"
+
+module-help "
+RStudio Server enables you to provide a browser-based interface to a version of
+R running on a remote Linux server, bringing the power and productivity of the
+RStudio IDE to server-based deployments of R.
+"

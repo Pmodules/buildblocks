@@ -1,0 +1,15 @@
+---
+format: 1
+rstudio-server:
+  defaults:
+    group: Tools
+    overlay: base
+    relstage: stable
+
+  versions:
+    2025.09.2-418:
+      variants:
+        - overlay: base
+          target_cpus: [x86_64]
+          systems: [.*.merlin7.psi.ch]
+          relstage: stable
