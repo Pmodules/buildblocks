@@ -1,0 +1,25 @@
+---
+# yamllint disable rule:line-length
+format: 1
+R:
+  defaults:
+    group: Programming
+    overlay: base
+    relstage: stable
+    urls:
+      - url: https://cran.r-project.org/src/base/${P}-${V_MAJOR}/${P}-${V_PKG}.tar.gz
+
+  shasums:
+    R-4.5.2.tar.gz: 0d71ff7106ec69cd7c67e1e95ed1a3cee355880931f2eb78c530014a9e379f20 
+
+  versions:
+    4.5.2:
+      variants:
+        - overlay: base
+          target_cpus: [x86_64]
+          systems: [.*.merlin7.psi.ch]
+          relstage: stable
+        - overlay: base
+          target_cpus: [aarch64]
+          systems: [gpu0.*.merlin7.psi.ch]
+          relstage: stable
