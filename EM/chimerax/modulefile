@@ -1,0 +1,25 @@
+#%Module1.0
+
+module-whatis       "ChimeraX is an application for visualizing and analyzing molecule structures."
+module-url          "https://www.rbvi.ucsf.edu/chimerax"
+module-license	    "UCSF ChimeraX Non-Commercial Software License Agreement (https://github.com/RBVI/ChimeraX?tab=License-1-ov-file#readme)"
+module-maintainer   "Joao Pedro Agostinho de Sousa <joao.agostinho-de-sousa@psi.ch>"
+
+module-help         "
+UCSF ChimeraX (or simply ChimeraX) is the next-generation molecular
+visualization program from the Resource for Biocomputing, Visualization, and
+Informatics (RBVI; https://www.rbvi.ucsf.edu/), following UCSF Chimera
+(https://www.rbvi.ucsf.edu/chimera/). ChimeraX can be downloaded free of charge
+for academic, government, nonprofit, and personal use. Commercial users, please
+see ChimeraX commercial licensing
+(https://www.rbvi.ucsf.edu/chimerax/commercial_license.html).
+"
+
+# Running chimerax in NoMachine requires that xkb keyboard layout is set to 'us'
+# Check if running in NoMachine
+if {[info exists env(NXSESSIONID)] || [info exists env(NX_SYSTEM)]} {
+    exec setxkbmap us
+}
+
+# Environment variables
+setenv APPTAINER_IMAGE /data/project/cls/shared/containers/chimerax/1.10/chimerax.sif
