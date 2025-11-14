@@ -1,0 +1,25 @@
+---
+# yamllint disable rule:line-length
+format: 1
+hmmer:
+  defaults:
+    group: EM
+    overlay: base
+    relstage: stable
+    urls:
+      - url: http://eddylab.org/software/${P}/${P}-${V_PKG}.tar.gz
+
+  shasums:
+    hmmer-3.4.tar.gz: ca70d94fd0cf271bd7063423aabb116d42de533117343a9b27a65c17ff06fbf3 
+
+  versions:
+    3.4:
+      variants:
+        - overlay: Alps
+          target_cpus: [x86_64]
+          systems: [.*.merlin7.psi.ch]
+          relstage: stable
+        - overlay: Alps
+          target_cpus: [aarch64]
+          systems: [gpu0.*.merlin7.psi.ch]
+          relstage: stable
