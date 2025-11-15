@@ -1,9 +1,12 @@
 #%Module1.0
 
-module-whatis                "IMOD is a set of image processing, modeling and display programs used for tomographic reconstruction and for 3D reconstruction of EM serial sections and optical sections."
+# This is needed to NOT set the default IMOD_DIR by pmodules, as this is set later in the IMOD-linux.sh
+set dont-setenv { IMOD_DIR }
+
+module-whatis             "IMOD is a set of image processing, modeling and display programs used for tomographic reconstruction and for 3D reconstruction of EM serial sections and optical sections."
 module-url                "http://bio3d.colorado.edu/imod/"
-module-license                "mostly GPLv2.0, with the exceptions, see http://bio3d.colorado.edu/imod/COPYRIGHT.txt"
-module-maintainer        "Greta Assmann - greta.assmann@psi.ch" 
+module-license            "mostly GPLv2.0, with the exceptions, see http://bio3d.colorado.edu/imod/COPYRIGHT.txt"
+module-maintainer         "Greta Assmann - greta.assmann@psi.ch" 
 
 module-help        "
 IMOD is a set of image processing, modeling and display programs used for tomographic
@@ -34,10 +37,8 @@ For tomographic reconstruction, see also:
 > tomographic reconstruction in IMOD. J. Struct. Biol. 197:102-113. 
 "
 
-# TO DO : rewrite IMOD-linx.sh script directly into the following section instead of sourcing the script
-
-#this is needed to NOT set the default IMOD_DIR by pmodules, as this is set later in the IMOD-linux.sh
-set dont-setenv { IMOD_DIR }
+# Use software OpenGL explicitly to avoid Vulkan drivers missing error
+setenv LIBGL_ALWAYS_SOFTWARE 1
 
 switch [module-info mode] {
     "load" {
