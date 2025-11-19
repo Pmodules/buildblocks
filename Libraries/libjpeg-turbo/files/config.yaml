@@ -1,0 +1,32 @@
+---
+# yamllint disable rule:line-length
+format: 1
+libjpeg-turbo:
+  defaults:
+    group: Libraries
+    overlay: base
+    relstage: stable
+    urls:
+      - url: https://github.com/${P}/${P}/releases/download/${V_PKG}/${P}-${V_PKG}.tar.gz
+
+  shasums:
+    libjpeg-turbo-3.1.2.tar.gz: 8f0012234b464ce50890c490f18194f913a7b1f4e6a03d6644179fa0f867d0cf
+
+  versions:
+    3.1.2:
+      variants:
+        - overlay: base
+          target_cpus: [x86_64]
+          systems: [.*.merlin7.psi.ch]
+          relstage: stable
+          build_requires:
+            - gcc/12.3.0
+            - cmake/3.26.3
+            - openjdk/25.0.1
+        - overlay: base
+          target_cpus: [aarch64]
+          systems: [gpu0.*.merlin7.psi.ch]
+          relstage: stable
+          build_requires:
+            - gcc/12.3.0
+            - openjdk/25.0.1

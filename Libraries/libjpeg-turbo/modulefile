@@ -1,0 +1,16 @@
+#%Module1.0
+
+module-whatis       "libjpeg-turbo is a JPEG image codec that uses SIMD instructions to accelerate baseline JPEG compression and decompression"
+module-url          "https://github.com/libjpeg-turbo/libjpeg-turbo"
+module-license      "IJG (Independent JPEG Group) License and Modified (3-clause) BSD License (https://github.com/libjpeg-turbo/libjpeg-turbo?tab=License-1-ov-file#readme)"
+module-maintainer   "João Pedro Agostinho de Sousa <joao.agostinho-de-sousa@psi.ch>"
+module-help "
+libjpeg-turbo is a JPEG image codec that uses SIMD instructions to accelerate
+baseline JPEG compression and decompression on x86, x86-64, Arm, PowerPC, and
+MIPS systems, as well as progressive JPEG compression on x86, x86-64, and Arm
+systems. On such systems, libjpeg-turbo is generally 2-6x as fast as libjpeg,
+all else being equal. On other types of systems, libjpeg-turbo can still
+outperform libjpeg by a significant amount, by virtue of its highly-optimized
+Huffman coding routines. In many cases, the performance of libjpeg-turbo rivals
+that of proprietary high-speed JPEG codecs.
+"
