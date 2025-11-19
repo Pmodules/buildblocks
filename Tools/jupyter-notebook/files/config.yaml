@@ -1,0 +1,19 @@
+---
+format: 1
+jupyter-notebook:
+  defaults:
+    group: Tools
+    overlay: base
+    relstage: stable
+
+  versions:
+    7.4.7:
+      variants:
+        - overlay: base
+          target_cpus: [x86_64]
+          systems: [.*.merlin7.psi.ch]
+          relstage: stable
+        - overlay: base
+          target_cpus: [aarch64]
+          systems: [gpu0.*.merlin7.psi.ch]
+          relstage: stable

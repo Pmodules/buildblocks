@@ -1,0 +1,31 @@
+#!/usr/bin/env modbuild
+
+pbuild::configure() {
+    : "${PYTHON_VERSION:=3.12}"
+
+    # Install Miniforge
+    mkdir -p "$PREFIX/miniforge"
+    wget "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh" -O "$PREFIX/miniforge/miniforge.sh"
+    bash "$PREFIX/miniforge/miniforge.sh" -b -u -p "$PREFIX/miniforge/"
+
+    # Initialize conda for script use
+    source "$PREFIX/miniforge/etc/profile.d/conda.sh"
+
+    # Create the conda environment
+    conda create -y --name "${P}_${V_PKG}" "python=${PYTHON_VERSION}"
+
+    # Activate the conda environment
+    conda activate "${P}_${V_PKG}"
+
+    # Install the package using pip within the conda environment
+    pip_pkg="${P#jupyter-}" # To install with only "notebook"
+    pip install pyzmq "${pip_pkg}==${V_PKG}"
+}
+
+pbuild::compile() {
+    :
+}
+
+pbuild::install() {
+    :
+}
