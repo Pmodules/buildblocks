@@ -20,15 +20,20 @@ planned to be brought in sync with the CLI and pmodule soon.
 
 Run `./build <VERSION>` to install the latest version. This downloads the
 latest versions of the datasetIngestor, datasetRetriever, and datasetArchiver
-tools. Note that the downloads are not versioned, so make sure that the current
-variant matches the installed binaries.
+tools.
 
 The `scicat_client` script is also installed. This is maintained as an anaconda
 environment, then symlinked into the datacatalog pmodule. Anaconda hard-codes
 the correct python interpreter, so all dependencies should resolve even though
 the conda module is not activated. See
-Programming/anaconda/2019.07/conda-env-defs/scicat_client for environment
+`Programming/anaconda/2019.07/conda-env-defs/scicat_client` for environment
 installation details.
+
+The file `/opt/psi/Tools/modulefiles/datacatalog/.version`, if present,
+controls which version should be loaded if no version is explicitely requested.
+This was needed for Pmodules/1.0.0, which didn't ignore unstable versions
+properly. If the latest version is stable this file should be renamed to
+disable it.
 
 ### SciCat GUI
 

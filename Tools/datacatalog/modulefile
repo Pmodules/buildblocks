@@ -8,11 +8,7 @@ module-maintainer	"Spencer Bliven <scicat-help@lists.psi.ch>"
 module-help		"
 Data catalog ingest and retrieve tools.
 
-Source code for the command line tools (datasetIngestor and datasetRetreiver)
-is available at https://github.com/paulscherrerinstitute/scicat-cli.  Source
-code for the SciCat GUI is available from PSI at
-https://git.psi.ch/MELANIE/rollout 
-
+Source code for the command line tools is available at https://github.com/paulscherrerinstitute/scicat-cli.
 "
 
 switch -- [module-info mode] {
