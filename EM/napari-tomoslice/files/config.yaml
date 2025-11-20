@@ -1,0 +1,14 @@
+---
+format: 1
+napari-tomoslice:
+  defaults:
+    group: EM
+    overlay: base
+    relstage: unstable
+
+  versions:
+    0.2.1:
+      variants:
+        - overlay: Alps
+          systems: [.*.merlin7.psi.ch]
+          relstage: unstable
