@@ -1,0 +1,45 @@
+#!/usr/bin/env modbuild
+
+pbuild::prep() {
+    git clone https://github.com/dauparas/${P}.git "$SRC_DIR" || return $?
+}
+
+pbuild::configure() {
+    # Install Miniforge
+    mkdir -p "$PREFIX/miniforge"
+    wget -q "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh" -O "$PREFIX/miniforge/miniforge.sh"
+    bash "$PREFIX/miniforge/miniforge.sh" -b -u -p "$PREFIX/miniforge"
+
+    # Initialize conda for script use
+    source "$PREFIX/miniforge/etc/profile.d/conda.sh"
+
+    # Create the conda environment
+    conda env create -y --name "${P}_${V_PKG}" -f "$BUILDBLOCK_DIR/environment.yml"
+}
+
+pbuild::compile() {
+    :
+}
+
+pbuild::install() {
+    # Ensure target directory exists
+    mkdir -p "$PREFIX/bin"
+
+    # Add shebang to all .py files in $SRC_DIR and $SRC_DIR/helper_scripts
+    for filepath in "$SRC_DIR"/*.py "$SRC_DIR/helper_scripts"/*.py; do
+        # Skip if no files matched (e.g., glob returns pattern itself)
+        [ -f "$filepath" ] || continue
+
+        # Check if file already starts with a shebang
+        if ! head -n 1 "$filepath" | grep -q '^#!'; then
+            # Prepend the shebang line
+            { echo '#!/usr/bin/env python'; cat "$filepath"; } > "${filepath}.tmp" && mv "${filepath}.tmp" "$filepath"
+        fi
+
+        # Make the file executable
+        chmod a+x "$filepath"
+    done
+
+    # Copy the repository to the bin directory
+    cp -r "$SRC_DIR"/* "$PREFIX/bin/"
+}

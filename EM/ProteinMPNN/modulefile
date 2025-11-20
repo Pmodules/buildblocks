@@ -1,0 +1,17 @@
+#%Module1.0
+
+module-whatis       "ProteinMPNN is a cutting‑edge deep learning model designed for inverse protein folding."
+module-url          "https://github.com/dauparas/ProteinMPNN"
+module-license      "MIT License"
+module-maintainer   "João Pedro Agostinho de Sousa <joao.agostinho-de-sousa@psi.ch>"
+
+module-help "
+ProteinMPNN is a deep learning-based Python module for inverse protein folding.
+It designs amino acid sequences that fold into a given protein backbone
+structure. The model uses a graph neural network to predict sequences
+efficiently and accurately, making it useful for protein design tasks in
+research and synthetic biology.
+"
+
+# Add conda env bin directory to PATH
+prepend-path PATH "${PREFIX}/miniforge/envs/${P}_${V_PKG}/bin"
