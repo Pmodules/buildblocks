@@ -1,0 +1,14 @@
+---
+format: 1
+chimerax:
+  defaults:
+    group: EM
+    overlay: base
+    relstage: unstable
+
+  versions:
+    1.10:
+      variants:
+        - overlay: Alps
+          systems: [.*.merlin7.psi.ch]
+          relstage: unstable
