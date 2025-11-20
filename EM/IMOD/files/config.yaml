@@ -6,10 +6,22 @@ IMOD:
     overlay: base
     relstage: unstable
   versions:
+    5.1.6:
+      variants:
+        - overlay: Alps
+          target_cpus: [x86_64]
+          systems: [.*.merlin7.psi.ch]
+          build_requires:
+            - cuda/12.9.1
+            - Python/3.12.9
+          relstage: unstable
+          runtime_deps:
+            - cuda/12.9.1
+            - Python/3.12.9
     5.0.0:
       variants:
         - overlay: Alps 
           systems: [.*.merlin7.psi.ch]
           relstage: unstable
           runtime_deps:
-            - cuda/12.2.0 
+            - cuda/12.2.0
