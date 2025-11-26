@@ -12,8 +12,37 @@ lammps:
 
   shasums:
     stable_2Aug2023_update3.tar.gz: 6666e28cb90d3ff01cbbda6c81bdb85cf436bbb41604a87f2ab2fa559caa8510 
+    stable_22Jul2025_update2.tar.gz: fede484269cdb22f1cb738b4cd118a9bf9cb4bd3c85667f1e6a73a9fa5c2de6b
 
   versions:
+    stable_22Jul2025_update2:
+      variants:
+        - overlay: base
+          target_cpus: [x86_64]
+          systems: [.*.merlin7.psi.ch]
+          build_requires:
+            - cmake/3.26.3
+            - git/2.39.1
+            - gcc/14.2.0
+            - cuda/12.9.1
+            - openmpi/5.0.8
+          relstage: stable
+          runtime_deps:
+            - gcc/14.2.0
+            - cuda/12.9.1
+            - openmpi/5.0.8
+        - overlay: base
+          target_cpus: [aarch64]
+          systems: [gpu0.*.merlin7.psi.ch]
+          relstage: unstable
+          build_requires:
+            - gcc/14.2.0
+            - cuda/12.9.1
+            - openmpi/5.0.8
+          runtime_deps:
+            - gcc/14.2.0
+            - cuda/12.9.1
+            - openmpi/5.0.8
     stable_2Aug2023_update3:
       variants:
         - overlay: base
