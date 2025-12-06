@@ -40,7 +40,7 @@ if { $arch == "aarch64" && $V == "5.0.0-perf" } {
 # --------------------------------------------------------------------------
 setenv RELION_MPI_MAX                        16
 setenv RELION_THREAD_MAX                     36
-setenv RELION_SCRATCH_DIR                    /scratch/$USER/$SLURM_JOB_ID
+setenv RELION_SCRATCH_DIR                    /scratch/\$USER/\$SLURM_JOB_ID
 setenv RELION_QUEUE_USE                      yes
 setenv RELION_QSUB_COMMAND                   sbatch
 setenv RELION_QUEUE_NAME                     daily
