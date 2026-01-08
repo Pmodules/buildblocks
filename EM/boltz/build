@@ -9,10 +9,10 @@ pbuild::configure() {
     bash "$PREFIX/miniforge/miniforge.sh" -b -u -p "$PREFIX/miniforge/"
 
     # Initialize conda for script use
-    source "$PREFIX/miniforge/etc/profile.d/conda.sh"
+    source "$PREFIX/miniforge/etc/profile.d/mamba.sh"
 
     # Create the conda environment
-    conda create -y --name "${P}_${V_PKG}" "python=${PYTHON_VERSION}"
+    mamba create -y --name "${P}_${V_PKG}" "python=${PYTHON_VERSION}"
 }
 
 pbuild::compile() {
@@ -21,17 +21,17 @@ pbuild::compile() {
 
 pbuild::install() {
     # Ensure conda is initialized
-    source "$PREFIX/miniforge/etc/profile.d/conda.sh"
+    source "$PREFIX/miniforge/etc/profile.d/mamba.sh"
 
     # Activate the conda environment
-    conda activate "${P}_${V_PKG}"
+    mamba activate "${P}_${V_PKG}"
 
     # Set the source directory
     cd "$SRC_DIR"
 
     # Install the package using pip within the conda environment
     if [[ $(uname -m) == "aarch64" ]]; then
-        pip install --no-cache-dir torch torchvision torchaudio triton --index-url https://download.pytorch.org/whl/cu129
+        pip install torch torchvision torchaudio triton --index-url https://download.pytorch.org/whl/cu129
     fi
-    pip install --no-cache-dir ".[cuda]"
+    pip install ".[cuda]"
 }

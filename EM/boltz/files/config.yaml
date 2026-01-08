@@ -10,9 +10,26 @@ boltz:
       - url: https://github.com/jwohlwend/${P}/archive/refs/tags/v${V_PKG}.tar.gz
 
   shasums:
+    v2.2.0.tar.gz: 7671d361ce6f90818956d32867fb9c96c065730e5784e628eb9f774a8bcc0320 
     v2.2.1.tar.gz: dfbc5847a9d378a1e24829ff53c3faa182fb945775074712c130a3884710736d
 
   versions:
+    2.2.0:
+      variants:
+        - overlay: Alps
+          target_cpus: [x86_64]
+          relstage: stable
+          build_requires:
+            - cuda/12.9.1
+          runtime_deps:
+            - cuda/12.9.1
+        - overlay: Alps
+          target_cpus: [aarch64]
+          relstage: unstable
+          build_requires:
+            - cuda/12.9.1
+          runtime_deps:
+            - cuda/12.9.1
     2.2.1:
       variants:
         - overlay: Alps
