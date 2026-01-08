@@ -13,10 +13,13 @@ sevennet:
           target_cpus: [x86_64]
           relstage: stable
           build_requires:
+            - clang/20.1.5
+            - ffmpeg/4.4
             - gcc/14.2.0
             - cuda/12.9.1
             - openmpi/5.0.8
           runtime_deps:
+            - ffmpeg/4.4
             - gcc/14.2.0
             - cuda/12.9.1
             - openmpi/5.0.8
@@ -37,10 +40,40 @@ sevennet:
           target_cpus: [x86_64]
           relstage: stable
           build_requires:
+            - clang/20.1.5
+            - ffmpeg/4.4
             - gcc/14.2.0
             - cuda/12.9.1
             - openmpi/5.0.8
           runtime_deps:
+            - ffmpeg/4.4
+            - gcc/14.2.0
+            - cuda/12.9.1
+            - openmpi/5.0.8
+        - overlay: base
+          target_cpus: [aarch64]
+          relstage: unstable
+          build_requires:
+            - gcc/14.2.0
+            - cuda/12.9.1
+            - openmpi/5.0.8
+          runtime_deps:
+            - gcc/14.2.0
+            - cuda/12.9.1
+            - openmpi/5.0.8
+    0.10.3:
+      variants:
+        - overlay: base
+          target_cpus: [x86_64]
+          relstage: stable
+          build_requires:
+            - clang/20.1.5
+            - ffmpeg/4.4
+            - gcc/14.2.0
+            - cuda/12.9.1
+            - openmpi/5.0.8
+          runtime_deps:
+            - ffmpeg/4.4
             - gcc/14.2.0
             - cuda/12.9.1
             - openmpi/5.0.8

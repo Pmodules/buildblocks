@@ -35,7 +35,7 @@ pbuild::pre_configure() {
 }
 
 pbuild::configure() {
-    : "${PYTHON_VERSION:=3.13}"
+    : "${PYTHON_VERSION:=3.11}"
 
     # Install Miniforge
     mkdir -p "$PREFIX/miniforge"
@@ -56,7 +56,6 @@ pbuild::compile() {
 pbuild::install() {
     : "${TORCH_VERSION:=2.9.1}"
     : "${LAMMPS_VERSION:=stable_2Aug2023_update3}"
-    : "${MKL_INCLUDE_VERSION:=2025.3.0}"
 
     # Ensure conda is initialized
     source "$PREFIX/miniforge/etc/profile.d/conda.sh"
@@ -73,14 +72,14 @@ pbuild::install() {
     pip install "git+https://github.com/MDIL-SNU/SevenNet.git@v${V_PKG}"
 
     # Build LAMMPS with SevenN patch
-    pip install "mkl-include==${MKL_INCLUDE_VERSION}"
     git clone https://github.com/lammps/lammps.git lammps_sevenn --branch ${LAMMPS_VERSION} --depth=1
     sevenn_patch_lammps ./lammps_sevenn --d3
     cd ./lammps_sevenn
     mkdir build
     cd build
     cmake ../cmake \
-        -DCMAKE_PREFIX_PATH=`python -c 'import torch;print(torch.utils.cmake_prefix_path)'` \
+        -DCMAKE_PREFIX_PATH="$(python -c 'import torch;print(torch.utils.cmake_prefix_path)')" \
+        -DMKL_INCLUDE_DIR=/tmp \
         -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_C_COMPILER="${MPICC}" \
         -DCMAKE_CXX_COMPILER="${MPICXX}" \
