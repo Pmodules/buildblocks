@@ -1,25 +1,5 @@
-NAMD
-----
+# NAMD
 
-NAMD uses a non-commercial license. A disclaimer is printed when the module is loaded.
+NAMD, recipient of a 2002 Gordon Bell Award, a 2012 Sidney Fernbach Award, and a 2020 Gordon Bell Prize, is a parallel molecular dynamics code designed for high-performance simulation of large biomolecular systems. Based on Charm++ parallel objects, NAMD scales to hundreds of cores for typical simulations and beyond 500,000 cores for the largest simulations. NAMD uses the popular molecular graphics program VMD for simulation setup and trajectory analysis, but is also file-compatible with AMBER, CHARMM, and X-PLOR. NAMD is distributed free of charge with source code.
 
-Installation
-============
-
-[Release Notes](https://www.ks.uiuc.edu/Research/namd/cvs/notes.html)
-
-1. A NAMD account is needed to download binaries
-2. Create new directory `/opt/psi/MPI/NAMD/$VERSION`
-3. Download the latest binary.
-   - Use `NAMD_$VERSION_Linux-x86_64-verbs-smp-CUDA.tar.gz` for _gpu
-   - Use `NAMD_$VERSION_Linux-x86_64-verbs-smp.tar.gz` for non-gpu
-
-4. Unpack to the new directory with `tar -xzvf NAMD*.tar.gz --strip-components=1 -C /opt/psi/MPI/NAMD/$VERSION`
-5. Clean up:
-
-    mkdir bin
-    find . -maxdepth 1 -executable -type f -exec mv '{}' bin ';'
-
-6. Add new variant to files/variants
-7. Run the build-script to install the modulefile and to set the release
-
+https://www.ks.uiuc.edu/Research/namd/

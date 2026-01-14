@@ -1,0 +1,52 @@
+---
+# yamllint disable rule:line-length
+format: 1
+NAMD:
+  defaults:
+    group: Tools
+    overlay: base
+    relstage: stable
+
+  versions:
+    3.0.2:
+      variants:
+        - overlay: Alps
+          target_cpus: [x86_64]
+          systems: [.*.merlin7.psi.ch]
+          relstage: stable
+          build_requires:
+            - PrgEnv-gnu/8.5.0
+            - cray-pmi/6.1.13
+            - gcc/12.3.0
+          runtime_deps:
+            - PrgEnv-gnu/8.5.0
+            - cray-pmi/6.1.13
+            - gcc/12.3.0
+        - overlay: Alps_A100
+          target_cpus: [x86_64]
+          systems: [gpu1.*.merlin7.psi.ch]
+          relstage: stable
+          build_requires:
+            - PrgEnv-gnu/8.5.0
+            - cray-pmi/6.1.13
+            - gcc/12.3.0
+            - cuda/12.9.1
+          runtime_deps:
+            - PrgEnv-gnu/8.5.0
+            - cray-pmi/6.1.13
+            - gcc/12.3.0
+            - cuda/12.9.1
+        - overlay: Alps
+          target_cpus: [aarch64]
+          systems: [gpu0.*.merlin7.psi.ch]
+          relstage: unstable
+          build_requires:
+            - PrgEnv-gnu/8.5.0
+            - cray-pmi/6.1.13
+            - gcc/12.3.0
+            - cuda/12.9.1
+          runtime_deps:
+            - PrgEnv-gnu/8.5.0
+            - cray-pmi/6.1.13
+            - gcc/12.3.0
+            - cuda/12.9.1

@@ -1,15 +1,124 @@
 #!/usr/bin/env modbuild
 
-# Binary distribution with manual installation. See README.md
-
-pbuild::add_to_group 'Tools'
-
-pbuild::prep() {
-    :
+pbuild::pre_configure() {
+   echo "> Setting system flags"
+   case "$(uname -m)" in
+       aarch64)
+           export CC=gcc
+           export CXX=g++
+           export CFLAGS='-march=native -O3 -pipe -Wno-error'
+           export CXXFLAGS='-march=native -O3 -pipe -Wno-error'
+           export FFLAGS='-march=native -O3 -pipe'
+           export FCFLAGS='-march=native -O3 -pipe'
+           export LDFLAGS='-Wl,--as-needed'
+           export SIMD_FLAGS='--enable-neon --enable-armv8-pmccntr-el0 --enable-armv8-cntvct-el0 --enable-generic-simd128 --enable-generic-simd256'
+           export CRAY_CPU_TARGET='aarch64'
+           ;;
+       x86_64)
+           export CC=gcc
+           export CXX=g++
+           export CFLAGS='-march=znver2 -mtune=znver2 -O3 -pipe -Wno-error'
+           export CXXFLAGS='-march=znver2 -mtune=znver2 -O3 -pipe -Wno-error'
+           export FFLAGS='-march=znver2 -mtune=znver2 -O3 -pipe'
+           export FCFLAGS='-march=znver2 -mtune=znver2 -O3 -pipe'
+           export LDFLAGS='-Wl,--as-needed'
+           export CFLAGS='-march=znver2 -mtune=znver2 -O3 -pipe -Wno-error'
+           export SIMD_FLAGS='--enable-sse2 --enable-avx --enable-avx2 --enable-avx-128-fma --enable-generic-simd128 --enable-generic-simd256'
+           export CRAY_CPU_TARGET='x86-64'
+           ;;
+   esac
 }
 
 pbuild::configure() {
-    :
+    # Set dependencies versions and directories
+    : "${CHARM_VERSION:=8.0.0}"
+    : "${FFTW_VERSION:=3.3.10}"
+    : "${TCL_VERSION:=8.6.17}"
+    : "${LIBPALS_PC_DIR:=/opt/cray/pals/1.6/lib/pkgconfig/libpals.pc}"
+
+    # Untar NAMD (NAMD needs to have a registed user to download source code)
+    cp "${BUILDBLOCK_DIR}/source/${P}_${V}_Source.tar.gz" "${BUILD_DIR}/${P}_${V}_Source.tar.gz"
+    tar xzf "${BUILD_DIR}/${P}_${V}_Source.tar.gz" --strip-components=1
+    cd "${BUILD_DIR}"
+
+    ####################
+    # Charm++
+    ####################
+    tar xf charm-${CHARM_VERSION}.tar
+    cd charm-${CHARM_VERSION}
+
+    # Prevent Charm++ to try look for LMOD
+    if [ "$(uname -m)" = "x86_64" ]; then
+        export "PKG_CONFIG_PATH=${LIBPALS_PC_DIR}:$PKG_CONFIG_PATH"
+        sed -i 's/^[[:space:]]*find_package(EnvModules REQUIRED)/# find_package(EnvModules REQUIRED)/' cmake/detect-features-c*.cmake
+        sed -i '/^[[:space:]]*if(EnvModules_FOUND)/,/^[[:space:]]*endif()/ s/^/# /' cmake/detect-features-c*.cmake
+    fi
+
+    # Build Charm++
+    if [ "$(uname -m)" = "x86_64" ]; then
+        ./build charm++ ofi-crayshasta smp gcc --with-numa --with-production --enable-tracing -j 8
+    elif [ "$(uname -m)" = "aarch64" ]; then
+        ./build charm++ multicore-linux-arm8 gcc --with-numa --with-production --enable-tracing -j 8
+    else
+        echo "Unsupported architecture"
+        exit 1
+    fi
+    cd ..
+
+    ####################
+    # FFTW
+    ####################
+    wget https://www.fftw.org/fftw-${FFTW_VERSION}.tar.gz
+    tar xzf fftw-${FFTW_VERSION}.tar.gz
+    mv fftw-${FFTW_VERSION} fftw
+    cd fftw
+    ./configure --prefix=$(pwd) --enable-threads --enable-openmp --enable-shared ${SIMD_FLAGS}
+    make -j 8
+    make install
+    cd ..
+
+    ####################
+    # TCL
+    ####################
+    wget http://prdownloads.sourceforge.net/tcl/tcl${TCL_VERSION}-src.tar.gz
+    tar xzf tcl${TCL_VERSION}-src.tar.gz
+    mv tcl${TCL_VERSION} tcl
+    cd tcl/unix
+    ./configure --prefix=$(pwd)/.. --enable-shared --enable-threads
+    make -j 8
+    make install
+    cd ../..
+
+
+    ####################
+    # NAMD
+    ####################
+    has_cuda() {
+        command -v nvidia-smi >/dev/null 2>&1 || command -v nvcc >/dev/null 2>&1
+    }
+
+    if [ "$(uname -m)" = "x86_64" ]; then
+        CHARM_ARCH="ofi-crayshasta-smp-gcc"
+        NAMD_ARCH="Linux-x86_64-g++"
+    elif [ "$(uname -m)" = "aarch64" ]; then
+        CHARM_ARCH="multicore-linux-arm8-gcc"
+        NAMD_ARCH="Linux-ARM64-g++"
+    else
+        echo "Unsupported architecture"
+        exit 1
+    fi
+
+    if has_cuda; then
+        ./config "${NAMD_ARCH}" \
+            --with-single-node-cuda \
+            --with-cuda \
+            --charm-arch "${CHARM_ARCH}"
+    else
+        ./config "${NAMD_ARCH}" \
+            --charm-arch "${CHARM_ARCH}"
+    fi
+    cd "${NAMD_ARCH}"
+    gmake -j8
 }
 
 pbuild::compile() {
@@ -17,6 +126,7 @@ pbuild::compile() {
 }
 
 pbuild::install() {
-    :
+    mkdir -p "${PREFIX}/bin"
+    cd "${BUILD_DIR}"
+    rsync -r "${NAMD_ARCH}/" "${PREFIX}/bin"
 }
-

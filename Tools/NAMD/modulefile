@@ -1,34 +1,14 @@
 #%Module1.0
 
-
-set disclaimer {NAMD is available for Non-Commercial Use only. Before using, please review the
-license (http://www.ks.uiuc.edu/Research/namd/license.html). You should also
-acknowledge the developers:
-
-    "NAMD was developed by the Theoretical and Computational Biophysics Group
-    in the Beckman Institute for Advanced Science and Technology at the
-    University of Illinois at Urbana-Champaign."
-
-And cite the reference:
-
-    James C. Phillips, Rosemary Braun, Wei Wang, James Gumbart, Emad
-    Tajkhorshid, Elizabeth Villa, Christophe Chipot, Robert D. Skeel, Laxmikant
-    Kale, and Klaus Schulten. Scalable molecular dynamics with NAMD. Journal of
-    Computational Chemistry, 26:1781-1802, 2005. abstract, journal
-
-And link the website: http://www.ks.uiuc.edu/Research/namd/}
-
-module-whatis		"Scalable Molecular Dynamics Software"
-module-url		"http://www.ks.uiuc.edu/Research/namd/"
-module-license		"NAMD Non-Commercial License (http://www.ks.uiuc.edu/Research/namd/license.html)"
-module-maintainer	"Spencer Bliven <spencer.bliven@psi.ch"
-module-help		"NAMD is a parallel molecular dynamics code designed for high-performance
-simulation of large biomolecular systems. Based on Charm++ parallel objects,
-NAMD scales to hundreds of cores for typical simulations and beyond 500,000
-cores for the largest simulations. NAMD uses the popular molecular graphics
-program VMD for simulation setup and trajectory analysis, but is also
-file-compatible with AMBER, CHARMM, and X-PLOR.
-
-${disclaimer}"
-
-puts stderr $disclaimer
+module-whatis       "NAMD is a parallel molecular dynamics code for large biomolecular systems"
+module-url          "https://www.ks.uiuc.edu/Research/namd/"
+module-license      "Non-Exclusive, Non-Commercial Use License (https://www.ks.uiuc.edu/Research/namd/license.html)"
+module-maintainer   "João Pedro Agostinho de Sousa <joao.agostinho-de-sousa@psi.ch>"
+module-help "
+NAMD is a high-performance molecular dynamics (MD) software for simulating
+large biological systems, like proteins and viruses, on parallel computers,
+renowned for its efficiency in handling millions of atoms by using
+parallelization and the Charm++ programming model to scale across many
+processors, often integrated with visualization tools like VMD for interactive
+analysis of atomic movements over time.
+"
