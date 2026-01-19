@@ -30,9 +30,11 @@ gcc:
     gcc-12.4.0.tar.gz: 5a30de2be740062bb3ddd3fd13c9b1bb4584d8f85616d33f23a713439d714148
     gcc-12.3.0.tar.gz: 11275aa7bb34cd8ab101d01b341015499f8d9466342a2574ece93f954d92273b
     gcc-12.1.0.tar.gz: e88a004a14697bbbaba311f38a938c716d9a652fd151aaaa4cf1b5b99b90e2de
+    gcc-11.5.0.tar.gz: 5a447f9a2566d15376beece02270decec8b8c1fcb094b93cb335b23497d58117
     gcc-11.4.0.tar.gz: af828619dd1970734dda3cfb792ea3f2cba61b5a00170ba8bce4910749d73c07
     gcc-11.3.0.tar.gz: 98438e6cc7294298b474cf0da7655d9a8c8b796421bb0210531c294a950374ed
     gcc-11.2.0.tar.gz: f0837f1bf8244a5cc23bd96ff6366712a791cfae01df8e25b137698aca26efc1
+    gcc-10.5.0.tar.gz: eed4dd5fc3cd9f52cb3a51a4fde1728cb19ec76292f559518e83652e7437befe
     gcc-10.4.0.tar.gz: ab1974017834430de27fd803ade4389602a7d6ca1362496c57bef384b2a4cb07
     gcc-10.3.0.tar.gz: 8fcf994811ad4e5c7ac908e8cf62af2c1982319e5551f62ae72016064dacdf16
     gcc-10.2.0.tar.gz: 27e879dccc639cd7b0cc08ed575c1669492579529b53c9ff27b0b96265fa867d
@@ -75,9 +77,38 @@ gcc:
     gcc-4.6.4.tar.gz: 53de33db01815914b3905a7d2cefac1ecf24ad081b82d93e4f526d8e62ff736f
 
   versions:
-    12.3.0;12.4.0;13.2.0;13.3.0;14.2.0:
+    10.5.0;11.5.0:
+      config:
+        relstage: unstable
+        build_requires: [gcc/10.4.0, gmp/6.3.0, mpfr/4.2.2, mpc/1.3.1-1]
+        configure_args+:
+          - --enable-languages=c,c++,objc,obj-c++,lto,fortran,go
+      variants:
+        - overlay: PSI
+          systems: [.*.merlin7.psi.ch]
+          target_cpus: [x86_64]
+          modulefile: modulefile-alps
+        - overlay: base
+          systems: [rhel.*]
+        - overlay: base
+          systems: [gpu0.*.merlin7.psi.ch]
+    13.4.0;14.3.0;15.2.0;15.1.0:
       config:
         relstage: stable
+        build_requires: [gcc/10.4.0, gmp/6.3.0, mpfr/4.2.2, mpc/1.3.1-1]
+        configure_args+:
+          - --enable-languages=c,c++,objc,obj-c++,lto,fortran,go
+      variants:
+        - overlay: PSI
+          systems: [.*.merlin7.psi.ch]
+          target_cpus: [x86_64]
+          modulefile: modulefile-alps
+        - overlay: base
+          systems: [rhel.*]
+        - overlay: base
+          systems: [gpu0.*.merlin7.psi.ch]
+    12.3.0;12.4.0;13.2.0;13.3.0;14.2.0:
+      config:
         build_requires: [gcc/10.4.0, gmp/6.3.0, mpfr/4.2.1, mpc/1.3.1-1]
         configure_args+:
           - --enable-languages=c,c++,objc,obj-c++,lto,fortran,go
