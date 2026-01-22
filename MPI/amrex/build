@@ -2,18 +2,17 @@
 
 pbuild::pre_prep() {
 	echo "OPENMPI_VERSION=${OPENMPI_VERSION}" 1>&2
-	if pbuild::version_gt "${OPENMPI_VERSION}" '4.0.0'; then
+	if std::version_gt "${OPENMPI_VERSION}" '4.0.0'; then
 		pbuild::add_patch "files/AMReX_ParallelDescriptor.patch"
 	fi
 }
 
 pbuild::pre_configure() {
-	pbuild::use_cmake
 	OPENMP=0
 	pbuild::use_flag "2d" && DIM=2
 	pbuild::use_flag "3d" && DIM=3
 
-	if pbuild::version_lt "${OPENMPI_VERSION}" '4.0.0'; then
+	if std::version_lt "${OPENMPI_VERSION}" '4.0.0'; then
 		FORTRAN_INTERFACES='ON'
 		ENABLE_FBASELIB='ON'
 	else

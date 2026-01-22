@@ -14,6 +14,21 @@ boost:
   shasums:
 
   versions:
+    1.86.0:
+      config:
+        urls:
+          - url: https://sourceforge.net/projects/boost/files/boost/1.86.0/boost_1_86_0.tar.gz/download
+            name: $P-$V_PKG.tar.gz
+      variants:
+        - systems: [merlin-.*]
+          relstage: unstable
+          group_deps:
+            compiler:
+              gcc: [10.5.0, 11.5.0, 12.4.0, 13.3.0, 14.3.0, 15.2.0]
+            mpi:
+              openmpi: [4.1.8_slurm]
+          build_requires: [zlib/1.3.1]
+
     1.82.0:
       config:
         urls:

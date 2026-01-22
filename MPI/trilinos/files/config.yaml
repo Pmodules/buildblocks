@@ -34,6 +34,19 @@ trilinos:
               hdf5: [1.14.6]
           build_requires: [OpenBLAS/0.3.28]
           relstage: unstable
+        - systems: [merlin-.*]
+          group: HDF5
+          relstage: unstable
+          group_deps:
+            compiler:
+              gcc: [11.5.0]
+            mpi:
+              openmpi: [4.1.8_slurm]
+            hdf5:
+              hdf5: [1.14.6]
+          build_requires:
+            - OpenBLAS/0.3.30
+            - parmetis/4.0.3
     13.4.0:
       variants:
         - systems: [merlin-.*]

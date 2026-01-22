@@ -18,6 +18,13 @@ MITHRA:
     2.0:
       variants:
         - systems: [merlin-.*]
+          relstage: unstable
+          group_deps:
+            compiler:
+              gcc: [10.5.0, 11.5.0]
+            mpi:
+              openmpi: [4.1.8_slurm]
+        - systems: [merlin-.*]
           suffix: _slurm
           group_deps:
             compiler:

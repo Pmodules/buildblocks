@@ -1,10 +1,5 @@
 #!/usr/bin/env modbuild
 
-pbuild::install_docfiles ACKNOWLEDGMENTS
-pbuild::install_docfiles COPYING
-pbuild::install_docfiles MANIFEST
-pbuild::install_docfiles README*
-
 pbuild::pre_configure() {
 	declare -g CC="${MPICC}"
 	declare -g CXX="${MPICXX}"

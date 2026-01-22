@@ -8,7 +8,7 @@ H5hut:
     relstage: stable
     docfiles: [AUTHORS, COPYING]
     urls:
-      - url: http://amas.web.psi.ch/Downloads/$P/$P-${V_PKG}.tar.gz
+      - url: https://gitea.psi.ch/H5hut/src/archive/$P-$V.tar.gz
 
   versions:
     2.0.0rc7:
@@ -27,6 +27,13 @@ H5hut:
           group_deps:
             compiler: {gcc: [12.3.0, 14.2.0]}
             mpi: {openmpi: [5.0.8]}
+            hdf5: {hdf5: [1.14.6]}
+          build_requires: []
+        - systems: [merlin-.*.psi.ch]
+          relstage: unstable
+          group_deps:
+            compiler: {gcc: [11.5.0]}
+            mpi: {openmpi: [4.1.8_slurm]}
             hdf5: {hdf5: [1.14.6]}
           build_requires: []
     2.0.0rc6:
