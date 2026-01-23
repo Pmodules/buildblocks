@@ -17,6 +17,8 @@ vmd:
           build_requires:
             - gcc/12.3.0
             - cuda/12.9.1
+            - virtualgl/3.1.4
           runtime_deps:
             - gcc/12.3.0
             - cuda/12.9.1
+            - virtualgl/3.1.4
