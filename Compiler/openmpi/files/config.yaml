@@ -63,34 +63,12 @@ openmpi:
           - --enable-mpi1-compatibility
           - --enable-static=no
       variants:
-        # Unstable
-        - systems: [.*.merlin7.psi.ch]
-          relstage: unstable
-          overlay: Alps
-          use_overlays: [PSI, Alps]
-          group_deps:
-            compiler: {gcc: [15.2.0,14.3.0,13.4.0,12.4.0]}
-          build_requires:
-            - hwloc/2.12.0
-            - patchelf/0.14.5
-            - shs-cassini-headers/12.0.1-oss
-            - shs-cxi-driver/12.0.1-oss
-            - shs-libcxi/12.0.1-oss
-          runtime_deps:
-            - cuda/12.9.1
-            - pmix/5.0.8
-            - libfabric/2.2.0-oss
-          configure_args+:
-            - --with-lustre
-            - --with-xpmem
-          use_flags: [merlin7, slurm]
-        # Stable
         - systems: [.*.merlin7.psi.ch]
           relstage: stable
           overlay: Alps
           use_overlays: [PSI, Alps]
           group_deps:
-            compiler: {gcc: [14.2.0,12.3.0]}
+            compiler: {gcc: [15.2.0,14.3.0,14.2.0,13.4.0,12.4.0,12.3.0]}
           build_requires: 
             - hwloc/2.12.0
             - patchelf/0.14.5
@@ -164,7 +142,7 @@ openmpi:
             - --enable-static
 
         - systems: [.*.merlin7.psi.ch]
-          relstage: stable
+          relstage: deprecated
           overlay: Alps
           group_deps:
             compiler: {gcc: [12.3.0, 13.3.0, 14.2.0], intelcc: [22.2]}
