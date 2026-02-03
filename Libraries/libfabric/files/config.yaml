@@ -18,6 +18,39 @@ libfabric:
     libfabric-1.18.0.tar.bz2: 912fb7c7b3cf2a91140520962b004a1c5d2f39184adbbd98ae5919b0178afd43
     libfabric-1.13.0.tar.bz2: 0c68264ae18de5c31857724c754023351614330bd61a50b40cef2b5e8f63ab28
   versions:
+    2.4.0:
+      config:
+        relstage: unstable
+      variants:
+        - systems: [.*.merlin7.psi.ch]
+          overlay: Alps
+          use_overlays: [PSI]
+          suffix: '-oss'
+          use_flags: [merlin7]
+          build_requires: [gcc/12.3.0, shs-cassini-headers/13.0.0-oss, shs-cxi-driver/13.0.0-oss, shs-libcxi/13.0.0-oss, cuda/12.9.1, GDRCopy/2.5]
+          configure_args+:
+            - --enable-cxi=$SHS_LIBCXI_HOME
+            - --with-cxi-uapi-headers=$SHS_CXI_DRIVER_HOME
+            - --with-cassini-headers=$SHS_CASSINI_HEADERS_HOME
+            - --enable-lnx
+            - --with-cuda=$CUDA_HOME
+            - --with-gdrcopy=$GDRCOPY_HOME
+            # Only enable dlopen when static is disabled
+            - --enable-cuda-dlopen
+            - --enable-gdrcopy-dlopen
+            # - --enable-xpmem
+        #- systems: [merlin-.*.psi.ch]
+        #  overlay: merlin
+        #  use_overlays: [base, merlin]
+        #  suffix: '-oss'
+        #  use_flags: [merlin6, slurm]
+        #  build_requires: [gcc/13.2.0, cuda/12.9.1, GDRCopy/2.5]
+        #  configure_args+:
+        #    - --with-cuda=$CUDA_HOME
+        #    - --with-gdrcopy=$GDRCOPY_HOME
+        #    # Only enable dlopen when static is disabled
+        #    - --enable-cuda-dlopen
+        #    - --enable-gdrcopy-dlopen
     2.2.0:
       config:
         relstage: stable
