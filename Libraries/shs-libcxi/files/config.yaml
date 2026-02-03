@@ -13,11 +13,25 @@ shs-libcxi:
   #   zypper install libsensors4-devel
   shasums:
   versions:
+    13.0.0:
+      config:
+        relstage: unstable
+        urls:
+          - url: https://github.com/HewlettPackard/shs-libcxi/archive/refs/tags/release/shs-${V_PKG}.tar.gz
+            name: shs-libcxi-${V_PKG}.tar.bz2
+        patch_files:
+          - patch/cassini_csr_defs-v12.0.1.patch
+      variants:
+        - systems: [.*.merlin7.psi.ch]
+          overlay: Alps
+          suffix: '-oss'
+          use_overlays: [PSI]
+          use_flags: [merlin7]
+          build_requires: [gcc/12.3.0,shs-cassini-headers/13.0.0-oss,shs-cxi-driver/13.0.0-oss]
     12.0.1:
       config:
         relstage: stable
         urls:
-          # - url: https://github.com/HewlettPackard/shs-libcxi/archive/refs/heads/main.zip
           - url: https://github.com/HewlettPackard/shs-libcxi/archive/refs/tags/release/shs-12.0.1.tar.gz
             name: shs-libcxi-12.0.1.tar.bz2
         patch_files:
