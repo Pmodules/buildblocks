@@ -77,7 +77,7 @@ cuda:
       variants:
         - target_cpus: [aarch64]
           systems: [gpu.*.merlin7.psi.ch]
-          relstage: unstable
+          relstage: stable
           overlay: PSI
           urls:
             - *cuda-12_8_1-aarch64
