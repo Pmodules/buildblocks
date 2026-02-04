@@ -11,7 +11,8 @@ shs-cxi-driver:
     #   - url: https://github.com/HewlettPackard/shs-cxi-driver/archive/refs/heads/main.zip
     #     name: shs-cxi-driver-main.tar.bz2
   shasums:
-   shs-cassini-headers-12.0.1.tar.bz2: d1af6dbc79df740f56667e5b3e1501003cbbf9957f214debb5556bd7eb24167e
+    shs-cxi-driver-13.0.0.tar.bz2: 9274644ac45036afd438feffd6b44429fdb4f818a685ba6a8aa576e5c9029b3f
+    shs-cxi-driver-12.0.1.tar.bz2: d1af6dbc79df740f56667e5b3e1501003cbbf9957f214debb5556bd7eb24167e
   versions:
     13.0.0:
       config:

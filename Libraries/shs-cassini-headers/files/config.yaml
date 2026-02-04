@@ -11,7 +11,8 @@ shs-cassini-headers:
     #   - url: https://github.com/HewlettPackard/shs-cassini-headers/archive/refs/heads/main.zip
     #     name: shs-cassini-headers-main.zip
   shasums:
-    shs-cassini-headers-12.0.1.tar.gz: db338e6af8bff8c5acd0556bbad81eba5365db9eec918d46021483861a386792
+    shs-cassini-headers-13.0.0.tar.bz2: 69152b3e2a827812e1cd38deb12a0c7ed37d99ea914850ce23b0e38b2588c50d
+    shs-cassini-headers-12.0.1.tar.bz2: db338e6af8bff8c5acd0556bbad81eba5365db9eec918d46021483861a386792
   versions:
     13.0.0:
       config:

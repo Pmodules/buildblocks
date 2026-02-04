@@ -15,6 +15,8 @@ shs-libcxi:
     # urls:
     #   - url: https://github.com/HewlettPackard/shs-libcxi/archive/refs/heads/main.zip
   shasums:
+    shs-libcxi-13.0.0.tar.bz2: 48c11617352f48262400f3722e0f8a701c6bceb74701c39a9ea20e83ca690fe3
+    shs-libcxi-12.0.1.tar.bz2: 360ec4f51439e499780aad920c0d2e5c92e6ab717d86b38f62775f27073bd0ca
   versions:
     13.0.0:
       config:
