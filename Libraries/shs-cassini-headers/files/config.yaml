@@ -5,17 +5,17 @@ shs-cassini-headers:
     compile_in_sourcetree: true
     relstage: unstable
     urls:
-      - url: https://github.com/HewlettPackard/shs-cassini-headers/archive/refs/heads/main.zip
-        name: shs-cassini-headers-main.zip
+      - url: https://github.com/HewlettPackard/shs-cassini-headers/archive/refs/tags/release/shs-${V_PKG}.tar.gz
+        name: shs-cassini-headers-${V_PKG}.tar.bz2
+    # urls:
+    #   - url: https://github.com/HewlettPackard/shs-cassini-headers/archive/refs/heads/main.zip
+    #     name: shs-cassini-headers-main.zip
   shasums:
     shs-cassini-headers-12.0.1.tar.gz: db338e6af8bff8c5acd0556bbad81eba5365db9eec918d46021483861a386792
   versions:
     13.0.0:
       config:
         relstage: unstable
-        urls:
-          - url: https://github.com/HewlettPackard/shs-cassini-headers/archive/refs/tags/release/shs-${V_PKG}.tar.gz
-            name: shs-cassini-headers-${V_PKG}.tar.bz2
       variants:
         - systems: [.*.merlin7.psi.ch]
           overlay: Alps
@@ -25,9 +25,6 @@ shs-cassini-headers:
     12.0.1:
       config:
         relstage: stable
-        urls:
-          - url: https://github.com/HewlettPackard/shs-cassini-headers/archive/refs/tags/release/shs-12.0.1.tar.gz
-            name: shs-cassini-headers-12.0.1.tar.bz2
       variants:
         - systems: [.*.merlin7.psi.ch]
           overlay: Alps
