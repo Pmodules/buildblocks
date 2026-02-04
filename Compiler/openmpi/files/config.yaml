@@ -57,6 +57,32 @@ openmpi:
     openmpi-5.0.5.tar.bz2: 6588d57c0a4bd299a24103f4e196051b29e8b55fbda49e11d5b3d32030a32776
 
   versions:
+    5.0.9:
+      config:
+        configure_args+:
+          - --enable-mpi1-compatibility
+          - --enable-static=no
+      variants:
+        - systems: [.*.merlin7.psi.ch]
+          relstage: unstable
+          overlay: Alps
+          use_overlays: [PSI, Alps]
+          group_deps:
+            compiler: {gcc: [14.3.0]}
+          build_requires:
+            - hwloc/2.12.0
+            - patchelf/0.14.5
+            - shs-cassini-headers/13.0.0-oss
+            - shs-cxi-driver/13.0.0-oss
+            - shs-libcxi/13.0.0-oss
+          runtime_deps:
+            - cuda/12.9.1
+            - pmix/5.0.10
+            - libfabric/2.4.0-oss
+          configure_args+:
+            - --with-lustre
+            - --with-xpmem
+          use_flags: [merlin7, slurm]
     5.0.8:
       config:
         configure_args+:
