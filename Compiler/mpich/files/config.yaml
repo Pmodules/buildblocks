@@ -113,7 +113,7 @@ mpich:
     3.3.2:
       variants:
         - systems: [.*.merlin7.psi.ch]
-          relstage: unstable
+          relstage: deprecated
           overlay: Alps
           use_overlays: [PSI]
           use_flags: [merlin7, slurm]
