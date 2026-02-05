@@ -16,8 +16,23 @@ mpich:
     mpich-3.3.2.tar.gz: 4bfaf8837a54771d3e4922c84071ef80ffebddbb6971a006038d91ee7ef959b9
     mpich-4.2.3.tar.gz: 7a019180c51d1738ad9c5d8d452314de65e828ee240bcb2d1f80de9a65be88a8
     mpich-4.3.1.tar.gz: acc11cb2bdc69678dc8bba747c24a28233c58596f81f03785bf2b7bb7a0ef7dc
-
+    mpich-4.3.2.tar.gz: 47d774587a7156a53752218c811c852e70ac44db9c502dc3f399b4cb817e3818
+    mpich-5.0.0.tar.gz: e9350e32224283e95311f22134f36c98e3cd1c665d17fae20a6cc92ed3cffe11
   versions:
+    5.0.0:
+      variants:
+        - systems: [login.*.merlin7.psi.ch, cn.*.merlin7.psi.ch]
+          relstage: unstable
+          overlay: Alps
+          target_cpus: ['x86_64'] # MC
+          use_overlays: [PSI, Alps]
+          use_flags: [merlin7, slurm]
+          group_deps:
+            compiler: {intelcc: [22.2], gcc: [14.3.0]}
+          build_requires: [hwloc/2.12.0, patchelf/0.14.5]
+          runtime_deps: [libfabric/2.4.0-oss]
+          configure_args+:
+            - --with-pm=hydra,gforker
     4.3.2:
       variants:
         - systems: [merlin-.*.psi.ch]
@@ -33,21 +48,8 @@ mpich:
           configure_args+:
             - --with-pm=hydra,gforker
             - --with-slurm
-
     4.3.1:
       variants:
-        - systems: [login.*.merlin7.psi.ch, cn.*.merlin7.psi.ch]
-          relstage: unstable
-          overlay: Alps
-          target_cpus: ['x86_64'] # MC
-          use_overlays: [PSI, Alps]
-          use_flags: [merlin7, slurm]
-          group_deps:
-            compiler: {intelcc: [22.2]}
-          build_requires: [hwloc/2.12.0, patchelf/0.14.5]
-          runtime_deps: [libfabric/2.2.0-oss]
-          configure_args+:
-            - --with-pm=hydra,gforker
         - systems: [login.*.merlin7.psi.ch, cn.*.merlin7.psi.ch]
           relstage: stable
           overlay: Alps
@@ -55,7 +57,7 @@ mpich:
           use_overlays: [PSI, Alps]
           use_flags: [merlin7, slurm]
           group_deps:
-            compiler: {gcc: [8.5.0,12.3.0]}
+            compiler: {gcc: [8.5.0,12.3.0],intelcc: [22.2]}
           build_requires: [hwloc/2.12.0, patchelf/0.14.5]
           runtime_deps: [libfabric/2.2.0-oss]
           configure_args+:
@@ -111,7 +113,7 @@ mpich:
     3.3.2:
       variants:
         - systems: [.*.merlin7.psi.ch]
-          relstage: unstable
+          relstage: deprecated
           overlay: Alps
           use_overlays: [PSI]
           use_flags: [merlin7, slurm]
