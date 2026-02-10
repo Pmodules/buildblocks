@@ -8,7 +8,7 @@ ANSYS:
     2025R2:
       variants:
         - systems: [.*.merlin7.psi.ch]
-          relstage: unstable
+          relstage: stable
           overlay: merlin
           use_overlays: [PSI]
           use_flags: [merlin7]
@@ -22,14 +22,14 @@ ANSYS:
     2023R2:
       variants:
         - systems: [.*.merlin7.psi.ch]
-          relstage: unstable
+          relstage: deprecated
           overlay: merlin
           use_overlays: [PSI]
           use_flags: [merlin7]
     2022R2:
       variants:
         - systems: [.*.merlin7.psi.ch]
-          relstage: stable
+          relstage: deprecated
           overlay: merlin
           use_overlays: [PSI]
           use_flags: [merlin7]
