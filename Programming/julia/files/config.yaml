@@ -1,0 +1,30 @@
+---
+# yamllint disable rule:line-length
+format: 1
+julia:
+  defaults:
+    group: Programming
+    overlay: base
+    relstage: stable
+    compile_in_sourcetree: true
+    docfiles: [LICENSE.md, README.md, NEWS.md]
+    urls:
+      - url: https://github.com/JuliaLang/julia/releases/download/v${V_PKG}/${P}-${V_PKG}.tar.gz
+  shasums:
+
+  versions:
+    1.12.5:
+      variants:
+        - systems: [merlin-.*.psi.ch]
+          relstage: unstable
+          overlay: merlin
+          target_cpus: ['x86_64']
+          use_overlays: [base, merlin]
+          use_flags: [merlin7, julia]
+          build_requires: [gcc/12.3.0]
+        - systems: [cn.*.merlin7.psi.ch,login.*.merlin7.psi.ch,gpu.*.merlin7.psi.ch]
+          relstage: unstable
+          overlay: Alps
+          use_overlays: [PSI, Alps]
+          use_flags: [merlin7, julia]
+          build_requires: [gcc/12.3.0]

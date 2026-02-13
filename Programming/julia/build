@@ -1,0 +1,5 @@
+#!/usr/bin/env modbuild
+
+pbuild::install() {
+  rsync -av ${P}-${V_PKG}/ "${PREFIX}"
+}
