@@ -1,0 +1,17 @@
+---
+format: 1
+datacatalog:
+  defaults:
+    group: Tools
+    overlay: base
+    relstage: stable
+    #docfiles: [Copyright, NEWS, README]
+    urls:
+      - url: https://github.com/paulscherrerinstitute/scicat-cli/releases/download/v${V}/scicat-cli_${V}_Linux_x86_64.tar.gz
+      - url: https://github.com/paulscherrerinstitute/scicat-cli/releases/download/v${V}/scicat-cli_V2Scripts_${V}.tar.gz
+  shasums: []
+  versions:
+    3.0.0;3.1.0:
+      config:
+        relstage: stable
+
