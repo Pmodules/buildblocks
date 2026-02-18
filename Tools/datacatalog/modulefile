@@ -11,10 +11,3 @@ Data catalog ingest and retrieve tools.
 Source code for the command line tools is available at https://github.com/paulscherrerinstitute/scicat-cli.
 "
 
-switch -- [module-info mode] {
-    "load" {
-        if { $V_MAJOR >= 3 } {
-            puts stderr "Warning: This version is currently compatible only with SciCat v4. Please use --devenv or --testenv options"
-        }
-    }
-}

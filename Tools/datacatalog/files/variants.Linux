@@ -6,12 +6,13 @@ datacatalog/1.1.9	deprecated
 datacatalog/1.1.15	removed
 datacatalog/1.1.10	deprecated
 datacatalog/1.1.11	deprecated
-datacatalog/2.2.0	stable
-datacatalog/2.2.1	stable
-datacatalog/2.2.2	stable
-datacatalog/3.0.0-alpha7	deprecated
-datacatalog/3.0.0-alpha8	deprecated
-datacatalog/3.0.0-alpha10	deprecated
-datacatalog/3.0.0-alpha11	deprecated
-datacatalog/3.0.0-alpha13	unstable
+datacatalog/2.2.0	deprecated
+datacatalog/2.2.1	deprecated
+datacatalog/2.2.2	deprecated
+datacatalog/3.0.0-alpha7	removed
+datacatalog/3.0.0-alpha8	removed
+datacatalog/3.0.0-alpha10	removed
+datacatalog/3.0.0-alpha11	removed
+datacatalog/3.0.0-alpha13	deprecated
+datacatalog/3.0.0	stable
 
