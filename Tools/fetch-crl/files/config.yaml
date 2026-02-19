@@ -1,0 +1,24 @@
+format: 1
+fetch-crl:
+  defaults:
+    group: Tools
+    relstage: stable
+    compile_in_sourcetree: true
+    docfiles:
+      - NOTICE
+      - README
+      - LICENSE
+      - CHANGES
+    urls:
+      - url: https://github.com/dlgroep/fetch-crl/archive/refs/tags/$P-${V_PKG}.tar.gz
+  shasums:
+    fetch-crl-3.0.23.tar.gz: 346aa23f65df95eab9a40eb92e9b8adaba879313ef9704c0b74fa24e3ab14a8e
+  versions:
+    3.0.23:
+      config:
+        relstage: stable
+      variants:
+        - systems: [.*.merlin7.psi.ch]
+          overlay: Alps
+          use_overlays: [PSI]
+        - systems: [rhel.*]

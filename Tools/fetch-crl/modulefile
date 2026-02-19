@@ -1,0 +1,19 @@
+#%Module1.0
+
+module-whatis           "The Certificate Revocation List retrieval tool"
+module-url              "https://wiki.nikhef.nl/grid/FetchCRL3"
+module-license          "https://github.com/dlgroep/fetch-crl/blob/master/LICENSE"
+module-maintainer       "Marc Caubet Serrabou <marc.caubet@psi.ch>"
+
+module-help             "
+==============================================================================
+fetch-crl - the Certificate Revocation List retrieval tool
+==============================================================================
+
+The fetch-crl utility will retrieve certificate revocation lists (CRLs) for
+a set of installed trust anchors, based on crl_url files or IGTF-style info
+files. It will install these for use with OpenSSL, NSS or third-party tools.
+"
+
+set    user_home          $::env(HOME)
+setenv FETCH_CRL_STATEDIR "$user_home/.cache/fetch-crl"

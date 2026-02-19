@@ -1,0 +1,33 @@
+#!/usr/bin/env modbuild
+
+pbuild::configure() {
+  :
+}
+
+pbuild::compile() {
+  make config.sh
+  make
+  make fetch-crl
+}
+
+pbuild::install() {
+  make install PREFIX="${PREFIX}" ETC="${PREFIX}/etc" CACHE="${PREFIX}/var/cache"
+}
+
+pbuild::post_install() {
+  mv "${PREFIX}/sbin/fetch-crl" "${PREFIX}/sbin/fetch-crl-original"
+  mkdir -p "${PREFIX}/etc/fetch-crl.d"
+
+  cat > "${PREFIX}/sbin/fetch-crl" <<'EOF'
+#!/bin/sh
+
+if [ ! -d "${FETCH_CRL_STATEDIR}" ]; then mkdir -p "${FETCH_CRL_STATEDIR}"; fi
+
+exec "${FETCH_CRL_PREFIX}/sbin/fetch-crl-original" \
+  -c "${FETCH_CRL_PREFIX}/etc/fetch-crl.conf" \
+  --define "cfgdir=${FETCH_CRL_PREFIX}/etc/fetch-crl.d" \
+  --define "statedir=${FETCH_CRL_STATEDIR}" \
+  "$@"
+EOF
+  chmod 0755 "${PREFIX}/sbin/fetch-crl"
+}
