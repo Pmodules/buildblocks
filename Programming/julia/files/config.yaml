@@ -16,14 +16,14 @@ julia:
     1.12.5:
       variants:
         - systems: [merlin-.*.psi.ch]
-          relstage: unstable
+          relstage: stable
           overlay: merlin
           target_cpus: ['x86_64']
           use_overlays: [base, merlin]
           use_flags: [merlin7, julia]
           build_requires: [gcc/12.3.0]
         - systems: [cn.*.merlin7.psi.ch,login.*.merlin7.psi.ch,gpu.*.merlin7.psi.ch]
-          relstage: unstable
+          relstage: stable
           overlay: Alps
           use_overlays: [PSI, Alps]
           use_flags: [merlin7, julia]
