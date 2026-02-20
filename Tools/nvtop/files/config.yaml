@@ -1,0 +1,49 @@
+---
+# yamllint disable rule:line-length
+format: 1
+nvtop:
+  defaults:
+    group: Tools
+    overlay: base
+    relstage: stable
+    urls:
+      - url: https://github.com/Syllo/${P}/archive/refs/tags/${V_PKG}.tar.gz
+
+  shasums:
+    3.3.2.tar.gz: 48a295f3b3a917cc851d1aa8b185c09fde3a1b1e741fc57d7fa96b3671271630
+
+  versions:
+    3.3.2:
+      variants:
+        - overlay: base
+          target_cpus: [x86_64]
+          systems: [.*.merlin7.psi.ch]
+          relstage: stable
+          build_requires:
+            - cmake/3.26.3
+            - gcc/14.3.0
+            - cuda/12.9.1
+          runtime_deps:
+            - gcc/14.3.0
+            - cuda/12.9.1
+          configure_with: cmake
+          configure_args:
+            - "-DNVIDIA_SUPPORT=ON"
+            - "-DAMDGPU_SUPPORT=ON"
+            - "-DINTEL_SUPPORT=ON"
+        - overlay: base
+          target_cpus: [aarch64]
+          systems: [gpu0.*.merlin7.psi.ch]
+          relstage: stable
+          build_requires:
+            - gcc/14.3.0
+            - cuda/12.9.1
+          runtime_deps:
+            - gcc/14.3.0
+            - cuda/12.9.1
+          configure_with: cmake
+          configure_args:
+            - "-DNVIDIA_SUPPORT=ON"
+            - "-DAMDGPU_SUPPORT=ON"
+            - "-DINTEL_SUPPORT=ON"
+
