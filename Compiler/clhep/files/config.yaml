@@ -5,19 +5,19 @@ clhep:
   defaults:
     group: Compiler
     overlay: base
-    systems: [rhel7, rhel8, rhel9]
     docfiles: [AUTHORS, LICENSE, NEWS, README]
-    configure_with: cmake
+#    configure_with: cmake
     build_requires: ['cmake/3.26.3']
     relstage: stable
     urls:
       - url: https://proj-clhep.web.cern.ch/proj-clhep/dist1/clhep-2.4.7.1.tgz
+        strip_dirs: 2
   shasums:
     clhep-2.4.7.1.tgz: 1c8304a7772ac6b99195f1300378c6e3ddf4ad07c85d64a04505652abb8a55f9
 
   versions:
     2.4.7.1:
       variants:
-        - systems: [merlin-*, ra-*]
+        - systems: [.*]
           group_deps:
-            compiler: {gcc: [13.1.0]}
+            compiler: {gcc: [13.1.0, 13.4.0]}
