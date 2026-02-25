@@ -10,6 +10,10 @@ H5hut:
     urls:
       - url: https://gitea.psi.ch/H5hut/src/archive/$P-$V.tar.gz
 
+  shasums:
+    H5hut-2.0.0rc7.tar.gz: bc058c4817c356b7b7acfe386c586923103b90bdfa83575db3a91754767e6fab
+    H5hut-2.0.0rc6.tar.gz: 5aedb48b4cb0530401dd59f3c5ba90f94d0f08e420c4a144594e38eba1df3e48
+
   versions:
     2.0.0rc7:
       variants:

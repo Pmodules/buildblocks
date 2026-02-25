@@ -21,6 +21,7 @@ pbuild::configure(){
 		-DCMAKE_BUILD_TYPE:STRING=Release \
 		-DTrilinos_WARNINGS_AS_ERRORS_FLAGS:STRING="" \
 		-DCMAKE_CXX_STANDARD=17 \
+                -DGtest_SKIP_INSTALL:BOOL=ON \
 	        -DTPL_ENABLE_DLlib:BOOL=OFF \
 	        -DTPL_ENABLE_QT:BOOL=OFF \
 	        -DTPL_ENABLE_MPI:BOOL=ON \

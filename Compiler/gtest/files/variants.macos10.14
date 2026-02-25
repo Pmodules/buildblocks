@@ -1,2 +1,0 @@
-gtest/1.7.0	stable		gcc/{5.4.0,5.5.0,6.4.0,7.3.0,7.4.0} b:cmake/3.10.3
-gtest/1.7.0	stable		clang-macos/9.0.0 b:cmake/3.10.3

@@ -20,6 +20,7 @@ amrex:
         name: $P-${V_PKG}.tar.gz
 
   shasums:
+    amrex-18.07.1.tar.gz: eba560120d95cff3e62d5b548d991acf6e4f579a7958cebdbbd9c11d4aa977e4
 
   versions:
     18.07.1:

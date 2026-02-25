@@ -16,6 +16,8 @@ trilinos:
         name: $P-${V_PKG}.tar.gz
 
   shasums:
+    trilinos-13.4.0.tar.gz: 39550006e059043b7e2177f10467ae2f77fe639901aee91cbc1e359516ff8d3e
+    trilinos-13.4.1.tar.gz: 5465cbff3de7ef4ac7d40eeff9d99342c00d9d20eee0a5f64f0a523093f5f1b3
 
   versions:
     13.4.1:

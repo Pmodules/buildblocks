@@ -1,5 +1,0 @@
-H5hut/2.0.0rc4	deprecated	clang-macos/9.0.0 openmpi/1.10.7 hdf5/1.10.1 b:automake/1.15 b:autoconf/2.69 b:libtool/2.4.6 b:Python/2.7.12 b:parmetis/4.0.3
-H5hut/2.0.0rc4	deprecated	clang-macos/9.0.0 openmpi/2.1.2  hdf5/1.10.1 b:automake/1.15 b:autoconf/2.69 b:libtool/2.4.6 b:Python/2.7.12 b:parmetis/4.0.3
-H5hut/2.0.0rc4	deprecated	clang-macos/9.0.0 openmpi/3.0.0  hdf5/1.10.1 b:automake/1.15 b:autoconf/2.69 b:libtool/2.4.6 b:Python/2.7.12 b:parmetis/4.0.3
-
-H5hut/2.0.0rc4	deprecated	clang-macos/9.0.0 openmpi/3.0.0  hdf5/1.10.1 b:automake/1.15 b:autoconf/2.69 b:libtool/2.4.6 b:Python/2.7.12 b:parmetis/4.0.3

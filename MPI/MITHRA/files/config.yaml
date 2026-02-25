@@ -13,6 +13,7 @@ MITHRA:
         name: $P-${V_PKG}.tar.gz
 
   shasums:
+    MITHRA-2.0.tar.gz: 66f27ba6ca2c1ab05abb76338d00e661a6fe96b95283b85409c37625b4758deb
 
   versions:
     2.0:
