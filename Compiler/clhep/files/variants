@@ -1,2 +1,0 @@
-clhep/2.4.1.0	stable		gcc/7.3.0 b:cmake/3.9.6
-clhep/2.4.4.1	unstable	gcc/{7.5.0,8.3.0,9.2.0,10.2.0,10.3.0} b:cmake/3.19.2
