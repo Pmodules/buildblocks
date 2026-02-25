@@ -100,11 +100,6 @@ pbuild::pre_configure() {
             && mv -f "$PREFIX/torch/hub/checkpoints/relion_class_ranker/classranker_v1.0.ckpt" "$PREFIX/torch/hub/checkpoints/relion_class_ranker/v1.0.ckpt" \
             && touch "$PREFIX/torch/hub/checkpoints/relion_class_ranker/v1.0_installed.txt"
 
-        # FLTK
-        echo "> Downloading FLTK"
-        mkdir -p "$SRC_DIR/external/fltk"
-        wget -q https://github.com/fltk/fltk/releases/download/release-1.4.4/fltk-1.4.4-source.tar.gz -P "$SRC_DIR/external/fltk/"
-
         # Miniforge installation
         echo "> Installing Miniforge"
         mkdir -p "$PREFIX/miniforge"
@@ -118,12 +113,12 @@ pbuild::pre_configure() {
             if [[ "$V" == "5.0.0-perf" || "$V" == "5.0.1" ]]; then
                 if [[ "$V" == "5.0.0-perf" ]]; then
                     cp "$BUILDBLOCK_DIR/environment_gh200_5.0.0-perf.yml" .
-                    "$PREFIX/miniforge/condabin/conda" env create -q -f environment_gh200_5.0.0-perf.yml
+                    "$PREFIX/miniforge/condabin/mamba" env create -y -f environment_gh200_5.0.0-perf.yml
                 else
                     cp "$BUILDBLOCK_DIR/environment_gh200_5.0.1.yml" .
-                    "$PREFIX/miniforge/condabin/conda" env create -q -f environment_gh200_5.0.1.yml
+                    "$PREFIX/miniforge/condabin/mamba" env create -y -f environment_gh200_5.0.1.yml
                 fi
-                "$PREFIX/miniforge/condabin/conda" env list
+                "$PREFIX/miniforge/condabin/mamba" env list
 
                 echo "> Cloning model-angelo"
                 git clone https://github.com/3dem/model-angelo "$SRC_DIR/model-angelo"
@@ -131,7 +126,7 @@ pbuild::pre_configure() {
                 echo "> Fixing pyhmmer version in setup.py"
                 sed -i 's/pyhmmer==[0-9\.]\+/pyhmmer==0.11.1/' setup.py
                 echo "> Installing model-angelo"
-                "$PREFIX/miniforge/condabin/conda" run -n "${P}-${V_MAJOR}.${V_MINOR}" python -m pip install .
+                "$PREFIX/miniforge/condabin/mamba" run -n "${P}-${V_MAJOR}.${V_MINOR}" python -m pip install .
                 popd || return $?
             else
                 echo "> Skipping Conda environment setup for version $V"
@@ -141,12 +136,12 @@ pbuild::pre_configure() {
             if [[ "$V" == "5.0.0-perf" || "$V" == "5.0.1" ]]; then
                 if [[ "$V" == "5.0.0-perf" ]]; then
                     cp "$BUILDBLOCK_DIR/environment_5.0.0-perf.yml" .
-                    "$PREFIX/miniforge/condabin/conda" env create -q -f environment_5.0.0-perf.yml
+                    "$PREFIX/miniforge/condabin/mamba" env create -y -f environment_5.0.0-perf.yml
                 else
                     cp "$BUILDBLOCK_DIR/environment_5.0.1.yml" .
-                    "$PREFIX/miniforge/condabin/conda" env create -q -f environment_5.0.1.yml
+                    "$PREFIX/miniforge/condabin/mamba" env create -y -f environment_5.0.1.yml
                 fi
-                "$PREFIX/miniforge/condabin/conda" env list
+                "$PREFIX/miniforge/condabin/mamba" env list
             else
                 echo "> Skipping Conda environment setup for version $V"
             fi
