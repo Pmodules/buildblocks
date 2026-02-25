@@ -54,47 +54,49 @@ openmpi:
     openmpi-4.1.4.tar.bz2: 92912e175fd1234368c8730c03f4996fe5942e7479bb1d10059405e7f2b3930d
     openmpi-4.1.5.tar.bz2: a640986bc257389dd379886fdae6264c8cfa56bc98b71ce3ae3dfbd8ce61dbe3
     openmpi-4.1.6.tar.bz2: f740994485516deb63b5311af122c265179f5328a0d857a567b85db00b11e415
-    openmpi-4.1.8.tar.bz2: 466f68e3132a1dc02710cc2011fafced8336d98359fa2dae4dddcfd5719f12a9
     openmpi-5.0.5.tar.bz2: 6588d57c0a4bd299a24103f4e196051b29e8b55fbda49e11d5b3d32030a32776
     openmpi-5.0.8.tar.bz2: 53131e1a57e7270f645707f8b0b65ba56048f5b5ac3f68faabed3eb0d710e449
+    openmpi-5.0.9.tar.bz2: dfb72762531170847af3e4a0f21d77d7b23cf36f67ce7ce9033659273677d80b
 
   versions:
-    5.0.8:
+    5.0.9:
       config:
         configure_args+:
           - --enable-mpi1-compatibility
           - --enable-static=no
-        patch_files:
-          - files/openmpi-5.0.8-gpfs-5.2.3.patch
       variants:
-        # Unstable
         - systems: [.*.merlin7.psi.ch]
           relstage: unstable
           overlay: Alps
           use_overlays: [PSI, Alps]
           group_deps:
-            compiler: {gcc: [15.2.0,14.3.0,13.4.0,12.4.0,11.5.0,10.5.0]}
+            compiler: {gcc: [14.3.0]}
           build_requires:
             - hwloc/2.12.0
             - patchelf/0.14.5
-            - shs-cassini-headers/12.0.1-oss
-            - shs-cxi-driver/12.0.1-oss
-            - shs-libcxi/12.0.1-oss
+            - shs-cassini-headers/13.0.0-oss
+            - shs-cxi-driver/13.0.0-oss
+            - shs-libcxi/13.0.0-oss
           runtime_deps:
             - cuda/12.9.1
-            - pmix/5.0.8
-            - libfabric/2.2.0-oss
+            - pmix/5.0.10
+            - libfabric/2.4.0-oss
           configure_args+:
             - --with-lustre
             - --with-xpmem
           use_flags: [merlin7, slurm]
-        # Stable
+    5.0.8:
+      config:
+        configure_args+:
+          - --enable-mpi1-compatibility
+          - --enable-static=no
+      variants:
         - systems: [.*.merlin7.psi.ch]
           relstage: stable
           overlay: Alps
           use_overlays: [PSI, Alps]
           group_deps:
-            compiler: {gcc: [14.2.0,12.3.0]}
+            compiler: {gcc: [15.2.0,14.3.0,14.2.0,13.4.0,12.4.0,12.3.0]}
           build_requires: 
             - hwloc/2.12.0
             - patchelf/0.14.5
@@ -109,29 +111,6 @@ openmpi:
             - --with-lustre
             - --with-xpmem
           use_flags: [merlin7, slurm]
-
-        - systems: [merlin-.*]
-          suffix: _slurm
-          use_flags: [merlin6, gpfs]
-          relstage: unstable
-          overlay: base
-          patch_files:
-            - files/openmpi-5.0.8-gpfs-5.2.3.patch
-          group_deps:
-            compiler: {gcc: [9.5.0, 10.5.0, 11.5.0, 12.4.0, 13.4.0, 14.3.0, 15.2.0]}
-          build_requires:
-            - pmix/4.2.4
-            - ucx/1.14.1_slurm
-            - libfabric/1.18.0
-            - hwloc/2.9.1
-            - patchelf/0.14.5
-          runtime_deps: [cuda/12.1.1]
-          configure_args+:
-            - CFLAGS=-g -O0
-            - LDFLAGS=-g
-            - --with-gpfs=/usr/lpp/mmfs
-            - --enable-static
-
     5.0.5:
       config:
         configure_args+:
@@ -153,58 +132,6 @@ openmpi:
             - --with-slingshot
           use_flags: [merlin7, slurm]
 
-    4.1.8:
-      config:
-        build_variants: first_match
-      variants:
-        - systems: [merlin-.*]
-          suffix: _slurm
-          use_flags: [merlin6, gpfs]
-          relstage: unstable
-          overlay: base
-          patch_files:
-            - files/openmpi-4.1.8-gpfs-5.2.3.patch
-          group_deps:
-            compiler: {gcc: [9.5.0, 10.5.0, 11.5.0, 12.4.0, 13.4.0, 14.3.0, 15.2.0]}
-          build_requires:
-            - pmix/4.2.4
-            - ucx/1.14.1_slurm
-            - libfabric/1.18.0
-            - hwloc/2.9.1
-            - patchelf/0.14.5
-          runtime_deps: [cuda/12.1.1]
-          configure_args+:
-            - CFLAGS=-g -O0
-            - LDFLAGS=-g
-            - --with-gpfs=/usr/lpp/mmfs
-            - --with-pmi=/usr
-            - --enable-static
-
-        - systems: [ra-.*]
-          suffix: _ra
-          use_flags: [ra, gpfs]
-          group_deps:
-            compiler: {gcc: [9.5.0, 10.4.0, 11.4.0, 12.3.0, 13.1.0]}
-          build_requires: [pmix/4.2.4, ucx/1.14.1_slurm, hwloc/2.9.1, patchelf/0.14.5]
-          runtime_deps: [cuda/12.1.1]
-          configure_args+:
-            - --with-gpfs=/usr/lpp/mmfs
-            - --with-pmi=/usr
-            - --enable-static
-
-        - systems: [.*.merlin7.psi.ch]
-          relstage: stable
-          overlay: Alps
-          group_deps:
-            compiler: {gcc: [12.3.0, 13.3.0, 14.2.0], intelcc: [22.2]}
-          build_requires: [hwloc/2.11.1, patchelf/0.14.5]
-          runtime_deps: [cuda/12.2.0, libfabric/1.22.0, pmix/4.2.9]
-          configure_args+:
-            - --enable-mpi1-compatibility
-            - --enable-static=no
-            - --with-lustre
-          use_overlays: [PSI, Alps]
-          use_flags: [merlin7, slurm]
     4.1.6:
       config:
         build_variants: first_match
@@ -243,7 +170,7 @@ openmpi:
             - --enable-static
 
         - systems: [.*.merlin7.psi.ch]
-          relstage: stable
+          relstage: deprecated
           overlay: Alps
           group_deps:
             compiler: {gcc: [12.3.0, 13.3.0, 14.2.0], intelcc: [22.2]}
