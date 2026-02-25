@@ -1,0 +1,60 @@
+---
+format: 1
+netcdf:
+  defaults:
+    group: HDF5_serial
+    overlay: base
+    relstage: stable
+    systems: [.*]
+    docfiles:
+      - CITATION.cff
+      - COPYRIGHT
+      - INSTALL.md
+      - README.md
+      - RELEASE_NOTES.md
+    urls:
+      - url: https://github.com/Unidata/netcdf-c/archive/refs/tags/v4.9.3.tar.gz
+        name: $P-${V_PKG}.tar.gz
+  shasums:
+  versions:
+    4.9.3:
+      config:
+        relstage: unstable
+        configure_args:
+          - --enable-hdf5=yes
+          - --enable-curl=no
+          - --enable-valgrind=no
+          - --enable-unit-tests=no
+          - --enable-s3=no
+          - --enable-benchmarks=no
+          - --with-pic
+        build_requires: []
+        build_variants: first_match
+      variants:
+        - variant: [serial]
+          systems: [.*.merlin7.psi.ch]
+          target_cpus: [x86_64]
+          overlay: PSI
+          group_deps:
+            compiler: {gcc: [12.4.0, 13.4.0, 14.3.0, 15.2.0]}
+            hdf5_serial: {hdf5_serial: [1.14.6]}
+        - variant: [parallel]
+          systems: [.*.merlin7.psi.ch]
+          target_cpus: [x86_64]
+          overlay: Alps
+          group: HDF5
+          group_deps:
+            compiler: {gcc: [12.4.0, 13.4.0, 14.3.0, 15.2.0]}
+            mpi: {openmpi: [5.0.8]}
+            hdf5: {hdf5: [1.14.6]}
+        - variant: [serial]
+          systems: [.*]
+          group_deps:
+            compiler: {gcc: [12.4.0, 13.4.0, 14.3.0, 15.2.0]}
+            hdf5_serial: {hdf5_serial: [1.14.6]}
+
+
+#netcdf/4.6.1	stable		pgi/18.5  hdf5_serial/1.10.2
+#netcdf/4.6.1	stable		gcc/7.3.0  hdf5_serial/1.10.2
+#netcdf/4.6.1	stable		gcc/6.4.0  hdf5_serial/1.10.3
+#netcdf/4.6.1	stable		gcc/7.3.0  hdf5_serial/1.10.3

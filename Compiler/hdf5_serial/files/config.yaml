@@ -6,10 +6,21 @@ hdf5_serial:
     group: Compiler
     overlay: base
     relstage: stable
-    systems: [rhel7, rhel8, rhel9]
+    docfiles:
+      - ACKNOWLEDGMENTS
+      - CITATION.cff
+      - CODE_OF_CONDUCT.md
+      - CONTRIBUTING.md
+      - COPYING
+      - COPYING_LBNL_HDF5
+      - CVE_list_1_14.md
+      - README.md
+      - SECURITY.md
+    systems: [.*]
     urls:
       - url: https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-${V_MAJOR}.${V_MINOR}/hdf5-$V/src/hdf5-$V.tar.bz2
   shasums:
+    hdf5-1.14.6.tar.gz: 09ee1c671a87401a5201c06106650f62badeea5a3b3941e9b1e2e1e08317357f
     hdf5-1.8.10-patch1.tar.bz2: 292afb3615ad9e68f4d5d18ebb11e4a73f2aece39f2da3875a457ff1e109fc41
     hdf5-1.8.12.tar.bz2: 10a369a4fc207bb09245f57c758e587420e06dfc0e445e337a58b0848b75a949
     hdf5-1.8.13.tar.bz2: c2f5a412107aba6f99fd7a4a9db6ce5f5fc8171ec931472784e5839d26aa17ef
@@ -38,6 +49,27 @@ hdf5_serial:
     hdf5-1.13.1.tar.bz2: e16973ec893e2d5aa9c8dc73e196db9b99a605578e7317b421c713936f8bf57d
 
   versions:
+    1.14.6:
+      config:
+        group_deps:
+          compiler:
+            gcc: [12.4.0, 13.4.0, 14.3.0, 15.2.0]
+        relstage: unstable
+        configure_args:
+          - --enable-shared
+	  - --enable-cxx
+	  - --enable-unsupported
+	  - --enable-threadsafe
+	  - --with-pic
+        build_variants: first_match
+        urls:
+          - url: https://github.com/HDFGroup/hdf5/archive/refs/tags/hdf5_${V_PKG}.tar.gz
+            name: hdf5-${V_PKG}.tar.gz
+      variants:
+        - systems: [.*.merlin7.psi.ch]
+          target_cpus: [x86_64]
+          overlay: PSI
+        - systems: [.*]
     1.8.12:
       config:
         group_deps:
