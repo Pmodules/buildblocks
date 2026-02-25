@@ -1,0 +1,20 @@
+format: 1
+szip:
+  defaults:
+    group: Libraries
+    overlay: base 
+    relstage: stable
+    configure_args:
+    docfiles: []
+    urls:
+      - url: https://docs.hdfgroup.org/archive/support/ftp/lib-external/szip/2.1.1/src/szip-2.1.1.tar.gz
+
+  shasums:
+  versions:
+    2.1.1:
+      config:
+        relstage: unstable
+      variants:
+        - systems: [.*.merlin7.psi.ch]
+          overlay: Alps
+          use_overlays: [PSI, Alps]

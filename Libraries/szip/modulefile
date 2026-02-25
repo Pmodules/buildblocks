@@ -1,0 +1,10 @@
+#%Module1.0
+
+module-whatis		"szip"
+module-url		"https://docs.hdfgroup.org/archive/support/doc_resource/SZIP/index.html"
+module-license		"https://docs.hdfgroup.org/archive/support/doc_resource/SZIP/index.html"
+module-maintainer	"Achim Gsell <achim.gsell@psi.ch>"
+
+module-help		"
+"
+
