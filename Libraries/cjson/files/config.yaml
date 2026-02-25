@@ -1,0 +1,18 @@
+format: 1
+cjson:
+  defaults:
+    group: Libraries
+    overlay: base
+    relstage: stable
+    configure_args: []
+    docfiles: []
+    urls:
+      - url: https://github.com/DaveGamble/cJSON/archive/refs/tags/v${V_PKG}.tar.gz
+        name: cjson-${V_PKG}.tar.gz
+  shasums:
+
+  versions:
+    1.7.19:
+      config:
+        relstage: unstable
+

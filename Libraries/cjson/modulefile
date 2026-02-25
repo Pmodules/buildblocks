@@ -1,0 +1,12 @@
+#%Module1.0
+
+module-whatis		{Ultralightweight JSON parser in ANSI C}
+module-url		{https://github.com/DaveGamble/cJSON}
+module-license		{MIT}
+module-maintainer	{Achim Gsell <achim.gsell@psi.ch>}
+
+module-help		{
+cJSON aims to be the dumbest possible parser that you can get your job done
+with. It's a single file of C, and a single header file.
+}
+
