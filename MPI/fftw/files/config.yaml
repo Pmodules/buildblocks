@@ -1,0 +1,59 @@
+---
+# yamllint disable rule:line-length
+format: 1
+fftw:
+  defaults:
+    group: MPI
+    overlay: base
+    relstage: stable
+    docfiles:
+      - COPYRIGHT
+      - COPYING
+      - README
+      - NEWS
+    urls:
+      - url: http://www.fftw.org/$P-${V_PKG}.tar.gz
+
+  shasums:
+
+  versions:
+    3.3.10:
+      variants:
+        - systems: [.*.merlin7.psi.ch]
+          target_cpus: [x86_64]
+          overlay: Alps
+          relstage: unstable
+          group: Compiler
+          group_deps:
+            compiler:
+              gcc: [13.4.0]
+#           mpi:
+#             openmpi: [5.0.8]
+          build_requires: [cmake/3.20.5]
+          configure_args:
+#            - CC=${MPICC}
+#            - CXX=${MPICXX}
+
+# Multithreading. Enabling both is fines
+            - --enable-threads
+            - --enable-openmp
+
+# MPI support
+#           - --enable-mpi
+
+# CPU optimizations
+            - --enable-sse2
+            - --enable-avx2
+            - --with-pic
+
+# Floating point precision
+#    if pbuild::use_flag "sp"; then
+#        pbuild::add_configure_args "--enable-single"
+#        pbuild::add_configure_args "--enable-sse"
+#    elif pbuild::use_flag "dp"; then
+#        : #default
+#    else
+#        echo "No flag specified" >&2
+#        exit 1
+#    fi
+
