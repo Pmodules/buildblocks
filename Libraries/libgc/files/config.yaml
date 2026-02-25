@@ -1,0 +1,18 @@
+format: 1
+libgc:
+  defaults:
+    group: Libraries
+    overlay: base
+    relstage: stable
+    configure_args: []
+    docfiles: []
+    urls:
+      - url: https://github.com/bdwgc/bdwgc/releases/download/v${V_PKG}/gc-${V_PKG}.tar.gz
+        name: libgc-${V_PKG}.tar.gz
+  shasums:
+
+  versions:
+    8.2.10:
+      config:
+        relstage: unstable
+
