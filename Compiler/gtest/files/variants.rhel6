@@ -1,7 +1,0 @@
-gtest/1.7.0	deprecated	gcc/{5.4.0,6.4.0,7.3.0,7.4.0} b:cmake/3.10.3
-gtest/1.8.1	deprecated	gcc/{5.5.0,6.4.0,7.4.0,8.3.0,9.2.0} b:cmake/3.10.3
-gtest/1.10.0	deprecated	gcc/{7.5.0,8.4.0,9.3.0,10.2.0,10.3.0} b:cmake/3.15.5
-gtest/1.11.0	deprecated	gcc/{7.5.0,8.5.0,9.5.0,10.3.0,10.4.0} b:cmake/3.15.5
-gtest/1.11.0-1	stable		gcc/{7.5.0,8.5.0,9.5.0,10.4.0,11.4.0,12.3.0,13.1.0} b:cmake/3.15.5
-gtest/1.13.0	deprecated	gcc/10.2.0 b:cmake/3.15.5
-gtest/1.13.0-1	stable		gcc/{7.5.0,8.5.0,9.5.0,10.4.0,11.4.0,12.3.0,13.1.0} b:cmake/3.15.5

@@ -8,12 +8,30 @@ boost:
     relstage: stable
     docfiles: [Changelog, Install.txt, LICENSE.txt]
     urls:
-      - url: http://glaros.dtc.umn.edu/gkhome/fetch/sw/$P/$P-${V_PKG}.tar.gz 
+      - url: http://glaros.dtc.umn.edu/gkhome/fetch/sw/$P/$P-${V_PKG}.tar.gz
         name: $P-${V_PKG}.tar.gz
 
   shasums:
+    boost-1.88.0.tar.gz: 3621533e820dcab1e8012afd583c0c73cf0f77694952b81352bf38c1488f9cb4
+    boost-1.86.0.tar.gz: 2575e74ffc3ef1cd0babac2c1ee8bdb5782a0ee672b1912da40e5b4b591ca01f
+    boost-1.82.0.tar.gz: 66a469b6e608a51f8347236f4912e27dc5c60c60d7d53ae9bfe4683316c6f04c
 
   versions:
+    1.86.0;1.88.0:
+      config:
+        urls:
+          - url: https://sourceforge.net/projects/boost/files/boost/1.86.0/boost_1_86_0.tar.gz/download
+            name: $P-$V_PKG.tar.gz
+      variants:
+        - systems: [merlin-.*]
+          relstage: unstable
+          group_deps:
+            compiler:
+              gcc: [10.5.0, 11.5.0, 12.4.0, 13.3.0, 14.3.0, 15.2.0]
+            mpi:
+              openmpi: [4.1.8_slurm]
+          build_requires: [zlib/1.3.1]
+
     1.82.0:
       config:
         urls:

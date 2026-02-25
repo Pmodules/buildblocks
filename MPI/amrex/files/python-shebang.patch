@@ -1,0 +1,210 @@
+diff -ru amrex-18.07.1.orig/Tools/C_scripts/describe_sources.py amrex-18.07.1/Tools/C_scripts/describe_sources.py
+--- amrex-18.07.1.orig/Tools/C_scripts/describe_sources.py	2018-07-02 19:40:21
++++ amrex-18.07.1/Tools/C_scripts/describe_sources.py	2026-01-21 17:08:53
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ import sys
+ 
+Only in amrex-18.07.1/Tools/C_scripts: describe_sources.py~
+diff -ru amrex-18.07.1.orig/Tools/C_scripts/makebuildinfo_C.py amrex-18.07.1/Tools/C_scripts/makebuildinfo_C.py
+--- amrex-18.07.1.orig/Tools/C_scripts/makebuildinfo_C.py	2018-07-02 19:40:21
++++ amrex-18.07.1/Tools/C_scripts/makebuildinfo_C.py	2026-01-21 17:08:53
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ import sys
+ 
+Only in amrex-18.07.1/Tools/C_scripts: makebuildinfo_C.py~
+diff -ru amrex-18.07.1.orig/Tools/CompileTesting/compiletesting.py amrex-18.07.1/Tools/CompileTesting/compiletesting.py
+--- amrex-18.07.1.orig/Tools/CompileTesting/compiletesting.py	2018-07-02 19:40:21
++++ amrex-18.07.1/Tools/CompileTesting/compiletesting.py	2026-01-21 17:09:01
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ import sys
+ import os
+Only in amrex-18.07.1/Tools/CompileTesting: compiletesting.py~
+diff -ru amrex-18.07.1.orig/Tools/F_scripts/dep.py amrex-18.07.1/Tools/F_scripts/dep.py
+--- amrex-18.07.1.orig/Tools/F_scripts/dep.py	2018-07-02 19:40:21
++++ amrex-18.07.1/Tools/F_scripts/dep.py	2026-01-21 17:09:00
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ # automatically generate Makefile dependencies for Fortran 90 source.
+ #
+Only in amrex-18.07.1/Tools/F_scripts: dep.py~
+diff -ru amrex-18.07.1.orig/Tools/F_scripts/fcheck.py amrex-18.07.1/Tools/F_scripts/fcheck.py
+--- amrex-18.07.1.orig/Tools/F_scripts/fcheck.py	2018-07-02 19:40:21
++++ amrex-18.07.1/Tools/F_scripts/fcheck.py	2026-01-21 17:08:59
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ # a simple routine to parse Fortran files and make sure that things are 
+ # declared double precision, and constants are of the form 1.0_dp_t or 
+Only in amrex-18.07.1/Tools/F_scripts: fcheck.py~
+diff -ru amrex-18.07.1.orig/Tools/F_scripts/find_files_vpath.py amrex-18.07.1/Tools/F_scripts/find_files_vpath.py
+--- amrex-18.07.1.orig/Tools/F_scripts/find_files_vpath.py	2018-07-02 19:40:21
++++ amrex-18.07.1/Tools/F_scripts/find_files_vpath.py	2026-01-21 17:08:58
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ """
+ Take a vpath and a list of files and find where in the first vpath the
+Only in amrex-18.07.1/Tools/F_scripts: find_files_vpath.py~
+diff -ru amrex-18.07.1.orig/Tools/F_scripts/findparams.py amrex-18.07.1/Tools/F_scripts/findparams.py
+--- amrex-18.07.1.orig/Tools/F_scripts/findparams.py	2018-07-02 19:40:21
++++ amrex-18.07.1/Tools/F_scripts/findparams.py	2026-01-21 17:08:58
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ from __future__ import print_function
+ 
+Only in amrex-18.07.1/Tools/F_scripts: findparams.py~
+diff -ru amrex-18.07.1.orig/Tools/F_scripts/makebuildinfo.py amrex-18.07.1/Tools/F_scripts/makebuildinfo.py
+--- amrex-18.07.1.orig/Tools/F_scripts/makebuildinfo.py	2018-07-02 19:40:21
++++ amrex-18.07.1/Tools/F_scripts/makebuildinfo.py	2026-01-21 17:08:58
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ # a simple script that writes the build_info.f90 file that is used
+ # to store information for the job_info file that we store in plotfiles.
+Only in amrex-18.07.1/Tools/F_scripts: makebuildinfo.py~
+diff -ru amrex-18.07.1.orig/Tools/F_scripts/write_probin.py amrex-18.07.1/Tools/F_scripts/write_probin.py
+--- amrex-18.07.1.orig/Tools/F_scripts/write_probin.py	2018-07-02 19:40:21
++++ amrex-18.07.1/Tools/F_scripts/write_probin.py	2026-01-21 17:09:00
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ """
+ This routine parses plain-text parameter files that list runtime
+Only in amrex-18.07.1/Tools/F_scripts: write_probin.py~
+diff -ru amrex-18.07.1.orig/Tools/Postprocessing/F_Src/python/column_depth.py amrex-18.07.1/Tools/Postprocessing/F_Src/python/column_depth.py
+--- amrex-18.07.1.orig/Tools/Postprocessing/F_Src/python/column_depth.py	2018-07-02 19:40:21
++++ amrex-18.07.1/Tools/Postprocessing/F_Src/python/column_depth.py	2026-01-21 17:08:55
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ import sys
+ import numpy
+ 
+Only in amrex-18.07.1/Tools/Postprocessing/F_Src/python: column_depth.py~
+diff -ru amrex-18.07.1.orig/Tools/Postprocessing/F_Src/python/conv_slopes.py amrex-18.07.1/Tools/Postprocessing/F_Src/python/conv_slopes.py
+--- amrex-18.07.1.orig/Tools/Postprocessing/F_Src/python/conv_slopes.py	2018-07-02 19:40:21
++++ amrex-18.07.1/Tools/Postprocessing/F_Src/python/conv_slopes.py	2026-01-21 17:08:54
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ import sys
+ import os
+ import commands
+Only in amrex-18.07.1/Tools/Postprocessing/F_Src/python: conv_slopes.py~
+diff -ru amrex-18.07.1.orig/Tools/Postprocessing/F_Src/python/dumpparthistory.py amrex-18.07.1/Tools/Postprocessing/F_Src/python/dumpparthistory.py
+--- amrex-18.07.1.orig/Tools/Postprocessing/F_Src/python/dumpparthistory.py	2018-07-02 19:40:21
++++ amrex-18.07.1/Tools/Postprocessing/F_Src/python/dumpparthistory.py	2026-01-21 17:08:54
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ # a simple routine to parse particle files and dump out the particle
+ # histories into separate files (1 file per particle) so that they can
+Only in amrex-18.07.1/Tools/Postprocessing/F_Src/python: dumpparthistory.py~
+diff -ru amrex-18.07.1.orig/Tools/Postprocessing/F_Src/python/test_helmeos.py amrex-18.07.1/Tools/Postprocessing/F_Src/python/test_helmeos.py
+--- amrex-18.07.1.orig/Tools/Postprocessing/F_Src/python/test_helmeos.py	2018-07-02 19:40:21
++++ amrex-18.07.1/Tools/Postprocessing/F_Src/python/test_helmeos.py	2026-01-21 17:08:55
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ #
+ # a script showing how to use the helmeos module
+ # it reads T, rho, X data from a sample data file, calculates abar and zbar
+Only in amrex-18.07.1/Tools/Postprocessing/F_Src/python: test_helmeos.py~
+diff -ru amrex-18.07.1.orig/Tools/Postprocessing/F_Src/python/test_parseparticles.py amrex-18.07.1/Tools/Postprocessing/F_Src/python/test_parseparticles.py
+--- amrex-18.07.1.orig/Tools/Postprocessing/F_Src/python/test_parseparticles.py	2018-07-02 19:40:21
++++ amrex-18.07.1/Tools/Postprocessing/F_Src/python/test_parseparticles.py	2026-01-21 17:08:54
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ # simple script showing how to make plots of particles using the parseparticles
+ # module
+Only in amrex-18.07.1/Tools/Postprocessing/F_Src/python: test_parseparticles.py~
+diff -ru amrex-18.07.1.orig/Tools/Py_util/plotsinglevar.py amrex-18.07.1/Tools/Py_util/plotsinglevar.py
+--- amrex-18.07.1.orig/Tools/Py_util/plotsinglevar.py	2018-07-02 19:40:21
++++ amrex-18.07.1/Tools/Py_util/plotsinglevar.py	2026-01-21 17:08:55
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ # a simple script to plot 2-d or 3-d BoxLib data using the matplotlib
+ # library
+Only in amrex-18.07.1/Tools/Py_util: plotsinglevar.py~
+diff -ru amrex-18.07.1.orig/Tools/Release/ppCleanup.py amrex-18.07.1/Tools/Release/ppCleanup.py
+--- amrex-18.07.1.orig/Tools/Release/ppCleanup.py	2018-07-02 19:40:21
++++ amrex-18.07.1/Tools/Release/ppCleanup.py	2026-01-21 17:08:57
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ import os
+ import shutil
+Only in amrex-18.07.1/Tools/Release: ppCleanup.py~
+diff -ru amrex-18.07.1.orig/Tools/Release/ppCleanupDir.py amrex-18.07.1/Tools/Release/ppCleanupDir.py
+--- amrex-18.07.1.orig/Tools/Release/ppCleanupDir.py	2018-07-02 19:40:21
++++ amrex-18.07.1/Tools/Release/ppCleanupDir.py	2026-01-21 17:08:57
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ import os
+ import shutil
+Only in amrex-18.07.1/Tools/Release: ppCleanupDir.py~
+diff -ru amrex-18.07.1.orig/Tools/Release/release.py amrex-18.07.1/Tools/Release/release.py
+--- amrex-18.07.1.orig/Tools/Release/release.py	2018-07-02 19:40:21
++++ amrex-18.07.1/Tools/Release/release.py	2026-01-21 17:08:57
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ import os
+ import shutil
+Only in amrex-18.07.1/Tools/Release: release.py~
+diff -ru amrex-18.07.1.orig/Tools/libamrex/configure.py amrex-18.07.1/Tools/libamrex/configure.py
+--- amrex-18.07.1.orig/Tools/libamrex/configure.py	2018-07-02 19:40:21
++++ amrex-18.07.1/Tools/libamrex/configure.py	2026-01-21 17:08:56
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ from __future__ import print_function
+ 
+Only in amrex-18.07.1/Tools/libamrex: configure.py~
+diff -ru amrex-18.07.1.orig/Tools/libamrex/mkconfig.py amrex-18.07.1/Tools/libamrex/mkconfig.py
+--- amrex-18.07.1.orig/Tools/libamrex/mkconfig.py	2018-07-02 19:40:21
++++ amrex-18.07.1/Tools/libamrex/mkconfig.py	2026-01-21 17:08:56
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ from __future__ import print_function
+ 
+Only in amrex-18.07.1/Tools/libamrex: mkconfig.py~
+diff -ru amrex-18.07.1.orig/Tools/typechecker/typechecker.py amrex-18.07.1/Tools/typechecker/typechecker.py
+--- amrex-18.07.1.orig/Tools/typechecker/typechecker.py	2018-07-02 19:40:21
++++ amrex-18.07.1/Tools/typechecker/typechecker.py	2026-01-21 17:08:52
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python3
+ 
+ from __future__ import print_function
+ 
+Only in amrex-18.07.1/Tools/typechecker: typechecker.py~

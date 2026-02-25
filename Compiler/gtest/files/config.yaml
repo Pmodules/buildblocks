@@ -1,0 +1,30 @@
+---
+# yamllint disable rule:line-length
+format: 1
+gtest:
+  defaults:
+    group: Compiler
+    overlay: base
+    relstage: stable
+    urls:
+      - url: https://github.com/google/googletest/archive/refs/tags/v${V_PKG}.tar.gz
+        name: $P-${V_PKG}.tar.gz
+    configure_args:
+    docfiles:
+      - CHANGES
+      - CONTRIBUTORS
+      - LICENSE
+      - README.md
+
+  shasums:
+    gtest-1.17.0.tar.gz: 65fab701d9829d38cb77c14acdc431d2108bfdbf8979e40eb8ae567edf10b27c
+
+  versions:
+    1.17.0:
+      config:
+          group_deps:
+            compiler:
+              gcc: [10.5.0, 11.5.0]
+      variants:
+        - systems: [rhel.*]
+          relstage: unstable

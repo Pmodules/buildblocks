@@ -1,0 +1,11 @@
+--- a/ompi/mca/fs/gpfs/fs_gpfs_file_set_info.c    2025-05-30 18:35:13.522618108 +0200
++++ b/ompi/mca/fs/gpfs/fs_gpfs_file_set_info.c    2025-06-25 18:21:58.703887614 +0200
+@@ -313,7 +313,7 @@
+         gpfs_hint_SetReplication.gpfsSetReplication.maxMetadataReplicas = atoi(token);
+         gpfs_hint_SetReplication.gpfsSetReplication.dataReplicas = atoi(token);
+         gpfs_hint_SetReplication.gpfsSetReplication.maxDataReplicas = atoi(token);
+-        gpfs_hint_SetReplication.gpfsSetReplication.reserved = 0;
++        gpfs_hint_SetReplication.gpfsSetReplication.perfReplicas = 0;
+         free(info_str_dup);
+
+         rc = gpfs_fcntl(gpfs_file_handle, &gpfs_hint_SetReplication);

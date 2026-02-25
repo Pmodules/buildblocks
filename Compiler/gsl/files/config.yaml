@@ -21,13 +21,24 @@ gsl:
       - TODO
 
   shasums:
+    gsl-2.8.tar.gz: 6a99eeed15632c6354895b1dd542ed5a855c0f15d9ad1326c6fe2b2c9e423190
+    gsl-2.7.tar.gz: efbbf3785da0e53038be7907500628b466152dbc3c173a87de1b5eba2e23602b
+    gsl-2.6.tar.gz: b782339fc7a38fe17689cb39966c4d821236c28018b6593ddb6fd59ee40786a8
+    gsl-2.5.tar.gz: 0460ad7c2542caaddc6729762952d345374784100223995eb14d614861f2258d
+    gsl-2.4.tar.gz.sig: c05a3e6036e149cd8a92649e1b4969ada728ce5c55dc40376661d5c69fa15988
+    gsl-2.4.tar.gz: 4d46d07b946e7b31c19bbf33dda6204d7bedc2f5462a1bae1d4013426cd1ce9b
+    gsl-2.4.0.tar.gz: f00709275fa856c109d1fd88f6031ae60183cbf9b4e38b61f0ef4883175eee7c
+    gsl-2.3.tar.gz: 28e5981d55d6d55f9a67ba912b4254479c437fc09a36e388ccecefc0199a0313
+    gsl-2.2.1.tar.gz: 13d23dc7b0824e1405f3f7e7d0776deee9b8f62c62860bf66e7852d402b8b024
+    gsl-1.16.tar.gz: 73bc2f51b90d2a780e6d266d43e487b3dbd78945dd0b04b14ca5980fe28d2f53
+    gsl-1.15.tar.gz: 85b907e57902e2b7606ef3aef960302ffdd13bd9dc5b8fcbfa75e4f0bf340ea3
 
   versions:
     2.8:
       config:
           group_deps:
             compiler:
-              gcc: [12.3.0, 12.4.0, 14.2.0, 14.3.0, 15.2.0]
+              gcc: [10.5.0, 11.5.0, 12.3.0, 12.4.0, 14.2.0, 14.3.0, 15.2.0]
       variants:
         - systems: [.*.merlin7.psi.ch]
           overlay: PSI

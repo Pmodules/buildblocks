@@ -7,6 +7,12 @@ hdf5:
     overlay: base
     relstage: stable
     systems: [rhel7, rhel8, rhel9]
+    docfiles:
+      - ACKNOWLEDGMENTS
+      - COPYING
+      - MANIFEST
+      - README*
+
     urls:
       - url: https://support.hdfgroup.org/ftp/HDF5/releases/$P-${V_MAJOR}.${V_MINOR}/$P-${V_PKG}/src/$P-${V_PKG}.tar.bz2
   shasums:
@@ -57,9 +63,10 @@ hdf5:
             mpi: {openmpi: [5.0.8]}
         - systems: [rhel.*]
           overlay: base
+          relstage: unstable
           group_deps:
-            compiler: {gcc: [12.3.0, 12.4.0, 13.3.0, 13.4.0, 14.2.0, 14.3.0, 15.2.0]}
-            mpi: {openmpi: [5.0.8]}
+            compiler: {gcc: [10.5.0, 11.5.0, 12.4.0, 13.4.0, 14.3.0, 15.2.0]}
+            mpi: {openmpi: [4.1.8_slurm]}
  
 
     1.8.12:

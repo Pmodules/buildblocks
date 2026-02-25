@@ -35,20 +35,25 @@ OpenBLAS:
   versions:
     0.3.30:
       config:
-        group_deps:
-          compiler:
-            gcc: [12.3.0, 12.4.0, 13.3.0, 13.4.0, 14.2.0, 14.3.0, 15.2.0]
-        build_requires: [cmake/3.23.2]
-        relstage: stable
         configure_args+:
           - -DBUILD_SHARED_LIBS=ON
           - -DBUILD_STATIC_LIBS=ON
       variants:
-        - systems: [rhel.*]
+        - systems: [merlin-.*]
+          relstage: unstable
+          group_deps:
+            compiler:
+              gcc: [10.5.0, 11.5.0]
+          build_requires: [cmake/3.23.2]
         - systems: [.*.merlin7.psi.ch]
           target_cpus: [x86_64]
           overlay: PSI
           use_overlays: [PSI, Alps]
+          group_deps:
+            compiler:
+              gcc: [11.5.0, 12.3.0, 12.4.0, 13.3.0, 13.4.0, 14.2.0, 14.3.0, 15.2.0]
+          build_requires: [cmake/3.23.2]
+
     0.3.28:
       config:
         group_deps:

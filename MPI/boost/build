@@ -16,7 +16,7 @@ pbuild::configure() {
 
 pbuild::compile() {
         cd "${SRC_DIR}"
-
+	echo "COMPILER=${COMPILER}"
 	case "${COMPILER}" in
 	gcc )
 	        TOOLSET=gcc
@@ -65,6 +65,7 @@ pbuild::compile() {
         esac
 
         echo "using mpi ;" >> "./project-config.jam"
+        echo "$LD_LIBRARY_PATH"
         ./b2  \
                 --build-dir="${BUILD_DIR}" \
                 --layout=system \

@@ -8,6 +8,8 @@ amrex:
     relstage: stable
     configure_with: cmake
     use_flags: [3d]
+    patch_files:
+      - files/python-shebang.patch
     docfiles:
       - CHANGES
       - INSTALL
@@ -18,10 +20,19 @@ amrex:
         name: $P-${V_PKG}.tar.gz
 
   shasums:
+    amrex-18.07.1.tar.gz: eba560120d95cff3e62d5b548d991acf6e4f579a7958cebdbbd9c11d4aa977e4
 
   versions:
     18.07.1:
       variants:
+        - systems: [merlin-.*]
+          suffix: _3d
+          relstage: unstable
+          group_deps:
+            compiler:
+              gcc: [10.5.0, 11.5.0]
+            mpi:
+              openmpi: [4.1.8_slurm]
         - systems: [merlin-.*]
           suffix: _3d_slurm
           group_deps:
