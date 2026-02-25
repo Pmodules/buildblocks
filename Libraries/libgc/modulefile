@@ -1,0 +1,23 @@
+#%Module1.0
+
+module-whatis		"garbage collector for C and C++"
+module-url		"https://github.com/bdwgc/bdwgc"
+module-license		"See https://github.com/bdwgc/bdwgc/blob/master/LICENSE"
+module-maintainer	"Achim Gsell <achim.gsell@psi.ch>"
+
+module-help		{
+This is intended to be a general purpose, garbage collecting storage
+allocator. The algorithms used are described in:
+
+Boehm, H., and M. Weiser, "Garbage Collection in an Uncooperative
+Environment", Software Practice & Experience, September 1988, pp. 807-820.
+
+Boehm, H., A. Demers, and S. Shenker, "Mostly Parallel Garbage Collection",
+Proceedings of the ACM SIGPLAN '91 Conference on Programming Language Design
+and Implementation, SIGPLAN Notices 26, 6 (June 1991), pp. 157-164.
+
+Boehm, H., "Space Efficient Conservative Garbage Collection", Proceedings of
+the ACM SIGPLAN '91 Conference on Programming Language Design and
+Implementation, SIGPLAN Notices 28, 6 (June 1993), pp. 197-206.
+}
+
