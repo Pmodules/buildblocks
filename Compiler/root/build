@@ -1,60 +1,10 @@
 #!/usr/bin/env modbuild
 
-pbuild::set_download_url "https://root.cern.ch/download/root_v${V_MAJOR}.${V_MINOR}.${V_PATCHLVL}.source.tar.gz"
-
-pbuild::add_to_group 'Compiler'
-
-pbuild::pre_prep_Linux() {
-	if pbuild::use_flag 'oracleclient'; then
-		if (( V_MAJOR == 6 && V_MINOR < 12)); then
-			pbuild::add_patch "${V_MAJOR}/cmake_oracle12.patch"
-		fi
-	fi
-}
-
-pbuild::pre_configure_Darwin() {
-	# cocoa doesn't work with GCC!?
-	pbuild::add_configure_args '-Dcocoa=OFF'
-	pbuild::add_configure_args '-Dx11=ON'
-	pbuild::add_configure_args '-DCMAKE_OSX_SYSROOT=/'
-	pbuild::add_configure_args "-DCMAKE_OSX_DEPLOYMENT_TARGET=''"
-}
-
-pbuild::pre_configure_Linux() {
-	pbuild::use_cmake
-	if pbuild::use_flag 'oracleclient'; then
-		INSTANTCLIENT_INCLUDE_DIR='/usr/lib/oracle/12.1/client64/include'
-		INSTANTCLIENT_LIBRARY_DIR='/usr/lib/oracle/12.1/client64/lib'
-		C_INCLUDE_PATH+=":${INSTANTCLIENT_INCLUDE_DIR}"
-		CXX_INCLUDE_PATH+=":${INSTANTCLIENT_INCLUDE_DIR}"
-		CPLUS_INCLUDE_PATH+=":${INSTANTCLIENT_INCLUDE_DIR}"
-		LIBRARY_DIR+=":${INSTANTCLIENT_LIBRARY_DIR}"
-
-		pbuild::add_configure_args "-Doracle=ON"
-		pbuild::add_configure_args "-DORACLE_PATH_INCLUDES=${INSTANTCLIENT_INCLUDE_DIR}"
-		pbuild::add_configure_args "-DORACLE_PATH_LIB=${INSTANTCLIENT_LIBRARY_DIR}"
-		pbuild::add_configure_args "-DORACLE_OCI_VERSION=10G_R2"
-	fi
-	pbuild::add_configure_args "-Dbuiltin_fftw3=ON"
-	pbuild::add_configure_args "-Dxrootd=OFF"
-	pbuild::add_configure_args "-DCMAKE_CXX_STANDARD=17"
-	pbuild::add_configure_args "-DCXX_STANDARD_STRING=17"
-
-}
-
 pbuild::compile() {
-	cmake --build . -- -j6 VERBOSE=1
+	cmake --build . -- -j8 VERBOSE=1
 }
 
 pbuild::install() {
 	cmake --build . --target install
-}
-
-pbuild::post_install_Linux() {
-	if pbuild::use_flag 'oracleclient'; then
-		install -m 0644 "${INSTANTCLIENT_LIBRARY_DIR}"/*  "${PREFIX}"/lib
-		install -m 0644 "${INSTANTCLIENT_INCLUDE_DIR}"/*  "${PREFIX}"/include
-	fi
-	install -m 0644 "${GSL_LIBRARY_DIR}"/lib*.so.*  "${PREFIX}"/lib
 }
 

@@ -1,0 +1,27 @@
+---
+# yamllint disable rule:line-length
+format: 1
+root:
+  defaults:
+    group: Compiler
+    overlay: base
+    docfiles: []
+    configure_with: cmake
+    urls:
+      - url: https://root.cern/download/root_v${V_MAJOR}.${V_MINOR}.${V_PATCHLVL}.source.tar.gz
+  shasums:
+
+  versions:
+    6.38.00:
+      variants:
+        - systems: [.*.merlin7.psi.ch]
+          overlay: Alps
+          group_deps:
+            compiler: {gcc: [13.4.0]}
+          build_requires: []
+          configure_args:
+            - -Dbuiltin_fftw3=ON
+            - -Dxrootd=OFF
+            - -DCMAKE_CXX_STANDARD=17
+            - -DCXX_STANDARD_STRING=17
+          relstage: unstable
