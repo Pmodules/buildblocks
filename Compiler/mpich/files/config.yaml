@@ -28,7 +28,7 @@ mpich:
           use_overlays: [PSI, Alps]
           use_flags: [merlin7, slurm]
           group_deps:
-            compiler: {intelcc: [22.2], gcc: [14.3.0]}
+            compiler: {gcc: [14.3.0]}
           build_requires: [hwloc/2.12.0, patchelf/0.14.5]
           runtime_deps: [libfabric/2.4.0-oss]
           configure_args+:
