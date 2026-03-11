@@ -59,7 +59,7 @@ openmpi:
     openmpi-5.0.9.tar.bz2: dfb72762531170847af3e4a0f21d77d7b23cf36f67ce7ce9033659273677d80b
 
   versions:
-    5.0.9:
+    5.0.10:
       config:
         configure_args+:
           - --enable-mpi1-compatibility
@@ -74,9 +74,9 @@ openmpi:
           build_requires:
             - hwloc/2.12.0
             - patchelf/0.14.5
-            - shs-cassini-headers/13.0.0-oss
-            - shs-cxi-driver/13.0.0-oss
-            - shs-libcxi/13.0.0-oss
+            - shs-cassini-headers/12.0.2-oss
+            - shs-cxi-driver/12.0.2-oss
+            - shs-libcxi/12.0.2-oss
           runtime_deps:
             - cuda/12.9.1
             - pmix/5.0.10

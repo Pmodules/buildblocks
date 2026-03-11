@@ -33,6 +33,30 @@ mpich:
           runtime_deps: [libfabric/2.4.0-oss]
           configure_args+:
             - --with-pm=hydra,gforker
+        - systems: [gpu.*.merlin7.psi.ch]
+          relstage: unstable
+          overlay: Alps_A100
+          target_cpus: ['x86_64'] # GPU A100
+          use_overlays: [PSI, Alps_A100]
+          use_flags: [merlin7, slurm, cuda]
+          group_deps:
+            compiler: {gcc: [14.3.0]}
+          build_requires: [hwloc/2.12.0, patchelf/0.14.5]
+          runtime_deps: [cuda/12.9.1,libfabric/2.4.0-oss]
+          configure_args+:
+            - --with-pm=hydra,gforker
+        - systems: [gpu.*.merlin7.psi.ch]
+          relstage: unstable
+          overlay: Alps
+          target_cpus: ['aarch64'] # GPU GH
+          use_overlays: [PSI, Alps]
+          use_flags: [merlin7, slurm, cuda]
+          group_deps:
+            compiler: {gcc: [14.3.0]}
+          build_requires: [hwloc/2.12.0, patchelf/0.14.5]
+          runtime_deps: [cuda/12.9.1,libfabric/2.4.0-oss]
+          configure_args+:
+            - --with-pm=hydra,gforker
     4.3.2:
       variants:
         - systems: [merlin-.*.psi.ch]

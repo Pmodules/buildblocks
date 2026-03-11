@@ -29,6 +29,15 @@ shs-cxi-driver:
           suffix: '-oss'
           use_overlays: [PSI]
           use_flags: [merlin7]
+    12.0.2:
+      config:
+        relstage: stable
+      variants:
+        - systems: [.*.merlin7.psi.ch]
+          overlay: Alps
+          suffix: '-oss'
+          use_overlays: [PSI]
+          use_flags: [merlin7]
     12.0.1:
       config:
         relstage: stable
