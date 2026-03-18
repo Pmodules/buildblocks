@@ -85,6 +85,18 @@ openmpi:
             - --with-lustre
             - --with-xpmem
           use_flags: [merlin7, slurm]
+        - systems: [ra-.*]
+          relstage: unstable
+          suffix: _ra
+          use_flags: [ra, gpfs]
+          group_deps:
+            compiler: {gcc: [12.3.0]}
+          build_requires: [pmix/4.2.4, ucx/1.14.1_slurm, hwloc/2.9.1, patchelf/0.14.5]
+          runtime_deps: [cuda/12.1.1]
+          configure_args+:
+            - --with-gpfs=/usr/lpp/mmfs
+            - --enable-static
+
     5.0.8:
       config:
         configure_args+:
