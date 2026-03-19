@@ -57,6 +57,7 @@ openmpi:
     openmpi-5.0.5.tar.bz2: 6588d57c0a4bd299a24103f4e196051b29e8b55fbda49e11d5b3d32030a32776
     openmpi-5.0.8.tar.bz2: 53131e1a57e7270f645707f8b0b65ba56048f5b5ac3f68faabed3eb0d710e449
     openmpi-5.0.9.tar.bz2: dfb72762531170847af3e4a0f21d77d7b23cf36f67ce7ce9033659273677d80b
+    openmpi-5.0.10.tar.bz2: 0acecc4fc218e5debdbcb8a41d182c6b0f1d29393015ed763b2a91d5d7374cc6
 
   versions:
     5.0.10:
