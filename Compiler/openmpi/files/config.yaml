@@ -98,6 +98,44 @@ openmpi:
             - --with-gpfs=/usr/lpp/mmfs
             - --enable-static
 
+    5.0.9:
+      config:
+        configure_args+:
+          - --enable-mpi1-compatibility
+          - --enable-static=no
+      variants:
+        - systems: [.*.merlin7.psi.ch]
+          relstage: removed
+          overlay: Alps
+          use_overlays: [PSI, Alps]
+          group_deps:
+            compiler: {gcc: [14.3.0]}
+          build_requires:
+            - hwloc/2.12.0
+            - patchelf/0.14.5
+            - shs-cassini-headers/12.0.2-oss
+            - shs-cxi-driver/12.0.2-oss
+            - shs-libcxi/12.0.2-oss
+          runtime_deps:
+            - cuda/12.9.1
+            - pmix/5.0.10
+            - libfabric/2.4.0-oss
+          configure_args+:
+            - --with-lustre
+            - --with-xpmem
+          use_flags: [merlin7, slurm]
+        - systems: [ra-.*]
+          relstage: unstable
+          suffix: _ra
+          use_flags: [ra, gpfs]
+          group_deps:
+            compiler: {gcc: [12.3.0]}
+          build_requires: [pmix/4.2.4, ucx/1.14.1_slurm, hwloc/2.9.1, patchelf/0.14.5]
+          runtime_deps: [cuda/12.1.1]
+          configure_args+:
+            - --with-gpfs=/usr/lpp/mmfs
+            - --enable-static
+
     5.0.8:
       config:
         configure_args+:
