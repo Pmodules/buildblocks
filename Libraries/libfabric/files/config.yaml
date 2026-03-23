@@ -14,6 +14,8 @@ libfabric:
     urls:
       - url: https://github.com/ofiwg/libfabric/releases/download/v${V}/${P}-${V}.tar.bz2
   shasums:
+    libfabric-2.5.0.tar.bz2: 276019edca708dc0569cf3064a412e395ba7b1883299781caed120594f850995
+    libfabric-2.4.0.tar.bz2: 13f508e1d770c44f872c4117d9bcbfc102dc9d7532d3292455e0e0e5ef7b3bba
     libfabric-2.2.0.tar.bz2: ff6d05240b4a9753bb3d1eaf962f5a06205038df5142374a6ef40f931bb55ecc
     libfabric-1.18.0.tar.bz2: 912fb7c7b3cf2a91140520962b004a1c5d2f39184adbbd98ae5919b0178afd43
     libfabric-1.13.0.tar.bz2: 0c68264ae18de5c31857724c754023351614330bd61a50b40cef2b5e8f63ab28
@@ -29,9 +31,9 @@ libfabric:
           use_flags: [merlin7]
           build_requires:
             - gcc/12.3.0
-            - shs-cassini-headers/13.1.0-oss
-            - shs-cxi-driver/13.1.0-oss
-            - shs-libcxi/13.1.0-oss
+            - shs-cassini-headers/12.0.2-oss
+            - shs-cxi-driver/12.0.2-oss
+            - shs-libcxi/12.0.2-oss
             - cuda/12.9.1
             - GDRCopy/2.5
           configure_args+:
