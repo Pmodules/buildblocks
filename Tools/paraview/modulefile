@@ -18,3 +18,15 @@ of petascale size as well as on laptops for smaller data, has become an integral
 tool in many national laboratories, universities and industry, and has won 
 several awards related to high performance computation.
 "
+
+if {[module-info mode load]} {
+  if {[module-info mode load]} {
+      set host $::env(HOSTNAME)
+      if {[string match login* $host] || [string match merlin-l-* $host]} {
+         setenv OSPRAY_THREADS 8
+         setenv OSPRAY_NUM_THREADS 8
+         setenv VTK_SMP_MAX_THREADS 8
+         setenv KNOB_MAX_WORKER_THREADS 8
+      }
+  }
+}
