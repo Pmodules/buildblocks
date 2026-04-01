@@ -1,0 +1,18 @@
+---
+format: 1
+cryodeco:
+  defaults:
+    group: EM
+    overlay: base
+    relstage: stable
+
+  versions:
+    dev:
+      variants:
+        - overlay: Alps
+          target_cpus: [x86_64]
+          systems: [.*.merlin7.psi.ch]
+          relstage: stable
+          runtime_deps:
+            - cuda/12.9.1
+
