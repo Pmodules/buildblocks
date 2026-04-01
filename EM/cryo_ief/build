@@ -1,0 +1,47 @@
+#!/usr/bin/env modbuild
+
+# default Python version
+: "${PYTHON_VERSION:=3.10}"
+
+# default cryosparc-tools version
+: "${CRYOSPARC_TOOLS_VERSION:=4.7.1}"
+
+pbuild::configure() {
+    # Install Miniforge
+    mkdir -p "$PREFIX/miniforge"
+    wget "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh" -O "$PREFIX/miniforge/miniforge.sh"
+    bash "$PREFIX/miniforge/miniforge.sh" -b -u -p "$PREFIX/miniforge/"
+
+    # Initialize mamba for script use
+    source "$PREFIX/miniforge/etc/profile.d/mamba.sh"
+
+    # Create the conda environment
+    mamba create -y --name "${P}_${V_PKG}" "python=${PYTHON_VERSION}"
+}
+
+pbuild::compile() {
+    :
+}
+
+pbuild::install() {
+    # Ensure mamba is initialized
+    source "$PREFIX/miniforge/etc/profile.d/mamba.sh"
+
+    # Activate the conda environment
+    mamba activate "${P}_${V_PKG}"
+
+    # Set the source directory
+    cd "$SRC_DIR"
+
+    # Install required packages
+    pip install -r requirements.txt
+
+    # Install cryosparc-tools 
+    pip install "cryosparc-tools==${CRYOSPARC_TOOLS_VERSION}"
+
+    # Install nvidia-ml-py for cpu affinity
+    pip install nvidia-ml-py
+
+    # Copy the contents of the github repository to $PREFIX
+    cp -r . "$PREFIX"
+}
