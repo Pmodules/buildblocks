@@ -1,0 +1,18 @@
+#%Module1.0
+
+module-whatis       "A foundation model pre-trained on approximately 65 million cryo-EM particle images via unsupervised learning"
+module-url          "https://github.com/westlake-repl/Cryo-IEF"
+module-license      "MIT license"
+module-maintainer   "João Pedro Agostinho de Sousa <joao.agostinho-de-sousa@psi.ch>"
+
+module-help         "
+Cryo-IEF (Cryo-EM Image Evaluation Foundation) — a foundation model pre-trained
+on approximately 65 million cryo-EM particle images via unsupervised learning.
+Cryo-IEF provides powerful general-purpose representations for cryo-EM data,
+excelling at tasks such as classifying particles by structure, clustering
+particles by pose, and assessing image quality.
+"
+
+# Add conda env bin directory to PATH
+prepend-path PATH "${PREFIX}/miniforge/envs/${P}_${V_PKG}/bin"
+

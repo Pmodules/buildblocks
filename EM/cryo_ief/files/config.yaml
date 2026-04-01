@@ -1,0 +1,24 @@
+---
+# yamllint disable rule:line-length
+format: 1
+cryo_ief:
+  defaults:
+    group: EM
+    overlay: base
+    relstage: stable
+    urls:
+      - url: https://github.com/westlake-repl/Cryo-IEF/archive/refs/tags/${V_PKG}.tar.gz
+
+  shasums:
+    0.2.0.tar.gz: 24d9ba08e61c1d80251389b6e6e2a43958e1ee8e954fd9d21a40013517a9f7e7
+
+  versions:
+    0.2.0:
+      variants:
+        - overlay: Alps
+          target_cpus: [x86_64]
+          systems: [.*.merlin7.psi.ch]
+          relstage: stable
+          runtime_deps:
+            - cuda/12.9.1
+
