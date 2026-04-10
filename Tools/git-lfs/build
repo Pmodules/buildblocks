@@ -1,7 +1,6 @@
 #!/usr/bin/env modbuild
 
 # binary release, we don't need to build it
-pbuild::prep() { :; }
 pbuild::configure() { :; }
 pbuild::compile() { :; }
 pbuild::install() {

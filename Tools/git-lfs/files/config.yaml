@@ -3,6 +3,7 @@ git-lfs:
   defaults:
     group: Tools
     relstage: stable
+    compile_in_sourcetree: true
     docfiles:
       - README.md
       - CHANGELOG.md
