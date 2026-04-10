@@ -1,24 +1,10 @@
 #!/usr/bin/env modbuild
 
-pbuild::set_download_url \
-	"https://github.com/git-lfs/git-lfs/archive/refs/tags/v3.2.0.tar.gz" \
-	"git-lfs-3.2.0.tar.gz"
-
-pbuild::compile_in_sourcetree
-#pbuild::install_docfiles 'COPYING' 'README.md'
-pbuild::add_to_group 'Tools'
-unset -f pbuild::configure
-
+# binary release, we don't need to build it
+pbuild::configure() { :; }
+pbuild::compile() { :; }
 pbuild::install() {
 	install -m 0755 -d "${PREFIX}/bin"
-	install -m 0755 ./bin/git-lfs "${PREFIX}/bin"
-	install -m 0755 -d "${PREFIX}/.lib64"
-	install -m 0755 "${GCC_PREFIX}/lib64/libgo.so.21.0.0" "${PREFIX}/.lib64/libgo.so.21"
-	patchelf --force-rpath  --set-rpath '$ORIGIN/../.lib64' "${PREFIX}/bin/git-lfs"
+	install -m 0755 ./git-lfs "${PREFIX}/bin"
+	cp -r ./man "${PREFIX}/"
 }
-
-# Local Variables:
-# mode: sh
-# sh-basic-offset: 8
-# tab-width: 8
-# End:
