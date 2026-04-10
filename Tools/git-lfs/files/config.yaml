@@ -1,0 +1,18 @@
+format: 1
+git-lfs:
+  defaults:
+    group: Tools
+    relstage: stable
+    docfiles:
+      - README.md
+      - CHANGELOG.md
+    urls:
+      - url: https://github.com/git-lfs/git-lfs/releases/download/v${V}/${P}-linux-amd64-v${V}.tar.gz
+  shasums:
+    git-lfs-linux-amd64-v3.7.1.tar.gz: 1c0b6ee5200ca708c5cebebb18fdeb0e1c98f1af5c1a9cba205a4c0ab5a5ec08
+    git-lfs-linux-arm64-v3.3.0.tar.gz: e97c477981a9b6a40026cadc1bf005541d973fc32df2de2f398643b15df6b5c6
+  versions:
+    3.7.1:
+    3.3.0:
+      config:
+        relstage: deprecated
