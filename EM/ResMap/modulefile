@@ -1,0 +1,17 @@
+#%Module1.0
+
+module-whatis       "Software package for computing the local resolution of 3D density maps studied in structural biology"
+module-url          "https://resmap.sourceforge.net/"
+module-license      "CC BY-NC-ND 3.0"
+module-maintainer   "João Pedro Agostinho de Sousa <joao.agostinho-de-sousa@psi.ch>"
+
+module-help         "
+ResMap (Resolution Map) is a Python (NumPy/SciPy) application with a Tkinter
+GUI. It is an easy to use software package for computing the local resolution
+of 3D density maps studied in structural biology, primarily electron
+cryo-microscopy (cryo-EM).
+"
+
+# Add conda env bin directory to PATH
+prepend-path PATH "${PREFIX}/miniforge/envs/${P}_${V_PKG}/bin"
+
