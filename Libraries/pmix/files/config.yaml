@@ -10,7 +10,6 @@ pmix:
       - AUTHORS
       - README.md
       - LICENSE
-      - NEWS
       - VERSION
     urls:
       - url: https://github.com/openpmix/openpmix/releases/download/v${V_PKG}/$P-${V_PKG}.tar.gz
@@ -140,4 +139,10 @@ pmix:
           use_overlays: [PSI]
           configure_args+:
             - --with-zlib
+        - systems: [merlin-.*]
+          relstage: unstable
+          overlay: base
+          configure_args+:
+            - --with-zlib
+          build_requires: [gcc/15.2.0, hwloc/2.13.0]
         - systems: [rhel.*]
