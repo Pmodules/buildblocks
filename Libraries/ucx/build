@@ -9,6 +9,10 @@ pbuild::pre_configure() {
     pbuild::add_configure_args "--with-knem=${KNEM_HOME}"
   fi
 
+  if [[ -n "${XPMEM_VERSION}" ]]; then
+    pbuild::add_configure_args "--with-xpmem=${XPMEM_HOME}"
+  fi
+
   if [[ -n "${GDRCOPY_VERSION}" ]]; then
     pbuild::add_configure_args "--with-gdrcopy=${GDRCOPY_HOME}"
   else
