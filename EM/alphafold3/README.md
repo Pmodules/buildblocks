@@ -7,11 +7,11 @@ https://github.com/google-deepmind/alphafold3
 ## Installation
 The Alphafold3 installation is performed using a Docker container or singularity image (https://github.com/google-deepmind/alphafold3/blob/main/docs/installation.md). Here, we decided to install Alphafold3 by first building a container image using Singularity and then a alphafold3 executable to run that image.
 
-Here are the steps for the installation:
+Here are the steps for the singularity image:
 
 1. Download the Alphafold3 release from the github repository.
 ```bash
-export VERSION=3.0.1
+export VERSION=3.0.2
 wget https://github.com/google-deepmind/alphafold3/archive/refs/tags/v${VERSION}.tar.gz
 
 tar -xzf v${VERSION}.tar.gz
@@ -19,7 +19,7 @@ rm v${VERSION}.tar.gz
 cd alphafold3-${VERSION}
 ```
 
-2. Create a dicrectory named `certificates` in the same directory where you downloaded the Alphafold3 release, and copy the CA certificates PEM file into it. This is necessary to ensure that the container can access the required CA certificates for secure connections.
+2. Create a directory named `certificates` in the same directory where you downloaded the Alphafold3 release, and copy the CA certificates PEM file into it. This is necessary to ensure that the container can access the required CA certificates for secure connections.
 ```bash
 mkdir -p certificates
 cp /var/lib/ca-certificates/ca-bundle.pem certificates/
@@ -27,10 +27,9 @@ cp /var/lib/ca-certificates/ca-bundle.pem certificates/
 
 3. In `docker/Dockerfile`, add `ca-certificates` to the apt install packages and and copy the PEM file into the container:
 ```bash
-RUN apt update --quiet \
-    && apt install --yes --quiet ca-certificates \
-    && apt install --yes --quiet software-properties-common \
-    && apt install --yes --quiet git wget gcc g++ make zlib1g-dev zstd
+RUN DEBIAN_FRONTEND=noninteractive \
+apt-get update --quiet \
+&& apt install --yes --quiet ca-certificates
 
 # Copy the PEM file into the container
 COPY certificates/ca-bundle.pem /usr/local/share/ca-certificates/ca-bundle.crt
@@ -41,9 +40,23 @@ RUN update-ca-certificates
 # Set certificate environmental variables
 ENV REQUESTS_CA_BUNDLE=/usr/local/share/ca-certificates/ca-bundle.crt
 ENV SSL_CERT_FILE=/usr/local/share/ca-certificates/ca-bundle.crt
+
+RUN DEBIAN_FRONTEND=noninteractive \
+apt-get update --quiet \
+&& apt-get install --yes --quiet python3.12 python3.12-dev \
+&& apt-get install --yes --quiet git wget gcc g++ make zlib1g-dev zstd
 ```
 
-4. Build the container image and convert it to a Singularity image file (SIF):
+4. Set the environmental variable `UV_CONCURRENCY=1` and `UV_COMPILE_BYTECODE=0`. Also change the UV_LINK_MODE from `copy` to `hardlink`.
+```dockerfile
+ENV UV_CONCURRENCY=1
+ENV UV_COMPILE_BYTECODE=0
+
+RUN --mount=type=cache,target=/root/.cache/uv \
+    UV_LINK_MODE=hardlink uv sync --frozen --all-groups --no-editable
+```
+
+5. Build the container image and convert it to a Singularity image file (SIF):
 ```bash
 # Build the container image with Podman
 podman build -t alphafold3:latest -f docker/Dockerfile .
@@ -66,10 +79,3 @@ cd ..
 # Change the .sif file permissions
 chmod 775 alphafold3.sif
 ```
-
-5. Set the environamental variable APPTAINER_IMAGE to the directory where the .sif file is located.
-Also set the variable PUBLIC_DATABASES_DIR to the directory of the public databases to allow users to have that option without having to download the databases.
-`setenv APPTAINER_IMAGE /data/project/cls/shared/containers/alphafold3/3.0.1/alphafold3.sif`
-`setenv PUBLIC_DATABASES_DIR /data/project/cls/shared/databases/alphafold3/public_databases`
-
-6. Build the module.
