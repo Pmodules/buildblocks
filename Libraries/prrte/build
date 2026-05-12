@@ -1,0 +1,23 @@
+#!/usr/bin/env modbuild
+
+pbuild::pre_configure() {
+	if [[ -v HWLOC_PREFIX ]]; then
+		pbuild::add_configure_args "--with-hwloc=${HWLOC_PREFIX}"
+	fi
+
+	if [[ -v LIBEVENT_PREFIX ]]; then
+		pbuild::add_configure_args "--with-libevent=${LIBEVENT_PREFIX}"
+	fi
+
+	if [[ -v PMIX_PREFIX ]]; then
+		pbuild::add_configure_args "--with-pmix=${PMIX_PREFIX}"
+	fi
+	if [[ -v INTEL_VERSION ]]; then
+		pbuild::add_configure_args "CC=icc"
+		build::add_configure_args "CXX=icpc"
+		pbuild::add_configure_args "FC=ifort"
+		pbuild::add_configure_args "F77=ifort"
+		pbuild::add_configure_args "F90=ifort"
+		# pbuild::add_configure_args "LDFLAGS=-Wc,-static-intel"
+	fi
+}
