@@ -31,14 +31,14 @@ libfabric:
           use_flags: [merlin7]
           build_requires:
             - gcc/12.3.0
-            - shs-cassini-headers/13.1.0-oss
-            - shs-cxi-driver/13.1.0-oss
-            - shs-libcxi/13.1.0-oss
+            - shs-cassini-headers/12.0.2-oss
+            - shs-cxi-driver/12.0.2-oss
+            - shs-libcxi/12.0.2-oss
             - cuda/12.9.1
             - GDRCopy/2.5
           runtime_deps:
-            - shs-cxi-driver/13.1.0-oss
-            - shs-libcxi/13.1.0-oss
+            - shs-cxi-driver/12.0.2-oss
+            - shs-libcxi/12.0.2-oss
           configure_args+:
             - --enable-cxi=$SHS_LIBCXI_HOME
             - --with-cxi-uapi-headers=$SHS_CXI_DRIVER_HOME
