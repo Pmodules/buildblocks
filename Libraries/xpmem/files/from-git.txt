@@ -1,0 +1,1 @@
+2.6.5 https://github.com/hpc/xpmem.git 8ef21a81de33397352c9d8973b0d3102c84c139a

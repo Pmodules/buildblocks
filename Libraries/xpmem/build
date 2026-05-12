@@ -1,0 +1,48 @@
+#!/usr/bin/env modbuild
+#
+# NOTES:
+# - This module has been tested from xpmem v2.6.5 with commit 8ef21a81de33397352c9d8973b0d3102c84c139a
+# - From this version is assumed that one can disable kernel modules
+# - Older versions may not work with this recipe
+# - Git-clone-based versions are defined according to the XPMEM_CURRENT_VERSION_STRING value in:
+#   - https://github.com/hpc/xpmem/blob/master/kernel/xpmem_private.h
+
+GITURL=$(grep -E "^${V}" files/from-git.txt | awk '{print $2}')
+BRANCH=$(grep -E "^${V}" files/from-git.txt | awk '{print $3}')
+CHERRY=$(grep -E "^${V}" files/from-git.txt | awk -F'cherry-pick:' '{print $2}')
+CHERRY_COMMIT=$(echo "$CHERRY" | awk -F'|' '{print $1}')
+CHERRY_REPO=$(echo "$CHERRY" | awk -F'|' '{print $2}')
+
+if [[ -n ${GITURL} ]]; then
+  pbuild::pre_prep() {
+    if [[ ! -f ${PMODULES_DISTFILESDIR}/${P}-${V}.tar.gz ]]; then
+      git clone ${GITURL} ${P}
+      cd ${P}
+      if [[ -n ${BRANCH} ]]; then
+        git fetch -a
+        git checkout ${BRANCH}
+      fi
+      if [[ -n ${CHERRY_REPO} ]]; then
+        git remote add remotetmp $CHERRY_REPO
+        git fetch --all
+      fi
+ 
+      if [[ -n ${CHERRY_COMMIT} ]]; then
+        git cherry-pick $CHERRY_COMMIT
+      fi
+       
+      # Use archive with top-level directory
+      git archive \
+         --format=tar \
+         --prefix="${P}-${V}/" \
+         HEAD > "${PMODULES_DISTFILESDIR}/${P}-${V}.tar"
+
+      tar cvzf "${PMODULES_DISTFILESDIR}/${P}-${V}.tar.gz" "${PMODULES_DISTFILESDIR}/${P}-${V}.tar"
+      cd ..
+    fi
+  }
+fi
+
+pbuild::pre_configure() {
+  ./autogen.sh
+}
