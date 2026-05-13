@@ -80,7 +80,7 @@ setenv RELION_QSUB_EXTRA5_HELP           "Amount of GPUs to allocate per node. T
 # --------------------------------------------------------------------------
 setenv RELION_RESMAP_EXECUTABLE          /opt/psi/EM/ResMap/1.1.4/bin/ResMap
 setenv RELION_CTFFIND_EXECUTABLE         /opt/psi/EM/ctffind4/4.1.14/bin/ctffind
-setenv RELION_MOTIONCOR2_EXECUTABLE      /opt/psi/overlays/Alps/EM/MotionCor3/1.2.1/bin/MotionCor3
+setenv RELION_MOTIONCOR2_EXECUTABLE      /opt/psi/overlays/Alps/EM/MotionCor3/1.2.4/bin/MotionCor3
 setenv RELION_TOPAZ_EXECUTABLE           /opt/psi/overlays/Alps/EM/relion/$V/miniforge/envs/relion-${V_MAJOR}.${V_MINOR}/bin/topaz
 setenv RELION_PYTHON_EXECUTABLE          /opt/psi/overlays/Alps/EM/relion/$V/miniforge/envs/relion-${V_MAJOR}.${V_MINOR}/bin/python
 setenv RELION_TORCH_HOME_PATH            /opt/psi/overlays/Alps/EM/relion/$V/torch/
