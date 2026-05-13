@@ -1,0 +1,25 @@
+---
+# yamllint disable rule:line-length
+format: 1
+ctffind4:
+  defaults:
+    group: EM
+    overlay: base
+    relstage: stable
+    urls:
+      - url: https://grigoriefflab.umassmed.edu/system/tdf?path=ctffind-${V_PKG}.tar.gz&file=1
+
+  shasums:
+    ctffind-4.1.14.tar.gz: db17b2ebeb3c3b2b3764e42b820cd50d19ccccf6956c64257bfe5d5ba6b40cb5 
+
+  versions:
+    4.1.14:
+      variants:
+        - overlay: base
+          target_cpus: [x86_64]
+          systems: [.*.merlin7.psi.ch]
+          relstage: stable
+        - overlay: base
+          target_cpus: [aarch64]
+          systems: [gpu0.*.merlin7.psi.ch]
+          relstage: stable
