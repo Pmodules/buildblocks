@@ -7,13 +7,23 @@ MotionCor3:
     relstage: stable
 
   versions:
-    1.2.1:
+    1.2.4:
       variants:
         - overlay: Alps
+          target_cpus: [x86_64]
           systems: [.*.merlin7.psi.ch]
           relstage: stable
           build_requires:
             - gcc/12.3.0
-            - cuda/12.2.0
+            - cuda/12.8.1
           runtime_deps:
-            - cuda/12.2.0
+            - cuda/12.8.1
+        - overlay: Alps
+          target_cpus: [aarch64]
+          systems: [gpu0.*.merlin7.psi.ch]
+          relstage: stable
+          build_requires:
+            - gcc/12.3.0
+            - cuda/12.8.1
+          runtime_deps:
+            - cuda/12.8.1 

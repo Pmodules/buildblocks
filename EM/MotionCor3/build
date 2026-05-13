@@ -14,7 +14,28 @@ pbuild::configure() {
 
 pbuild::compile() {
     cd "$SRC_DIR"
-    make exe -f makefile11 CUDAHOME="$CUDA_HOME"
+
+    if [[ $(uname -m) == "aarch64" ]]; then
+        # Remove x86-only flags
+        find . -type f \( -iname 'makefile*' -o -iname '*.mk' \) \
+            -exec sed -i 's/-m64//g' {} +
+
+        # Optional: remove SSE/AVX flags too
+        find . -type f \( -iname 'makefile*' -o -iname '*.mk' \) \
+            -exec sed -i 's/-msse[^ ]*//g; s/-mavx[^ ]*//g' {} +
+    fi
+
+    # Clean old objects/libraries
+    find . -name '*.o' -delete
+    rm -f LibSrc/Lib/*.a
+
+    # Build dependent libraries
+    make -C TiffUtil
+    make -C LibSrc/Util
+    make -C LibSrc/Mrcfile
+
+    # Build MotionCor3
+    make -f makefile11 exe CUDAHOME="$CUDA_HOME"
 }
 
 pbuild::install() {
