@@ -20,7 +20,7 @@ pbuild::compile() {
         find . -type f \( -iname 'makefile*' -o -iname '*.mk' \) \
             -exec sed -i 's/-m64//g' {} +
 
-        # Optional: remove SSE/AVX flags too
+        # Remove SSE/AVX flags too
         find . -type f \( -iname 'makefile*' -o -iname '*.mk' \) \
             -exec sed -i 's/-msse[^ ]*//g; s/-mavx[^ ]*//g' {} +
     fi
