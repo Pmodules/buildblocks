@@ -1,36 +1,28 @@
 #!/usr/bin/env modbuild
 
-# Binary distribution with manual installation. See README.md
+pbuild::pre_configure() {
+    # For ARM CPUs, the matrix.cpp file needs to be modified to be compiled
+    if [[ "$(uname -m)" == "aarch64" ]]; then
+        cp ${BUILDBLOCK_DIR}/v${V_PKG}/src/core/matrix.cpp ${SRC_DIR}/src/core/matrix.cpp
+    fi
 
-pbuild::add_to_group 'EM'
-
-pbuild::set_download_url "https://grigoriefflab.umassmed.edu/system/tdf?path=ctffind-${V_PKG}-linux64.tar.gz&file=1&type=node&id=26"
-
-#pbuild::prep() {
-#    local filename="ctffind-${V_PKG}-linux64.tar.gz"
-#    local dst="$PMODULES_DISTFILESDIR/${filename}"
-#    if [ -f "$dst" ]; then
-#        echo "Found cached $dst" >&2
-#    else
-#        ${curl:-curl} \
-#            --location \
-#            --fail \
-#            --output "$dst" \
-#            "https://grigoriefflab.umassmed.edu/system/tdf?path=${filename}&file=1&type=node&id=26"
-#    fi
-#}
-#
+    ####################
+    # wxWidgets
+    ####################
+    cd "${BUILD_DIR}"
+    : "${WXWIDGETS_VERSION:=3.2.10}"
+    wget https://github.com/wxWidgets/wxWidgets/releases/download/v${WXWIDGETS_VERSION}/wxWidgets-${WXWIDGETS_VERSION}.tar.bz2
+    bunzip2 wxWidgets-${WXWIDGETS_VERSION}.tar.bz2 
+    tar xf wxWidgets-${WXWIDGETS_VERSION}.tar
+    cd wxWidgets-${WXWIDGETS_VERSION}
+    mkdir gtk-build
+    cd gtk-build
+    ../configure --prefix=${PREFIX}
+    make -j 8
+    make install
+}
 
 pbuild::configure() {
-    :
-}
-
-pbuild::compile() {
-    :
-}
-
-pbuild::install() {
-    mkdir -p "$PREFIX/bin"
-    mv "$SRC_DIR/"* "$PREFIX/bin"
+    ${SRC_DIR}/configure --with-wx-config=${PREFIX}/bin/wx-config --prefix=${PREFIX}
 }
 
