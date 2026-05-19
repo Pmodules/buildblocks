@@ -1,0 +1,17 @@
+#%Module1.0
+
+module-whatis       "A community effort to collect a curated set of analysis pipelines built using Nextflow"
+module-url          "https://nf-co.re/"
+module-license      "MIT license"
+module-maintainer   "João Pedro Agostinho de Sousa <joao.agostinho-de-sousa@psi.ch>"
+
+module-help         "
+nf-core is a global, open-source community that develops curated, best-practice
+bioinformatics analysis pipelines using the workflow manager Nextflow. It
+standardizes how complex genetic and biological data is processed by ensuring
+pipelines are highly reproducible, portable across different computing
+environments, and automated through software containerization
+"
+
+# Add conda env bin directory to PATH
+prepend-path PATH "${PREFIX}/miniforge/envs/${P}_${V_PKG}/bin"
