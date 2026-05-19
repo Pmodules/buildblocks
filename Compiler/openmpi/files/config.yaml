@@ -100,7 +100,7 @@ openmpi:
         - systems: [merlin-.*]
           suffix: _slurm
           use_flags: [merlin6, gpfs]
-          relstage: stable
+          relstage: unstable
           overlay: base
           group_deps:
             compiler: {gcc: [15.2.0]}
