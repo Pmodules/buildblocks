@@ -58,6 +58,18 @@ pbuild::pre_configure() {
 		pbuild::add_configure_args "--with-pmix=${PMIX_PREFIX}"
         fi
 
+        if [[ -v PRRTE_VERSION ]]; then
+		std::info "Enabling PRRTE ${PRRTE_VERSION}."
+                unset PRRTE_VERSION
+		pbuild::add_configure_args "--with-prrte=${PRRTE_PREFIX}"
+        fi
+
+        if [[ -v XPMEM_VERSION ]]; then
+		std::info "Enabling XPMEM ${XPMEM_VERSION}."
+                unset XPMEM_VERSION
+		pbuild::add_configure_args "--with-xpmem=${XPMEM_PREFIX}"
+        fi
+
 	if pbuild::use_flag merlin7 && [[ ! -v LIBFABRIC_VERSION ]]; then
 	      if pkg-config --exists libfabric; then
 	      	     std::info "Get LIBFABRIC_VERSION via pkg-config"
