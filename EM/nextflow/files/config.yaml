@@ -1,0 +1,23 @@
+---
+format: 1
+nextflow:
+  defaults:
+    group: EM
+    overlay: base
+    relstage: stable
+
+  versions:
+    26.04.1:
+      variants:
+        - overlay: Alps
+          target_cpus: [x86_64]
+          systems: [.*.merlin7.psi.ch]
+          relstage: stable
+          runtime_deps:
+            - openjdk/25.0.1
+        - overlay: Alps
+          target_cpus: [aarch64]
+          systems: [gpu0.*.merlin7.psi.ch]
+          relstage: stable
+          runtime_deps:
+            - openjdk/25.0.1

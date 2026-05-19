@@ -1,0 +1,19 @@
+#!/usr/bin/env modbuild
+
+pbuild::prep() {
+    mkdir -p $PREFIX/bin
+    wget https://github.com/${P}-io/${P}/releases/download/v${V_PKG}/${P}-${V_PKG}-dist -O ${PREFIX}/bin/nextflow
+    chmod +x ${PREFIX}/bin/nextflow
+}
+
+pbuild::configure() {
+    :
+}
+
+pbuild::compile() {
+    :
+}
+
+pbuild::install() {
+    :
+}
