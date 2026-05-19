@@ -103,7 +103,7 @@ openmpi:
           relstage: unstable
           overlay: base
           group_deps:
-            compiler: {gcc: [15.2.0]}
+            compiler: {gcc: [15.2.0, 14.3.0]}
           build_requires:
             - hwloc/2.13.0    # ok
             - libevent/2.1.12 # ok
