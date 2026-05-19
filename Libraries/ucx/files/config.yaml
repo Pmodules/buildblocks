@@ -16,7 +16,7 @@ ucx:
       - --disable-params-check
       - --without-cm
       - --without-rocm
-      - --without-xpmem
+      # - --without-xpmem
       - --without-ugni
       - --without-java
       - --enable-cma
@@ -33,10 +33,6 @@ ucx:
         # Unstable
         - systems: [merlin-.*.psi.ch]
           relstage: unstable
-          overlay: merlin
-          use_overlays: [base, merlin]
-          group_deps:
-            compiler: {gcc: [15.2.0]}
           build_requires:
             - hwloc/2.13.0
             - patchelf/0.14.5
@@ -49,6 +45,7 @@ ucx:
             - --with-rdmacm
             - --with-mlx5
             - --with-verbs
+            - --with-xpmem
           use_flags: [merlin6, slurm]
     1.19.0:
       variants:
