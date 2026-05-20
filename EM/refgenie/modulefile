@@ -1,0 +1,18 @@
+#%Module1.0
+
+module-whatis       "Refgenie creates a standardized folder structure for reference genome files and indexes"
+module-url          "https://refgenie.databio.org/en/latest/"
+module-license      "BSD-2-Clause license"
+module-maintainer   "João Pedro Agostinho de Sousa <joao.agostinho-de-sousa@psi.ch>"
+
+module-help         "
+Refgenie manages storage, access, and transfer of reference genome resources.
+It provides command-line and Python interfaces to download pre-built reference
+genome assets, like indexes used by bioinformatics tools. It can also build
+assets for custom genome assemblies. Refgenie provides programmatic access to a
+standard genome folder structure, so software can swap from one genome to
+another.
+"
+
+# Add conda env bin directory to PATH
+prepend-path PATH "${PREFIX}/miniforge/envs/${P}_${V_PKG}/bin"
