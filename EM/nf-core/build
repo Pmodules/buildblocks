@@ -1,7 +1,7 @@
 #!/usr/bin/env modbuild
 
 # default Python version
-: "${PYTHON_VERSION:=3.14}"
+: "${PYTHON_VERSION:=3.12}"
 
 pbuild::configure() {
     # Install Miniforge
@@ -26,6 +26,9 @@ pbuild::install() {
 
     # Activate the conda environment
     mamba activate "${P}_${V_PKG}"
+
+    # Install CA tooling
+    mamba install -y ca-certificates certifi openssl
 
     # Install nf-core 
     pip install "${P}==${V_PKG}"
