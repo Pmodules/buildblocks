@@ -5,23 +5,39 @@ root:
   defaults:
     group: Compiler
     overlay: base
+    relstage: stable
     docfiles: []
     configure_with: cmake
     urls:
       - url: https://root.cern/download/root_v${V_MAJOR}.${V_MINOR}.${V_PATCHLVL}.source.tar.gz
   shasums:
+    root_v6.40.00.source.tar.gz: 676f8fde8926ce05902be7f44ce7d492a4a2060022fcab0e3d1c44f6dc0fbde8
+    root_v6.38.00.source.tar.gz: a4429422c460f832cde514a580dd202b1d3c96e8919c24363c3d42f8cf5accdc
 
   versions:
+    6.40.00:
+      variants:
+        - systems: [.*.merlin7.psi.ch]
+          overlay: Alps
+          use_overlays: [PSI, Alps]
+          group_deps:
+            compiler: {gcc: [13.4.0]}
+          build_requires: [Python/3.12.9, cmake/3.27.8]
+          configure_args:
+            - -Dbuiltin_fftw3=ON
+            - -Dxrootd=OFF
+            - -DCMAKE_CXX_STANDARD=17
+            - -Dbuiltin_lz4=ON
+            - -Dbuiltin_gl2ps=ON
     6.38.00:
       variants:
         - systems: [.*.merlin7.psi.ch]
           overlay: Alps
           group_deps:
             compiler: {gcc: [13.4.0]}
-          build_requires: []
+          build_requires: [Python/3.12.9]
           configure_args:
             - -Dbuiltin_fftw3=ON
             - -Dxrootd=OFF
             - -DCMAKE_CXX_STANDARD=17
             - -DCXX_STANDARD_STRING=17
-          relstage: unstable

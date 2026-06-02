@@ -1,7 +1,7 @@
 #!/usr/bin/env modbuild
 
 pbuild::compile() {
-	cmake --build . -- -j8 VERBOSE=1
+	cmake --build . -- -j${JOBS} VERBOSE=1
 }
 
 pbuild::install() {
