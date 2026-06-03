@@ -31,7 +31,7 @@ GDRCopy:
           overlay: merlin
           use_overlays: [merlin]
           use_flags: [merlin6]
-          build_requires: [cuda/12.9.1]
+          build_requires: [cuda/13.2.1]
     2.4.4:
       config:
         relstage: unstable
