@@ -100,6 +100,7 @@ openmpi:
         - systems: [merlin-.*]
           suffix: _slurm
           use_flags: [merlin6, gpfs]
+          use_overlays: [merlin]
           relstage: unstable
           overlay: base
           group_deps:
@@ -119,6 +120,7 @@ openmpi:
             - --with-gpfs=/usr/lpp/mmfs
             - --enable-static
             - --without-ofi
+            - --without-hcoll
     5.0.9:
       config:
         configure_args+:
