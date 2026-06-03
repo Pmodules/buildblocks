@@ -8,6 +8,7 @@ Python:
       - url: https://www.python.org/ftp/python/${V_PKG}/$P-${V_PKG}.tgz
 
   shasums:
+    Python-3.14.4.tgz: b4c059d5895f030e7df9663894ce3732bfa1b32cd3ab2883980266a45ce3cb3b
     Python-3.13.2.tgz: b8d79530e3b7c96a5cb2d40d431ddb512af4a563e863728d8713039aa50203f9
     Python-3.12.9.tgz: 45313e4c5f0e8acdec9580161d565cf5fea578e3eabf25df7cc6355bf4afa1ee
     Python-3.11.11.tgz: f2e22ed965a93cfeb642378ed6e6cdbc127682664b24123679f3d013fafe9cd0
@@ -30,6 +31,9 @@ Python:
     Python-2.7.14.tgz: 304c9b202ea6fbd0a4a8e0ad3733715fbd4749f2204a9173a58ec53c32ea73e8
     Python-2.7.12.tgz: 3cb522d17463dfa69a155ab18cffa399b358c966c0363d6c8b5b3bf1384da4b6
   versions:
+    3.14.4:
+      config:
+        build_requires: [openssl/3.4.5, TclTk/8.6.17, xz/5.8.3]
     3.13.2:
       config:
         build_requires: [openssl/3.4.1, TclTk/8.6.16, xz/5.8.0]
