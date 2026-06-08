@@ -19,8 +19,12 @@ xz:
       - TODO
     urls:
       - url: https://sourceforge.net/projects/lzmautils/files/$P-${V_PKG}.tar.gz
+
   shasums:
+    xz-5.8.3.tar.gz: 3d3a1b973af218114f4f889bbaa2f4c037deaae0c8e815eec381c3d546b974a0
+    xz-5.8.0.tar.gz: b523c5e47d1490338c5121bdf2a6ecca2bcf0dce05a83ad40a830029cbe6679b
+
   versions:
-    5.8.0:
+    5.8.0;5.8.3:
       config:
 
