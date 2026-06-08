@@ -1,0 +1,16 @@
+#%Module1.0
+
+module-whatis       "ModelAngelo is an automatic atomic model building program for cryo-EM maps"
+module-url          "https://github.com/3dem/model-angelo"
+module-license      "MIT license"
+module-maintainer   "João Pedro Agostinho de Sousa <joao.agostinho-de-sousa@psi.ch>"
+
+module-help         "
+ModelAngelo is an automated, machine-learning-based tool designed for 
+structural biology. It uses a multimodal graph neural network to automatically 
+construct 3D atomic models and identify proteins from cryo-electron microscopy 
+(cryo-EM) density maps.
+"
+
+# Add conda env bin directory to PATH
+prepend-path PATH "${PREFIX}/miniforge/envs/${P}_${V_PKG}/bin"

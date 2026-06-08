@@ -1,0 +1,24 @@
+---
+format: 1
+model_angelo:
+  defaults:
+    group: EM
+    overlay: base
+    relstage: stable
+    urls:
+      - url: https://github.com/3dem/model-angelo/archive/refs/tags/v${V_PKG}.tar.gz
+
+  shasums:
+    v1.0.17.tar.gz: 3b5425210a76f8e43c8ba07cf9bc0b2c874e39ddb717ac48a768354456a098f6
+
+  versions:
+    1.0.17:
+      variants:
+        - overlay: Alps
+          target_cpus: [x86_64]
+          systems: [.*.merlin7.psi.ch]
+          relstage: stable
+        - overlay: Alps
+          target_cpus: [aarch64]
+          systems: [gpu0.*.merlin7.psi.ch]
+          relstage: stable
