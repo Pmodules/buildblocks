@@ -1,4 +1,4 @@
-#%Pmodule
+#%Module
 
 module-whatis		"free general-purpose data compression software"
 module-url		"https://tukaani.org/xz/"
