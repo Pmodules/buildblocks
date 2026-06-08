@@ -1,5 +1,13 @@
 #!/usr/bin/env modbuild
 
+export LC_ALL=C
+
+pbuild::post_configure(){
+	find "${BUILD_DIR}" -name Makefile -exec sed -i -e 's/[[:space:]]-lpsl\($\|[[:space:]]\)/ -l:libpsl.a /g' {} \;
+	find "${BUILD_DIR}" -name Makefile -exec sed -i -e 's/[[:space:]]-lz\($\|[[:space:]]\)/ -l:libz.a /g' {} \;
+	find "${BUILD_DIR}" -name Makefile -exec sed -i -e 's/[[:space:]]-lssl\($\|[[:space:]]\)/ -l:libssl.a /g' {} \;
+	find "${BUILD_DIR}" -name Makefile -exec sed -i -e 's/[[:space:]]-lcrypto\($\|[[:space:]]\)/ -l:libcrypto.a -ldl /g' {} \;
+}
 # Local Variables:
 # mode: sh
 # sh-basic-offset: 8

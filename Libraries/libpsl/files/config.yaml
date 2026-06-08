@@ -13,4 +13,6 @@ libpsl:
   versions:
     0.21.5:
       config:
-
+        configure_args:
+          - --disable-runtime
+          - CFLAGS=-fPIC

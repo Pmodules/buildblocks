@@ -5,17 +5,31 @@ curl:
     group: Tools
     overlay: base
     relstage: stable
-    configure_args:
-      - --with-openssl
     docfiles: []
     urls:
       - url: https://curl.se/download/$P-${V_PKG}.tar.gz
+
   shasums:
+    curl-8.20.0.tar.gz: fc5819cad3f9f5482669adcdc49a782c15f36d2a0715b395b06d9173593d2dc0
 
   versions:
+    8.20.0:
+      config:
+        relstage: unstable
+        configure_with: autotools
+        configure_args:
+          - --enable-static
+          - --with-openssl
+          - --without-zstd
+          - --disable-shared
+        build_requires: [libpsl/0.21.5, openssl/3.4.5, zstd/1.5.7]
     8.13.0:
       config:
+        configure_args:
+          - --with-openssl
         build_requires: [libpsl/0.21.5, openssl/3.4.1]
     8.11.0:
       config:
+        configure_args:
+          - --with-openssl
         build_requires: [libpsl/0.21.5, openssl/1.1.1w]
