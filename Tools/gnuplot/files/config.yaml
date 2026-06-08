@@ -10,6 +10,7 @@ gnuplot:
     urls:
       - url: https://sourceforge.net/projects/gnuplot/files/$P/$V/$P-${V_PKG}.tar.gz
   shasums:
+    gnuplot-6.0.4.tar.gz: 458d94769625e73d5f6232500f49cbadcb2b183380d43d2266a0f9701aeb9c5b
     gnuplot-6.0.1.tar.gz: e85a660c1a2a1808ff24f7e69981ffcbac66a45c9dcf711b65610b26ea71379a
     gnuplot-6.0.0.tar.gz: 635a28f0993f6ab0d1179e072ad39b8139d07f51237f841d93c6c2ff4b1758ec
     gnuplot-5.4.10.tar.gz: 975d8c1cc2c41c7cedc4e323aff035d977feb9a97f0296dd2a8a66d197a5b27c
@@ -28,14 +29,16 @@ gnuplot:
     gnuplot-5.0.0.tar.gz: 417d4bc5bc914a60409bb75cf18dd14f48b07f53c6ad3c4a4d3cd9a8d7370faf
     gnuplot-4.6.3.tar.gz: df5ffafa25fb32b3ecc0206a520f6bca8680e6dcc961efd30df34c0a1b7ea7f5
   versions:
+    6.0.4:
+      config:
+        systems: [rhel*, sles*]
+        configure_args: ['--with-latex=no', '--with-qt=no']
     6.0.1;6.0.0:
       config:
-        relstage: stable
         systems: [rhel*, sles*]
         configure_args: ['--with-latex=no', '--with-qt=no']
     5.4.{0,1,2,3,4,5,8,9,10}:
       config:
-        relstage: stable
         systems: [rhel*, sles*]
     5.2.{0,4,6,7,8};5.0.0:
       config:
