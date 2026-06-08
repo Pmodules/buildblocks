@@ -1,0 +1,36 @@
+format: 1
+prrte:
+  defaults:
+    group: Libraries
+    relstage: stable
+    compile_in_sourcetree: true
+    configure_args:
+      - --enable-dlopen
+      - --enable-shared
+      - --enable-static
+      - --with-slurm
+    docfiles:
+      - LICENSE
+      - README.md
+      - VERSION
+    urls:
+      - url: https://github.com/openpmix/prrte/releases/download/v${V_PKG}/$P-${V_PKG}.tar.gz
+  shasums:
+    pmix-5.0.10.tar.gz: 7c0be0b5f85cc605fc51b44642fab72494e739ef9c1aa52a8741b847d6907b43
+  versions:
+    3.0.13:
+      config:
+        relstage: unstable
+        group_deps:
+          compiler: {gcc: [15.2.0]}
+        build_requires:
+          - hwloc/2.13.0
+          - libevent/2.1.12
+          - pmix/5.0.10
+      variants:
+        - systems: [.*.merlin7.psi.ch]
+          overlay: Alps
+          use_overlays: [PSI]
+        - systems: [merlin-.*]
+          relstage: unstable
+          overlay: base

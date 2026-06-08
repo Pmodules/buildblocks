@@ -16,7 +16,7 @@ ucx:
       - --disable-params-check
       - --without-cm
       - --without-rocm
-      - --without-xpmem
+      # - --without-xpmem
       - --without-ugni
       - --without-java
       - --enable-cma
@@ -28,6 +28,25 @@ ucx:
   shasums:
 
   versions:
+    1.20.0:
+      variants:
+        # Unstable
+        - systems: [merlin-.*.psi.ch]
+          relstage: unstable
+          build_requires:
+            - hwloc/2.13.0
+            - patchelf/0.14.5
+            - knem/1.1.4
+            - xpmem/2.6.5
+          runtime_deps:
+            - cuda/13.2.1
+            - GDRCopy/2.5
+          configure_args+:
+            - --with-rdmacm
+            - --with-mlx5
+            - --with-verbs
+            - --with-xpmem
+          use_flags: [merlin6, slurm]
     1.19.0:
       variants:
         # Unstable

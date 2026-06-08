@@ -1,0 +1,38 @@
+format: 1
+xpmem:
+  defaults:
+    group: Libraries
+    relstage: stable
+    compile_in_sourcetree: true
+    urls:
+      # xpmem is no longer tagged.
+      # - We create tags based on the commit history of 'kernel/xpmem_private.h'
+      # - We anyway keep URL info for older tags in the defaults section.
+      - url: https://github.com/hpc/xpmem/archive/refs/tags/v${V_PKG}.tar.gz
+        name: xpmem-${V_PKG}.tar.gz
+    configure_args:
+      - --enable-shared
+      - --enable-static
+    docfiles:
+      - COPYING
+      - INSTALL
+      - NEWS
+      - README
+  shasums:
+    xpmem-2.6.5.tar.gz: 1f8e845375c6a14d236f920730451f2f2dc6e173a13885c02055a51b26934e0e
+  versions:
+    2.6.5:
+      config:
+        relstage: unstable
+        configure_args+:
+          - --disable-kernel-module
+        urls:
+          - url: https://github.com/hpc/xpmem/archive/8ef21a81de33397352c9d8973b0d3102c84c139a.tar.gz
+            name: xpmem-${V_PKG}.tar.gz
+      variants:
+        - systems: [.*.merlin7.psi.ch]
+          overlay: Alps
+          use_overlays: [PSI]
+        - systems: [merlin-.*]
+          relstage: unstable
+          overlay: base

@@ -97,7 +97,30 @@ openmpi:
           configure_args+:
             - --with-gpfs=/usr/lpp/mmfs
             - --enable-static
-
+        - systems: [merlin-.*]
+          suffix: _slurm
+          use_flags: [merlin6, gpfs]
+          use_overlays: [merlin]
+          relstage: unstable
+          overlay: base
+          group_deps:
+            compiler: {gcc: [15.2.0, 14.3.0]}
+          build_requires:
+            - hwloc/2.13.0    # ok
+            - libevent/2.1.12 # ok
+            - patchelf/0.14.5 # ok
+            - pmix/5.0.10     # ok
+            - prrte/3.0.13    # ok
+            - ucx/1.20.0      # ok
+            - xpmem/2.6.5     # ok
+          runtime_deps: [cuda/13.2.1]
+          configure_args+:
+            - CFLAGS=-g -O0
+            - LDFLAGS=-g
+            - --with-gpfs=/usr/lpp/mmfs
+            - --enable-static
+            - --without-ofi
+            - --without-hcoll
     5.0.9:
       config:
         configure_args+:
@@ -135,7 +158,6 @@ openmpi:
           configure_args+:
             - --with-gpfs=/usr/lpp/mmfs
             - --enable-static
-
     5.0.8:
       config:
         configure_args+:

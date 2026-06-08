@@ -36,13 +36,12 @@ gsl:
   versions:
     2.8:
       config:
-          group_deps:
-            compiler:
-              gcc: [10.5.0, 11.5.0, 12.3.0, 12.4.0, 14.2.0, 14.3.0, 15.2.0]
+        group_deps:
+          compiler:
+            gcc: [11.5.0, 12.3.0, 12.4.0, 13.4.0, 14.2.0, 14.3.0, 15.2.0]
       variants:
         - systems: [.*.merlin7.psi.ch]
           overlay: PSI
           use_overlays: [PSI]
           relstage: unstable
         - systems: [rhel.*]
-          relstage: unstable

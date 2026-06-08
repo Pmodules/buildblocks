@@ -1,12 +1,17 @@
 #%Module1.0
 
-module-whatis		"CERN root"
-module-url		"http://root.cern.ch/"
-module-license		"GNU LGPL v2"
-module-maintainer	"Achim Gsell <achim.gsell@psi.ch>"
-module-help	"
+module-whatis     "CERN root"
+module-url        "http://root.cern.ch/"
+module-license    "GNU LGPL v2"
+module-maintainer "Achim Gsell <achim.gsell@psi.ch>"
+module-help	{
 ROOT is an object-oriented framework aimed at solving the data analysis
 challenges of high-energy physics.
-"
+}
 
-setenv	ROOTSYS	$PREFIX	
+setenv         ROOTSYS              $PREFIX	
+setenv         ROOT_INCLUDE_PATH    $PREFIX/include
+prepend-path   PYTHONPATH           $PREFIX/lib
+prepend-path   JUPYTER_CONFIG_PATH	$PREFIX/etc/notebook
+prepend-path   JUPYTER_PATH         $PREFIX/etc/notebook
+prepend-path   CMAKE_PREFIX_PATH	   $PREFIX

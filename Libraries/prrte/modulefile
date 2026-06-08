@@ -1,0 +1,15 @@
+#%Module1.0
+
+module-whatis           "PRRTE is the PMIx Reference RunTime Environment"
+module-url              "https://docs.prrte.org/en/latest/"
+module-license          "$PREFIX/share/doc/prrte/LICENSE"
+module-maintainer       "Marc Caubet Serrabou <marc.caubet@psi.ch>"
+
+module-help             "
+PRRTE is the process runtime and launcher infrastructure used by Open MPI and PMIx-based applications.
+
+It provides commands such as 'prterun' to start parallel jobs, handles process placement and environment
+setup across nodes, and integrates with resource managers such as Slurm. In a scheduled environment,
+PRRTE can obtain the allocated hosts and process counts directly from the scheduler, so users can often
+launch with a simple 'prterun ./application'.
+"

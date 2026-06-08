@@ -6,8 +6,19 @@ TclTk:
     relstage: stable
     urls:
       - url: http://prdownloads.sourceforge.net/tcl/tcl${V_PKG}-src.tar.gz
+
   shasums:
+    tcl8.6.16-src.tar.gz: 91cb8fa61771c63c262efb553059b7c7ad6757afa5857af6265e4b0bdc2a14a5
+    tcl8.6.17-src.tar.gz: a3903371efcce8a405c5c245d029e9f6850258a60fa3761c4d58995610949b31
+    tcl8.6.9-src.tar.gz: ad0cd2de2c87b9ba8086b43957a0de3eb2eb565c7159d5f53ccbba3feb915f4e
+
   versions:
+    8.6.17:
+      config:
+        sub_packages:
+          - name: Tk
+            version: 8.6.17
+            build_args:
     8.6.16:
       config:
         sub_packages:
@@ -25,8 +36,15 @@ Tk:
   type: sub_package
   defaults:
     urls:
-      - url: http://prdownloads.sourceforge.net/tcl/tk${V_PKG}-src.tar.gz 
+      - url: http://prdownloads.sourceforge.net/tcl/tk${V_PKG}-src.tar.gz
+
+  shasums:
+    tk8.6.16-src.tar.gz: be9f94d3575d4b3099d84bc3c10de8994df2d7aa405208173c709cc404a7e5fe
+    tk8.6.17-src.tar.gz: e4982df6f969c08bf9dd858a6891059b4a3f50dc6c87c10abadbbe2fc4838946
+    tk8.6.9-src.tar.gz: d3f9161e8ba0f107fe8d4df1f6d3a14c30cc3512dfc12a795daa367a27660dac
+
   versions:
+    8.6.17:
     8.6.16:
     8.6.9:
 

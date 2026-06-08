@@ -1,0 +1,12 @@
+#!/usr/bin/env modbuild
+#
+# NOTES:
+# - This module has been tested from xpmem v2.6.5 with commit 8ef21a81de33397352c9d8973b0d3102c84c139a
+# - From this version is assumed that one can disable kernel modules
+# - Older versions may not work with this recipe
+# - Git-clone-based versions are defined according to the XPMEM_CURRENT_VERSION_STRING value in:
+#   - https://github.com/hpc/xpmem/blob/master/kernel/xpmem_private.h
+
+pbuild::post_prep() {
+  ./autogen.sh
+}

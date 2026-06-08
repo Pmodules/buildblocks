@@ -1,8 +1,9 @@
 #!/usr/bin/env modbuild
 
-# install with
-# bash ./cuda_12.8.1_570.124.06_linux.run --silent --toolkit --installpath=/opt/psi/Programming/cuda/12.8.1/ --no-opengl-libs --no-man-page
-#
+pbuild::install() {
+	bash ./cuda_${V_PKG}_linux_$(arch).run --silent --toolkit --toolkitpath=${PREFIX} --no-opengl-libs --no-man-page
+}
+
 pbuild::post_install() {
 	cd "${PREFIX}/lib64/stubs"
 	for lib in lib*; do
