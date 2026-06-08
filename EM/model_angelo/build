@@ -34,7 +34,7 @@ pbuild::install() {
     cd "$SRC_DIR"
 
     # Install torch
-    pip install "torch==${TORCH_VERSION}" torchvision
+    pip install "torch==${TORCH_VERSION}" torchvision --index-url https://download.pytorch.org/whl/cu129
 
     # Adapt pyhmmer to allow the installation in ARM architecture
     if [[ "$(uname -m)" == "aarch64" ]]; then

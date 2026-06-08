@@ -14,3 +14,6 @@ construct 3D atomic models and identify proteins from cryo-electron microscopy
 
 # Add conda env bin directory to PATH
 prepend-path PATH "${PREFIX}/miniforge/envs/${P}_${V_PKG}/bin"
+
+# Add the directory of the pre-downloaded model weights
+setenv TORCH_HOME /data/project/cls/shared/models/model_angelo
