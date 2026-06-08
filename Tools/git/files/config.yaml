@@ -10,6 +10,19 @@ git:
     urls:
       - url: https://mirrors.edge.kernel.org/pub/software/scm/git/git-${V_PKG}.tar.xz
   shasums:
+    git-2.54.0.tar.xz: f689162364c10de79ef89aa8dbf48731eb057e34edbbd20aca510ce0154681a3
+    git-2.49.0.tar.xz: 618190cf590b7e9f6c11f91f23b1d267cd98c3ab33b850416d8758f8b5a85628
+    git-2.47.1.tar.gz: 30654cc6c0142fa68050cc7b0ee6a2a65944288b907821781112efaf24293b23
+    git-2.47.0.tar.xz: 1ce114da88704271b43e027c51e04d9399f8c88e9ef7542dae7aebae7d87bc4e
+    git-2.46.4.tar.gz: 99259de9f32253495c046e053a930ae2ef238be89878c1fe52f815dd22aefc7e
+    git-2.46.2.tar.gz: 99259de9f32253495c046e053a930ae2ef238be89878c1fe52f815dd22aefc7e
+    git-2.45.3.tar.xz: 38f20f95a1427c42b4990f2ac677e558fe4384301b9964e161dd4b448315aebd
+    git-2.45.3.tar.gz: 99259de9f32253495c046e053a930ae2ef238be89878c1fe52f815dd22aefc7e
+    git-2.45.2.tar.xz: 51bfe87eb1c02fed1484051875365eeab229831d30d0cec5d89a14f9e40e9adb
+    git-2.43.6.tar.xz: 25f329439ebcc8a6fe160a5600499f6a179c784d8efa4d50d54e5d77a4d13a62
+    git-2.42.4.tar.xz: c414c8ec9239f1f5771b47b121d6cc3b2f912f4ceda3c077cbf95cf4164c911c
+    git-2.42.0.tar.xz: 3278210e9fd2994b8484dd7e3ddd9ea8b940ef52170cdb606daa94d887c93b0d
+    git-2.42.0.tar.gz: 34aedd54210d7216a55d642bbb4cfb22695b7610719a106bf0ddef4c82a8beed
     git-2.39.1.tar.gz: ae8d3427e4ccd677abc931f16183c0ec953e3bfcd866493601351e04a2b97398
     git-2.37.2.tar.gz: 4c428908e3a2dca4174df6ef49acc995a4fdb1b45205a2c79794487a33bc06e5
     git-2.37.0.tar.gz: fc3ffe6c65c1f7c681a1ce6bb91703866e432c762731d4b57c566d696f6d62c3
@@ -20,6 +33,20 @@ git:
     git-2.8.1.tar.xz: e6626b43ba4bc63ad4918df4c275f50bd7f8af2ab54bde60496ad75e91e927fc
     git-2.3.3.tar.gz: c189e4a48d8805482f450db666330c79bcefae37e0d035c7717517126ddf4305
   versions:
+    2.54.0:
+      config:
+        relstage: unstable
+        runtime_deps: [TclTk/8.6.16, openssl/3.4.1]
+        build_requires: [gcc/10.4.0, curl/8.20.0, perl/5.40.2, asciidoctor/2.0.23, gettext/0.19.8, xmlto/0.0.28]
+        docfiles: [COPYING, README.md]
+        configure_args:
+          - --with-tcltk
+          - --with-iconv=${GETTEXT_PREFIX}
+          - --with-perl=${PERL_PREFIX}/bin/perl
+        sub_packages:
+          - name: git-lfs
+            version: 3.7.1
+            build_args:
     2.49.0;2.46.4;2.45.3;2.43.6;2.42.4:
       config:
         runtime_deps: [TclTk/8.6.16, openssl/3.4.1]
@@ -45,7 +72,28 @@ git-lfs:
   type: sub_package
   defaults:
     compile_in_sourcetree: true
+  shasums:
+    git-lfs-linux-amd64-v3.7.1.tar.gz: 1c0b6ee5200ca708c5cebebb18fdeb0e1c98f1af5c1a9cba205a4c0ab5a5ec08
+
   versions:
+    3.7.1:
+      variants:
+        -
+          kernels: [Linux]
+          target_cpus: [x86_64]
+          urls:
+            - url: https://github.com/git-lfs/git-lfs/releases/download/v${V_PKG}/git-lfs-linux-amd64-v${V_PKG}.tar.gz
+          build_functions:
+            configure: []
+            compile: []
+        -
+          kernels: [Linux]
+          target_cpus: [aarch64]
+          urls:
+            - url: https://github.com/git-lfs/git-lfs/releases/download/v${V_PKG}/git-lfs-linux-arm64-v${V_PKG}.tar.gz
+          build_functions:
+            configure: []
+            compile: []
     3.5.1:
       config:
       variants:
