@@ -1,4 +1,4 @@
-#%Pmodule
+#%Module
 
 module-whatis		"command line tool and library for transferring data with URLs"
 module-url		"https://curl.se"
