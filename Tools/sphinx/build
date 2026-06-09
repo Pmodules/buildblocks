@@ -1,0 +1,12 @@
+#!/usr/bin/env modbuild
+
+pbuild::install(){
+	pip3 install -vv "$P==$V"
+}
+
+
+# Local Variables:
+# mode: sh
+# sh-basic-offset: 8
+# tab-width: 8
+# End:
