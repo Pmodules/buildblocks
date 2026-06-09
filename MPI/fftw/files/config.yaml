@@ -15,6 +15,9 @@ fftw:
       - url: http://www.fftw.org/$P-${V_PKG}.tar.gz
 
   shasums:
+    fftw-3.3.10.tar.gz: 56c932549852cddcfafdab3820b0200c7742675be92179e59e6215b340e26467
+    fftw-3.3.8.tar.gz: 6113262f6e92c5bd474f2875fa1b01054c4ad5040f6b0da7c03c98821d9ae303
+    fftw-3.3.9.tar.gz: bf2c7ce40b04ae811af714deb512510cc2c17b9ab9d6ddcf49fe4487eea7af3d
 
   versions:
     3.3.10:
@@ -22,7 +25,6 @@ fftw:
         - systems: [.*.merlin7.psi.ch]
           target_cpus: [x86_64]
           overlay: Alps
-          relstage: unstable
           group: Compiler
           group_deps:
             compiler:
@@ -33,27 +35,15 @@ fftw:
           configure_args:
 #            - CC=${MPICC}
 #            - CXX=${MPICXX}
-
+#
 # Multithreading. Enabling both is fines
             - --enable-threads
             - --enable-openmp
-
+#
 # MPI support
 #           - --enable-mpi
-
+#
 # CPU optimizations
             - --enable-sse2
             - --enable-avx2
             - --with-pic
-
-# Floating point precision
-#    if pbuild::use_flag "sp"; then
-#        pbuild::add_configure_args "--enable-single"
-#        pbuild::add_configure_args "--enable-sse"
-#    elif pbuild::use_flag "dp"; then
-#        : #default
-#    else
-#        echo "No flag specified" >&2
-#        exit 1
-#    fi
-
