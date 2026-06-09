@@ -5,14 +5,19 @@ cjson:
     overlay: base
     relstage: stable
     configure_args: []
-    docfiles: []
+    docfiles:
+      - CHANGELOG.md
+      - CONTRIBUTORS.md
+      - LICENSE
+      - README.md
+      - SECURITY.md
     urls:
       - url: https://github.com/DaveGamble/cJSON/archive/refs/tags/v${V_PKG}.tar.gz
         name: cjson-${V_PKG}.tar.gz
+
   shasums:
+    cjson-1.7.19.tar.gz: 7fa616e3046edfa7a28a32d5f9eacfd23f92900fe1f8ccd988c1662f30454562
 
   versions:
     1.7.19:
       config:
-        relstage: unstable
-
