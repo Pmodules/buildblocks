@@ -1,0 +1,29 @@
+---
+format: 1
+G4beamline:
+  defaults:
+    group: Tools
+    overlay: base
+    relstage: stable
+    systems: [.*]
+    docfiles: []
+    urls:
+      - url: https://muonsinc.com/G4beamlineDownload.php?file=$P-${V_PKG}-source.tgz
+        name: $P-${V_PKG}.tar.gz
+        patch_file: G4beamline.patch
+        patch_strip: 1
+  shasums:
+  versions:
+    3.08:
+      config:
+        overlay: Alps
+        configure_args: []
+        runtime_deps:
+          - gcc/13.4.0
+          - geant4/10.7.4
+          - fftw/3.3.10
+          - gsl/2.8
+          - root/6.38.00
+          - Qt/5.12.10
+        build_requires:
+

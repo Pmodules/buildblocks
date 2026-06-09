@@ -1,0 +1,12 @@
+#%Module1.0
+
+module-whatis		"single-particle tracking program based on Geant4"
+module-url		"https://www.muonsinc.com/Website1/G4beamline"
+module-license		"GNU GPL v2"
+module-maintainer	"Achim Gsell <achim.gsell@psi.ch>"
+
+module-help	"
+G4beamline is a single-particle tracking program based on the Geant4
+simulation toolkit. It is specifically designed for the simulation of
+beamlines, but can be used for sysems that are not beamlines at all.
+"

@@ -1,0 +1,23 @@
+diff '--color=auto' -u -r G4beamline-3.08-source/g4bl/BLManager.cc G4beamline-3.08-source.patched/g4bl/BLManager.cc
+--- G4beamline-3.08-source/g4bl/BLManager.cc	2022-08-08 23:51:27.000000000 +0200
++++ G4beamline-3.08-source.patched/g4bl/BLManager.cc	2025-12-03 11:24:45.000000000 +0100
+@@ -16,6 +16,8 @@
+ http://www.gnu.org/copyleft/gpl.html
+ */
+ 
++#include <unistd.h>
++
+ #ifdef G4BL_GSL
+ #include <gsl/gsl_errno.h>
+ #endif
+diff '--color=auto' -u -r G4beamline-3.08-source/g4bl/BLRootNTuple.cc G4beamline-3.08-source.patched/g4bl/BLRootNTuple.cc
+--- G4beamline-3.08-source/g4bl/BLRootNTuple.cc	2022-08-10 01:35:19.000000000 +0200
++++ G4beamline-3.08-source.patched/g4bl/BLRootNTuple.cc	2025-12-03 11:27:38.000000000 +0100
+@@ -21,6 +21,7 @@
+ #include <stdio.h>
+ #include <vector>
+ #include <time.h>
++#include <signal.h>
+ 
+ #include "BLAssert.hh"
+ #include "BLNTuple.hh"
