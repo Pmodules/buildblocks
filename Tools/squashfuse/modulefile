@@ -1,0 +1,18 @@
+#%Pmodule
+
+module-whatis		"Mount SquashFS archives using FUSE"
+module-url		"https://github.com/vasi/squashfuse/"
+module-license		"See https://github.com/vasi/squashfuse/blob/master/LICENSE"
+module-maintainer	"Achim Gsell <achim.gsell@psi.ch>"
+
+module-help		"
+Squashfuse lets you mount SquashFS archives in user-space. It supports almost
+all features of the SquashFS format, yet is still fast and memory-efficient. So
+that everyone can use it, squashfuse supports many different operating systems
+and is available under a permissing license.
+
+SquashFS is an efficiently compressed, read-only storage format. Support for it
+has been built into the Linux kernel since 2009. It is very common on Live CDs
+and embedded Linux distributions.
+"
+
