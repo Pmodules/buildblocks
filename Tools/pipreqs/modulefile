@@ -1,0 +1,12 @@
+#%Module
+
+module-whatis		{pip requirements.txt generator}
+module-url		{https://github.com/bndr/pipreqs}
+module-license		{Apache License 2.0}
+module-maintainer	{Achim Gsell <achim.gsell@psi.ch>}
+
+module-help		{
+Generate pip requirements.txt file based on imports of any project.
+Looking for maintainers to move this project forward.
+}
+

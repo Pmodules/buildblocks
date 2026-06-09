@@ -1,0 +1,22 @@
+---
+format: 1
+pipreqs:
+  defaults:
+    group: Tools
+    overlay: base
+    relstage: stable
+    systems: [.*]
+    docfiles: []
+    build_functions:
+      prep: [pbuild::prep_pip3]
+      configure: []
+      compile: []
+      install: [pbuild::install, pbuild::post_install_pip3]
+
+  versions:
+    0.4.13:
+      config:
+        build_requires:
+          - openssl/3.4.5
+          - Python/3.13.2
+
