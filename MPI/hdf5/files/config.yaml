@@ -7,14 +7,14 @@ hdf5:
     overlay: base
     relstage: stable
     systems: [.*]
-	 configure_args:
+    configure_args:
       - CC=${MPICC}
-	   - CXX=${MPICXX}
-     	- --enable-shared
-   	- --enable-parallel
-   	- --enable-cxx
-   	- --enable-unsupported
-   	- --with-pic
+      - CXX=${MPICXX}
+      - --enable-shared
+      - --enable-parallel
+      - --enable-cxx
+      - --enable-unsupported
+      - --with-pic
     build_variants: first_match
     docfiles:
       - ACKNOWLEDGMENTS
@@ -56,15 +56,15 @@ hdf5:
     1.14.6:
       config:
         urls:
-         - url: https://github.com/HDFGroup/hdf5/archive/refs/tags/hdf5_${V_PKG}.tar.gz
-           name: hdf5-${V_PKG}.tar.gz
+          - url: https://github.com/HDFGroup/hdf5/archive/refs/tags/hdf5_${V_PKG}.tar.gz
+            name: hdf5-${V_PKG}.tar.gz
       variants:
         - systems: [.*.merlin7.psi.ch]
           overlay: Alps
           relstage: unstable
           group_deps:
             compiler: {gcc: [12.4.0, 13.3.0, 13.4.0, 14.3.0, 15.2.0]}
-            mpi: {openmpi: [5.0.8]}
+            mpi: {openmpi: [5.0.8, 5.0.10]}
         - systems: [.*.merlin7.psi.ch]
           overlay: Alps
           group_deps:
@@ -82,7 +82,6 @@ hdf5:
           group_deps:
             compiler: {gcc: [10.5.0, 11.5.0, 12.4.0, 13.4.0, 14.3.0, 15.2.0]}
             mpi: {openmpi: [4.1.8_slurm]}
- 
 
     1.8.12:
       config:
@@ -111,8 +110,8 @@ hdf5:
         relstage: deprecated
       variants:
         - group_deps:
-              compiler: {gcc: [4.7.4, 4.8.3, 4.8.4]}
-              mpi: {openmpi: [1.6.5, 1.8.2, 1.8.4]}
+            compiler: {gcc: [4.7.4, 4.8.3, 4.8.4]}
+            mpi: {openmpi: [1.6.5, 1.8.2, 1.8.4]}
     1.8.14:
       config:
         relstage: deprecated

@@ -57,10 +57,10 @@ hdf5_serial:
         relstage: unstable
         configure_args:
           - --enable-shared
-	  - --enable-cxx
-	  - --enable-unsupported
-	  - --enable-threadsafe
-	  - --with-pic
+          - --enable-cxx
+          - --enable-unsupported
+          - --enable-threadsafe
+          - --with-pic
         build_variants: first_match
         urls:
           - url: https://github.com/HDFGroup/hdf5/archive/refs/tags/hdf5_${V_PKG}.tar.gz
@@ -70,6 +70,43 @@ hdf5_serial:
           target_cpus: [x86_64]
           overlay: PSI
         - systems: [.*]
+
+    1.12.3:
+      config:
+        configure_args:
+          - --enable-shared
+          - --enable-cxx
+          - --enable-unsupported
+          - --enable-threadsafe
+          - --with-pic
+        build_variants: first_match
+        urls:
+          - url: https://github.com/HDFGroup/hdf5/archive/refs/tags/hdf5_${V_PKG}.tar.gz
+            name: hdf5-${V_PKG}.tar.gz
+            strip_dirs: 2
+      variants:
+        - target_cpus: [aarch64]
+          group_deps:
+            compiler:
+              gcc:
+                - 10.4.0
+                - 12.3.0
+                - 12.4.0
+                - 13.3.0
+                - 14.2.0
+                - 14.3.0
+        - systems: [.*.merlin7.psi.ch]
+          target_cpus: [x86_64]
+          overlay: PSI
+          group_deps:
+            compiler:
+              gcc: [12.4.0, 13.4.0, 14.3.0, 15.2.0]
+        - systems: [.*]
+          group_deps:
+            compiler:
+              gcc: [12.1.0, 12.4.0, 13.4.0, 14.3.0, 15.2.0]
+          relstage: stable
+
     1.8.12:
       config:
         group_deps:
@@ -235,12 +272,3 @@ hdf5_serial:
             gcc: [6.5.0, 7.5.0, 8.5.0, 9.5.0, 10.3.0, 11.3.0, 12.1.0]
         relstage: stable
 
-    1.12.3:
-      config:
-        group_deps:
-          compiler:
-            gcc: [7.5.0, 8.5.0, 9.5.0, 10.4.0, 11.3.0, 12.1.0]
-        relstage: unstable
-        urls:
-          - url: https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-${V_MAJOR}.${V_MINOR}/hdf5-$V/src/hdf5-$V.tar.bz2
-            strip_dirs: 2
