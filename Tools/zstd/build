@@ -1,0 +1,13 @@
+#!/usr/bin/env modbuild
+
+pbuild::configure(){
+	cmake \
+		-DCMAKE_INSTALL_PREFIX="${PREFIX}" \
+		../src/build/cmake/
+}
+
+# Local Variables:
+# mode: sh
+# sh-basic-offset: 8
+# tab-width: 8
+# End:
