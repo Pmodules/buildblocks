@@ -1,0 +1,31 @@
+---
+format: 1
+sphinx:
+  defaults:
+    group: Tools
+    overlay: base
+    relstage: stable
+    systems: [.*]
+    docfiles: []
+  shasums:
+  versions:
+    9.1.0:
+      config:
+        build_requires:
+          - openssl/3.4.5
+          - Python/3.13.2
+        build_functions:
+          prep: [pbuild::prep_pip3]
+          configure: []
+          compile: []
+          install: [pbuild::install, pbuild::post_install_pip3]
+    8.2.3:
+      config:
+        build_requires:
+          - openssl/3.4.5
+          - Python/3.13.2
+        build_functions:
+          prep: [pbuild::prep_pip3]
+          configure: []
+          compile: []
+          install: [pbuild::install, pbuild::post_install_pip3]
