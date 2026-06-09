@@ -1,0 +1,27 @@
+---
+format: 1
+nagelfar:
+  defaults:
+    group: Tools
+    overlay: base
+    relstage: stable
+    systems: [.*]
+    docfiles: []
+    urls:
+      - url: https://sourceforge.net/projects/$P/files/Rel_${V_PKG}/$P${V_PKG}.linux.gz/download
+        name: $P-${V_PKG}.gz
+        unpacker: none
+
+  shasums:
+  
+  versions:
+    135:
+      config:
+        build_functions:
+          prep:
+            - pbuild::prep
+          configure:
+          compile:
+          install:
+            - pbuild::install
+
