@@ -1,0 +1,11 @@
+#%Module1.0
+
+module-whatis		{a static syntax checker for Tcl}
+module-url		{https://nagelfar.sourceforge.net/#}
+module-license		{GNU GPL v2}
+module-maintainer	{Achim Gsell <achim.gsell@psi.ch>}
+
+module-help		{
+Static syntax checker for Tcl
+}
+

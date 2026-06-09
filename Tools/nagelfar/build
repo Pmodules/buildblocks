@@ -1,0 +1,19 @@
+#!/usr/bin/env modbuild
+
+pbuild::install(){
+	mkdir -p "${PREFIX}/bin"
+	gunzip --to-stdout \
+		"${PMODULES_DISTFILESDIR}/${SOURCE_NAMES[0]}" \
+		> "${PREFIX}/bin/nagelfar"
+	chmod 0755 "${PREFIX}/bin/nagelfar"
+	{
+		cd "${PREFIX}/bin"
+		ln -s nagelfar nagelfar.tcl
+	}
+}
+
+# Local Variables:
+# mode: sh
+# sh-basic-offset: 8
+# tab-width: 8
+# End:
