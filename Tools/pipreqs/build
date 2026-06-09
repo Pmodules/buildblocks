@@ -1,0 +1,33 @@
+#!/usr/bin/env modbuild
+
+#pbuild::prep(){
+#	python3 -m venv "${PREFIX}"
+#	source "${PREFIX}/bin/activate"
+#}
+
+#pbuild::configure(){
+#	:
+#}
+#pbuild::compile(){
+#	:
+#}
+pbuild::install(){
+	pip3 install "$P==$V"
+}
+
+#pbuild::post_install(){
+#	mkdir -p "${PREFIX}/.bin"
+#	mv "${PREFIX}/bin/python3"  "${PREFIX}/.bin"
+#	rm -vf "${PREFIX}"/bin/activate*
+#	rm -vf "${PREFIX}"/bin/python*
+#	rm -vf "${PREFIX}"/bin/pip
+#	rm -vf "${PREFIX}"/bin/pip3*
+#	rm -vf "${PREFIX}"/bin/normalizer
+#	sed -i "1s|^#!.*|#!${PREFIX}/.bin/python3|" "${PREFIX}/bin/pipreqs"
+#}
+
+# Local Variables:
+# mode: sh
+# sh-basic-offset: 8
+# tab-width: 8
+# End:
