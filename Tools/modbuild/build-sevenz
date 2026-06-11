@@ -1,0 +1,21 @@
+#!/usr/bin/env modbuild
+
+pbuild::configure() {
+	:
+}
+
+pbuild::compile() {
+	cd "${SRC_DIR}/CPP/7zip/Bundles/Alone2"
+	make -j ${JOBS} -f makefile.gcc
+}
+
+pbuild::install() {
+	mkdir -p "${PREFIX}/libexec"
+	install --mode 0755 "${SRC_DIR}/CPP/7zip/Bundles/Alone2/_o/7zz" "${PREFIX}/libexec/sevenz"
+}
+
+# Local Variables:
+# mode: sh
+# sh-basic-offset: 8
+# tab-width: 8
+# End:

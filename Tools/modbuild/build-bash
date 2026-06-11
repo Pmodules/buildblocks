@@ -1,0 +1,18 @@
+#!/usr/bin/env modbuild
+
+pbuild::post_compile() {
+	make -C examples/loadables install
+}
+
+pbuild::post_install() {
+	rm -rf "${PREFIX}/include"
+	rm -rf "${PREFIX}/share/locale"
+	rm -rf "${PREFIX}/share/doc"
+	rm -rf "${PREFIX}/share/info"
+	rm -rf "${PREFIX}/share/man/man1/bash"*
+}
+# Local Variables:
+# mode: sh
+# sh-basic-offset: 8
+# tab-width: 8
+# End:

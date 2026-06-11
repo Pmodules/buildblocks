@@ -1,0 +1,102 @@
+---
+# yamllint disable rule:line-length
+format: 1
+modbuild:
+  defaults:
+    group: Tools
+    overlay: base
+    relstage: unstable
+    compile_in_sourcetree: true
+    urls:
+      - url: https://github.com/Pmodules/$P/archive/refs/tags/$P-${V_PKG}.tar.gz
+  shasums:
+  versions:
+    2.1.2:
+      config:
+        relstage: unstable
+        docfiles: [LICENSE.txt]
+        sub_packages:
+          - name: sevenz
+            version: !!str 26.01
+          - name: yq
+            version: 4.53.2
+          - name: bash
+            version: 5.3.9
+          - name: patchelf
+            version: 0.14.5
+          - name: curl
+            version: 8.20.0
+
+bash:
+  type: sub_package
+  defaults:
+  versions:
+    5.3.9:
+      config:
+        urls:
+          - url: https://ftp.gnu.org/gnu/bash/bash-5.3.tar.gz
+          - patch_file: files/bash53-001
+          - patch_file: files/bash53-002
+          - patch_file: files/bash53-003
+          - patch_file: files/bash53-004
+          - patch_file: files/bash53-005
+          - patch_file: files/bash53-006
+          - patch_file: files/bash53-007
+          - patch_file: files/bash53-008
+          - patch_file: files/bash53-009
+        configure_args:
+          - --bindir=${PREFIX}/libexec
+yq:
+  type: sub_package
+  versions:
+    4.53.2:
+      variants:
+        - target_cpus:
+            - x86_64
+          urls:
+            - url: https://github.com/mikefarah/yq/releases/download/v4.53.2/yq_linux_amd64.tar.gz
+              unpack_dir: ${SRC_DIR}
+
+sevenz:
+  type: sub_package
+  defaults:
+  versions:
+    26.01:
+      config:
+        urls:
+          - url: https://github.com/ip7z/7zip/archive/refs/tags/${V_PKG}.tar.gz
+            name: 7zip-${V_PKG}.tar.gz
+
+patchelf:
+  type: sub_package
+  defaults:
+    urls:
+      - url: https://github.com/NixOS/$P/archive/${V_PKG}.tar.gz
+        name: $P-${V_PKG}.tar.gz
+    configure_args:
+      - --bindir=${PREFIX}/libexec
+    compile_in_sourcetree: true
+  versions:
+    0.14.5:
+
+
+curl:
+  defaults:
+    docfiles: []
+    urls:
+      - url: https://curl.se/download/$P-${V_PKG}.tar.gz
+
+  shasums:
+    curl-8.20.0.tar.gz: fc5819cad3f9f5482669adcdc49a782c15f36d2a0715b395b06d9173593d2dc0
+
+  versions:
+    8.20.0:
+      config:
+        configure_with: autotools
+        configure_args:
+          - --enable-static
+          - --with-openssl
+          - --without-zstd
+          - --disable-shared
+        build_requires: [libpsl/0.21.5, openssl/3.4.5, zstd/1.5.7]
+

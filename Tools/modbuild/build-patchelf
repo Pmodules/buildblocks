@@ -1,0 +1,14 @@
+#!/usr/bin/env modbuild
+
+pbuild::pre_configure(){
+	./bootstrap.sh
+}
+
+pbuild::post_install() {
+	rm -rf "${PREFIX}/share/man"
+}
+# Local Variables:
+# mode: sh
+# sh-basic-offset: 8
+# tab-width: 8
+# End:
