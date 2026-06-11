@@ -34,13 +34,12 @@ ucx:
         - systems: [merlin-.*.psi.ch]
           relstage: unstable
           build_requires:
-            - hwloc/2.13.0
-            - patchelf/0.14.5
-            - knem/1.1.4
-            - xpmem/2.6.5
-          runtime_deps:
             - cuda/13.2.1
-            - GDRCopy/2.5
+            - GDRCopy/2.5.2
+            - hwloc/2.13.0
+            - knem/1.1.4
+            - patchelf/0.14.5
+            - xpmem/2.6.5
           configure_args+:
             - --with-rdmacm
             - --with-mlx5
@@ -57,12 +56,11 @@ ucx:
           group_deps:
             compiler: {gcc: [13.2.0]}
           build_requires:
-            - hwloc/2.12.0
-            - patchelf/0.14.5
-            - knem/1.1.4
-          runtime_deps:
             - cuda/12.9.1
             - GDRCopy/2.5
+            - hwloc/2.12.0
+            - knem/1.1.4
+            - patchelf/0.14.5
           configure_args+:
             - --with-rdmacm
             - --with-mlx5

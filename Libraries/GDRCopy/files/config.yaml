@@ -3,6 +3,7 @@ GDRCopy:
   defaults:
     group: Libraries
     relstage: stable
+    overlay: base
     compile_in_sourcetree: true
     docfiles:
       - LICENSE
@@ -28,7 +29,7 @@ GDRCopy:
           use_flags: [merlin7]
           build_requires: [cuda/13.2.1]
         - systems: [merlin-.*.psi.ch]
-          overlay: base
+          use_flags: [merlin6]
           build_requires: [cuda/13.2.1]
     2.5:
       config:
@@ -40,8 +41,6 @@ GDRCopy:
           use_flags: [merlin7]
           build_requires: [cuda/12.9.1]
         - systems: [merlin-.*.psi.ch]
-          overlay: merlin
-          use_overlays: [merlin]
           use_flags: [merlin6]
           build_requires: [cuda/12.9.1]
     2.4.4:
