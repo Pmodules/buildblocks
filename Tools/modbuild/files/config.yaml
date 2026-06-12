@@ -55,7 +55,6 @@ yq:
             - x86_64
           urls:
             - url: https://github.com/mikefarah/yq/releases/download/v4.53.2/yq_linux_amd64.tar.gz
-              unpack_dir: ${SRC_DIR}
 
 sevenz:
   type: sub_package
