@@ -10,7 +10,13 @@ pbuild::post_configure(){
 }
 
 pbuild::post_install() {
+        mv     "${PREFIX}/bin/curl" "${PREFIX}/libexec"
+
+        rm -f  "${PREFIX}/bin/curl-config"
+        rm -f  "${PREFIX}/bin/wcurl"
+
 	rm -rf "${PREFIX}/include"
+	rm -rf "${PREFIX}/share/aclocal"
 	rm -rf "${PREFIX}/share/locale"
 	rm -rf "${PREFIX}/share/doc"
 	rm -rf "${PREFIX}/share/info"
