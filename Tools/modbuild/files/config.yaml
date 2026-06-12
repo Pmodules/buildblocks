@@ -80,6 +80,7 @@ patchelf:
 
 
 curl:
+  type: sub_package
   defaults:
     docfiles: []
     urls:
