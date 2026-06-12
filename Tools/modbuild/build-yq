@@ -11,7 +11,7 @@ pbuild::compile() {
 }
 
 pbuild::install() {
-	install --mode 0755 "${SRC_DIR}"/yq_* "${PREFIX}/bin/yq"
+	install --mode 0755 "${SRC_DIR}"/yq_* "${PREFIX}/libexec/yq"
 }
 
 # Local Variables:
