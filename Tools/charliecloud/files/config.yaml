@@ -1,0 +1,44 @@
+---
+format: 1
+charliecloud:
+  defaults:
+    group: Tools
+    overlay: base
+    relstage: stable
+    systems: [.*]
+    compile_in_sourcetree: true
+    docfiles:
+      - CODE-OF-CONDUCT.rst
+      - GOVERNANCE.rst
+      - LICENSE
+      - NOTICE
+      - README.rst
+      - VERSION
+    urls:
+      - url: https://gitlab.com/$P/$P/-/archive/v${V_PKG}/$P-v${V_PKG}.tar.gz?ref_type=tags
+        name: $P-${V_PKG}.tar.gz
+
+  shasums:
+    charliecloud-0.44.tar.gz: 1c2504f8a3f03f85d90e51de561da3b56a659af02f6b2fb732bfaf15d6de01a2
+    charliecloud-0.42.tar.gz: 3684fb12444107bd69f655e71bc541d47460aba6194a7ceaab467fa392cc6969
+
+  versions:
+    0.44:
+      config:
+        configure_args: []
+        build_requires:
+          - squashfuse/0.6.1
+          - libgc/8.2.12
+          - cjson/1.7.19
+          - sphinx/9.1.0
+          - bats/1.13.0
+    0.42:
+      config:
+        relstage: deprecated
+        configure_args: []
+        build_requires:
+          - squashfuse/0.6.1
+          - libgc/8.2.10
+          - cjson/1.7.19
+          - sphinx/8.2.3
+          - bats/1.13.0

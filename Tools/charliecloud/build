@@ -1,0 +1,14 @@
+#!/usr/bin/env modbuild
+
+export LC_ALL=C
+
+pbuild::pre_configure(){
+	cd "${SRC_DIR}"
+	./autogen.sh
+}
+
+# Local Variables:
+# mode: sh
+# sh-basic-offset: 8
+# tab-width: 8
+# End:
