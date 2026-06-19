@@ -1,0 +1,18 @@
+#%Module
+
+module-whatis		{lightweight, unprivileged container implementation for HPC applications}
+module-url		{https://gitlab.com/charliecloud/charliecloud}
+module-license		{Apache 2.0}
+module-maintainer	{Achim Gsell <achim.gsell@psi.ch>}
+
+module-help		{
+Charliecloud is a lightweight, fully unprivileged, open source container
+implementation for HPC applications. It can handle the entire container
+workflow, including building images, pushing/pulling to registries, dealing
+with accelerators like GPUs.
+Charliecloud uses Linux user namespaces to run containers with no privileged
+operations or daemons and minimal configuration changes on center resources.
+This simple approach avoids most security risks while maintaining access to
+the performance and functionality supercomputers already offer.
+}
+
