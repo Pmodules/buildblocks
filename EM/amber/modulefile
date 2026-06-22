@@ -1,0 +1,18 @@
+#%Module1.0
+
+module-whatis       "Amber is a suite of biomolecular simulation programs"
+module-url          "https://ambermd.org"
+module-license      "Non-commercial license"
+module-maintainer   "João Pedro Agostinho de Sousa <joao.agostinho-de-sousa@psi.ch>"
+module-help "
+AMBER is a long-standing molecular dynamics (MD) software suite used to
+simulate biomolecules such as proteins, nucleic acids, and protein-ligand
+systems. It is common in academic and industry research groups working in drug
+discovery, structural biology, and materials-adjacent biomolecular modeling.
+"
+
+# Version 26 requires cuda version <12.9
+if { ${V_PKG} == "26" } {
+  module switch cuda cuda/12.8.1
+}
+

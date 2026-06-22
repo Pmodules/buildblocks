@@ -1,0 +1,48 @@
+#!/usr/bin/env modbuild
+
+pbuild::prep() {
+    case "${V}" in
+        26)
+            # v26 requires CUDA < 12.9
+            module switch cuda/12.8.1
+            ;;
+    esac
+}
+
+pbuild::configure() {
+    tar -xjf "${BUILDBLOCK_DIR}/source/pmemd26.tar.bz2" \
+        -C "${SRC_DIR}" \
+        --strip-components=1
+
+    cd "${SRC_DIR}/build"
+
+    # Remove bundled CUB
+    rm -rf "${SRC_DIR}/src/pmemd/src/cub"
+
+    cmake "${SRC_DIR}" \
+        -DCOMPILER=GNU \
+        -Wno-dev \
+        -DCMAKE_INSTALL_PREFIX="${PREFIX}" \
+        -DPYTHON_EXECUTABLE="$(which python3)" \
+        -DMPI=TRUE \
+        -DCUDA=TRUE \
+        -DPGM=TRUE \
+        -DINSTALL_TESTS=FALSE \
+        -DDOWNLOAD_MINICONDA=FALSE \
+        -DBUILD_PYTHON=FALSE \
+        -DBUILD_PERL=FALSE \
+        -DBUILD_GUI=FALSE \
+        -DPMEMD_ONLY=TRUE \
+        -DCHECK_UPDATES=FALSE \
+        -DOPENMP=TRUE \
+        -DCMAKE_INSTALL_RPATH="/opt/psi/Programming/cuda/${CUDA_VERSION}/lib64" \
+        -DCMAKE_BUILD_RPATH="/opt/psi/Programming/cuda/${CUDA_VERSION}/lib64"
+}
+
+pbuild::compile() {
+    cmake --build "${SRC_DIR}/build" --parallel
+}
+
+pbuild::install() {
+    cmake --install "${SRC_DIR}/build"
+}
