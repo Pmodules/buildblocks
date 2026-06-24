@@ -1,0 +1,21 @@
+#%Module1.0
+
+module-whatis       "Simulation assisted interpretation of lipid densities"
+module-url          "https://github.com/TBGAnsell/LipIDens"
+module-license      "MIT License"
+module-maintainer   "João Pedro Agostinho de Sousa <joao.agostinho-de-sousa@psi.ch>"
+
+module-help         "
+LipIDens is an open-source pipeline for simulation-assisted interpretation of
+lipid and lipid-like densities observed in cryo-electron microscopy (cryo-EM)
+structures of membrane proteins. 
+
+LipIDens integrates coarse-grained and
+atomistic molecular dynamics (MD) simulations with PyLipID-based analysis to
+identify, characterise, and rank lipid binding sites, enabling experimental
+densities to be connected to specific lipid chemistries.
+"
+
+# Add conda env bin directory to PATH
+prepend-path PATH "${PREFIX}/miniforge/envs/${P}_${V_PKG}/bin"
+
