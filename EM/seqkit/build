@@ -1,0 +1,29 @@
+#!/usr/bin/env modbuild
+
+pbuild::configure() {
+    # Install Miniforge
+    mkdir -p "$PREFIX/miniforge"
+    wget "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh" -O "$PREFIX/miniforge/miniforge.sh"
+    bash "$PREFIX/miniforge/miniforge.sh" -b -u -p "$PREFIX/miniforge/"
+
+    # Initialize mamba for script use
+    source "$PREFIX/miniforge/etc/profile.d/mamba.sh"
+
+    # Create the conda environment
+    mamba create -y --name "${P}_${V_PKG}"
+}
+
+pbuild::compile() {
+    :
+}
+
+pbuild::install() {
+    # Ensure mamba is initialized
+    source "$PREFIX/miniforge/etc/profile.d/mamba.sh"
+
+    # Activate the conda environment
+    mamba activate "${P}_${V_PKG}"
+
+    # Install package
+    mamba install -c bioconda "${P}=${V_PKG}" -y
+}

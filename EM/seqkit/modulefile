@@ -1,0 +1,16 @@
+#%Module1.0
+
+module-whatis       "A cross-platform and ultrafast toolkit for FASTA/Q file manipulation"
+module-url          "https://bioinf.shenwei.me/seqkit/"
+module-license      "MIT license"
+module-maintainer   "João Pedro Agostinho de Sousa <joao.agostinho-de-sousa@psi.ch>"
+
+module-help         "
+SeqKit is a cross-platform, ultrafast, and open-source toolkit used in
+bioinformatics to manipulate and analyze genomic sequence files, specifically
+those in FASTA and FASTQ formats.
+"
+
+# Add conda env bin directory to PATH
+prepend-path PATH "${PREFIX}/miniforge/envs/${P}_${V_PKG}/bin"
+
