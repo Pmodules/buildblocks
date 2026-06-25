@@ -16,6 +16,17 @@ accuracy in modeling protein–protein, protein–nucleic acid, and protein–li
 interactions.
 "
 
+# Detect architecture
+set arch [exec uname -m]
+
+# Set GPU node type based on the CPU architecture
+if {$arch=="aarch64"} {
+    setenv GPU_NODE_TYPE GH
+} else {
+    setenv GPU_NODE_TYPE A100
+}
+
 # Environment variables
-setenv APPTAINER_IMAGE /data/project/cls/shared/containers/alphafold3/3.0.1/A100/alphafold3.sif
-setenv PUBLIC_DATABASES_DIR /data/project/cls/shared/databases/alphafold3/public_databases
+setenv APPTAINER_IMAGE /data/project/cls/shared/containers/${P}/${V_PKG}/\${GPU_NODE_TYPE}/${P}.sif
+setenv PUBLIC_DATABASES_DIR /data/project/cls/shared/databases/${P}/public_databases
+
