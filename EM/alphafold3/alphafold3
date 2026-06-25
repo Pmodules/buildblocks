@@ -1,13 +1,19 @@
 #!/bin/bash
 
-# Validate that the AlphaFold3 image is specified and exists
-if [[ -z "${APPTAINER_IMAGE:-}" || ! -f "$APPTAINER_IMAGE" ]]; then
-    echo "Error: AlphaFold3 image not found or is not set."
-    echo "Please contact the system administrators for assistance."
+# Validate that the AlphaFold3 image is specified
+if [[ -z "${APPTAINER_IMAGE:-}" ]]; then
+    echo "Error: AlphaFold3 image is not set."
     exit 1
 fi
 
-IMAGE="$APPTAINER_IMAGE"
+# Expand variables embedded in APPTAINER_IMAGE
+IMAGE=$(eval echo "$APPTAINER_IMAGE")
+
+# Validate the expanded path
+if [[ ! -f "$IMAGE" ]]; then
+    echo "Error: AlphaFold3 image not found: $IMAGE"
+    exit 1
+fi
 
 # Parse arguments to extract --db_dir and preserve the rest
 DB_DIR=""
