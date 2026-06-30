@@ -21,7 +21,8 @@ fltk:
           relstage: stable
           configure_with: cmake
           configure_args:
-            - "-DOPTION_CAIRO=OFF"
+            - "-DOPTION_CAIRO=ON"
+            - "-DBUILD_SHARED_LIBS=ON"
         - overlay: base
           target_cpus: [aarch64]
           systems: [gpu0.*.merlin7.psi.ch]
@@ -29,4 +30,5 @@ fltk:
           configure_with: cmake
           configure_args:
             - "-DOPTION_CAIRO=OFF"
+            - "-DBUILD_SHARED_LIBS=ON"
 
