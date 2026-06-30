@@ -13,17 +13,18 @@ relion:
           target_cpus: [x86_64]
           systems: [.*.merlin7.psi.ch]
           build_requires:
-            - cmake/3.26.3
             - git/2.49.0
             - gcc/12.3.0
             - cuda/12.9.1
             - openmpi/5.0.8
+            - fltk/1.3.5
           relstage: stable
           runtime_deps:
             - gcc/12.3.0
             - cuda/12.9.1
             - openmpi/5.0.8
             - IMOD/5.1.6
+            - fltk/1.3.5
           configure_with: cmake
           configure_args:
             - "-DCMAKE_BUILD_TYPE=RELEASE"
@@ -44,10 +45,12 @@ relion:
             - gcc/12.3.0
             - cuda/12.9.1
             - openmpi/5.0.8
+            - fltk/1.3.5
           runtime_deps:
             - gcc/12.3.0
             - cuda/12.9.1
             - openmpi/5.0.8
+            - fltk/1.3.5
           configure_with: cmake
           configure_args:
             - "-DCMAKE_BUILD_TYPE=RELEASE"
