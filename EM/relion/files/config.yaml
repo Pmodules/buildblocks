@@ -17,14 +17,14 @@ relion:
             - gcc/12.3.0
             - cuda/12.9.1
             - openmpi/5.0.8
-            - fltk/1.3.5
+            - fltk/1.3.6
           relstage: stable
           runtime_deps:
             - gcc/12.3.0
             - cuda/12.9.1
             - openmpi/5.0.8
             - IMOD/5.1.6
-            - fltk/1.3.5
+            - fltk/1.3.6
           configure_with: cmake
           configure_args:
             - "-DCMAKE_BUILD_TYPE=RELEASE"
@@ -45,12 +45,12 @@ relion:
             - gcc/12.3.0
             - cuda/12.9.1
             - openmpi/5.0.8
-            - fltk/1.3.5
+            - fltk/1.3.6
           runtime_deps:
             - gcc/12.3.0
             - cuda/12.9.1
             - openmpi/5.0.8
-            - fltk/1.3.5
+            - fltk/1.3.6
           configure_with: cmake
           configure_args:
             - "-DCMAKE_BUILD_TYPE=RELEASE"
