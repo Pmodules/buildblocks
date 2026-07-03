@@ -67,6 +67,7 @@ git:
     2.3.3;2.8.1:
       config:
         runtime_deps: [Tcl/8.6.9, Tk/8.6.9]
+        relstage: deprecated
 
 git-lfs:
   type: sub_package
