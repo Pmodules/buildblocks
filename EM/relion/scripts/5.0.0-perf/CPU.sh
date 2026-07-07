@@ -13,7 +13,6 @@
 # extra4        XXXextra4XXX
 
 #SBATCH --job-name=r500perf-cpu
-#SBATCH --open-mode=append
 #SBATCH --clusters=merlin7
 #SBATCH --hint=nomultithread
 #SBATCH --export=NONE
@@ -49,6 +48,6 @@ export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK}
 
 # Execute RELION
 mpirun -np "${SLURM_NTASKS}" \
-  --map-by node:PE=${SLURM_CPUS_PER_TASK} \
-  --bind-to core --report-bindings \
+  --map-by numa:PE=${SLURM_CPUS_PER_TASK} \
+  --bind-to core:overload-allowed --report-bindings \
   XXXcommandXXX
