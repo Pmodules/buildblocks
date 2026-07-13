@@ -28,6 +28,10 @@ cmake:
     cmake-3.27.8.tar.gz:   fece24563f697870fbb982ea8bf17482c9d5f855d8c9bf0b82463d76c9e8d0cc
 
   versions:
+    4.4.0:
+      config:
+        build_requires: [gcc/12.4.0, patchelf/0.8.1]
+        relstage: unstable
     3.27.8:
       config:
         build_requires: [gcc/7.3.0, patchelf/0.8.1]
