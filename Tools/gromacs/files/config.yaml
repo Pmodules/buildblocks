@@ -1,0 +1,122 @@
+---
+# yamllint disable rule:line-length
+format: 1
+gromacs:
+  defaults:
+    group: Tools
+    overlay: base
+    relstage: stable
+    urls:                                               
+      - url: https://ftp.${P}.org/${P}/${P}-${V_PKG}.tar.gz
+
+  shasums:
+    gromacs-2026.3.tar.gz: 1094b7bbc6a3960223827114626657110b40096cdf9598a727935fc84ebf8aa0
+
+  versions:
+    2026.3:
+      variants:
+        - overlay: Alps
+          target_cpus: [x86_64]
+          systems: [.*.merlin7.psi.ch]
+          build_requires:
+            - gcc/12.3.0
+            - cuda/12.9.1
+            - Python/3.12.9
+            - sphinx/9.1.0
+          relstage: stable
+          runtime_deps:
+            - gcc/12.3.0
+            - cuda/12.9.1
+            - Python/3.12.9
+            - sphinx/9.1.0
+          configure_with: cmake
+          configure_args:
+            - "-DGMX_BUILD_OWN_FFTW=ON"
+            - "-DGMX_MPI=OFF"
+            - "-DGMX_GPU=CUDA"
+            - "-DGMX_SIMD=AVX2_256"
+            - "-DGMX_USE_PLUMED=ON"
+            - "-DCMAKE_BUILD_TYPE=Release"
+            - "-DCUDAToolkit_ROOT=/opt/psi/Programming/cuda/12.9.1"
+            - "-DCMAKE_EXE_LINKER_FLAGS='-Wl,-rpath-link,/opt/psi/Programming/cuda/12.9.1/lib64'"
+        - overlay: Alps
+          target_cpus: [aarch64]
+          systems: [gpu0.*.merlin7.psi.ch]
+          relstage: unstable
+          build_requires:
+            - gcc/14.3.0
+            - cuda/12.9.1
+            - Python/3.10.13
+          runtime_deps:
+            - gcc/14.3.0
+            - cuda/12.9.1
+            - Python/3.10.13
+          configure_with: cmake
+          configure_args:
+            - "-DGMX_BUILD_OWN_FFTW=ON"
+            - "-DREGRESSIONTEST_DOWNLOAD=ON"
+            - "-DGMX_MPI=OFF"
+            - "-DGMX_GPU=CUDA"
+            - "-DGMX_SIMD=ARM_NEON_ASIMD"
+            - "-DGMX_USE_PLUMED=ON"
+            - "-DCMAKE_CXX_FLAGS='-mcpu=neoverse-v2'"
+            - "-DCMAKE_C_FLAGS='-mcpu=neoverse-v2'"
+            - "-DCMAKE_BUILD_TYPE=Release"
+            - "-DCUDAToolkit_ROOT=/opt/psi/Programming/cuda/12.9.1"
+            - "-DCMAKE_EXE_LINKER_FLAGS='-Wl,-rpath-link,/opt/psi/Programming/cuda/12.9.1/lib64'"
+    2026.3_mpi:
+      variants:
+        - overlay: Alps
+          target_cpus: [x86_64]
+          systems: [.*.merlin7.psi.ch]
+          build_requires:
+            - gcc/12.3.0
+            - mpich/4.3.1
+            - cuda/12.9.1
+            - Python/3.12.9
+            - sphinx/9.1.0
+          relstage: stable
+          runtime_deps:
+            - gcc/12.3.0
+            - mpich/4.3.1
+            - cuda/12.9.1
+            - Python/3.12.9
+            - sphinx/9.1.0
+          configure_with: cmake
+          configure_args:
+            - "-DGMX_BUILD_OWN_FFTW=ON"
+            - "-DGMX_MPI=ON"
+            - "-DGMX_GPU=CUDA"
+            - "-DGMX_SIMD=AVX2_256"
+            - "-DGMX_USE_PLUMED=ON"
+            - "-DCMAKE_BUILD_TYPE=Release"
+            - "-DCUDAToolkit_ROOT=/opt/psi/Programming/cuda/12.9.1"
+            - "-DCMAKE_EXE_LINKER_FLAGS='-Wl,-rpath-link,/opt/psi/Programming/cuda/12.9.1/lib64'"
+        - overlay: Alps
+          target_cpus: [aarch64]
+          systems: [gpu0.*.merlin7.psi.ch]
+          relstage: unstable
+          build_requires:
+            - gcc/14.3.0
+            - mpich/5.0.1
+            - cuda/12.9.1
+            - Python/3.10.13
+          runtime_deps:
+            - gcc/14.3.0
+            - mpich/5.0.1
+            - cuda/12.9.1
+            - Python/3.10.13
+          configure_with: cmake
+          configure_args:
+            - "-DGMX_BUILD_OWN_FFTW=ON"
+            - "-DREGRESSIONTEST_DOWNLOAD=ON"
+            - "-DGMX_MPI=ON"
+            - "-DGMX_GPU=CUDA"
+            - "-DGMX_SIMD=ARM_NEON_ASIMD"
+            - "-DGMX_USE_PLUMED=ON"
+            - "-DCMAKE_CXX_FLAGS='-mcpu=neoverse-v2'"
+            - "-DCMAKE_C_FLAGS='-mcpu=neoverse-v2'"
+            - "-DCMAKE_BUILD_TYPE=Release"
+            - "-DCUDAToolkit_ROOT=/opt/psi/Programming/cuda/12.9.1"
+            - "-DCMAKE_EXE_LINKER_FLAGS='-Wl,-rpath-link,/opt/psi/Programming/cuda/12.9.1/lib64'"
+
