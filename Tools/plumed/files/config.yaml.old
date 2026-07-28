@@ -1,0 +1,54 @@
+---
+# yamllint disable rule:line-length
+format: 1
+plumed:
+  defaults:
+    group: Tools
+    overlay: base
+    relstage: stable
+    urls:
+      - url: https://github.com/${P}/plumed2/archive/refs/tags/v${V_PKG}.tar.gz
+
+  shasums:
+    v2.10.0.tar.gz: ca6410d47e91b4e0f953e1a8933f15b05c4681167611ab3b096ab121155f6879
+
+  versions:
+    2.10.0:
+      variants:
+        - overlay: Alps
+          target_cpus: [x86_64]
+          systems: [.*.merlin7.psi.ch]
+          build_requires:
+            - gcc/12.3.0
+            - mpich/4.3.1
+            - cuda/12.9.1
+            - Python/3.12.9
+          relstage: stable
+          runtime_deps:
+            - gcc/12.3.0
+            - mpich/4.3.1
+            - cuda/12.9.1
+            - Python/3.12.9
+          configure_args:
+            - "CXX=mpicxx"
+            - "CXXFLAGS='-O3 -march=native'"
+            - "--enable-libtorch"
+        - overlay: Alps
+          target_cpus: [aarch64]
+          systems: [gpu0.*.merlin7.psi.ch]
+          relstage: unstable
+          build_requires:
+            - gcc/14.3.0
+            - mpich/5.0.1
+            - cuda/12.9.1
+            - Python/3.10.13
+          runtime_deps:
+            - gcc/14.3.0
+            - mpich/5.0.1
+            - cuda/12.9.1
+            - Python/3.10.13
+          configure_args:
+            - "CXX=mpicxx"
+            - "CXXFLAGS='-O3 -march=native'"
+            - "--enable-libtorch"
+

@@ -1,0 +1,20 @@
+#%Module1.0
+
+module-whatis       "Plugin that works with a large number of molecular dynamics codes"
+module-url          "https://www.plumed.org"
+module-license      "LGPL-3.0 license"
+module-maintainer   "João Pedro Agostinho de Sousa <joao.agostinho-de-sousa@psi.ch>"
+module-help "
+PLUMED works together with some of the most popular MD engines, such as ACEMD,
+Amber, DL_POLY, GROMACS, LAMMPS, NAMD, OpenMM, DFTB+, ABIN, CP2K, i-PI,
+PINY-MD, and Quantum Espresso. In addition, PLUMED can be used to augment the
+capabilities of analysis tools such as VMD, HTMD, OpenPathSampling, and as a
+standalone utility to analyze pre-calculated MD trajectories.
+"
+
+prepend-path CPATH $PREFIX/libtorch/include/torch/csrc/api/include:$PREFIX/libtorch/include:$PREFIX/libtorch/include/torch
+prepend-path INCLUDE $PREFIX/libtorch/include/torch/csrc/api/include:$PREFIX/libtorch/include:$PREFIX/libtorch/include/torch
+prepend-path LIBRARY_PATH $PREFIX/libtorch/lib
+prepend-path LD_LIBRARY_PATH $PREFIX/libtorch/lib
+
+setenv PLUMED_KERNEL $PREFIX/lib/libplumedKernel.so

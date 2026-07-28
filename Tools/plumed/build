@@ -1,0 +1,32 @@
+#!/usr/bin/env modbuild
+
+pbuild::configure() {
+    :
+}
+
+pbuild::compile() {
+    :
+}
+
+pbuild::install() {
+    CUDA_VERSION="$(nvcc --version 2>/dev/null | sed -n 's/.*release \([0-9]*\.[0-9]*\).*/\1/p')"
+
+    if [ "$CUDA_VERSION" = "12.9" ]; then
+        wget -O "$PREFIX/libtorch-cu129.zip" \
+            "https://download.pytorch.org/libtorch/cu129/libtorch-shared-with-deps-2.13.0%2Bcu129.zip"
+
+        unzip -qo "$PREFIX/libtorch-cu129.zip" -d "$PREFIX"
+    fi
+
+    LIBTORCH="$PREFIX/libtorch"
+
+    export CPATH="${LIBTORCH}/include/torch/csrc/api/include:${LIBTORCH}/include:${LIBTORCH}/include/torch:${CPATH:-}"
+    export INCLUDE="${LIBTORCH}/include/torch/csrc/api/include:${LIBTORCH}/include:${LIBTORCH}/include/torch:${INCLUDE:-}"
+    export LIBRARY_PATH="${LIBTORCH}/lib:${LIBRARY_PATH:-}"
+    export LD_LIBRARY_PATH="${LIBTORCH}/lib:${LD_LIBRARY_PATH:-}"
+
+    cd $SRC_DIR
+    ./configure --prefix=$PREFIX CXX=mpicxx CXXFLAGS="-O3 -march=native" --enable-libtorch
+    make -j 4
+    make install
+}
