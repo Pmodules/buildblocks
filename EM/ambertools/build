@@ -1,0 +1,91 @@
+#!/usr/bin/env modbuild
+
+# default Python version
+: "${PYTHON_VERSION:=3.12}"
+
+pbuild::prep() {
+    case "${V}" in
+        26)
+            # v26 requires CUDA < 12.9
+            module switch cuda/12.8.1
+            ;;
+    esac
+}
+
+pbuild::configure() {
+
+    # ------------------------------------------------
+    # Conda environment
+    # ------------------------------------------------
+    # Install Miniforge
+    mkdir -p "$PREFIX/miniforge"
+    wget "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh" -O "$PREFIX/miniforge/miniforge.sh"
+    bash "$PREFIX/miniforge/miniforge.sh" -b -u -p "$PREFIX/miniforge/"
+
+    # Initialize mamba for script use
+    source "$PREFIX/miniforge/etc/profile.d/mamba.sh"
+
+    # Create the conda environment
+    mamba create -y --name "${P}_${V_PKG}" "python=${PYTHON_VERSION}"
+
+    # Activate the conda environment
+    mamba activate "${P}_${V_PKG}"
+
+    # Install biopython from conda-forge
+    mamba install -y conda-forge::biopython
+
+    # Install python dependencies
+    pip install "setuptools<69"
+
+    pip install \
+    numpy \
+    scipy \
+    matplotlib \
+    cython \
+    tk \
+    libpython \
+    pandas \
+    numba \
+    gemmi \
+    Bio \
+    rich \
+    freesasa \
+    scikit-learn \
+    sympy \
+    pydantic \
+    psutil \
+    networkx
+
+    # ------------------------------------------------
+    # CMake
+    # ------------------------------------------------
+    tar -xjf "${BUILDBLOCK_DIR}/source/ambertools26.tar.bz2" \
+        -C "${SRC_DIR}" \
+        --strip-components=1
+
+    cd "${SRC_DIR}/build"
+
+    cmake "${SRC_DIR}" \
+        -DCOMPILER=GNU \
+        -Wno-dev \
+        -DCMAKE_INSTALL_PREFIX="${PREFIX}" \
+        -DPYTHON_EXECUTABLE="$(which python3)" \
+        -DCMAKE_INSTALL_RPATH="/opt/psi/Programming/cuda/${CUDA_VERSION}/lib64" \
+        -DCMAKE_BUILD_RPATH="/opt/psi/Programming/cuda/${CUDA_VERSION}/lib64" \
+        -DCHECK_UPDATES=FALSE \
+        -DMPI=TRUE \
+        -DCUDA=TRUE \
+        -DINSTALL_TESTS=TRUE \
+        -DDOWNLOAD_MINICONDA=FALSE \
+        -DOPENMP=TRUE \
+        -DNCCL=FALSE
+}
+
+pbuild::compile() {
+    cmake --build "${SRC_DIR}/build" --parallel
+}
+
+pbuild::install() {
+    cmake --install "${SRC_DIR}/build"
+}
+

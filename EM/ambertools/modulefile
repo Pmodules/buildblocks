@@ -1,0 +1,18 @@
+#%Module1.0
+
+module-whatis       "Suite of programs used to prepare, run, and analyze molecular dynamics (MD) simulations"
+module-url          "https://ambermd.org"
+module-license      "GNU General Public License"
+module-maintainer   "João Pedro Agostinho de Sousa <joao.agostinho-de-sousa@psi.ch>"
+module-help "
+AmberTools consists of several independently developed packages that work well
+by themselves, and with Amber26. The suite can also be used to carry out
+complete molecular dynamics simulations, with either explicit water or
+generalized Born solvent models.
+"
+
+# Version 26 requires cuda version <12.9
+if { ${V_PKG} == "26" } {
+  module switch cuda cuda/12.8.1
+}
+
