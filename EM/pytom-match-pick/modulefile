@@ -1,0 +1,15 @@
+#%Module1.0
+
+module-whatis       "GPU-accelerated template matching for cryo-electron tomography"
+module-url          "https://sbc-utrecht.github.io/pytom-match-pick/"
+module-license      "GPL-2.0 license"
+module-maintainer   "João Pedro Agostinho de Sousa <joao.agostinho-de-sousa@psi.ch>"
+
+module-help "
+GPU-accelerated template matching for cryo-electron tomography, originally
+developed in PyTom, as a standalone Python package that is run from the command
+line.
+"
+
+# Add conda env bin directory to PATH
+prepend-path PATH "${PREFIX}/miniforge/envs/${P}_${V_PKG}/bin"

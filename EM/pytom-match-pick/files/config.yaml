@@ -1,0 +1,29 @@
+---
+# yamllint disable rule:line-length
+format: 1
+pytom-match-pick:
+  defaults:
+    group: EM
+    overlay: base
+    relstage: stable
+
+  versions:
+    0.13.2:
+      variants:
+        - overlay: Alps
+          target_cpus: [x86_64]
+          systems: [.*.merlin7.psi.ch]
+          relstage: stable
+          build_requires:
+            - cuda/12.9.1
+          runtime_deps:
+            - cuda/12.9.1
+        - overlay: Alps
+          target_cpus: [aarch64]
+          systems: [gpu0.*.merlin7.psi.ch]
+          relstage: unstable
+          build_requires:
+            - cuda/12.9.1
+          runtime_deps:
+            - cuda/12.9.1
+ 
