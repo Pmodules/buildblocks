@@ -4,10 +4,24 @@ topaz:
   defaults:
     group: EM
     overlay: base
-    relstage: unstable
+    relstage: stable
+
   versions:
-    0.2.5:
+    0.3.20:
       variants:
-        - overlay: Alps 
+        - overlay: Alps
+          target_cpus: [x86_64]
           systems: [.*.merlin7.psi.ch]
-          relstage: unstable
+          relstage: stable
+          build_requires:
+            - cuda/12.9.1
+          runtime_deps:
+            - cuda/12.9.1
+        - overlay: Alps
+          target_cpus: [aarch64]
+          systems: [gpu0.*.merlin7.psi.ch]
+          relstage: stable
+          build_requires:
+            - cuda/12.9.1
+          runtime_deps:
+            - cuda/12.9.1

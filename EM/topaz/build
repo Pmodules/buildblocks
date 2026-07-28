@@ -1,27 +1,36 @@
 #!/usr/bin/env modbuild
 
+# default Python version
+: "${PYTHON_VERSION:=3.12}"
+
+# default torch version
+: "${TORCH_VERSION:=2.9.1}"
 
 pbuild::configure() {
-    #MINICONDA INSTALL
-    mkdir -p  "$PREFIX/miniconda"
-    wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O "$PREFIX/miniconda/miniconda.sh"
-    bash "$PREFIX/miniconda/miniconda.sh" -b -u -p "$PREFIX/miniconda/"
+    # Install Miniforge
+    mkdir -p "$PREFIX/miniforge"
+    wget "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh" -O "$PREFIX/miniforge/miniforge.sh"
+    bash "$PREFIX/miniforge/miniforge.sh" -b -u -p "$PREFIX/miniforge/"
 
- 
-    #CREATE ENV , make sure to source the "correct" conda.sh
-    "$PREFIX/miniconda/condabin/conda" env create --name "${P}_${V}" -f "$BUILDBLOCK_DIR/environment.yaml"
+    # Initialize mamba for script use
+    source "$PREFIX/miniforge/etc/profile.d/mamba.sh"
 
+    # Create the conda environment
+    mamba create -y --name "${P}_${V_PKG}" "python=${PYTHON_VERSION}"
 }
 
-#DO NOTHING
-pbuild::compile(){
+pbuild::compile() {
     :
 }
 
-pbuild::install(){
-    :
+pbuild::install() {
+    # Ensure mamba is initialized
+    source "$PREFIX/miniforge/etc/profile.d/mamba.sh"
+
+    # Activate the conda environment
+    export IFS=' '
+    mamba activate "${P}_${V_PKG}"
+
+    # Install Topaz
+    mamba install -y "${P}=${V_PKG}" -c tbepler -c pytorch
 }
-
-
-
-
