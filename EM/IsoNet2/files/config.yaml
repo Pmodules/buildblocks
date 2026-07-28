@@ -1,0 +1,32 @@
+---
+# yamllint disable rule:line-length
+format: 1
+IsoNet2:
+  defaults:
+    group: EM
+    overlay: base
+    relstage: stable
+    urls:
+      - url: https://github.com/IsoNet-cryoET/${P}/archive/refs/tags/IsoNet-${V}.tar.gz
+
+  shasums:
+    IsoNet-2.0.0-beta.tar.gz: 8c35ce6315de9e29dc6a7b8f6f7352a936b16f54759e8427a655f6c9233a0ec8 
+
+  versions:
+    2.0.0-beta:
+      variants:
+        - overlay: Alps
+          systems: [.*.merlin7.psi.ch]
+          relstage: stable
+          build_requires:
+            - cuda/12.9.1
+          runtime_deps:
+            - cuda/12.9.1
+        - overlay: Alps
+          target_cpus: [aarch64]
+          systems: [gpu0.*.merlin7.psi.ch]
+          relstage: stable
+          build_requires:
+            - cudatoolkit/24.3_11.8
+          runtime_deps:
+            - cudatoolkit/24.3_11.8

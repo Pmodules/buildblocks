@@ -1,0 +1,40 @@
+#!/usr/bin/env modbuild
+
+pbuild::pre_configure() {
+    wget -P "$SRC_DIR" https://github.com/IsoNet-cryoET/${P}/releases/download/IsoNet-${V}/isoapp-1.0.0.AppImage
+}
+
+pbuild::configure() {
+    # Install Miniforge
+    mkdir -p "$PREFIX/miniforge"
+    wget "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh" -O "$PREFIX/miniforge/miniforge.sh"
+    bash "$PREFIX/miniforge/miniforge.sh" -b -u -p "$PREFIX/miniforge/"
+
+    # Initialize mamba for script use
+    source "$PREFIX/miniforge/etc/profile.d/mamba.sh"
+
+    # Create the conda environment
+    mamba env create -y --name "${P}_${V_PKG}" -f "$BUILDBLOCK_DIR/env/${V}/isonet2_environment.yml"
+}
+
+pbuild::compile() {
+    :
+}
+
+pbuild::install() {
+    # Ensure mamba is initialized
+    source "$PREFIX/miniforge/etc/profile.d/mamba.sh"
+
+    # Activate the conda environment
+    export IFS=' '
+    mamba activate "${P}_${V_PKG}"
+
+    # Copy the IsoNet scripts to PREFIX
+    cp -r "$SRC_DIR/IsoNet" "$PREFIX"
+    cp "$SRC_DIR/isoapp-1.0.0.AppImage" "$PREFIX/IsoNet/bin/IsoNet2"
+    chmod +x "$PREFIX/IsoNet/bin/IsoNet2"
+    ln -s "$PREFIX/IsoNet/bin" "$PREFIX/bin" 
+    ./$PREFIX/bin/IsoNet2 --appimage-extract
+    ln -s "$PREFIX/bin/squashfs-root/AppRun" "$PREFIX/bin/IsoNet2"
+}
+
