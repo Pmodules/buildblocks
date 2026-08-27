@@ -36,3 +36,6 @@ xpmem:
         - systems: [merlin-.*]
           relstage: unstable
           overlay: base
+        - systems: [ra-.*]
+          relstage: unstable
+          overlay: base

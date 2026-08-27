@@ -5,5 +5,5 @@ pbuild::compile() {
 }
 
 pbuild::install() {
-  ./insmod.sh
+  :
 }
