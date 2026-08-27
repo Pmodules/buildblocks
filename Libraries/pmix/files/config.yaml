@@ -145,4 +145,10 @@ pmix:
           configure_args+:
             - --with-zlib
           build_requires: [gcc/15.2.0, hwloc/2.13.0]
+        - systems: [ra-.*]
+          relstage: unstable
+          overlay: base
+          configure_args+:
+            - --with-zlib
+          build_requires: [gcc/12.3.0, hwloc/2.13.0]
         - systems: [rhel.*]

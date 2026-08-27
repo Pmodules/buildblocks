@@ -105,6 +105,7 @@ pbuild::pre_configure() {
 
         if pbuild::use_flag slurm || \
 		pbuild::use_flag dgx || \
+		pbuild::use_flag ra || \
 		pbuild::use_flag merlin6 || \
 		pbuild::use_flag merlin7; then
 	    std::info "Enabling SLURM."
