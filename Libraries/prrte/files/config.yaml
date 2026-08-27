@@ -34,3 +34,7 @@ prrte:
         - systems: [merlin-.*]
           relstage: unstable
           overlay: base
+        - systems: [ra-.*]
+          relstage: unstable
+          group_deps:
+            compiler: {gcc: [12.3.0]}
