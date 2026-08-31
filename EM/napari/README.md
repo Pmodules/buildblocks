@@ -1,12 +1,5 @@
-# napari-boxmanager
+# napari
 
-The napari module is built in combination with the crYOLO module : 
+napari is a fast, interactive, multi-dimensional image viewer for Python. It's designed for browsing, annotating, and analyzing large multi-dimensional images. It's built on top of Qt (for the GUI), vispy (for performant GPU-based rendering), and the scientific Python stack (numpy, scipy).
 
-From crYOLO/1.9.9 crYOLO exists as two different conda envs, one crYOLO (code itself) env, one napari (visualization) env. 
-The installation notes recommend to link one into another, on Merlin7 simply two different modules and envs exist.
-Users need to load one env in one terminal ( crYOLO itself) and another for visualization (napari).
-
-## Adding New Versions
-
-Adding new versions: change the environment file in the build folder accordingly (and the config.yaml file)  and run the build script. 
-
+https://github.com/napari/napari
