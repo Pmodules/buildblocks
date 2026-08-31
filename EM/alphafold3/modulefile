@@ -29,4 +29,5 @@ if {$arch=="aarch64"} {
 # Environment variables
 setenv APPTAINER_IMAGE /data/project/cls/shared/containers/${P}/${V_PKG}/\${GPU_NODE_TYPE}/${P}.sif
 setenv PUBLIC_DATABASES_DIR /data/project/cls/shared/databases/${P}/public_databases
+setenv SHARDED_DATABASES_DIR /data/project/cls/shared/databases/${P}/sharded_public_databases
 

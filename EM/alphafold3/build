@@ -6,9 +6,11 @@ pbuild::prep() {
 
     # Copy executable script to the installation directory
     cp -n "$BUILDBLOCK_DIR/${P}" "$PREFIX/bin/"
+    cp -n "$BUILDBLOCK_DIR/${P}_sharded" "$PREFIX/bin/"
 
     # Add execute permission to the script
     chmod +x "$PREFIX/bin/${P}"
+    chmod +x "$PREFIX/bin/${P}_sharded"
 }
 
 pbuild::configure() {
