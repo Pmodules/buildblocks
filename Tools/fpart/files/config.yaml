@@ -11,8 +11,19 @@ fpart:
 
   shasums:                                              
     fpart-1.7.0.tar.gz: e5f82dd90001ed53200b2383bcfd520b1d8ee06d6a2a75b39d37d68daef20c88
+    fpart-1.7.1.tar.gz: 512a82320cf5418ed70416b96cd49aa51a5ae418e96482144683cad6609add2e
 
   versions:
+    1.7.1:
+      variants:
+        - overlay: base
+          target_cpus: [x86_64]
+          systems: [.*.merlin7.psi.ch]
+          relstage: stable
+        - overlay: base
+          target_cpus: [aarch64]
+          systems: [gpu0.*.merlin7.psi.ch]
+          relstage: stable
     1.7.0:
       variants:
         - overlay: base
