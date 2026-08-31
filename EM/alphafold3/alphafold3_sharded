@@ -1,0 +1,55 @@
+#!/bin/bash
+
+# Validate that the AlphaFold3 image is specified
+if [[ -z "${APPTAINER_IMAGE:-}" ]]; then
+    echo "Error: AlphaFold3 image is not set."
+    exit 1
+fi
+
+# Expand variables embedded in APPTAINER_IMAGE
+IMAGE=$(eval echo "$APPTAINER_IMAGE")
+
+# Validate the expanded path
+if [[ ! -f "$IMAGE" ]]; then
+    echo "Error: AlphaFold3 image not found: $IMAGE"
+    exit 1
+fi
+
+# Sharded databases
+RFAM_SPLIT_DIR=${SHARDED_DATABASES_DIR}/rfam_14_9_clust_seq_id_90_cov_80_rep_seq.fasta.split
+MGY_SPLIT_DIR=${SHARDED_DATABASES_DIR}/mgy_clusters_2022_05.fa.split
+BFD_SPLIT_DIR=${SHARDED_DATABASES_DIR}/bfd-first_non_consensus_sequences.fasta.split
+UNIPROT_SPLIT_DIR=${SHARDED_DATABASES_DIR}/uniprot_all_2021_04.fa.split
+UNIREF90_SPLIT_DIR=${SHARDED_DATABASES_DIR}/uniref90_2022_05.fa.split
+NT_RNA_SPLIT_DIR=${SHARDED_DATABASES_DIR}/nt_rna_2023_02_23_clust_seq_id_90_cov_80_rep_seq.fasta.split
+RNACENTRAL_SPLIT_DIR=${SHARDED_DATABASES_DIR}/rnacentral_active_seq_id_90_cov_80_linclust.fasta.split
+
+# Run AlphaFold3 inside the Singularity container
+singularity exec \
+    --nv \
+    --bind "/data/scratch/shared:/data/scratch/shared" \
+    --bind "/data/user:/data/user" \
+    --bind "/data/project:/data/project" \
+    --bind "/scratch:/scratch" \
+    --bind "/tmp:/tmp" \
+    --bind "/etc/ssl/ca-bundle.pem:/etc/ssl/ca-bundle.pem" \
+    "$IMAGE" \
+    python /app/alphafold/run_alphafold.py \
+    --seqres_database_path ${PUBLIC_DATABASES_DIR}/pdb_seqres_2022_09_28.fasta \
+    --pdb_database_path ${PUBLIC_DATABASES_DIR}/mmcif_files \
+    --rfam_database_path="${RFAM_SPLIT_DIR}/rfam_14_9_clust_seq_id_90_cov_80_rep_seq.fasta@32" \
+    --rfam_z_value=138.115553 \
+    --rna_central_database_path="${RNACENTRAL_SPLIT_DIR}/rnacentral_active_seq_id_90_cov_80_linclust.fasta@128" \
+    --rna_central_z_value=13271.415730 \
+    --small_bfd_database_path="${BFD_SPLIT_DIR}/bfd-first_non_consensus_sequences.fasta@128" \
+    --small_bfd_z_value=65984053 \
+    --uniref90_database_path="${UNIREF90_SPLIT_DIR}/uniref90_2022_05.fa@256" \
+    --uniref90_z_value=153742194 \
+    --uniprot_cluster_annot_database_path="${UNIPROT_SPLIT_DIR}/uniprot_all_2021_04.fa@512" \
+    --uniprot_cluster_annot_z_value=225619586 \
+    --ntrna_database_path="${NT_RNA_SPLIT_DIR}/nt_rna_2023_02_23_clust_seq_id_90_cov_80_rep_seq.fasta@512" \
+    --ntrna_z_value=76752.808514 \
+    --mgnify_database_path="${MGY_SPLIT_DIR}/mgy_clusters_2022_05.fa@1024" \
+    --mgnify_z_value=623796864 \
+    "$@"
+
