@@ -1,13 +1,21 @@
 ---
+# yamllint disable rule:line-length
 format: 1
 napari:
   defaults:
     group: EM
     overlay: base
-    relstage: unstable
+    relstage: stable
+
   versions:
-    0.4.17:
+    0.9.0:
       variants:
-        - overlay: Alps 
+        - overlay: Alps
+          target_cpus: [x86_64]
           systems: [.*.merlin7.psi.ch]
-          relstage: unstable
+          relstage: stable
+        - overlay: Alps
+          target_cpus: [aarch64]
+          systems: [gpu0.*.merlin7.psi.ch]
+          relstage: stable
+
