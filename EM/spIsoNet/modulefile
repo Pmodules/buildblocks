@@ -21,4 +21,4 @@ prepend-path PATH "${PREFIX}/miniforge/envs/${P}_${V_PKG}/bin"
 prepend-path PYTHONPATH "${PREFIX}/${P}"
 
 # Setup RELION_EXTERNAL_RECONSTRUCT_EXECUTABLE
-setenv RELION_EXTERNAL_RECONSTRUCT_EXECUTABLE="python ${PREFIX}/bin/relion_wrapper.py"
+setenv RELION_EXTERNAL_RECONSTRUCT_EXECUTABLE "python ${PREFIX}/bin/relion_wrapper.py"
