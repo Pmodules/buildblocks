@@ -1,0 +1,43 @@
+#!/usr/bin/env modbuild
+
+# default Python version
+: "${PYTHON_VERSION:=3.12}"
+
+pbuild::configure() {
+    # Install Miniforge
+    mkdir -p "$PREFIX/miniforge"
+    wget "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh" -O "$PREFIX/miniforge/miniforge.sh"
+    bash "$PREFIX/miniforge/miniforge.sh" -b -u -p "$PREFIX/miniforge/"
+
+    # Initialize conda for script use
+    source "$PREFIX/miniforge/etc/profile.d/mamba.sh"
+
+    # Create the conda environment
+    mamba create -y --name "${P}_${V_PKG}" "python=${PYTHON_VERSION}"
+}
+
+pbuild::compile() {
+    :
+}
+
+pbuild::install() {
+    # Ensure conda is initialized
+    source "$PREFIX/miniforge/etc/profile.d/mamba.sh"
+
+    # Activate the conda environment
+    mamba activate "${P}_${V_PKG}"
+
+    # Install dependencies
+    export IFS=' '
+    mamba install -y libnetcdf
+    mamba install -y glm
+    cd $SRC_DIR/..
+    git clone --depth 1 https://github.com/rcsb/mmtf-cpp.git
+    cp -R mmtf-cpp/include/* $SRC_DIR/include/
+    cd $SRC_DIR
+    pip install pyqt5
+
+    # Install the package
+    pip install .
+}
+
