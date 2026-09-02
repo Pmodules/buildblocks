@@ -1,0 +1,19 @@
+#%Module1.0
+
+module-whatis       "Molecular visualization system designed for rendering and analyzing 3D structures of biological macromolecules"
+module-url          "https://github.com/schrodinger/pymol-open-source"
+module-license      "https://github.com/schrodinger/pymol-open-source?tab=License-1-ov-file"
+module-maintainer   "João Pedro Agostinho de Sousa <joao.agostinho-de-sousa@psi.ch>"
+
+module-help         "
+PyMOL is an open-source, user-sponsored molecular visualization software which
+can produce high quality 3D images of biological macromolecules, such as
+proteins. Also, it has several functions for manipulating structures and some
+basic functions to analyze their chemical properties. A large percentage of the
+figures in journal publications reporting new macromolecular structures are
+created using PyMOL.
+"
+
+# Add conda env bin directory to PATH
+prepend-path PATH "${PREFIX}/miniforge/envs/${P}_${V_PKG}/bin"
+

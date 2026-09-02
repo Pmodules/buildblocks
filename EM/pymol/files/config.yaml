@@ -1,0 +1,22 @@
+---
+# yamllint disable rule:line-length
+format: 1
+pymol:
+  defaults:
+    group: EM
+    overlay: base
+    relstage: stable
+    urls:
+      - url: https://github.com/schrodinger/${P}-open-source/archive/refs/tags/v${V_PKG}.tar.gz
+
+  shasums:
+    v3.1.0.tar.gz: 54306d65060bd58ed8b3dab1a8af521aeb4fd417871f15f463ff05ccb4e121fe
+
+  versions:
+    3.1.0:
+      variants:
+        - overlay: Alps
+          target_cpus: [x86_64]
+          systems: [.*.merlin7.psi.ch]
+          relstage: stable
+
