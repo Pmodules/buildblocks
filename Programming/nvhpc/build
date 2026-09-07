@@ -9,15 +9,10 @@ pbuild::compile() {
 }
 
 pbuild::install() {
+	tar xpfz "$BUILDBLOCK_DIR/nvhpc_2026_265_Linux_$(uname -m)_cuda_multi.tar.gz" -C "$SRC_DIR" --strip-components=1
+
 	export NVHPC_SILENT="true"
 	export NVHPC_INSTALL_DIR=$PREFIX
 	export NVHPC_INSTALL_TYPE="network"
-	./install
+	$SRC_DIR/install
 }
-
-pbuild::post_install() {	
-	cd $PREFIX/Linux_x86_64/$V_MAJOR.$V_MINOR/compilers/bin
-	rm -rf localrc*
-	./makelocalrc -x $PWD
-}
-
