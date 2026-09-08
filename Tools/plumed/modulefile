@@ -17,4 +17,52 @@ prepend-path INCLUDE $PREFIX/libtorch/include/torch/csrc/api/include:$PREFIX/lib
 prepend-path LIBRARY_PATH $PREFIX/libtorch/lib
 prepend-path LD_LIBRARY_PATH $PREFIX/libtorch/lib
 
-setenv PLUMED_KERNEL $PREFIX/lib/libplumedKernel.so
+set libdir "/opt/psi/overlays/Alps/Tools/plumed/2.10.0/lib"
+set bindir "/opt/psi/overlays/Alps/Tools/plumed/2.10.0/bin"
+set includedir "/opt/psi/overlays/Alps/Tools/plumed/2.10.0/include"
+set soext  "so"
+set progname "plumed"
+set use_absolute_soname "no"
+
+# execution path
+prepend-path  PATH               $bindir
+
+# include path
+prepend-path  CPATH              $includedir
+prepend-path  INCLUDE            $includedir
+
+# library path, can also be useful when soext is not defined in order to link lib$progname.a
+prepend-path  LIBRARY_PATH       $libdir
+
+# path for VIM syntax
+setenv        PLUMED_VIMPATH     $libdir/$progname/vim
+
+# path for pkgconfig
+prepend-path  PKG_CONFIG_PATH    $libdir/pkgconfig/
+
+# some paths are only set if plumed is compiled as a dynamic library
+if { [ string length $soext ]  != 0 } {
+
+# this is checking if PLUMED_KERNEL is already set
+if { [module-info mode load] && [ info exists ::env(PLUMED_KERNEL) ] } {
+    puts stderr "WARNING: PLUMED_KERNEL variable was already set, you are now overriding it"
+    puts stderr " (typically means that you are loading two plumed modules, both defining dynamic libraries)"
+}
+
+# if we use a relative soname (as it is common in Linux) then the (DY)LD_LIBRARY_PATH should be set.
+if { $use_absolute_soname != "yes" } {
+  if { $soext == "dylib"  } {
+    prepend-path  DYLD_LIBRARY_PATH    $libdir
+  } else {
+    prepend-path  LD_LIBRARY_PATH    $libdir
+  }
+}
+
+# python path
+prepend-path  PYTHONPATH         $libdir/$progname/python
+
+# plumed kernel
+setenv        PLUMED_KERNEL      $libdir/lib${progname}Kernel.$soext
+
+}
+
