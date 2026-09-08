@@ -1,5 +1,3 @@
-After installing PGI, the localrc file of the pgi installation needs to be modified by issuing the following commands in the directory where the localrc file is located:
+# NVHPC
 
-    module add gcc/<appropriate version>  # currently 7.3.0
-    ./makelocalrc -x -gcc $(which gcc) -gpp $(which g++) -g77 $(which gfortran)
-
+NVHPC stands for the NVIDIA High Performance Computing SDK (Software Development Kit). It is a comprehensive suite of compilers, math libraries, and communication tools designed to maximize productivity and build GPU-accelerated modeling and simulation applications on Linux systems.
