@@ -18,10 +18,12 @@ NAMD:
             - PrgEnv-gnu/8.5.0
             - cray-pmi/6.1.13
             - gcc/12.3.0
+            - libfabric/2.5.1-oss
           runtime_deps:
             - PrgEnv-gnu/8.5.0
             - cray-pmi/6.1.13
             - gcc/12.3.0
+            - libfabric/2.5.1-oss
         - overlay: Alps_A100
           target_cpus: [x86_64]
           systems: [gpu1.*.merlin7.psi.ch]
@@ -31,11 +33,13 @@ NAMD:
             - cray-pmi/6.1.13
             - gcc/12.3.0
             - cuda/12.9.1
+            - libfabric/2.5.1-oss
           runtime_deps:
             - PrgEnv-gnu/8.5.0
             - cray-pmi/6.1.13
             - gcc/12.3.0
             - cuda/12.9.1
+            - libfabric/2.5.1-oss
         - overlay: Alps
           target_cpus: [aarch64]
           systems: [gpu0.*.merlin7.psi.ch]
