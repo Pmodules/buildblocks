@@ -1,0 +1,31 @@
+#!/usr/bin/env modbuild
+
+pbuild::prep() {
+    git clone "https://github.com/sandialabs/${P}.git" \
+        --branch "${V_PKG}" \
+        --depth=1 \
+        "${SRC_DIR}" || return $?
+}
+
+pbuild::pre_configure() {
+    cd "${SRC_DIR}" || return $?
+    mkdir -p build
+}
+
+pbuild::configure() {
+    cmake \
+        -S "${SRC_DIR}" \
+        -B "${SRC_DIR}/build" \
+        -DCMAKE_INSTALL_PREFIX="${PREFIX}" \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_C_COMPILER="${MPICC}" \
+        -DCMAKE_CXX_COMPILER="${MPICXX}"
+}
+
+pbuild::compile() {
+    cmake --build "${SRC_DIR}/build" -j8
+}
+
+pbuild::install() {
+    cmake --install "${SRC_DIR}/build"
+}

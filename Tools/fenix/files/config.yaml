@@ -1,0 +1,32 @@
+---
+# yamllint disable rule:line-length
+format: 1
+fenix:
+  defaults:
+    group: Tools
+    overlay: base
+    relstage: unstable
+
+  versions:
+    develop:
+      variants:
+        - overlay: base
+          target_cpus: [x86_64]
+          systems: [.*.merlin7.psi.ch]
+          build_requires:
+            - gcc/14.2.0
+            - openmpi/5.0.8
+          relstage: stable
+          runtime_deps:
+            - gcc/14.2.0
+            - openmpi/5.0.8
+        - overlay: base
+          target_cpus: [aarch64]
+          systems: [gpu0.*.merlin7.psi.ch]
+          relstage: unstable
+          build_requires:
+            - gcc/14.2.0
+            - openmpi/5.0.8
+          runtime_deps:
+            - gcc/14.2.0
+            - openmpi/5.0.8

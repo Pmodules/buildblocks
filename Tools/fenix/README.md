@@ -1,0 +1,5 @@
+# Fenix 
+
+Fenix is a software library compatible with the Message Passing Interface (MPI) to support fault recovery without application shutdown. Fenix has three components: process, data, and message recovery. Process recovery is used to repair communicators whose ranks suffered failure detected by the MPI runtime. Data recovery is an optional feature that can be used to implement a high-performance in-memory checkpoint/restart mechanism. Message recovery is another optional feature that can be used to save and replay message logs to enable localized fault tolerance.
+
+https://github.com/sandialabs/fenix
