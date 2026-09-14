@@ -17,9 +17,9 @@ prepend-path INCLUDE $PREFIX/libtorch/include/torch/csrc/api/include:$PREFIX/lib
 prepend-path LIBRARY_PATH $PREFIX/libtorch/lib
 prepend-path LD_LIBRARY_PATH $PREFIX/libtorch/lib
 
-set libdir "/opt/psi/overlays/Alps/Tools/plumed/2.10.0/lib"
-set bindir "/opt/psi/overlays/Alps/Tools/plumed/2.10.0/bin"
-set includedir "/opt/psi/overlays/Alps/Tools/plumed/2.10.0/include"
+set libdir "/opt/psi/overlays/Alps/Tools/${P}/${V}/lib"
+set bindir "/opt/psi/overlays/Alps/Tools/${P}/${V}/bin"
+set includedir "/opt/psi/overlays/Alps/Tools/${P}/${V}/include"
 set soext  "so"
 set progname "plumed"
 set use_absolute_soname "no"
