@@ -1,41 +1,7 @@
 #!/usr/bin/env modbuild
 
-pbuild::pre_configure() {
-   echo "> Setting performance system compiler flags"
-   case "$(uname -m)" in
-       aarch64)
-           export CC=gcc
-           export CXX=g++
-           export CFLAGS='-march=native -O3 -pipe -Wno-error'
-           export CXXFLAGS='-march=native -O3 -pipe -Wno-error'
-           export FFLAGS='-march=native -O3 -pipe'
-           export FCFLAGS='-march=native -O3 -pipe'
-           export LDFLAGS='-Wl,--as-needed'
-           ;;
-       x86_64)
-           export CC=gcc
-           export CXX=g++
-           export CFLAGS='-march=znver2 -mtune=znver2 -O3 -pipe -Wno-error'
-           export CXXFLAGS='-march=znver2 -mtune=znver2 -O3 -pipe -Wno-error'
-           export FFLAGS='-march=znver2 -mtune=znver2 -O3 -pipe'
-           export FCFLAGS='-march=znver2 -mtune=znver2 -O3 -pipe'
-           export LDFLAGS='-Wl,--as-needed'
-           ;;
-       *)
-           echo ">> Unknown system architecture $(uname -m). Using default flags."
-           export CC=gcc
-           export CXX=g++
-           export CFLAGS='-O3 -pipe -Wno-error'
-           export CXXFLAGS='-O3 -pipe -Wno-error'
-           export FFLAGS='-O3 -pipe'
-           export FCFLAGS='-O3 -pipe'
-           export LDFLAGS='-Wl,--as-needed'
-           ;;
-   esac
-}
-
 pbuild::configure() {
-    : "${PYTHON_VERSION:=3.11}"
+    : "${PYTHON_VERSION:=3.12}"
 
     # Install Miniforge
     mkdir -p "$PREFIX/miniforge"
@@ -43,10 +9,10 @@ pbuild::configure() {
     bash "$PREFIX/miniforge/miniforge.sh" -b -u -p "$PREFIX/miniforge/"
 
     # Initialize conda for script use
-    source "$PREFIX/miniforge/etc/profile.d/conda.sh"
+    source "$PREFIX/miniforge/etc/profile.d/mamba.sh"
 
     # Create the conda environment
-    conda create -y --name "${P}_${V_PKG}" "python=${PYTHON_VERSION}"
+    mamba create -y --name "${P}_${V_PKG}" "python=${PYTHON_VERSION}"
 }
 
 pbuild::compile() {
@@ -54,42 +20,33 @@ pbuild::compile() {
 }
 
 pbuild::install() {
-    : "${TORCH_VERSION:=2.9.1}"
-    : "${LAMMPS_VERSION:=stable_2Aug2023_update3}"
+    : "${TORCH_VERSION:=2.13.0}"
 
     # Ensure conda is initialized
-    source "$PREFIX/miniforge/etc/profile.d/conda.sh"
+    source "$PREFIX/miniforge/etc/profile.d/mamba.sh"
 
     # Activate the conda environment
-    conda activate "${P}_${V_PKG}"
+    mamba activate "${P}_${V_PKG}"
 
     # Set the source directory
     cd "$SRC_DIR"
 
     # Install the package using pip within the conda environment
     pip install "torch==${TORCH_VERSION}" --index-url https://download.pytorch.org/whl/cu129
-    pip install "sevenn[cueq12]==${V_PKG}"
-    pip install "git+https://github.com/MDIL-SNU/SevenNet.git@v${V_PKG}"
+    pip install "sevenn==${V_PKG}"
 
-    # Build LAMMPS with SevenN patch
-    git clone https://github.com/lammps/lammps.git lammps_sevenn --branch ${LAMMPS_VERSION} --depth=1
-    sevenn_patch_lammps ./lammps_sevenn --d3
-    cd ./lammps_sevenn
-    mkdir build
-    cd build
-    cmake ../cmake \
-        -DCMAKE_PREFIX_PATH="$(python -c 'import torch;print(torch.utils.cmake_prefix_path)')" \
-        -DMKL_INCLUDE_DIR=/tmp \
-        -DCMAKE_BUILD_TYPE=Release \
-        -DCMAKE_C_COMPILER="${MPICC}" \
-        -DCMAKE_CXX_COMPILER="${MPICXX}" \
-        -DCMAKE_C_FLAGS="${CFLAGS}" \
-        -DCMAKE_CXX_FLAGS="${CXXFLAGS}" \
-        -DCMAKE_Fortran_FLAGS="${FFLAGS}" \
-        -DCMAKE_EXE_LINKER_FLAGS="${LDFLAGS}" \
-        -DCMAKE_SHARED_LINKER_FLAGS="${LDFLAGS}"
-    make -j4
-    mkdir "${PREFIX}"/bin
-    cp "$SRC_DIR"/lammps_sevenn/build/lmp "${PREFIX}"/bin
-    cp -r "$SRC_DIR"/lammps_sevenn/build/etc "${PREFIX}"
+    # CuEquivariance
+    pip install "sevenn[cueq12]==${V_PKG}"
+
+    # FlashTP
+    git clone https://github.com/SNU-ARC/flashTP.git
+    cd flashTP
+    pip install -r requirements.txt
+    CUDA_ARCH_LIST="80;90" pip install . --no-build-isolation
+
+    # OpenEquivariance
+    pip install "sevenn[oeq]==${V_PKG}"
+
+    # LAMMPS: ML-IAP
+    pip install "sevenn[mliap12]==${V_PKG}"
 }
