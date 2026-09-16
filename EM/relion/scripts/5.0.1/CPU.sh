@@ -44,6 +44,6 @@ export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK}
 
 # Execute RELION
 mpirun -np "${SLURM_NTASKS}" \
-  --map-by numa:PE=${SLURM_CPUS_PER_TASK} \
-  --bind-to core:overload-allowed --report-bindings \
+  --map-by node:PE=${SLURM_CPUS_PER_TASK} \
+  --bind-to core --report-bindings \
   XXXcommandXXX
