@@ -5,6 +5,13 @@ ANSYS:
     relstage: stable
   shasums:
   versions:
+    2026R1:
+      variants:
+        - systems: [.*.merlin7.psi.ch]
+          relstage: unstable
+          overlay: merlin
+          use_overlays: [PSI]
+          use_flags: [merlin7]
     2025R2:
       variants:
         - systems: [.*.merlin7.psi.ch]
