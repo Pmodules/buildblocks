@@ -1,34 +1,14 @@
 #%Module1.0
 
-module-whatis           "Cryocare - Content-Aware Image Restoration for Cryo-Transmission Electron Microscopy Data"
-module-url              "https://github.com/juglab/cryoCARE_T2T"
-module-license          "BSD 2-Clause Simplified License"
-module-maintainer       "Greta Assmann <greta.assmann@psi.ch>"
+module-whatis       "Cryocare - Content-Aware Image Restoration for Cryo-Transmission Electron Microscopy Data"
+module-url          "https://github.com/juglab/cryoCARE_pip"
+module-license      "BSD-3-Clause license"
+module-maintainer   "João Pedro Agostinho de Sousa <joao.agostinho-de-sousa@psi.ch>"
 
-module-help     "https://arxiv.org/abs/1810.05420"
+module-help         "
+cryoCARE is a content-aware image restoration software package designed to
+denoise cryo-transmission electron microscopy (cryo-TEM) tomograms.
+"
 
-
-# Check for supported shell types
-set shelltype [module-info shelltype]
-switch -- $shelltype {
-    "sh" {
-        puts stdout "source \"${PREFIX}\"/miniconda/etc/profile.d/conda.sh;\n"
-    }
-    default {
-        puts stderr "Shells of type '$shelltype' are NOT supported!"
-    }
-}
-
-
-switch [module-info mode] {
-    "load" {
-      # Relies on the anaconda module being loaded since we need to update the path
-      puts stdout "conda activate ${P}_${V};\n"
-    }
-    "unload" -
-    "remove" {
-        puts stdout "conda deactivate;\n"
-    }
-}
-
-
+# Add conda env bin directory to PATH
+prepend-path PATH "${PREFIX}/miniforge/envs/${P}_${V_PKG}/bin"
