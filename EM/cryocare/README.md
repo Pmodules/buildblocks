@@ -1,11 +1,5 @@
- Installation remarks for cryocare: 
+# cryoCARE
 
- - pip installation from https://pypi.org/project/cryoCARE/,   (see environment.yaml)
- - creation of conda env with miniconda 
+Multiple approaches to use deep learning for image restoration have recently been proposed. Training such approaches requires well registered pairs of high and low quality images. While this is easily achievable for many imaging modalities, e.g. fluorescence light microscopy, for others it is not. Cryo-transmission electron microscopy (cryo-TEM) could profoundly benefit from improved denoising methods, unfortunately it is one of the latter. Here we show how recent advances in network training for image restoration tasks, i.e. denoising, can be applied to cryo-TEM data. We describe our proposed method and show how it can be applied to single cryo-TEM projections and whole cryo-tomographic image volumes. Our proposed restoration method dramatically increases contrast in cryo-TEM images, which improves the interpretability of the acquired data. Furthermore we show that automated downstream processing on restored image data, demonstrated on a dense segmentation task, leads to improved results.
 
-Usage with Relion: module does not need to be activated , BUT : 
-- executables need to be provided in the relion GUI
-- the modulefile in RELION needs to add the cryocare bin to the LD_LIBRARY_PATH, otherwise the libraries will not be found 
-
-
-
+https://github.com/juglab/cryoCARE_pip
