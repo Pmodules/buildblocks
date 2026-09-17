@@ -61,7 +61,7 @@ hdf5:
             name: hdf5-${V_PKG}.tar.gz
         configure_with: cmake
         build_functions:
-          configure: [custom::cmake::pre_configure, pbuild::configure, pbuild::post_configure]
+          configure: [pbuild::configure, pbuild::post_configure]
       variants:
         - systems: [.*.merlin7.psi.ch]
           overlay: Alps

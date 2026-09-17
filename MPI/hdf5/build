@@ -48,7 +48,3 @@ pbuild::pre_configure() {
 		pbuild::add_configure_args "--enable-fortran"
 	fi
 }
-
-custom::cmake::pre_configure() {
-  :
-}
