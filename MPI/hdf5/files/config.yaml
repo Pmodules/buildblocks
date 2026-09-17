@@ -51,8 +51,35 @@ hdf5:
     hdf5-1.12.2.tar.bz2: 3016ea56a175d2ca7f2568c8016420f7a2aad8f95e214fe7fa5485f4b80fbe51
     hdf5-1.13.1.tar.bz2: e16973ec893e2d5aa9c8dc73e196db9b99a605578e7317b421c713936f8bf57d
     hdf5-1.14.6.tar.gz: 09ee1c671a87401a5201c06106650f62badeea5a3b3941e9b1e2e1e08317357f
+    hdf5-2.2.0.tar.gz: 5b8d75125ae7b4fef55d3b39e8d3dbfd238cdf63b6518afd67fa69ac80f06542
 
   versions:
+    2.2.0:
+      config:
+        urls:
+          - url: https://github.com/HDFGroup/hdf5/archive/refs/tags/${V_PKG}.tar.gz
+            name: hdf5-${V_PKG}.tar.gz
+        configure_with: cmake
+        build_functions:
+          configure: [pbuild::configure, pbuild::post_configure]
+      variants:
+        - systems: [.*.merlin7.psi.ch]
+          overlay: Alps
+          relstage: unstable
+          group_deps:
+            compiler: {gcc: [13.4.0]}
+            mpi: {openmpi: [5.0.10], mpich: [5.0.1] }
+          configure_args:
+            - -DCMAKE_C_COMPILER=${MPICC}
+            - -DCMAKE_CXX_COMPILER=${MPICXX}
+            - -DCMAKE_Fortran_COMPILER=${MPIFC}
+            - -DHDF5_ENABLE_PARALLEL=ON
+            - -DHDF5_BUILD_FORTRAN=ON
+            - -DCMAKE_POSITION_INDEPENDENT_CODE=ON
+            # Alternatively:
+            # - -DCMAKE_C_FLAGS=-fPIC
+            # - -DCMAKE_CXX_FLAGS=-fPIC
+            # - -DCMAKE_Fortran_FLAGS=-fPIC
     1.14.6:
       config:
         urls:
@@ -64,7 +91,7 @@ hdf5:
           relstage: unstable
           group_deps:
             compiler: {gcc: [12.4.0, 13.3.0, 13.4.0, 14.3.0, 15.2.0]}
-            mpi: {openmpi: [5.0.8, 5.0.10]}
+            mpi: {openmpi: [5.0.8, 5.0.10], mpich: [5.0.1] }
         - systems: [.*.merlin7.psi.ch]
           overlay: Alps
           group_deps:
