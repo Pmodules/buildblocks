@@ -7,7 +7,7 @@ qe:
     overlay: base
     relstage: stable
     systems: [rhel7, rhel8, rhel9]
-    docfiles: [AUTHORS, LICENSE, NEWS, README]
+    docfiles: [AUTHORS, LICENSE, NEWS, README.md, README_GPU.md, CONTRIBUTING.md]
     configure_with: cmake
     urls:
       - url: https://gitlab.com/QEF/q-e/-/archive/qe-${V_PKG}/q-e-qe-${V_PKG}.tar.bz2
@@ -15,6 +15,25 @@ qe:
     qe-7.3.1.tar.bz2: 4955e4ca5e47a0faafefc72442155bef02ff94c8b796698ad81d4804a1cf6d88
 
   versions:
+    7.6:
+      variants:
+        - systems: [.*.merlin7.psi.ch]
+          relstage: unstable
+          overlay: Alps
+          use_overlays: [PSI, Alps]
+          group_deps:
+            compiler: { gcc: [13.4.0] }
+            mpi: { openmpi: [5.0.10], mpich: [5.0.1] }
+          docfiles: [README.md, README_GPU.md, CONTRIBUTING.md]
+          build_requires: [ cmake/4.4.0, git/2.54.0, OpenBLAS/0.3.30, hdf5/2.2.0, fftw/3.3.10 ]
+          configure_args+:
+            - -DQE_ENABLE_MPI:BOOL=ON
+            - -DQE_ENABLE_OPENMP:BOOL=ON
+            - -DQE_ENABLE_HDF5:BOOL=ON
+            - -DCMAKE_C_COMPILER:STRING=mpicc
+            - -DCMAKE_Fortran_COMPILER:STRING=mpif90
+            - -DCMAKE_SYSTEM_PROCESSOR=x86_64
+
     7.3.1:
       variants:
         - systems: [merlin-*, ra-*]
