@@ -86,17 +86,43 @@ openmpi:
             - --with-lustre
             - --with-xpmem
           use_flags: [merlin7, slurm]
+          # - systems: [ra-.*]
+          #   relstage: unstable
+          #   suffix: _ra
+          #   use_flags: [ra, gpfs]
+          #   group_deps:
+          #     compiler: {gcc: [12.3.0]}
+          #   build_requires: [pmix/4.2.4, ucx/1.14.1_slurm, hwloc/2.9.1, patchelf/0.14.5]
+          #   runtime_deps: [cuda/12.1.1]
+          #   configure_args+:
+          #     - --with-gpfs=/usr/lpp/mmfs
+          #     - --enable-static
+          # TEST MCAUBET
         - systems: [ra-.*]
-          relstage: unstable
           suffix: _ra
           use_flags: [ra, gpfs]
+          relstage: unstable
+          overlay: base
           group_deps:
             compiler: {gcc: [12.3.0]}
-          build_requires: [pmix/4.2.4, ucx/1.14.1_slurm, hwloc/2.9.1, patchelf/0.14.5]
-          runtime_deps: [cuda/12.1.1]
+          build_requires:
+            - hwloc/2.13.0    # ok
+            - libevent/2.1.12 # ok
+            - patchelf/0.14.5 # ok
+            - pmix/5.0.10     # ok
+            - prrte/3.0.13    # ok
+            - ucx/1.20.0      # ok
+            - xpmem/2.6.5     # ok
+          runtime_deps:
+            - cuda/13.2.1
+            - prrte/3.0.13
           configure_args+:
+            - CFLAGS=-g -O0
+            - LDFLAGS=-g
             - --with-gpfs=/usr/lpp/mmfs
             - --enable-static
+            - --without-ofi
+            - --without-hcoll
         - systems: [merlin-.*]
           suffix: _slurm
           use_flags: [merlin6, gpfs]
