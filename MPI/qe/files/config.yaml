@@ -7,7 +7,7 @@ qe:
     overlay: base
     relstage: stable
     systems: [rhel7, rhel8, rhel9]
-    docfiles: [AUTHORS, LICENSE, NEWS, README.md, README_GPU.md, CONTRIBUTING.md]
+    docfiles: [AUTHORS, LICENSE, NEWS, README]
     configure_with: cmake
     urls:
       - url: https://gitlab.com/QEF/q-e/-/archive/qe-${V_PKG}/q-e-qe-${V_PKG}.tar.bz2
@@ -30,8 +30,9 @@ qe:
             - -DQE_ENABLE_MPI:BOOL=ON
             - -DQE_ENABLE_OPENMP:BOOL=ON
             - -DQE_ENABLE_HDF5:BOOL=ON
-            - -DCMAKE_C_COMPILER:STRING=mpicc
-            - -DCMAKE_Fortran_COMPILER:STRING=mpif90
+            - -DCMAKE_C_COMPILER:STRING=${MPICC}
+            - -DCMAKE_CXX_COMPILER:STRING=${MPICXX}
+            - -DCMAKE_Fortran_COMPILER:STRING=${MPIFC}
             - -DCMAKE_SYSTEM_PROCESSOR=x86_64
 
     7.3.1:
