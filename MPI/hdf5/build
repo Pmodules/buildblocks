@@ -49,3 +49,6 @@ pbuild::pre_configure() {
 	fi
 }
 
+custom::cmake::pre_configure() {
+  :
+}

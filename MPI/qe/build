@@ -1,5 +1,18 @@
 #!/usr/bin/env modbuild
 
+pbuild::prep() {
+    local TAG
+    TAG="qe-${V_PKG}"
+
+    # Clone or update source repository
+    if [[ -d "$SRC_DIR/.git" ]]; then
+        cd "$SRC_DIR" || return $?
+        git pull || return $?
+    else
+        git clone --depth=1 -b "$TAG" https://github.com/QEF/q-e.git "$SRC_DIR" || return $?
+    fi
+}
+
 pbuild::pre_configure() {
         pbuild::add_configure_args "-DQE_ENABLE_OPENMP=ON"
         pbuild::add_configure_args "-DQE_ENABLE_MPI=ON"
