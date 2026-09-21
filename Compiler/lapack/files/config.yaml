@@ -1,0 +1,36 @@
+---
+# yamllint disable rule:line-length
+format: 1
+lapack:
+  defaults:
+    group: Compiler
+    overlay: base
+    relstage: stable
+    urls:
+      - url: https://github.com/Reference-LAPACK/lapack/archive/refs/tags/v${V_PKG}.tar.gz
+        name: lapack-${V_PKG}.tar.gz
+    configure_args:
+      - -DCMAKE_BUILD_TYPE=Release
+      - -DBUILD_SHARED_LIBS=ON
+      - -DBUILD_STATIC_LIBS=ON
+      - -DDYNAMIC_ARCH=ON
+      - -DBLAS=ON
+      - -DLAPACKE=ON
+    docfiles:
+      - LICENSE
+      - README.md
+
+  shasums:
+
+  versions:
+    3.12.1:
+      variants:
+        - systems: [.*.merlin7.psi.ch]
+          target_cpus: [x86_64]
+          relstage: unstable
+          overlay: PSI
+          use_overlays: [PSI, Alps]
+          group_deps:
+            compiler:
+              gcc: [13.4.0]
+          build_requires: [cmake/4.4.0]

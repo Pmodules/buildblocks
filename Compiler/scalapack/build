@@ -5,9 +5,7 @@
 #   - If version does not exist, install from GIT repository package (tag).
 COMMIT=$(grep -E "^${V}" files/version-to-gitcommit.txt | awk '{print $2}')
 
-if [[ ! -n ${COMMIT} ]]; then
-  pbuild::set_download_url "https://github.com/Reference-ScaLAPACK/scalapack/archive/refs/tags/v${V_PKG}.tar.gz"
-else
+if [[ -n ${COMMIT} ]]; then
   pbuild::pre_prep() {
     # Only deploy package if it does not exist
     echo HERE
@@ -19,13 +17,4 @@ else
       cd ..
       tar --remove-files -cvzf $PMODULES_DISTFILESDIR/$P-$V.tar.gz scalapack
     fi
-  }
-  pbuild::set_download_url "https://github.com/Reference-ScaLAPACK/scalapack/archive/refs/tags/v${V_PKG}.tar.gz" "$P-$V.tar.gz"
 fi
-
-pbuild::add_to_group 'Compiler'
-pbuild::install_docfiles 'README' 'LICENSE'
-
-pbuild::pre_configure_Linux() {
-   pbuild::use_cmake
-}
