@@ -55,6 +55,7 @@ OpenBLAS:
           group_deps:
             compiler:
               gcc: [13.4.0, 14.3.0]
+
     0.3.30:
       config:
         configure_args+:
