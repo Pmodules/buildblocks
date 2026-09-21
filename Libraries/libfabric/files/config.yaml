@@ -26,7 +26,7 @@ libfabric:
       variants:
         - systems: [.*.merlin7.psi.ch]
           overlay: Alps
-          use_overlays: [PSI]
+          use_overlays: [PSI, Alps]
           suffix: '-oss'
           use_flags: [merlin7]
           build_requires:
@@ -60,7 +60,7 @@ libfabric:
       variants:
         - systems: [.*.merlin7.psi.ch]
           overlay: Alps
-          use_overlays: [PSI]
+          use_overlays: [PSI, Alps]
           suffix: '-oss'
           use_flags: [merlin7]
           build_requires:
@@ -87,7 +87,7 @@ libfabric:
       variants:
         - systems: [.*.merlin7.psi.ch]
           overlay: Alps
-          use_overlays: [PSI]
+          use_overlays: [PSI, Alps]
           suffix: '-oss'
           use_flags: [merlin7]
           build_requires:
