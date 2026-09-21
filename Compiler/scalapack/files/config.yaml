@@ -1,0 +1,52 @@
+---
+# yamllint disable rule:line-length
+format: 1
+scalapack:
+  defaults:
+    group: Compiler
+    overlay: base
+    relstage: stable
+    systems: [rhel8, rhel9, rhel10]
+    docfiles: [ LICENSE, README]
+    configure_with: cmake
+    configure_args:
+      - -DCMAKE_BUILD_TYPE=Release
+      - -DBUILD_SHARED_LIBS=ON
+      - -DBUILD_STATIC_LIBS=ON
+      - -DDYNAMIC_ARCH=ON
+    urls:
+      - url: https://github.com/Reference-ScaLAPACK/scalapack/archive/refs/tags/v${V_PKG}.tar.gz
+        name: scalapack-${V_PKG}.tar.gz
+  shasums:
+    qe-7.3.1.tar.bz2: 4955e4ca5e47a0faafefc72442155bef02ff94c8b796698ad81d4804a1cf6d88
+
+  versions:
+    2.2.3:
+      config:
+        configure_args+:
+          - -DCMAKE_C_COMPILER=${MPICC}
+          - -DCMAKE_CXX_COMPILER=${MPICXX}
+          - -DCMAKE_Fortran_COMPILER=${MPIFC}
+          - -DMPI_BASE_DIR=${MPICH_HOME}
+          # - -DBLAS_LIBRARIES=${LAPACK_LIBRARY_DIR}/libblas.so.3
+          # - -DLAPACK_LIBRARIES="${LAPACK_LIBRARY_DIR}/liblapack.so.3
+      variants:
+        - systems: [login.*.merlin7.psi.ch, cn.*.merlin7.psi.ch]
+          relstage: unstable
+          overlay: Alps
+          use_overlays: [PSI, Alps]
+          group_deps:
+            compiler: { gcc: [13.4.0] }
+            mpi: {mpich: [5.0.1]}
+          # build_requires: [ cmake/4.4.0, lapack/3.12.1, OpenBLAS/0.3.34, mpich/5.0.1 ]
+          build_requires: [ cmake/4.4.0, mpich/5.0.1 ]
+        - systems: [gpu.*.merlin7.psi.ch]
+          relstage: unstable
+          overlay: Alps_A100
+          target_cpus: ['x86_64'] # GPU A100
+          use_overlays: [PSI, Alps, Alps_A100]
+          group_deps:
+            compiler: { gcc: [13.4.0] }
+            mpi: {mpich: [5.0.1]}
+          # build_requires: [ cmake/4.4.0, lapack/3.12.1, OpenBLAS/0.3.34, mpich/5.0.1 ]
+          build_requires: [ cmake/4.4.0, mpich/5.0.1 ]
