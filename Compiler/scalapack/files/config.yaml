@@ -24,8 +24,8 @@ scalapack:
       config:
         configure_args+:
           - -DMPI_BASE_DIR=${MPICH_HOME}
-          # - -DBLAS_LIBRARIES=${LAPACK_LIBRARY_DIR}/libblas.so.3
-          # - -DLAPACK_LIBRARIES="${LAPACK_LIBRARY_DIR}/liblapack.so.3
+          - -DBLAS_LIBRARIES=${LAPACK_LIBRARY_DIR}
+          - -DLAPACK_LIBRARIES=${LAPACK_LIBRARY_DIR}
       variants:
         - systems: [login.*.merlin7.psi.ch, cn.*.merlin7.psi.ch]
           relstage: unstable
@@ -38,8 +38,8 @@ scalapack:
             - -DCMAKE_C_COMPILER=${MPICC}
             - -DCMAKE_CXX_COMPILER=${MPICXX}
             - -DCMAKE_Fortran_COMPILER=${MPIFC}
-          # build_requires: [ cmake/4.4.0, lapack/3.12.1, OpenBLAS/0.3.34, mpich/5.0.1 ]
-          build_requires: [ cmake/4.4.0, mpich/5.0.1 ]
+            - -DSCALAPACK_BUILD_TESTS=OFF
+          build_requires: [ cmake/3.27.8, mpich/5.0.1, lapack/3.12.1 ]
         - systems: [gpu.*.merlin7.psi.ch]
           relstage: unstable
           overlay: Alps_A100
@@ -52,15 +52,8 @@ scalapack:
             - -DCMAKE_C_COMPILER=${MPICC}
             - -DCMAKE_CXX_COMPILER=${MPICXX}
             - -DCMAKE_Fortran_COMPILER=${MPIFC}
-          # build_requires: [ cmake/4.4.0, lapack/3.12.1, OpenBLAS/0.3.34, mpich/5.0.1 ]
-          build_requires: [ cmake/4.4.0, mpich/5.0.1 ]
-    #2.2.2:
-    #  config:
-    #    configure_args+:
-    #      - -DMPI_BASE_DIR=${MPICH_HOME}
-    #      # - -DBLAS_LIBRARIES=${LAPACK_LIBRARY_DIR}/libblas.so.3
-    #      # - -DLAPACK_LIBRARIES="${LAPACK_LIBRARY_DIR}/liblapack.so.3
-    #  variants:
+            - -DSCALAPACK_BUILD_TESTS=OFF
+          build_requires: [ cmake/3.27.8, mpich/5.0.1, lapack/3.12.1 ]
         - systems: [gpu.*.merlin7.psi.ch]
           relstage: unstable
           overlay: Alps_A100
@@ -73,9 +66,5 @@ scalapack:
             - -DCMAKE_C_COMPILER=${CC}
             - -DCMAKE_CXX_COMPILER=${CXX}
             - -DCMAKE_Fortran_COMPILER=${FC}
-            - -DBLAS_LIBRARIES=${LAPACK_LIBRARY_DIR}
-            - -DLAPACK_LIBRARIES=${LAPACK_LIBRARY_DIR}
             - -DSCALAPACK_BUILD_TESTS=OFF
-          #  - -DCMAKE_C_FLAGS=-Wno-error=implicit-function-declaration
-          # build_requires: [ cmake/4.4.0, lapack/3.12.1, OpenBLAS/0.3.34, mpich/5.0.1 ]
           build_requires: [ cmake/3.27.8, mpich/5.0.1, lapack/3.12.1 ]
