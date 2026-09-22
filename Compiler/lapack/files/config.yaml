@@ -16,8 +16,8 @@ lapack:
     docfiles:
       - LICENSE
       - README.md
-
   shasums:
+    lapack-3.12.1.tar.gz: 2ca6407a001a474d4d4d35f3a61550156050c48016d949f0da0529c0aa052422
 
   versions:
     3.12.1:
