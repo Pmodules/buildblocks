@@ -12,24 +12,3 @@ pbuild::prep() {
         git clone --depth=1 -b "$TAG" https://github.com/QEF/q-e.git "$SRC_DIR" || return $?
     fi
 }
-
-pbuild::pre_configure() {
-        pbuild::add_configure_args "-DQE_ENABLE_OPENMP=ON"
-        pbuild::add_configure_args "-DQE_ENABLE_MPI=ON"
-        # Recommended by the Quantum Espresso Developers
-        pbuild::add_configure_args "-DCMAKE_C_COMPILER=mpicc"
-        pbuild::add_configure_args "-DCMAKE_Fortran_COMPILER=mpif90"
-        pbuild::add_configure_args "-DCMAKE_SYSTEM_PROCESSOR=x86_64"
-
-        case "${COMPILER}" in
-                nvhpc )
-                        pbuild::add_configure_args "-DQE_ENABLE_CUDA=ON"
-                        pbuild::add_configure_args "-DQE_ENABLE_MPI_GPU_AWARE=ON"
-                        pbuild::add_configure_args "-DQE_ENABLE_OPENACC=ON"
-                        pbuild::add_configure_args "-DNVFORTRAN_CUDA_VERSION=12.1"
-                        pbuild::add_configure_args "-DNVFORTRAN_CUDA_CC=60"
-                        ;;
-        esac
-
-}
-
