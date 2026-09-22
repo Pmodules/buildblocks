@@ -17,7 +17,7 @@ scalapack:
       - url: https://github.com/Reference-ScaLAPACK/scalapack/archive/refs/tags/v${V_PKG}.tar.gz
         name: scalapack-${V_PKG}.tar.gz
   shasums:
-    qe-7.3.1.tar.bz2: 4955e4ca5e47a0faafefc72442155bef02ff94c8b796698ad81d4804a1cf6d88
+    scalapack-2.2.3.tar.gz: 2f5503090e43f9b676db6d09befbc90116851cd34cbe7339364dfdd8f777e414
 
   versions:
     2.2.3:
