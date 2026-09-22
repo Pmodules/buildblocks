@@ -13,7 +13,6 @@ scalapack:
       - -DCMAKE_BUILD_TYPE=Release
       - -DBUILD_SHARED_LIBS=ON
       - -DBUILD_STATIC_LIBS=ON
-      - -DDYNAMIC_ARCH=ON
     urls:
       - url: https://github.com/Reference-ScaLAPACK/scalapack/archive/refs/tags/v${V_PKG}.tar.gz
         name: scalapack-${V_PKG}.tar.gz
@@ -24,9 +23,6 @@ scalapack:
     2.2.3:
       config:
         configure_args+:
-          - -DCMAKE_C_COMPILER=${MPICC}
-          - -DCMAKE_CXX_COMPILER=${MPICXX}
-          - -DCMAKE_Fortran_COMPILER=${MPIFC}
           - -DMPI_BASE_DIR=${MPICH_HOME}
           # - -DBLAS_LIBRARIES=${LAPACK_LIBRARY_DIR}/libblas.so.3
           # - -DLAPACK_LIBRARIES="${LAPACK_LIBRARY_DIR}/liblapack.so.3
@@ -36,8 +32,12 @@ scalapack:
           overlay: Alps
           use_overlays: [PSI, Alps]
           group_deps:
-            compiler: { gcc: [13.4.0] }
+            compiler: {gcc: [13.4.0]}
             mpi: {mpich: [5.0.1]}
+          configure_args+:
+            - -DCMAKE_C_COMPILER=${MPICC}
+            - -DCMAKE_CXX_COMPILER=${MPICXX}
+            - -DCMAKE_Fortran_COMPILER=${MPIFC}
           # build_requires: [ cmake/4.4.0, lapack/3.12.1, OpenBLAS/0.3.34, mpich/5.0.1 ]
           build_requires: [ cmake/4.4.0, mpich/5.0.1 ]
         - systems: [gpu.*.merlin7.psi.ch]
@@ -46,7 +46,36 @@ scalapack:
           target_cpus: ['x86_64'] # GPU A100
           use_overlays: [PSI, Alps, Alps_A100]
           group_deps:
-            compiler: { gcc: [13.4.0] }
+            compiler: {gcc: [13.4.0]}
             mpi: {mpich: [5.0.1]}
+          configure_args+:
+            - -DCMAKE_C_COMPILER=${MPICC}
+            - -DCMAKE_CXX_COMPILER=${MPICXX}
+            - -DCMAKE_Fortran_COMPILER=${MPIFC}
           # build_requires: [ cmake/4.4.0, lapack/3.12.1, OpenBLAS/0.3.34, mpich/5.0.1 ]
           build_requires: [ cmake/4.4.0, mpich/5.0.1 ]
+    #2.2.2:
+    #  config:
+    #    configure_args+:
+    #      - -DMPI_BASE_DIR=${MPICH_HOME}
+    #      # - -DBLAS_LIBRARIES=${LAPACK_LIBRARY_DIR}/libblas.so.3
+    #      # - -DLAPACK_LIBRARIES="${LAPACK_LIBRARY_DIR}/liblapack.so.3
+    #  variants:
+        - systems: [gpu.*.merlin7.psi.ch]
+          relstage: unstable
+          overlay: Alps_A100
+          target_cpus: ['x86_64'] # GPU A100
+          use_overlays: [PSI, Alps, Alps_A100]
+          group_deps:
+            compiler: {nvhpc: [26.5_cuda_multi]}
+            mpi: {mpich: [5.0.1]}
+          configure_args+:
+            - -DCMAKE_C_COMPILER=${CC}
+            - -DCMAKE_CXX_COMPILER=${CXX}
+            - -DCMAKE_Fortran_COMPILER=${FC}
+            - -DBLAS_LIBRARIES=${LAPACK_LIBRARY_DIR}
+            - -DLAPACK_LIBRARIES=${LAPACK_LIBRARY_DIR}
+            - -DSCALAPACK_BUILD_TESTS=OFF
+          #  - -DCMAKE_C_FLAGS=-Wno-error=implicit-function-declaration
+          # build_requires: [ cmake/4.4.0, lapack/3.12.1, OpenBLAS/0.3.34, mpich/5.0.1 ]
+          build_requires: [ cmake/3.27.8, mpich/5.0.1, lapack/3.12.1 ]

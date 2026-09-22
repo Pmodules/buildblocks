@@ -17,4 +17,5 @@ if [[ -n ${COMMIT} ]]; then
       cd ..
       tar --remove-files -cvzf $PMODULES_DISTFILESDIR/$P-$V.tar.gz scalapack
     fi
+  }
 fi
