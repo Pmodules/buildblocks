@@ -46,6 +46,18 @@ mpich:
           configure_args+:
             - --with-pm=hydra,gforker
         - systems: [gpu.*.merlin7.psi.ch]
+          relstage: stable
+          overlay: Alps_A100
+          target_cpus: ['x86_64'] # GPU A100
+          use_overlays: [PSI, Alps, Alps_A100]
+          use_flags: [merlin7, slurm, cuda]
+          group_deps:
+            compiler: {nvhpc: [26.5_cuda_multi]}
+          build_requires: [hwloc/2.12.0, patchelf/0.14.5]
+          runtime_deps: [cuda/12.9.1,libfabric/2.5.1-oss]
+          configure_args+:
+            - --with-pm=hydra,gforker
+        - systems: [gpu.*.merlin7.psi.ch]
           relstage: unstable
           overlay: Alps
           target_cpus: ['aarch64'] # GPU GH

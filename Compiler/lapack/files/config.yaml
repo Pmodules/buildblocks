@@ -12,9 +12,6 @@ lapack:
     configure_args:
       - -DCMAKE_BUILD_TYPE=Release
       - -DBUILD_SHARED_LIBS=ON
-      - -DBUILD_STATIC_LIBS=ON
-      - -DDYNAMIC_ARCH=ON
-      - -DBLAS=ON
       - -DLAPACKE=ON
     docfiles:
       - LICENSE
@@ -31,6 +28,5 @@ lapack:
           overlay: PSI
           use_overlays: [PSI, Alps]
           group_deps:
-            compiler:
-              gcc: [13.4.0]
+            compiler: {gcc: [13.4.0], nvhpc: [26.5_cuda_multi]}
           build_requires: [cmake/4.4.0]
