@@ -20,14 +20,14 @@ plumed:
           target_cpus: [x86_64]
           systems: [.*.merlin7.psi.ch]
           build_requires:
-            - gcc/12.3.0
-            - mpich/4.3.1
+            - gcc/13.4.0
+            - mpich/5.0.1
             - cuda/12.9.1
             - Python/3.12.9
           relstage: stable
           runtime_deps:
-            - gcc/12.3.0
-            - mpich/4.3.1
+            - gcc/13.4.0
+            - mpich/5.0.1
             - cuda/12.9.1
             - Python/3.12.9
         - overlay: Alps
