@@ -1,0 +1,76 @@
+---
+# yamllint disable rule:line-length
+format: 1
+dbcsr:
+  defaults:
+    group: Libraries
+    overlay: base
+    relstage: stable
+    urls:
+      - url: https://github.com/cp2k/${P}/releases/download/v${V_PKG}/${P}-${V_PKG}.tar.gz
+
+  shasums:
+    dbcsr-2.10.0.tar.gz: 3d897220fbb4498215331efad6905eb7744881b4cf04eb5c5fb4db7c48a56ef9
+
+  versions:
+    2.10.0:
+      variants:
+        - overlay: base
+          target_cpus: [x86_64]
+          systems: [.*.merlin7.psi.ch]
+          relstage: unstable
+          configure_with: cmake
+          configure_args:
+            - "-DUSE_MPI=ON"
+            - "-DUSE_OPENMP=ON"
+            - "-DUSE_LIBXS=ON"
+            - "-DUSE_LIBXSMM=ON"
+            - "-DUSE_ACCEL=cuda"
+            - "-DWITH_CUDA_PROFILING=OFF"
+            - "-DWITH_C_API=ON"
+            - "-DWITH_EXAMPLES=OFF"
+            - "-DWITH_GPU=A100"
+            - "-DCMAKE_BUILD_TYPE=Release"
+            - "-DBUILD_TESTING=OFF"
+            - "-DCMAKE_PREFIX_PATH='/opt/psi/Libraries/libxs/1.0.0;/opt/psi/Libraries/libxsmm/2.1.0'"
+          build_requires:
+            - gcc/13.4.0
+            - mpich/5.0.1
+            - lapack/3.12.1
+            - cuda/12.9.1
+            - Python/3.13.2
+          runtime_deps:
+            - gcc/13.4.0
+            - mpich/5.0.1
+            - lapack/3.12.1
+            - cuda/12.9.1
+            - Python/3.13.2
+        - overlay: base
+          target_cpus: [aarch64]
+          systems: [gpu0.*.merlin7.psi.ch]
+          relstage: unstable
+          configure_with: cmake
+          configure_args:
+            - "-DUSE_MPI=ON"
+            - "-DUSE_OPENMP=ON"
+            - "-DUSE_LIBXS=ON"
+            - "-DUSE_LIBXSMM=ON"
+            - "-DUSE_ACCEL=cuda"
+            - "-DWITH_CUDA_PROFILING=OFF"
+            - "-DWITH_C_API=ON"
+            - "-DWITH_EXAMPLES=OFF"
+            - "-DWITH_GPU=H100"
+            - "-DCMAKE_BUILD_TYPE=Release"
+            - "-DBUILD_TESTING=OFF"
+            - "-DCMAKE_PREFIX_PATH='/opt/psi/Libraries/libxs/1.0.0;/opt/psi/Libraries/libxsmm/2.1.0'"
+          build_requires:
+            - gcc/14.3.0
+            - mpich/5.0.1
+            - cuda/12.9.1
+            - Python/3.10.13
+          runtime_deps:
+            - gcc/14.3.0
+            - mpich/5.0.1
+            - cuda/12.9.1
+            - Python/3.10.13
+

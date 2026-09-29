@@ -1,0 +1,11 @@
+#%Module1.0
+
+module-whatis       "DBCSR is a library designed to efficiently perform sparse matrix-matrix multiplication, among other operations."
+module-url          "https://github.com/cp2k/dbcsr"
+module-license      "GPL-2.0 license"
+module-maintainer   "João Pedro Agostinho de Sousa <joao.agostinho-de-sousa@psi.ch>"
+module-help "
+DBCSR is a library designed to efficiently perform sparse matrix-matrix
+multiplication, among other operations. It is MPI and OpenMP parallel and can
+exploit Nvidia and AMD GPUs via CUDA and HIP.
+"
