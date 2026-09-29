@@ -30,6 +30,6 @@ libxs:
           relstage: stable
           configure_with: cmake
           build_requires:
-            - gcc/13.4.0
+            - gcc/14.3.0
           runtime_deps:
-            - gcc/13.4.0
+            - gcc/14.3.0
