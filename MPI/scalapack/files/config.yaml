@@ -3,7 +3,7 @@
 format: 1
 scalapack:
   defaults:
-    group: Compiler
+    group: MPI
     overlay: base
     relstage: stable
     systems: [rhel8, rhel9, rhel10]
@@ -46,19 +46,19 @@ scalapack:
           target_cpus: ['x86_64'] # GPU A100
           use_overlays: [PSI, Alps, Alps_A100]
           group_deps:
-            compiler: {gcc: [13.4.0]}
+            compiler: {nvhpc: [26.5_cuda_multi]}
             mpi: {mpich: [5.0.1]}
           configure_args+:
-            - -DCMAKE_C_COMPILER=${MPICC}
-            - -DCMAKE_CXX_COMPILER=${MPICXX}
-            - -DCMAKE_Fortran_COMPILER=${MPIFC}
+            - -DCMAKE_C_COMPILER=${CC}
+            - -DCMAKE_CXX_COMPILER=${CXX}
+            - -DCMAKE_Fortran_COMPILER=${FC}
             - -DSCALAPACK_BUILD_TESTS=OFF
           build_requires: [ cmake/3.27.8, mpich/5.0.1, lapack/3.12.1 ]
         - systems: [gpu.*.merlin7.psi.ch]
           relstage: unstable
-          overlay: Alps_A100
-          target_cpus: ['x86_64'] # GPU A100
-          use_overlays: [PSI, Alps, Alps_A100]
+          overlay: Alps
+          target_cpus: ['aarch64'] # GPU GH
+          use_overlays: [PSI, Alps]
           group_deps:
             compiler: {nvhpc: [26.5_cuda_multi]}
             mpi: {mpich: [5.0.1]}

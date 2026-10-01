@@ -38,7 +38,7 @@ qe:
           use_overlays: [PSI, Alps]
           group_deps:
             compiler: { gcc: [13.4.0] }
-            mpi: { openmpi: [5.0.10], mpich: [5.0.1] }
+            mpi: { mpich: [5.0.1] }
           docfiles: [README.md, README_GPU.md, CONTRIBUTING.md]
           build_requires: [ cmake/4.4.0, git/2.54.0, lapack/3.12.1, hdf5/2.2.0, fftw/3.3.10, scalapack/2.2.3 ]
           runtime_deps: [hdf5/2.2.0, scalapack/2.2.3]
@@ -60,6 +60,27 @@ qe:
             - -DQE_ENABLE_MPI_GPU_AWARE:BOOL=ON
             - -DQE_GPU:STRING='openacc;cuda'
             - -DQE_GPU_ARCHS:STRING='sm_80'
+            - -DNVFORTRAN_CUDA_VERSION=12.9
+            # - -DBLAS_LIBRARIES=${LAPACK_LIBRARY_DIR}/libblas.so.3.12.0
+            # - -DLAPACK_LIBRARIES=${LAPACK_LIBRARY_DIR}/liblapack.so.3.12.0
+        - systems: [gpu.*.merlin7.psi.ch]
+          relstage: unstable
+          overlay: Alps
+          target_cpus: ['aarch64'] # GPU A100
+          use_overlays: [PSI, Alps, Alps]
+          group_deps:
+            compiler: { nvhpc: [26.5_cuda_multi] }
+            mpi: { mpich: [5.0.1] }
+          docfiles: [README.md, README_GPU.md, CONTRIBUTING.md]
+          build_requires: [ cmake/4.4.0, git/2.54.0, lapack/3.12.1, hdf5/2.2.0, fftw/3.3.10, scalapack/2.2.3 ]
+          runtime_deps: [hdf5/2.2.0, scalapack/2.2.3]
+          configure_args+:
+            - -DQE_ENABLE_SCALAPACK:BOOL=ON
+            - -DCMAKE_C_COMPILER:STRING=${CC}
+            - -DCMAKE_Fortran_COMPILER:STRING=${FC}
+            - -DQE_ENABLE_MPI_GPU_AWARE:BOOL=ON
+            - -DQE_GPU:STRING='openacc;cuda'
+            - -DQE_GPU_ARCHS:STRING='sm_90'
             - -DNVFORTRAN_CUDA_VERSION=12.9
             # - -DBLAS_LIBRARIES=${LAPACK_LIBRARY_DIR}/libblas.so.3.12.0
             # - -DLAPACK_LIBRARIES=${LAPACK_LIBRARY_DIR}/liblapack.so.3.12.0

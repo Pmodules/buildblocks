@@ -64,10 +64,29 @@ hdf5:
           configure: [pbuild::configure, pbuild::post_configure]
         build_variants: first_match
       variants:
-        - systems: [gpu1.*.merlin7.psi.ch]
+        - systems: [login.*.merlin7.psi.ch, cn.*.merlin7.psi.ch]
+          overlay: Alps
+          use_overlays: [PSI, Alps]
+          relstage: unstable
+          group_deps:
+            compiler: {gcc: [13.4.0]}
+            mpi: {mpich: [5.0.1]}
+          configure_args:
+            - -DCMAKE_C_COMPILER=${MPICC}
+            - -DCMAKE_CXX_COMPILER=${MPICXX}
+            - -DCMAKE_Fortran_COMPILER=${MPIFC}
+            - -DHDF5_ENABLE_PARALLEL=ON
+            - -DHDF5_BUILD_FORTRAN=ON
+            - -DCMAKE_POSITION_INDEPENDENT_CODE=ON
+            # Alternatively:
+            # - -DCMAKE_C_FLAGS=-fPIC
+            # - -DCMAKE_CXX_FLAGS=-fPIC
+            # - -DCMAKE_Fortran_FLAGS=-fPIC
+        - systems: [gpu.*.merlin7.psi.ch]
           overlay: Alps_A100
           use_overlays: [PSI, Alps, Alps_A100]
           relstage: unstable
+          target_cpus: ['x86_64'] # GPU A100
           group_deps:
             compiler: { nvhpc: [26.5_cuda_multi] }
             mpi: { mpich: [5.0.1] }
@@ -82,35 +101,18 @@ hdf5:
             # - -DCMAKE_C_FLAGS=-fPIC
             # - -DCMAKE_CXX_FLAGS=-fPIC
             # - -DCMAKE_Fortran_FLAGS=-fPIC
-        - systems: [gpu1.*.merlin7.psi.ch]
-          overlay: Alps_A100
-          use_overlays: [PSI, Alps, Alps_A100]
-          relstage: unstable
-          group_deps:
-            compiler: {gcc: [13.4.0]}
-            mpi: {openmpi: [5.0.10], mpich: [5.0.1] }
-          configure_args:
-            - -DCMAKE_C_COMPILER=${MPICC}
-            - -DCMAKE_CXX_COMPILER=${MPICXX}
-            - -DCMAKE_Fortran_COMPILER=${MPIFC}
-            - -DHDF5_ENABLE_PARALLEL=ON
-            - -DHDF5_BUILD_FORTRAN=ON
-            - -DCMAKE_POSITION_INDEPENDENT_CODE=ON
-            # Alternatively:
-            # - -DCMAKE_C_FLAGS=-fPIC
-            # - -DCMAKE_CXX_FLAGS=-fPIC
-            # - -DCMAKE_Fortran_FLAGS=-fPIC
-        - systems: [.*.merlin7.psi.ch]
+        - systems: [gpu.*.merlin7.psi.ch]
           overlay: Alps
           use_overlays: [PSI, Alps]
           relstage: unstable
+          target_cpus: ['aarch64'] # GPU GH
           group_deps:
-            compiler: {gcc: [13.4.0]}
-            mpi: {openmpi: [5.0.10], mpich: [5.0.1] }
+            compiler: { nvhpc: [26.5_cuda_multi] }
+            mpi: { mpich: [5.0.1] }
           configure_args:
-            - -DCMAKE_C_COMPILER=${MPICC}
-            - -DCMAKE_CXX_COMPILER=${MPICXX}
-            - -DCMAKE_Fortran_COMPILER=${MPIFC}
+            - -DCMAKE_C_COMPILER=${CC}
+            - -DCMAKE_CXX_COMPILER=${CXX}
+            - -DCMAKE_Fortran_COMPILER=${FC}
             - -DHDF5_ENABLE_PARALLEL=ON
             - -DHDF5_BUILD_FORTRAN=ON
             - -DCMAKE_POSITION_INDEPENDENT_CODE=ON
@@ -118,6 +120,7 @@ hdf5:
             # - -DCMAKE_C_FLAGS=-fPIC
             # - -DCMAKE_CXX_FLAGS=-fPIC
             # - -DCMAKE_Fortran_FLAGS=-fPIC
+
     1.14.6:
       config:
         urls:
