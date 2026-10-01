@@ -67,4 +67,4 @@ scalapack:
             - -DCMAKE_CXX_COMPILER=${CXX}
             - -DCMAKE_Fortran_COMPILER=${FC}
             - -DSCALAPACK_BUILD_TESTS=OFF
-          build_requires: [ cmake/3.27.8, mpich/5.0.1, lapack/3.12.1 ]
+          build_requires: [ cmake/4.4.0, mpich/5.0.1, lapack/3.12.1 ]
