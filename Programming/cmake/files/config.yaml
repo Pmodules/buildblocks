@@ -40,10 +40,6 @@ cmake:
       config:
         build_requires: [gcc/7.3.0, patchelf/0.8.1]
         relstage: unstable
-      variants:
-        - systems: [gpu.*.merlin7.psi.ch]
-          target_cpus: ['aarch64'] # GPU GH
-          build_requires: [gcc/13.4.0, patchelf/0.14.5]
     3.26.3:
       config:
         build_requires: [gcc/7.3.0, patchelf/0.8.1]

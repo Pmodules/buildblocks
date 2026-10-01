@@ -23,7 +23,6 @@ lapack:
     3.12.1:
       variants:
         - systems: [.*.merlin7.psi.ch]
-          target_cpus: [x86_64]
           relstage: unstable
           overlay: PSI
           use_overlays: [PSI, Alps]
