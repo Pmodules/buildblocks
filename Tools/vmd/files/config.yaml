@@ -3,22 +3,19 @@
 format: 1
 vmd:
   defaults:
-    group: Tools
+    group: Tools 
     overlay: base
     relstage: stable
+
+  shasums:
+    vmd-2.0.0a8.bin.LINUXAMD64.tar.gz: 7e1ac3e7a53ad626da29cd0531392a06671c1c78a38ec382f2292e7cbe2d7da6
 
   versions:
     2.0.0a8:
       variants:
-        - overlay: Alps
-          target_cpus: [x86_64]
-          systems: [.*.merlin7.psi.ch]
+        - systems: [login.*.merlin7.psi.ch, cn.*.merlin7.psi.ch]
+          urls:
+            - url: https://www.ks.uiuc.edu/Research/${P}/alpha/${P}-${V}.bin.LINUXAMD64.tar.gz
           relstage: stable
-          build_requires:
-            - gcc/12.3.0
-            - cuda/12.9.1
-            - virtualgl/3.1.4
-          runtime_deps:
-            - gcc/12.3.0
-            - cuda/12.9.1
-            - virtualgl/3.1.4
+          overlay: base
+          use_overlays: [PSI]

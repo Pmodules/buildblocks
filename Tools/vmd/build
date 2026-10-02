@@ -1,64 +1,25 @@
 #!/usr/bin/env modbuild
 
 pbuild::pre_configure() {
-   echo "> Setting system flags"
-   case "$(uname -m)" in
-       aarch64)
-           export CC=gcc
-           export CXX=g++
-           export CFLAGS='-march=native -O3 -pipe -Wno-error'
-           export CXXFLAGS='-march=native -O3 -pipe -Wno-error'
-           export FFLAGS='-march=native -O3 -pipe'
-           export FCFLAGS='-march=native -O3 -pipe'
-           export LDFLAGS='-Wl,--as-needed'
-           ;;
-       x86_64)
-           export CC=gcc
-           export CXX=g++
-           export CFLAGS='-march=znver2 -mtune=znver2 -O3 -pipe -Wno-error'
-           export CXXFLAGS='-march=znver2 -mtune=znver2 -O3 -pipe -Wno-error'
-           export FFLAGS='-march=znver2 -mtune=znver2 -O3 -pipe'
-           export FCFLAGS='-march=znver2 -mtune=znver2 -O3 -pipe'
-           export LDFLAGS='-Wl,--as-needed'
-           export CFLAGS='-march=znver2 -mtune=znver2 -O3 -pipe -Wno-error'
-           ;;
-   esac
+    # Replace $install_bin_dir and $install_library_dir in configure to install
+    # VMD in the correct directory
+    sed -i "s|^[$]install_bin_dir=.*$|\$install_bin_dir=\"$PREFIX/bin\";|" "${SRC_DIR}/configure"
+    sed -i "s|^[$]install_library_dir=.*$|\$install_library_dir=\"$PREFIX/lib/\$install_name\";|" "${SRC_DIR}/configure"
 }
 
 pbuild::configure() {
-    # Set dependencies versions and directories
-    : "${TCL_VERSION:=8.6.14}"
-    : "${TK_VERSION:=8.6.14}"
-    : "${BIN_ARCH:=LINUXAMD64}"
 
-    # Untar VMD
-    wget https://www.ks.uiuc.edu/Research/${P}/alpha/${P}-${V}.bin.${BIN_ARCH}.tar.gz -O "${BUILD_DIR}/${P}-${V}.bin.${BIN_ARCH}.tar.gz"
-    tar xzf "${BUILD_DIR}/${P}-${V}.bin.${BIN_ARCH}.tar.gz" --strip-components=1
-    cd "${BUILD_DIR}"
+    cd ${SRC_DIR}
 
-    ####################
-    # TCL
-    ####################
-    wget http://prdownloads.sourceforge.net/tcl/tcl${TCL_VERSION}-src.tar.gz
-    tar xzf tcl${TCL_VERSION}-src.tar.gz
-    mv tcl${TCL_VERSION} tcl
-    cd tcl/unix
-    ./configure --prefix=$(pwd)/.. --enable-shared --enable-threads
-    make -j 8
-    make install
-    cd ../..
+    # Set plugins directory
+    export PLUGINDIR=${SRC_DIR}/plugins
 
-    ####################
-    # TK
-    ####################
-    wget http://prdownloads.sourceforge.net/tcl/tk${TK_VERSION}-src.tar.gz
-    tar xzf tk${TK_VERSION}-src.tar.gz
-    mv tk${TK_VERSION} tk
-    cd tk/unix
-    ./configure --prefix=$(pwd)/.. --enable-shared --enable-threads
-    make -j 8
-    make install
-    cd ../..
+    if [ "$(uname -m)" = "x86_64" ]; then
+        ./configure LINUXAMD64
+    else
+        echo "Unsupported architecture"
+        exit 1
+    fi
 }
 
 pbuild::compile() {
@@ -66,7 +27,6 @@ pbuild::compile() {
 }
 
 pbuild::install() {
-    rsync -lr "${BUILD_DIR}/" "${PREFIX}"
-    cd "${PREFIX}/bin"
-    ln -s ../${BIN_ARCH}/${P}_${BIN_ARCH} ${P}
+    cd ${SRC_DIR}/src
+    make install
 }
