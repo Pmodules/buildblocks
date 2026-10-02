@@ -1,0 +1,22 @@
+---
+# yamllint disable rule:line-length
+format: 1
+pytorch:
+  defaults:
+    group: Libraries 
+    overlay: base
+    relstage: stable
+
+  versions:
+    2.13.0-cu129-python3.13:
+      variants:
+        - systems: [login.*.merlin7.psi.ch, cn.*.merlin7.psi.ch]
+          relstage: stable
+          overlay: base
+          use_overlays: [PSI]
+          target_cpus: [x86_64]
+        - systems: [gpu0.*.merlin7.psi.ch]
+          relstage: stable
+          overlay: base
+          use_overlays: [PSI]
+          target_cpus: [aarch64]          
