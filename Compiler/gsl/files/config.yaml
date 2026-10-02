@@ -44,4 +44,8 @@ gsl:
           overlay: PSI
           use_overlays: [PSI]
           relstage: unstable
+        - systems: [gpu0.*.merlin7.psi.ch]
+          overlay: PSI
+          use_overlays: [PSI]
+          relstage: stable
         - systems: [rhel.*]
