@@ -1,0 +1,33 @@
+---
+format: 1
+gettext:
+  defaults:
+    group: Tools
+    overlay: base
+    relstage: stable
+    docfiles: []
+    urls:
+      - url: https://ftp.gnu.org/pub/gnu/$P/$P-${V_PKG}.tar.gz
+    configure_args:
+      - --prefix=${PREFIX}
+      - --bindir=${PREFIX}/sbin
+      - --disable-java
+      - --disable-threads
+      - --disable-shared
+      - --enable-relocatable
+      - --disable-openmp
+      - --disable-acl
+      - --disable-curses
+      - --with-included-gettext
+      - --without-libiconv-prefix
+      - --without-libintl-prefix
+      - --with-included-libxml
+      - --with-pic=yes
+
+  shasums:
+    gettext-0.19.8.tar.gz: 3da4f6bd79685648ecf46dab51d66fcdddc156f41ed07e580a696a38ac61d48f
+
+  versions:
+    0.19.8:
+      config:
+        relstage: stable
