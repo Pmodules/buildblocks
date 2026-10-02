@@ -1,5 +1,6 @@
-# LibTorch
+# PyTorch
 
-LibTorch is the C++ distribution of PyTorch that allows developers to build, train, and deploy machine-learning and deep-learning models directly in C++ applications. It provides core PyTorch features such as tensors, neural-network modules, automatic differentiation, CPU/GPU acceleration, and model inference, making it particularly useful for integrating AI models into performance-sensitive applications without requiring a Python runtime.
+PyTorch is an open source machine learning framework that accelerates the path from research prototyping to production deployment. Built to offer maximum flexibility and speed, PyTorch supports dynamic computation graphs, enabling researchers and developers to iterate quickly and intuitively. Its Pythonic design and deep integration with native Python tools make it an accessible and powerful platform for building and training deep learning models at scale.
 
-https://docs.pytorch.org/cppdocs/
+https://pytorch.org/
+
