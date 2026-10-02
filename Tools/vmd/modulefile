@@ -16,13 +16,3 @@ a molecular dynamics (MD) simulation. In particular, VMD can act as a graphical
 front end for an external MD program by displaying and animating a molecule
 undergoing simulation on a remote computer.
 "
-
-# This are the variables needed by VMD
-setenv VMDDIR   $PREFIX
-
-# Version 2.0.0a8 built with Tcl/Tk 8.6.14
-if { $V == "2.0.0a8" } {
-    setenv TCL_LIBRARY      $PREFIX/tcl/lib/tcl8.6
-    setenv TK_LIBRARY       $PREFIX/tk/lib/tk8.6
-    prepend-path LD_LIBRARY_PATH  $PREFIX/lib/redistrib/lib_LINUXAMD64
-}
