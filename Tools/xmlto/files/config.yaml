@@ -19,3 +19,9 @@ xmlto:
     0.0.28:
       config:
         relstage: stable
+      variants:
+        - systems: [gpu.*.merlin7.psi.ch]
+          target_cpus: ['aarch64']
+          configure_args:
+            - XSLTPROC="/usr/bin/xsltproc"
+

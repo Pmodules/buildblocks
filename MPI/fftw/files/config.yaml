@@ -46,3 +46,17 @@ fftw:
             - --enable-sse2
             - --enable-avx2
             - --with-pic
+        - systems: [gpu.*.merlin7.psi.ch]
+          target_cpus: ['aarch64']
+          relstage: unstable
+          overlay: Alps
+          group: Compiler
+          group_deps:
+            compiler: {nvhpc: [26.5_cuda_multi]}
+            # mpi: {mpich: [5.0.1]}
+          build_requires: [cmake/4.4.0]
+          configure_args:
+            - --enable-threads
+            - --enable-openmp
+            # - --enable-mpi
+            - --with-pic
