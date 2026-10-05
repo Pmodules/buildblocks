@@ -1,4 +1,0 @@
-geant4/10.05			removed		gcc/7.3.0 clhep/2.4.1.0 b:libexpat/2.2.6 b:cmake/3.9.6
-geant4/10.05_multithreaded	removed		gcc/7.3.0 clhep/2.4.1.0 b:libexpat/2.2.6 b:cmake/3.13.3
-geant4/10.5			unstable	gcc/7.3.0 clhep/2.4.1.0 b:libexpat/2.2.6 b:cmake/3.13.3
-geant4/10.5_multithreaded	unstable	gcc/7.3.0 clhep/2.4.1.0 b:libexpat/2.2.6 b:cmake/3.13.3
