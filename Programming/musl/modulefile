@@ -1,0 +1,25 @@
+#%Module1.0
+
+module-whatis		"MUSL-gcc is a special compiler for producing static binaries"
+module-url		"https://www.musl-libc.org/"
+module-license		"MIT"
+module-maintainer	"Hans-Nikolai Viessmann <hans-nikolai.viessmann@psi.ch>"
+
+module-help	"
+musl provides consistent quality and implementation behavior from tiny embedded
+systems to full-fledged servers. Minimal machine-specific code means less
+chance of breakage on minority architectures and better success with “write
+once run everywhere” C development.
+"
+module-addgroup "Compiler"
+
+setenv		CC			$PREFIX/bin/x86_64-linux-musl-gcc
+setenv		CXX			$PREFIX/bin/x86_64-linux-musl-g++
+setenv		F77			$PREFIX/bin/x86_64-linux-musl-gfortran
+setenv		F90			$PREFIX/bin/x86_64-linux-musl-gfortran
+setenv		FC			$PREFIX/bin/x86_64-linux-musl-gfortran
+setenv		FORTRAN			$PREFIX/bin/x86_64-linux-musl-gfortran
+
+if { [file exist "/usr/lib/x86_64-linux-gnu"] } {
+	append-path LIBRARY_PATH	"/usr/lib/x86_64-linux-gnu"
+}
