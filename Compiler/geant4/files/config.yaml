@@ -13,6 +13,24 @@ geant4:
     geant4-v11.2.1.tar.gz: 76c9093b01128ee2b45a6f4020a1bcb64d2a8141386dea4674b5ae28bcd23293
 
   versions:
+    11.4.3:
+      variants:
+        - systems: [.*.merlin7.psi.ch]
+          group_deps:
+            compiler: {gcc: [13.4.0]}
+          runtime_deps:
+            - xerces-c/3.3.0
+          build_requires:
+            - libexpat/2.2.6
+            - cmake/4.4.0
+          configure_args:
+            - -DGEANT4_USE_SYSTEM_CLHEP=OFF
+            - -DPC_EXPAT_INCLUDE_DIRS=${LIBEXPAT_INCLUDE_DIR}
+            - -DGEANT4_INSTALL_DATA=ON
+            - -DGEANT4_BUILD_MULTITHREADED=ON
+            - -DGEANT4_USE_GDML=ON
+            - -DXercesC_ROOT=${XERCES_C_PREFIX}
+          relstage: unstable
     11.3.2:
       variants:
         - systems: [.*.merlin7.psi.ch]

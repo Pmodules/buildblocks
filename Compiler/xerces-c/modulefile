@@ -1,0 +1,17 @@
+#%Module1.0
+
+module-whatis           "validating XML parser written in C++"
+module-url              "https://xerces.apache.org/xerces-c/"
+module-license          "Apache License 2.0"
+module-maintainer       "Marc Caubet Serrabou <marc.caubet@psi.ch>"
+module-help             "
+Apache Xerces-C++ is a validating XML parser written in a portable subset
+of C++. It provides a shared library for parsing, generating, manipulating
+and validating XML documents.
+
+Xerces-C++ supports the XML 1.0 and XML 1.1 recommendations and associated
+standards, including XML Schema and DOM.
+
+As an example, Xerces-C++ is used by Geant4 to provide GDML geometry
+import and export support through G4GDMLParser.
+"
