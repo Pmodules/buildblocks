@@ -1,0 +1,38 @@
+---
+# yamllint disable rule:line-length
+format: 1
+plumed:
+  defaults:
+    group: MPI 
+    overlay: base
+    relstage: stable
+    urls:
+      - url: https://github.com/${P}/${P}2/archive/refs/tags/v${V_PKG}.tar.gz
+
+  shasums:
+    v2.10.1.tar.gz: 92e504371869091fe1ef1dd5a1f2996aa369ed9db6c7d2a56650231786ac7c5d
+
+  versions:
+    2.10.1:
+      variants:
+        - systems: [login.*.merlin7.psi.ch, cn.*.merlin7.psi.ch]
+          target_cpus: [x86_64]
+          relstage: unstable
+          overlay: Alps
+          use_overlays: [PSI, Alps]
+          group_deps:
+            compiler: { gcc: [13.4.0] }
+            mpi: { mpich: [5.0.1] }          
+          build_requires: [ cuda/12.9.1, Python/3.13.2, pytorch/2.13.0-cu129-python3.13, gsl/2.8 ]
+          runtime_deps: [ cuda/12.9.1, Python/3.13.2, pytorch/2.13.0-cu129-python3.13 ]
+        - systems: [gpu0.*.merlin7.psi.ch]
+          target_cpus: [aarch64]
+          relstage: unstable
+          overlay: Alps
+          use_overlays: [PSI, Alps]
+          group_deps:
+            compiler: { gcc: [13.4.0] }
+            mpi: { mpich: [5.0.1] }          
+          build_requires: [ cuda/12.9.1, Python/3.13.2, pytorch/2.13.0-cu129-python3.13, gsl/2.8 ]
+          runtime_deps: [ cuda/12.9.1, Python/3.13.2, pytorch/2.13.0-cu129-python3.13 ]
+
