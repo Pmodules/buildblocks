@@ -1,0 +1,13 @@
+#%Module1.0
+
+module-whatis       "Software suite for high-performance molecular dynamics and output analysis"
+module-url          "https://www.gromacs.org/"
+module-license      "GNU Lesser General Public License (LGPL), version 2.1"
+module-maintainer   "João Pedro Agostinho de Sousa <joao.agostinho-de-sousa@psi.ch>"
+module-help "
+GROMACS (GROningen MAchine for Chemical Simulations) is a free, open-source
+software suite designed for high-performance molecular dynamics (MD)
+simulations. It models the physical movements of atoms and molecules, allowing
+scientists to analyze biological processes like protein folding, lipid membrane
+dynamics, and drug interactions.
+"
