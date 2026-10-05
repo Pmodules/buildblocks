@@ -1,17 +1,13 @@
 #%Module1.0
 
-module-whatis		"specialized dense and sparse matrix operations and deep learning primitives"
-module-url		"https://github.com/hfp/libxsmm"
-module-license		"BSD 3-Clause License"
-module-maintainer	"Achim Gsell <achim.gsell@psi.ch>"
-module-help		"
-LIBXSMM is a library for specialized dense and sparse matrix operations
-as well as for deep learning primitives such as small convolutions
-targeting Intel Architecture. Small marix multiplication kernels (SMMs)
-are generated for Intel SSE,  Intel AVX, Intel AVX2, and Intel AVX-512
-as found in the Intel Xeon Phi processor family (KNL, KNM) and Intel
-Xeon processors (SKX). Highly optimized code for small convolutions
-is targeting Intel AVX2 and Intel AVX-512, whereas other targets can
-automatically leverage specialized SMMs to perform convolutions.
+module-whatis       "LIBXSMM is high performance library for small dense and sparse linear algebra operations."
+module-url          "https://github.com/libxsmm/libxsmm"
+module-license      "BSD-3-Clause license"
+module-maintainer   "João Pedro Agostinho de Sousa <joao.agostinho-de-sousa@psi.ch>"
+module-help "
+LIBXSMM is high performance library for small dense and sparse linear algebra
+operations incl. GEMM and elementwise primities often seen in deep learning
+applications. It also serves as reference implementation of Tensor Processing
+Primitives (TPP), a programming abstraction for efficient and portable deep
+learning and HPC workloads.
 "
-

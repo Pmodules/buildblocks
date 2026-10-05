@@ -1,0 +1,64 @@
+---
+# yamllint disable rule:line-length
+format: 1
+cp2k:
+  defaults:
+    group: MPI
+    overlay: base
+    configure_with: cmake
+    relstage: stable
+    urls:
+      - url: https://github.com/${P}/${P}/archive/refs/tags/v${V_PKG}.tar.gz
+
+  shasums:
+    v2026.2.tar.gz: d27e9b4cf13c4fe2ed0b8c731dde07d17ff137d0ade46ba09058e8b93d6fe4ea
+
+  versions:
+    2026.2:
+      variants:
+        - overlay: Alps
+          relstage: unstable
+          target_cpus: [x86_64]
+          systems: [login.*.merlin7.psi.ch, cn.*.merlin7.psi.ch, gpu1.*.merlin7.psi.ch]
+          use_overlays: [PSI, Alps]
+          group_deps:
+            compiler: { gcc: [13.4.0] }
+            mpi: { mpich: [5.0.1] }
+          build_requires: [ cuda/12.9.1, dbcsr/2.10.0, scalapack/2.2.3, OpenBLAS/0.3.34, hdf5/2.2.0, plumed/2.10.1, fftw/3.3.10 ]
+          runtime_deps: [ cuda/12.9.1, hdf5/2.2.0, scalapack/2.2.3, plumed/2.10.1 ]
+          configure_with: cmake
+          configure_args:
+            - "-DCP2K_USE_MPI=ON"
+            - "-DCP2K_USE_ACCEL=CUDA"
+            - "-DCP2K_USE_LIBXS=ON"
+            - "-DCP2K_USE_LIBXSMM=ON"
+            - "-DCMAKE_PREFIX_PATH='/opt/psi/Compiler/libxs/1.0.0/gcc/13.4.0;/opt/psi/Compiler/libxsmm/2.1.0/gcc/13.4.0'"
+            - "-DCP2K_USE_MPI_F08=ON"
+            - "-DCP2K_USE_HDF5=ON"
+            - "-DCP2K_USE_PLUMED=ON"
+            - "-DCP2K_USE_FFTW3=ON"
+            - "-DCP2K_FFTW3_ROOT=/opt/psi/overlays/Alps/Compiler/fftw/3.3.10/gcc/13.4.0"
+            - "-DCP2K_WITH_GPU=A100"
+        - overlay: Alps
+          relstage: unstable
+          target_cpus: [aarch64]
+          systems: [gpu0.*.merlin7.psi.ch]
+          use_overlays: [PSI, Alps]
+          group_deps:
+            compiler: { gcc: [13.4.0] }
+            mpi: { mpich: [5.0.1] }
+          build_requires: [ cuda/12.9.1, dbcsr/2.10.0, scalapack/2.2.3, OpenBLAS/0.3.34, hdf5/2.2.0, plumed/2.10.1, fftw/3.3.10 ]
+          runtime_deps: [ cuda/12.9.1, hdf5/2.2.0, scalapack/2.2.3, plumed/2.10.1 ]
+          configure_with: cmake
+          configure_args:
+            - "-DCP2K_USE_MPI=ON"
+            - "-DCP2K_USE_ACCEL=CUDA"
+            - "-DCP2K_USE_LIBXS=ON"
+            - "-DCP2K_USE_LIBXSMM=ON"
+            - "-DCMAKE_PREFIX_PATH='/opt/psi/Compiler/libxs/1.0.0/gcc/13.4.0;/opt/psi/Compiler/libxsmm/2.1.0/gcc/13.4.0'"
+            - "-DCP2K_USE_MPI_F08=ON"
+            - "-DCP2K_USE_HDF5=ON"
+            - "-DCP2K_USE_PLUMED=ON"
+            - "-DCP2K_USE_FFTW3=ON"
+            - "-DCP2K_FFTW3_ROOT=/opt/psi/overlays/Alps/Compiler/fftw/3.3.10/gcc/13.4.0"
+            - "-DCP2K_WITH_GPU=H100"              

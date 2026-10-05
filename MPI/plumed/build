@@ -1,0 +1,29 @@
+#!/usr/bin/env modbuild
+
+pbuild::configure() {
+    cd "${SRC_DIR}"
+
+    ./configure \
+        "--prefix=${PREFIX}" \
+        --enable-libtorch \
+        --enable-external-molfile-plugins \
+        --enable-modules=all \
+        --enable-mpi \
+        CXX="${MPICXX}" \
+        CXXFLAGS="-O3 -march=native -fPIC" \
+        CPPFLAGS="-I${TORCH_ROOT}/include \
+                  -I${TORCH_ROOT}/include/torch/csrc/api/include" \
+        LDFLAGS="-L${TORCH_LIB} -L${GSL_DIR}/lib \
+                 -Wl,-rpath,${TORCH_LIB} \
+                 -Wl,-rpath,${GSL_DIR}/lib"          
+}
+
+pbuild::compile() {
+    cd "${SRC_DIR}"
+    make -j"${JOBS:-1}"
+}
+
+pbuild::install() {
+    cd "${SRC_DIR}"
+    make install
+}

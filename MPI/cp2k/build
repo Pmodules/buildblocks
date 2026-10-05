@@ -1,0 +1,15 @@
+#!/usr/bin/env modbuild
+
+pbuild::pre_configure() {
+    echo "> Setting system flags"
+
+    export CFLAGS='-march=native'
+    export CXXFLAGS='-march=native'
+    export FFLAGS='-march=native'
+
+    PLUMED_PREFIX="/opt/psi/overlays/Alps/MPI/plumed/2.10.1/mpich/5.0.1/gcc/13.4.0"
+    PLUMED_LIB="${PLUMED_PREFIX}/lib"
+    export PKG_CONFIG_PATH="${PLUMED_LIB}/pkgconfig${PKG_CONFIG_PATH:+:${PKG_CONFIG_PATH}}"
+    export LDFLAGS="-L${PLUMED_LIB} -Wl,-rpath-link,${PLUMED_LIB} -Wl,-rpath,${PLUMED_LIB}${LDFLAGS:+ ${LDFLAGS}}"
+    export LD_LIBRARY_PATH="${PLUMED_LIB}${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
+}

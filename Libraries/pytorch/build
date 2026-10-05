@@ -1,0 +1,42 @@
+#!/usr/bin/env modbuild
+
+pbuild::configure() {
+    # Extract versions from V_RELEASE
+    PYTHON_VERSION="${V_RELEASE##*-python}"
+
+    # Install Miniforge
+    mkdir -p "$PREFIX/miniforge"
+    wget "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh" \
+        -O "$PREFIX/miniforge/miniforge.sh"
+
+    bash "$PREFIX/miniforge/miniforge.sh" -b -u -p "$PREFIX/miniforge/"
+
+    # Initialize mamba for script use
+    source "$PREFIX/miniforge/etc/profile.d/mamba.sh"
+
+    # Create the conda environment
+    mamba create -y \
+        --name "${P}_${V_PKG}" \
+        "python=${PYTHON_VERSION}"
+}
+
+pbuild::compile() {
+    :
+}
+
+pbuild::install() {
+    # Extract versions from V_RELEASE
+    CUDA_VERSION="${V_RELEASE%%-*}"
+
+    # Ensure mamba is initialized
+    source "$PREFIX/miniforge/etc/profile.d/mamba.sh"
+
+    # Activate the conda environment
+    mamba activate "${P}_${V_PKG}"
+
+    # Install PyTorch
+    pip3 install --no-cache-dir \
+        "torch==${V_PKG}" \
+        torchvision \
+        --index-url "https://download.pytorch.org/whl/${CUDA_VERSION}"
+}

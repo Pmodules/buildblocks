@@ -12,11 +12,6 @@ capabilities of analysis tools such as VMD, HTMD, OpenPathSampling, and as a
 standalone utility to analyze pre-calculated MD trajectories.
 "
 
-prepend-path CPATH $PREFIX/libtorch/include/torch/csrc/api/include:$PREFIX/libtorch/include:$PREFIX/libtorch/include/torch
-prepend-path INCLUDE $PREFIX/libtorch/include/torch/csrc/api/include:$PREFIX/libtorch/include:$PREFIX/libtorch/include/torch
-prepend-path LIBRARY_PATH $PREFIX/libtorch/lib
-prepend-path LD_LIBRARY_PATH $PREFIX/libtorch/lib
-
 set libdir "/opt/psi/overlays/Alps/Tools/${P}/${V}/lib"
 set bindir "/opt/psi/overlays/Alps/Tools/${P}/${V}/bin"
 set includedir "/opt/psi/overlays/Alps/Tools/${P}/${V}/include"
@@ -65,4 +60,3 @@ prepend-path  PYTHONPATH         $libdir/$progname/python
 setenv        PLUMED_KERNEL      $libdir/lib${progname}Kernel.$soext
 
 }
-

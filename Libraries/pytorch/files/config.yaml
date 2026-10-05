@@ -1,21 +1,22 @@
 ---
 # yamllint disable rule:line-length
 format: 1
-vmd:
+pytorch:
   defaults:
-    group: Tools 
+    group: Libraries 
     overlay: base
     relstage: stable
 
-  shasums:
-    vmd-2.0.0a8.bin.LINUXAMD64.tar.gz: 7e1ac3e7a53ad626da29cd0531392a06671c1c78a38ec382f2292e7cbe2d7da6
-
   versions:
-    2.0.0a8:
+    2.13.0-cu129-python3.13:
       variants:
         - systems: [login.*.merlin7.psi.ch, cn.*.merlin7.psi.ch]
-          urls:
-            - url: https://www.ks.uiuc.edu/Research/${P}/alpha/${P}-${V}.bin.LINUXAMD64.tar.gz
           relstage: stable
           overlay: base
           use_overlays: [PSI]
+          target_cpus: [x86_64]
+        - systems: [gpu0.*.merlin7.psi.ch]
+          relstage: stable
+          overlay: base
+          use_overlays: [PSI]
+          target_cpus: [aarch64]          

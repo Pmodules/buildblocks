@@ -1,0 +1,34 @@
+---
+# yamllint disable rule:line-length
+format: 1
+libxsmm:
+  defaults:
+    group: Compiler
+    overlay: base
+    relstage: stable
+    urls:
+      - url: https://github.com/${P}/${P}/archive/refs/tags/${V_PKG}.tar.gz
+
+  shasums:
+    2.1.0.tar.gz: 704ed8f99b61a767798ed1ee1cadc5d185ca449f466a2bae37930f68c65961e9
+
+  versions:
+    2.1.0:
+      variants:
+        - systems: [login.*.merlin7.psi.ch, cn.*.merlin7.psi.ch]
+          target_cpus: [x86_64]
+          relstage: stable
+          configure_with: cmake
+          overlay: base
+          use_overlays: [PSI]
+          group_deps:
+            compiler: { gcc: [13.4.0] }
+        - systems: [gpu0.*.merlin7.psi.ch]
+          target_cpus: [aarch64]
+          relstage: stable
+          configure_with: cmake
+          overlay: base
+          use_overlays: [PSI]
+          group_deps:
+            compiler: { gcc: [13.4.0] }        
+

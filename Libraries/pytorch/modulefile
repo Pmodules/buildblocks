@@ -1,0 +1,29 @@
+#%Module1.0
+
+module-whatis       "PyTorch is an open-source deep learning library"
+module-url          "https://pytorch.org/"
+module-license      "https://github.com/pytorch/pytorch/blob/main/LICENSE"
+module-maintainer   "João Pedro Agostinho de Sousa <joao.agostinho-de-sousa@psi.ch>"
+module-help "
+PyTorch is an open source machine learning framework that accelerates the path
+from research prototyping to production deployment. Built to offer maximum
+flexibility and speed, PyTorch supports dynamic computation graphs, enabling
+researchers and developers to iterate quickly and intuitively. Its Pythonic
+design and deep integration with native Python tools make it an accessible and
+powerful platform for building and training deep learning models at scale.
+"
+
+prepend-path PATH \
+    "${PREFIX}/miniforge/envs/${P}_${V_PKG}/bin"
+
+prepend-path LD_LIBRARY_PATH \
+    "${PREFIX}/miniforge/envs/${P}_${V_PKG}/lib/[lindex [split "${V}" "-"] end]/site-packages/torch/lib"
+
+setenv TORCH_ROOT \
+    "${PREFIX}/miniforge/envs/${P}_${V_PKG}/lib/[lindex [split "${V}" "-"] end]/site-packages/torch"
+
+setenv TORCH_LIB \
+    "${PREFIX}/miniforge/envs/${P}_${V_PKG}/lib/[lindex [split "${V}" "-"] end]/site-packages/torch/lib"
+
+setenv TORCH_INCLUDE \
+    "${PREFIX}/miniforge/envs/${P}_${V_PKG}/lib/[lindex [split "${V}" "-"] end]/site-packages/torch/include"
