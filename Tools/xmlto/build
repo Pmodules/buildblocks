@@ -1,5 +1,5 @@
 #!/usr/bin/env modbuild
 
-pbuild::post_install() {
-	cp -av "${GETOPT_DIR}/bin/getopt" "${PREFIX}/bin"
-}
+# pbuild::post_install() {
+# 	cp -av "${GETOPT_DIR}/bin/getopt" "${PREFIX}/bin"
+# }
