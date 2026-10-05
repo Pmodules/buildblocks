@@ -1,0 +1,26 @@
+---
+# yamllint disable rule:line-length
+format: 1
+xerces-c:
+  defaults:
+    group: Compiler
+    overlay: base
+    docfiles: [CREDITS, LICENSE, NOTICE, README]
+    configure_with: cmake
+    urls:
+      - url: https://archive.apache.org/dist/xerces/c/3/sources/${P}-${V_PKG}.tar.gz
+
+  shasums:
+    xerces-c-3.3.0.tar.gz: 9555f1d06f82987fbb4658862705515740414fd34b4db6ad2ed76a2dc08d3bde
+
+  versions:
+    3.3.0:
+      variants:
+        - systems: [.*.merlin7.psi.ch]
+          group_deps:
+            compiler: {gcc: [13.4.0]}
+          build_requires:
+            - cmake/4.4.0
+          configure_args:
+            - -DBUILD_SHARED_LIBS=ON
+          relstage: stable
