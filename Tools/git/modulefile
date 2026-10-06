@@ -1,7 +1,5 @@
 #%Module1.0
 
-set dont-setenv { GIT_DIR }
-
 module-whatis		"distributed version control system"
 module-url		"http://git-scm.com/"
 module-license		"GNU GPL v2"
@@ -17,3 +15,5 @@ performance. It outclasses SCM tools like Subversion, CVS, Perforce,
 and ClearCase with features like cheap local branching, convenient
 staging areas, and multiple workflows. 
 "
+
+unsetenv GIT_DIR
