@@ -36,8 +36,6 @@ git:
     2.54.0:
       config:
         relstage: unstable
-        runtime_deps: [TclTk/8.6.16, openssl/3.4.1]
-        build_requires: [gcc/10.4.0, curl/8.20.0, perl/5.40.2, asciidoctor/2.0.23, gettext/0.19.8, xmlto/0.0.28]
         docfiles: [COPYING, README.md]
         configure_args:
           - --with-tcltk
@@ -47,6 +45,16 @@ git:
           - name: git-lfs
             version: 3.7.1
             build_args:
+        build_variants: first_match
+      variants:
+        - systems: [gpu0.*.merlin7.psi.ch]
+          use_overlays:
+            - PSI
+          runtime_deps: [TclTk/8.6.16]
+          build_requires: [gcc/10.4.0, perl/5.40.2, asciidoctor/2.0.23, gettext/0.19.8, xmlto/0.0.28]
+        - systems: [.*]
+          runtime_deps: [TclTk/8.6.16, openssl/3.4.1, curl/8.20.0]
+          build_requires: [gcc/10.4.0, curl/8.20.0, perl/5.40.2, asciidoctor/2.0.23, gettext/0.19.8, xmlto/0.0.28, libpsl/0.21.5]
     2.49.0;2.46.4;2.45.3;2.43.6;2.42.4:
       config:
         runtime_deps: [TclTk/8.6.16, openssl/3.4.1]
