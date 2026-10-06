@@ -1,0 +1,31 @@
+---
+# yamllint disable rule:line-length
+format: 1
+BindCraft2:
+  defaults:
+    group: EM
+    overlay: base
+    relstage: stable
+    urls:
+      - url: https://github.com/PacesaLab/${P}/archive/refs/tags/v${V_PKG}.tar.gz
+
+  shasums:
+    v1.0.3.tar.gz: 7b1c934a52ad2901310a5ce9410e56021b417547869ec070232a5e293ef645ae
+
+  versions:
+    1.0.3:
+      variants:
+        - overlay: Alps
+          use_overlays: [PSI, Alps]
+          target_cpus: [x86_64]
+          systems: [.*.merlin7.psi.ch]
+          relstage: stable
+          build_requires: [ cuda/12.9.1, Python/3.12.9 ]
+          runtime_deps: [ cuda/12.9.1 ]
+        - overlay: Alps
+          use_overlays: [PSI, Alps]
+          target_cpus: [aarch64]
+          systems: [gpu0.*.merlin7.psi.ch]
+          relstage: stable
+          build_requires: [ cuda/12.9.1, Python/3.12.9 ]
+          runtime_deps: [ cuda/12.9.1 ]
