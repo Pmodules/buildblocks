@@ -3,7 +3,7 @@
 pbuild::prep() {
     local TAG
     TAG="qe-${V_PKG}"
-
+    set -x
     # Clone or update source repository
     if [[ -d "$SRC_DIR/.git" ]]; then
         cd "$SRC_DIR" || return $?
