@@ -26,5 +26,18 @@ pbuild::install() {
 
     # Install required packages
     cd ${SRC_DIR}
-    pip install -e ".[cuda12]"
+    CUDA_MAJOR="${CUDA_VERSION%%.*}"
+
+    case "$CUDA_MAJOR" in
+    12)
+        pip install -e ".[cuda12]"
+        ;;
+    13)
+        pip install -e ".[cuda13]"
+        ;;
+    *)
+        echo "Unsupported CUDA version: $CUDA_VERSION"
+        exit 1
+        ;;
+    esac
 }
