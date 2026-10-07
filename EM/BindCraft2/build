@@ -30,10 +30,10 @@ pbuild::install() {
 
     case "$CUDA_MAJOR" in
     12)
-        pip install -e ".[cuda12]"
+        pip install ".[cuda12]"
         ;;
     13)
-        pip install -e ".[cuda13]"
+        pip install ".[cuda13]"
         ;;
     *)
         echo "Unsupported CUDA version: $CUDA_VERSION"

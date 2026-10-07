@@ -18,7 +18,7 @@ BindCraft2:
         - overlay: Alps
           use_overlays: [PSI, Alps]
           target_cpus: [x86_64]
-          systems: [.*.merlin7.psi.ch]
+          systems: [login.*.merlin7.psi.ch, cn.*.merlin7.psi.ch, gpu1.*.merlin7.psi.ch]
           relstage: stable
           build_requires: [ cuda/12.9.1, Python/3.12.9 ]
           runtime_deps: [ cuda/12.9.1 ]
