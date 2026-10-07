@@ -38,6 +38,7 @@ cp2k:
             - "-DCP2K_USE_PLUMED=ON"
             - "-DCP2K_USE_FFTW3=ON"
             - "-DCP2K_FFTW3_ROOT=/opt/psi/overlays/Alps/Compiler/fftw/3.3.10/gcc/13.4.0"
+            - "-DCP2K_USE_LIBTORCH=ON"
             - "-DCP2K_WITH_GPU=A100"
         - overlay: Alps
           relstage: unstable
@@ -61,4 +62,5 @@ cp2k:
             - "-DCP2K_USE_PLUMED=ON"
             - "-DCP2K_USE_FFTW3=ON"
             - "-DCP2K_FFTW3_ROOT=/opt/psi/overlays/Alps/Compiler/fftw/3.3.10/gcc/13.4.0"
+            - "-DCP2K_USE_LIBTORCH=ON"
             - "-DCP2K_WITH_GPU=H100"              

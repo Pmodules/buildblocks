@@ -18,7 +18,7 @@ dbcsr:
       variants:
         - overlay: Alps
           target_cpus: [x86_64]
-          systems: [login.*.merlin7.psi.ch, cn.*.merlin7.psi.ch]
+          systems: [.*.merlin7.psi.ch]
           relstage: unstable
           configure_with: cmake
           configure_args:
@@ -38,7 +38,7 @@ dbcsr:
           group_deps:
             compiler: { gcc: [13.4.0] }
             mpi: { mpich: [5.0.1] }
-          build_requires: [ cuda/12.9.1, Python/3.13.2, lapack/3.12.1 ]
+          build_requires: [ cuda/12.9.1, Python/3.13.2, OpenBLAS/0.3.34 ]
           runtime_deps: [ cuda/12.9.1, Python/3.13.2 ]
         - overlay: Alps
           target_cpus: [aarch64]
@@ -62,6 +62,6 @@ dbcsr:
           group_deps:
             compiler: { gcc: [13.4.0] }
             mpi: { mpich: [5.0.1] }
-          build_requires: [ cuda/12.9.1, lapack/3.12.1 ]
+          build_requires: [ cuda/12.9.1, OpenBLAS/0.3.34 ]
           runtime_deps: [ cuda/12.9.1 ]
 

@@ -13,7 +13,7 @@ vmd:
   versions:
     2.0.0a8:
       variants:
-        - systems: [login.*.merlin7.psi.ch, cn.*.merlin7.psi.ch]
+        - systems: [login.*.merlin7.psi.ch, cn.*.merlin7.psi.ch, gpu1.*.merlin7.psi.ch]
           urls:
             - url: https://www.ks.uiuc.edu/Research/${P}/alpha/${P}-${V}.bin.LINUXAMD64.tar.gz
           relstage: stable
