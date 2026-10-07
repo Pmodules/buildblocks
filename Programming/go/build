@@ -1,21 +1,24 @@
 #!/usr/bin/env modbuild
 
-pbuild::set_download_url "https://go.dev/dl/go${V_PKG}.src.tar.gz"
-
-pbuild::add_to_group 'Programming'
-pbuild::install_docfiles 'CONTRIBUTING.md' 'LICENSE' 'PATENTS' 'README.md'  'SECURITY.md' 'VERSION'
-
-pbuild::compile_in_sourcetree
+pbuild::configure() {
+  :
+}
 
 pbuild::compile() {
-  export GOROOT_FINAL=${PREFIX}
+  export GOROOT_FINAL="${PREFIX}"
+  export GOROOT_BOOTSTRAP="$(go env GOROOT)"
+
   export GOMAXPROCS=8
-  cd src
-  ./all.bash
-  cd ..
+
+  cd "${SRC_DIR}/src"
+  ./make.bash
 }
 
 pbuild::install() {
-  rsync -av --exclude "pkg/obj/*" . "${PREFIX}"
-}
+  cd "${SRC_DIR}"
 
+  rsync -a \
+    --exclude='pkg/obj/*' \
+    --exclude='.git/' \
+    ./ "${PREFIX}/"
+}

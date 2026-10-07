@@ -1,0 +1,28 @@
+---
+# yamllint disable rule:line-length
+format: 1
+go:
+  defaults:
+    group: Programming
+    overlay: base
+    relstage: stable
+    urls:
+      - url: https://go.dev/dl/${P}${V_PKG}.src.tar.gz
+
+  shasums:
+    go1.27.1.src.tar.gz: 4e408abae126d916b6164627193f2c54f0e3ca1312d693b86db45f862ab238b1
+
+  versions:
+    1.27.1:
+      variants:
+        - overlay: base
+          relstage: stable
+          target_cpus: [x86_64]
+          systems: [.*.merlin7.psi.ch]
+          use_overlays: [PSI]
+        - overlay: base
+          relstage: stable
+          target_cpus: [aarch64]
+          systems: [gpu0.*.merlin7.psi.ch]
+          use_overlays: [PSI]
+

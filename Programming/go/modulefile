@@ -1,11 +1,11 @@
 #%Module1.0
 
 module-whatis		"The Go Programming Language"
-module-url		"https://go.googlesource.com/go/"
-module-license		"https://go.googlesource.com/go/+/refs/heads/master/LICENSE"
-module-maintainer	"Marc Caubet Serrabou <marc.caubet@psi.ch>"
+module-url          "https://go.dev/"
+module-license      "BSD-3-Clause license"
+module-maintainer   "João Pedro Agostinho de Sousa <joao.agostinho-de-sousa@psi.ch>"
 
 module-help	"
-Go is an open source programming language that makes it easy to build simple, reliable, and efficient software.
+Go is an open source programming language that makes it simple to build secure,
+scalable systems.
 "
-module-addgroup "Programming"
