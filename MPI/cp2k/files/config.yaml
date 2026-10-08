@@ -19,8 +19,32 @@ cp2k:
         - overlay: Alps
           relstage: unstable
           target_cpus: [x86_64]
-          systems: [login.*.merlin7.psi.ch, cn.*.merlin7.psi.ch, gpu1.*.merlin7.psi.ch]
+          systems: [login.*.merlin7.psi.ch, cn.*.merlin7.psi.ch]
           use_overlays: [PSI, Alps]
+          group_deps:
+            compiler: { gcc: [13.4.0] }
+            mpi: { mpich: [5.0.1] }
+          build_requires: [ dbcsr/2.10.0, scalapack/2.2.3, OpenBLAS/0.3.34, hdf5/2.2.0, plumed/2.10.1, fftw/3.3.10 ]
+          runtime_deps: [ hdf5/2.2.0, scalapack/2.2.3, plumed/2.10.1 ]
+          configure_with: cmake
+          configure_args:
+            - "-DCP2K_USE_MPI=ON"
+            - "-DCP2K_USE_ACCEL=NONE"
+            - "-DCP2K_USE_LIBXS=ON"
+            - "-DCP2K_USE_LIBXSMM=ON"
+            - "-DCMAKE_PREFIX_PATH='/opt/psi/Compiler/libxs/1.0.0/gcc/13.4.0;/opt/psi/Compiler/libxsmm/2.1.0/gcc/13.4.0'"
+            - "-DCP2K_USE_MPI_F08=ON"
+            - "-DCP2K_USE_HDF5=ON"
+            - "-DCP2K_USE_PLUMED=ON"
+            - "-DCP2K_USE_FFTW3=ON"
+            - "-DCP2K_FFTW3_ROOT=/opt/psi/overlays/Alps/Compiler/fftw/3.3.10/gcc/13.4.0"
+            - "-DCP2K_USE_LIBTORCH=OFF"
+            - "-DCP2K_DBCSR_USE_CPU_ONLY=ON"
+        - overlay: Alps_A100
+          relstage: unstable
+          target_cpus: [x86_64]
+          systems: [gpu1.*.merlin7.psi.ch]
+          use_overlays: [PSI, Alps_A100]
           group_deps:
             compiler: { gcc: [13.4.0] }
             mpi: { mpich: [5.0.1] }
@@ -39,7 +63,7 @@ cp2k:
             - "-DCP2K_USE_FFTW3=ON"
             - "-DCP2K_FFTW3_ROOT=/opt/psi/overlays/Alps/Compiler/fftw/3.3.10/gcc/13.4.0"
             - "-DCP2K_USE_LIBTORCH=ON"
-            - "-DCP2K_WITH_GPU=A100"
+            - "-DCP2K_WITH_GPU=A100"            
         - overlay: Alps
           relstage: unstable
           target_cpus: [aarch64]
@@ -63,4 +87,4 @@ cp2k:
             - "-DCP2K_USE_FFTW3=ON"
             - "-DCP2K_FFTW3_ROOT=/opt/psi/overlays/Alps/Compiler/fftw/3.3.10/gcc/13.4.0"
             - "-DCP2K_USE_LIBTORCH=ON"
-            - "-DCP2K_WITH_GPU=H100"              
+            - "-DCP2K_WITH_GPU=H100"
