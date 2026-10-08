@@ -1,0 +1,63 @@
+---
+# yamllint disable rule:line-length
+format: 1
+gromacs:
+  defaults:
+    group: MPI
+    overlay: base
+    relstage: stable
+    urls:                                               
+      - url: https://ftp.${P}.org/${P}/${P}-${V_PKG}.tar.gz
+
+  shasums:
+    gromacs-2026.4.tar.gz: 58eda60979b124fcf9dff8b1b63cedfbc72fdb36d99e921dc1bdc310571098b6
+    gromacs-2026.3.tar.gz: 1094b7bbc6a3960223827114626657110b40096cdf9598a727935fc84ebf8aa0
+
+  versions:
+    2026.4:
+      variants:
+        - group: MPI
+          overlay: Alps
+          relstage: unstable
+          target_cpus: [x86_64]
+          systems: [login.*.merlin7.psi.ch, cn.*.merlin7.psi.ch, gpu1.*.merlin7.psi.ch]
+          use_overlays: [PSI, Alps]
+          group_deps:
+            compiler: { gcc: [13.4.0] }
+            mpi: { mpich: [5.0.1] }
+          build_requires: [ cuda/12.9.1, plumed/2.10.1, sphinx/9.1.0 ]
+          runtime_deps: [ cuda/12.9.1, plumed/2.10.1 ]
+          configure_with: cmake
+          configure_args:
+            - "-DGMX_BUILD_OWN_FFTW=ON"
+            - "-DGMX_MPI=ON"
+            - "-DGMX_GPU=CUDA"
+            - "-DGMX_SIMD=AVX2_256"
+            - "-DGMX_USE_PLUMED=ON"
+            - "-DCMAKE_BUILD_TYPE=Release"
+            - "-DCUDAToolkit_ROOT=/opt/psi/Programming/cuda/12.9.1"
+            - "-DCMAKE_EXE_LINKER_FLAGS='-Wl,-rpath-link,/opt/psi/Programming/cuda/12.9.1/lib64'"
+        - group: MPI
+          overlay: Alps
+          relstage: unstable
+          target_cpus: [aarch64]
+          systems: [gpu0.*.merlin7.psi.ch]
+          use_overlays: [PSI, Alps]
+          group_deps:
+            compiler: { gcc: [13.4.0] }
+            mpi: { mpich: [5.0.1] }
+          build_requires: [ cuda/12.9.1, plumed/2.10.1 ]
+          runtime_deps: [ cuda/12.9.1, plumed/2.10.1 ]
+          configure_with: cmake
+          configure_args:
+            - "-DGMX_BUILD_OWN_FFTW=ON"
+            - "-DREGRESSIONTEST_DOWNLOAD=ON"
+            - "-DGMX_MPI=ON"
+            - "-DGMX_GPU=CUDA"
+            - "-DGMX_SIMD=ARM_NEON_ASIMD"
+            - "-DGMX_USE_PLUMED=ON"
+            - "-DCMAKE_CXX_FLAGS='-mcpu=neoverse-v2'"
+            - "-DCMAKE_C_FLAGS='-mcpu=neoverse-v2'"
+            - "-DCMAKE_BUILD_TYPE=Release"
+            - "-DCUDAToolkit_ROOT=/opt/psi/Programming/cuda/12.9.1"
+            - "-DCMAKE_EXE_LINKER_FLAGS='-Wl,-rpath-link,/opt/psi/Programming/cuda/12.9.1/lib64'"
