@@ -18,7 +18,29 @@ dbcsr:
       variants:
         - overlay: Alps
           target_cpus: [x86_64]
-          systems: [.*.merlin7.psi.ch]
+          systems: [login.*.merlin7.psi.ch, cn.*.merlin7.psi.ch]
+          relstage: unstable
+          configure_with: cmake
+          configure_args:
+            - "-DUSE_MPI=ON"
+            - "-DUSE_OPENMP=ON"
+            - "-DUSE_LIBXS=ON"
+            - "-DUSE_LIBXSMM=ON"
+            - "-DWITH_CUDA_PROFILING=OFF"
+            - "-DWITH_C_API=ON"
+            - "-DWITH_EXAMPLES=OFF"
+            - "-DCMAKE_BUILD_TYPE=Release"
+            - "-DBUILD_TESTING=OFF"
+            - "-DCMAKE_PREFIX_PATH='/opt/psi/Compiler/libxs/1.0.0/gcc/13.4.0;/opt/psi/Compiler/libxsmm/2.1.0/gcc/13.4.0'"
+          use_overlays: [PSI, Alps]
+          group_deps:
+            compiler: { gcc: [13.4.0] }
+            mpi: { mpich: [5.0.1] }
+          build_requires: [ Python/3.13.2, OpenBLAS/0.3.34 ]
+          runtime_deps: [ Python/3.13.2 ]
+        - overlay: Alps_A100
+          target_cpus: [x86_64]
+          systems: [gpu1.*.merlin7.psi.ch]
           relstage: unstable
           configure_with: cmake
           configure_args:
@@ -34,12 +56,12 @@ dbcsr:
             - "-DCMAKE_BUILD_TYPE=Release"
             - "-DBUILD_TESTING=OFF"
             - "-DCMAKE_PREFIX_PATH='/opt/psi/Compiler/libxs/1.0.0/gcc/13.4.0;/opt/psi/Compiler/libxsmm/2.1.0/gcc/13.4.0'"
-          use_overlays: [PSI, Alps]
+          use_overlays: [PSI, Alps_A100]
           group_deps:
             compiler: { gcc: [13.4.0] }
             mpi: { mpich: [5.0.1] }
           build_requires: [ cuda/12.9.1, Python/3.13.2, OpenBLAS/0.3.34 ]
-          runtime_deps: [ cuda/12.9.1, Python/3.13.2 ]
+          runtime_deps: [ cuda/12.9.1, Python/3.13.2 ]          
         - overlay: Alps
           target_cpus: [aarch64]
           systems: [gpu0.*.merlin7.psi.ch]
