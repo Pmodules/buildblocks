@@ -1,0 +1,35 @@
+---
+# yamllint disable rule:line-length
+format: 1
+openmm:
+  defaults:
+    group: Compiler
+    overlay: base
+    relstage: stable
+    urls:
+      - url: https://github.com/${P}/${P}/archive/refs/tags/${V_PKG}.tar.gz
+
+  shasums:
+    8.6.1.tar.gz: 4faf6c59ef42568536f5305169ff932b8e464900ccf31035169c288c291ef529
+
+  versions:
+    8.6.1:
+      variants:
+        - overlay: Alps
+          use_overlays: [PSI, Alps]
+          target_cpus: [x86_64]
+          systems: [.*.merlin7.psi.ch]
+          relstage: stable
+          group_deps:
+            compiler: { gcc: [13.4.0] }
+          build_requires: [ Python/3.12.9 ]
+          runtime_deps: [ Python/3.12.9 ]
+        - overlay: Alps
+          use_overlays: [PSI, Alps]
+          target_cpus: [aarch64]
+          systems: [gpu0.*.merlin7.psi.ch]
+          relstage: stable
+          group_deps:
+            compiler: { gcc: [13.4.0] }          
+          build_requires: [ Python/3.12.9 ]
+          runtime_deps: [ Python/3.12.9 ]
