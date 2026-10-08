@@ -1,0 +1,15 @@
+#%Module1.0
+
+module-whatis       "A high-performance toolkit for molecular simulation."
+module-url          "https://openmm.org/"
+module-license      "https://github.com/openmm/openmm/blob/master/docs-source/licenses/Licenses.txt"
+module-maintainer   "João Pedro Agostinho de Sousa <joao.agostinho-de-sousa@psi.ch>"
+
+module-help         "
+A high-performance toolkit for molecular simulation. Use it as an application,
+a library, or a flexible programming environment. We include extensive language
+bindings for Python, C, C++, and even Fortran.
+"
+
+# Add conda env bin directory to PATH
+prepend-path PATH "${PREFIX}/miniforge/envs/${P}_${V_PKG}/bin"
