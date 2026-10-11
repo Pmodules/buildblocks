@@ -1,0 +1,12 @@
+#!/usr/bin/env modbuild
+
+export LC_ALL=C
+
+pbuild::configure(){ :; }
+
+# Sometime I had issues with more then 4 parallel make jobs.
+pbuild::compile(){
+    echo -e "TARGET=x86_64-linux-musl\nOUTPUT=$PREFIX" > config.mak
+    ls -la
+    make -j4
+}
