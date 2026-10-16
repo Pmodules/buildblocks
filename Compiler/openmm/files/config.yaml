@@ -22,8 +22,8 @@ openmm:
           relstage: stable
           group_deps:
             compiler: { gcc: [13.4.0] }
-          build_requires: [ Python/3.12.9 ]
-          runtime_deps: [ Python/3.12.9 ]
+          build_requires: [ cuda/12.9.1, Python/3.13.2 ]
+          runtime_deps: [ cuda/12.9.1 ]
         - overlay: Alps
           use_overlays: [PSI, Alps]
           target_cpus: [aarch64]
@@ -31,5 +31,5 @@ openmm:
           relstage: stable
           group_deps:
             compiler: { gcc: [13.4.0] }          
-          build_requires: [ Python/3.12.9 ]
-          runtime_deps: [ Python/3.12.9 ]
+          build_requires: [ cuda/12.9.1, Python/3.13.2 ]
+          runtime_deps: [ cuda/12.9.1 ]

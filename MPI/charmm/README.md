@@ -1,22 +1,8 @@
 # CHARMM
 
-## Installation
+CHARMM (Chemistry at HARvard Macromolecular Mechanics) is a widely used computer software program and set of force fields used for molecular dynamics simulations and biomolecular modeling.
 
-1. [Request a license](https://charmm.chemistry.harvard.edu/)
+Simulates the physical movements, energy, and interactions of biological macromolecules—such as proteins, peptides, nucleic acids, lipids, and carbohydrates—as well as small-molecule ligands.
 
-Here is the brief description I submitted: "PSI is a federal research institute
-in Switzerland. Charmm will be installed on the HPC cluster, upon request from
-structural biology groups."
-
-2. Following accepting the license I got a [download
-link](http://charmm.chemistry.harvard.edu/download_charmm.php) by email.
-
-3. Save the tarball as `/opt/psi/var/distfiles/charmm-47.2.tar.gz` (converting
-from `c${V_MAJOR}b${V_MINOR}.tar.gz`
-
-4. Run `./build`
-
-5. Check the output directory for symlinks. These seem to come from
-post_install, but I don't have time to debug the script more so I'm going to
-just copy the directories manually.
+https://academiccharmm.org/
 
