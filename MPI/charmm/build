@@ -1,29 +1,55 @@
-#!/usr/bin/env modbuild 
+#!/usr/bin/env modbuild
 
-pbuild::add_to_group 'MPI'
+pbuild::configure() {
+    cp "${BUILDBLOCK_DIR}/source/${V}.tar" "${BUILD_DIR}/${V}.tar"
 
+    mkdir -p "${BUILD_DIR}/src" "${BUILD_DIR}/build"
 
-# STUB URL. This should be manually downloaded and placed in /opt/psi/var/distfiles/
-pbuild::set_download_url "http://psi.ch/manual_download/charmm-${V_MAJOR}.${V_MINOR}.tar.gz"
+    tar xf "${BUILD_DIR}/${V}.tar" \
+        --strip-components=1 \
+        -C "${BUILD_DIR}/src"
 
-pbuild::pre_configure() {
-  pbuild::add_configure_args "--with-X11"
-  pbuild::add_configure_args "--with-gamus"
+    export OPENMM_ENV="${OPENMM_DIR}/miniforge/envs/openmm_${OPENMM_VERSION}"
+    export OPENMM_TORCH_LIBRARY="${OPENMM_ENV}/lib/libOpenMMTorch.so"
+    export OPENMM_TORCH_LIB_DIR="${OPENMM_ENV}/lib"
+    export OPENMM_TORCH_INCLUDE_DIR="${OPENMM_ENV}/include"
+    export OPENMM_TORCH_PLUGIN_DIR="${OPENMM_ENV}/lib/plugins"
+    export TORCH_INCLUDE_DIR="${OPENMM_ENV}/include"
+    export TORCH_LIBRARY="${OPENMM_ENV}/lib/libtorch.so"
 
-  if pbuild::use_flag gpu ; then
-    pbuild::add_configure_args "--with-domdec_gpu"
-    pbuild::add_configure_args "--with-blade"
-  else # pbuild::use_flag cpu
-    pbuild::add_configure_args "--with-repdstr"
-  fi
-
+    "${BUILD_DIR}/src/configure" \
+        --prefix "${PREFIX}" \
+        --with-torch \
+        --with-mlmm \
+        --with-abpo \
+        --with-blade \
+        --with-domdec_gpu \
+        --with-fftdock \
+        --with-gamus \
+        --with-nih \
+        --with-nvtx \
+        --with-pipf \
+        --with-repdstr \
+        --with-x11 \
+        --with-tsri \
+        --with-eabf \
+        -D CMAKE_EXE_LINKER_FLAGS="-L${OPENMM_ENV}/lib -Wl,-rpath,${OPENMM_ENV}/lib" \
+        -D CMAKE_CUDA_COMPILER="${CUDA_HOME}/bin/nvcc" \
+        -D CUDAToolkit_ROOT="${CUDA_HOME}" \
+        -D CUDA_TOOLKIT_ROOT_DIR="${CUDA_HOME}" \
+        -D TORCH_INCLUDE_DIR="${TORCH_INCLUDE_DIR}" \
+        -D TORCH_LIBRARY="${TORCH_LIBRARY}" \
+        -D OPENMM_TORCH_LIBRARY="${OPENMM_TORCH_LIBRARY}" \
+        -D OPENMM_TORCH_LIB_DIR="${OPENMM_TORCH_LIB_DIR}" \
+        -D OPENMM_TORCH_INCLUDE_DIR="${OPENMM_TORCH_INCLUDE_DIR}" \
+        -D OPENMM_TORCH_PLUGIN_DIR="${OPENMM_TORCH_PLUGIN_DIR}"
 }
 
-pbuild::post_install() {
-  cp "$BUILDBLOCK_DIR/LICENSE" "$PREFIX/"
-  rm -f "$PREFIX/source" "$PREFIX/tool"  # remove symlink (rc10 issue?)
-  for dir in doc test support; do
-    rm -f "$PREFIX/$dir"  # remove symlink
-    cp -rf "$SRC_DIR/${dir}" "$PREFIX/"
-  done
+pbuild::compile() {
+    cmake --build "${BUILD_DIR}" --parallel "${JOBS:-1}"
 }
+
+pbuild::install() {
+    cmake --install "${BUILD_DIR}"
+}
+

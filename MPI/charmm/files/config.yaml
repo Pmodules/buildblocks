@@ -1,0 +1,33 @@
+---
+# yamllint disable rule:line-length
+format: 1
+charmm:
+  defaults:
+    group: MPI 
+    overlay: base
+    relstage: stable
+
+  versions:
+    c51b1:
+      variants:
+        - systems: [.*.merlin7.psi.ch]
+          target_cpus: [x86_64]
+          relstage: unstable
+          overlay: Alps
+          use_overlays: [PSI, Alps]
+          group_deps:
+            compiler: { gcc: [13.4.0] }
+            mpi: { mpich: [5.0.1] }          
+          build_requires: [ cuda/12.9.1, fftw/3.3.10, openmm/8.6.1 ]
+          runtime_deps: [ cuda/12.9.1 ]
+        - systems: [gpu0.*.merlin7.psi.ch]
+          target_cpus: [aarch64]
+          relstage: unstable
+          overlay: Alps
+          use_overlays: [PSI, Alps]
+          group_deps:
+            compiler: { gcc: [13.4.0] }
+            mpi: { mpich: [5.0.1] }          
+          build_requires: [ cuda/12.9.1, fftw/3.3.10, openmm/8.6.1 ]
+          runtime_deps: [ cuda/12.9.1 ]
+

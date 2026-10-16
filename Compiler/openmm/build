@@ -9,11 +9,20 @@ pbuild::pre_configure() {
     # Initialize mamba for script use
     source "$PREFIX/miniforge/etc/profile.d/mamba.sh"
 
-    # Create the conda environment
-    mamba create -y --name "${P}_${V_PKG}" "python=${PYTHON_VERSION}"
+    # Define the environment path
+    ENV_PATH="$PREFIX/miniforge/envs/${P}_${V_PKG}"
+
+    # Create the Conda environment at the specified path
+    mamba create -y --prefix "$ENV_PATH" "python=${PYTHON_VERSION}"
 
     # Activate the conda environment
-    mamba activate "${P}_${V_PKG}"
+    IFS="${IFS:-$' \t\n'}"
+    export IFS
 
-    mamba install -y cython swig doxygen numpy setuptools
+    set +u
+    mamba activate "${P}_${V_PKG}"
+    set -u
+
+    export CONDA_MKL_INTERFACE_LAYER_BACKUP="${CONDA_MKL_INTERFACE_LAYER_BACKUP:-}"
+    mamba install -y cython swig doxygen numpy setuptools pdoc openmm-torch 
 }
