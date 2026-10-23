@@ -1,0 +1,27 @@
+#!/usr/bin/env modbuild
+
+pbuild::prep() {
+    # Create bin/ in the installation directory
+    mkdir -p $PREFIX/bin/
+
+    # Copy executable script to the installation directory
+    cp -n "$BUILDBLOCK_DIR/run_noah" "$PREFIX/bin/"
+
+    # Copy ssl_compat script 
+    cp -r "$BUILDBLOCK_DIR/ssl_compat" "$PREFIX/"
+
+    # Add execute permission to the script
+    chmod +x "$PREFIX/bin/run_noah"
+}
+
+pbuild::configure() {
+    :
+}
+
+pbuild::compile() {
+    :
+}
+
+pbuild::install() {
+    :
+}

@@ -1,0 +1,169 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+error() {
+    echo "Error: $*" >&2
+    exit 1
+}
+
+# Defaults
+DB_DIR="/opt/noah/database"
+PPM_CODE_DIR="/opt/noah/ppm3_code"
+OUTDIR="$PWD/noah_output"
+
+PARSED_ARGS=()
+DATABASE_SPECIFIED=false
+PPM_SPECIFIED=false
+
+# Parse arguments.
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --database=*)
+            DB_DIR="${1#*=}"
+            DATABASE_SPECIFIED=true
+            PARSED_ARGS+=("-d" "$DB_DIR")
+            shift
+            ;;
+        --database|-d)
+            [[ $# -ge 2 && -n "$2" ]] || {
+                echo "Error: $1 requires a directory." >&2
+                exit 2
+            }
+            DB_DIR="$2"
+            DATABASE_SPECIFIED=true
+            PARSED_ARGS+=("-d" "$DB_DIR")
+            shift 2
+            ;;
+        --ppm=*)
+            PPM_CODE_DIR="${1#*=}"
+            PPM_SPECIFIED=true
+            PARSED_ARGS+=("-p" "$PPM_CODE_DIR")
+            shift
+            ;;
+        --ppm|-p)
+            [[ $# -ge 2 && -n "$2" ]] || {
+                echo "Error: $1 requires a directory." >&2
+                exit 2
+            }
+            PPM_CODE_DIR="$2"
+            PPM_SPECIFIED=true
+            PARSED_ARGS+=("-p" "$PPM_CODE_DIR")
+            shift 2
+            ;;
+        --output=*)
+            OUTDIR="${1#*=}"
+            shift
+            ;;
+        --output|-o)
+            [[ $# -ge 2 && -n "$2" ]] || {
+                echo "Error: $1 requires a directory." >&2
+                exit 2
+            }
+            OUTDIR="$2"
+            shift 2
+            ;;
+        *)
+            PARSED_ARGS+=("$1")
+            shift
+            ;;
+    esac
+done
+
+# Detect help before resolving the image or creating output directories.
+HELP_REQUESTED=false
+for arg in "${PARSED_ARGS[@]}"; do
+    case "$arg" in
+        -h|--help)
+            HELP_REQUESTED=true
+            break
+            ;;
+    esac
+done
+
+# Resolve and validate the container image for execution.
+if [[ "$HELP_REQUESTED" == false ]]; then
+    : "${APPTAINER_IMAGE:?Error: APPTAINER_IMAGE is not set.}"
+    : "${GPU_NODE_TYPE:?Error: GPU_NODE_TYPE is not set.}"
+
+    IMAGE="${APPTAINER_IMAGE//\$\{GPU_NODE_TYPE\}/$GPU_NODE_TYPE}"
+
+    [[ -f "$IMAGE" ]] || {
+        echo "Error: Container image not found: $IMAGE" >&2
+        exit 1
+    }
+
+    IMAGE="$(realpath -- "$IMAGE")"
+else
+    # Help mode still needs a container image to run the application.
+    : "${APPTAINER_IMAGE:?Error: APPTAINER_IMAGE is not set.}"
+    : "${GPU_NODE_TYPE:?Error: GPU_NODE_TYPE is not set.}"
+
+    IMAGE="${APPTAINER_IMAGE//\$\{GPU_NODE_TYPE\}/$GPU_NODE_TYPE}"
+
+    [[ -f "$IMAGE" ]] || {
+        echo "Error: Container image not found: $IMAGE" >&2
+        exit 1
+    }
+
+    IMAGE="$(realpath -- "$IMAGE")"
+fi
+
+# Add defaults only if the user did not specify those options.
+# In help mode, do not add defaults; forward the user's arguments unchanged.
+if [[ "$HELP_REQUESTED" == false ]]; then
+    if [[ "$DATABASE_SPECIFIED" == false ]]; then
+        PARSED_ARGS+=("-d" "$DB_DIR")
+    fi
+
+    if [[ "$PPM_SPECIFIED" == false ]]; then
+        PARSED_ARGS+=("-p" "$PPM_CODE_DIR")
+    fi
+fi
+
+# Prepare normal output directories only for regular execution.
+if [[ "$HELP_REQUESTED" == false ]]; then
+    mkdir -p -- "$OUTDIR"
+    OUTDIR="$(realpath -- "$OUTDIR")"
+
+    RUN_ID="$(date +%Y%m%d_%H%M%S)_$$"
+    RUN_OUTDIR="$OUTDIR/$RUN_ID"
+
+    mkdir -p -- "$RUN_OUTDIR/noah_run" "$OUTDIR/colabfold_cache"
+
+    OUTPUT_BIND_ARGS=(
+        --bind "$RUN_OUTDIR/noah_run:/work/out"
+        --bind "$OUTDIR/colabfold_cache:/root/.cache/colabfold"
+    )
+else
+    OUTPUT_BIND_ARGS=()
+fi
+
+# Run the application.
+singularity exec \
+    --nv \
+    --bind "/data/scratch/shared:/data/scratch/shared" \
+    --bind "/data/user:/data/user" \
+    --bind "/data/project:/data/project" \
+    --bind "/scratch:/scratch" \
+    --bind "/tmp:/tmp" \
+    --bind "$NOAH_GPCR_DIR/ssl_compat:/work/ssl_compat" \
+    "${OUTPUT_BIND_ARGS[@]}" \
+    --bind "/etc/ssl/ca-bundle.pem:/etc/ssl/ca-bundle.pem" \
+    "$IMAGE" \
+    bash -lc '
+        set -Eeuo pipefail
+        export PYTHONPATH="/work/ssl_compat${PYTHONPATH:+:$PYTHONPATH}"
+        export REQUESTS_CA_BUNDLE=/etc/ssl/ca-bundle.pem
+        export SSL_CERT_FILE=/etc/ssl/ca-bundle.pem
+
+        if [[ -d /work/out ]]; then
+            cd /work/out
+        fi
+
+        exec /opt/conda/envs/noah/bin/python /opt/noah/run_noah.py "$@"
+    ' run_noah "${PARSED_ARGS[@]}"
+
+if [[ "$HELP_REQUESTED" == false ]]; then
+    echo "Run completed. Output saved to: $RUN_OUTDIR/noah_run"
+fi
+
