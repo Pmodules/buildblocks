@@ -50,8 +50,8 @@ OpenBLAS:
           build_requires: [cmake/4.4.0]
         - systems: [gpu.*.merlin7.psi.ch]
           target_cpus: [x86_64]
-          overlay: PSI
-          use_overlays: [PSI, Alps]
+          overlay: Alps_A100
+          use_overlays: [PSI, Alps, Alps_A100]
           group_deps:
             compiler:
               nvhpc: [26.5_cuda_multi]
@@ -60,7 +60,7 @@ OpenBLAS:
           build_requires: [cmake/4.4.0]
         - systems: [.*.merlin7.psi.ch]
           target_cpus: [x86_64]
-          overlay: PSI
+          overlay: Alps
           use_overlays: [PSI, Alps]
           group_deps:
             compiler:
