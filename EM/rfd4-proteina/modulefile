@@ -1,0 +1,25 @@
+#%Module1.0
+
+module-whatis       "A flow-matching foundation model for biomolecular design"
+module-url          "https://github.com/RosettaCommons/RFD4-Proteina"
+module-license	    "BSD-3-Clause license"
+module-maintainer   "João Pedro Agostinho de Sousa <joao.agostinho-de-sousa@psi.ch>"
+
+module-help         "
+A flow-matching foundation model for biomolecular design.
+Created by Baker Lab with NVIDIA GenAIR.
+"
+
+# Detect architecture
+set arch [exec uname -m]
+
+# Set GPU node type based on the CPU architecture
+if {$arch=="aarch64"} {
+    setenv GPU_NODE_TYPE GH
+} else {
+    setenv GPU_NODE_TYPE A100
+}
+
+# Environment variables
+setenv APPTAINER_IMAGE /data/project/cls/shared/containers/${P}/${V_PKG}/\${GPU_NODE_TYPE}/${P}.sif
+
