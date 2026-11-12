@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# Validate that the RFD4-Proteina image is specified
+if [[ -z "${APPTAINER_IMAGE:-}" ]]; then
+    echo "Error: RFD4-Proteina image is not set."
+    exit 1
+fi
+
+# Expand variables embedded in APPTAINER_IMAGE
+IMAGE=$(eval echo "$APPTAINER_IMAGE")
+
+# Validate the expanded path
+if [[ ! -f "$IMAGE" ]]; then
+    echo "Error: RFD4-Proteina image not found: $IMAGE"
+    exit 1
+fi
+
+# Run RFD4-Proteina inside the Singularity container
+singularity exec \
+    --nv \
+    --bind "/data/scratch/shared:/data/scratch/shared" \
+    --bind "/data/user:/data/user" \
+    --bind "/data/project:/data/project" \
+    --bind "/scratch:/scratch" \
+    --bind "/tmp:/tmp" \
+    --bind "/etc/ssl/ca-bundle.pem:/etc/ssl/ca-bundle.pem" \
+    "$IMAGE" \
+    rfd4-generate "${@}"
