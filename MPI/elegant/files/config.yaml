@@ -11,6 +11,30 @@ elegant:
   shasums:
 
   versions:
+    2026.4.0:
+      config:
+        # Other system requirements
+        # - gd-devel
+        # - lz2-devel
+        # Alternetively, we should build the corresponding modules
+        sources:
+          - url: https://epics.anl.gov/download/base/base-7.0.10.tar.gz
+            unpack_dir: ${PREFIX}/epics
+            strip_dirs: 0
+          - url: https://ops.aps.anl.gov/downloads/defns.rpn
+            unpack_dir: ${PREFIX}
+            unpacker: none
+        build_requires:
+          - OpenBLAS/0.3.28
+      variants:
+        - target_cpus: [x86_64]
+          systems: [cn.*.merlin7.psi.ch]
+          overlay: Alps
+          relstage: unstable
+          group_deps:
+            compiler: {gcc: [12.3.0]}
+            mpi: {mpich: [4.3.1]}
+
     2025.2.0:
       config:
         sources:
@@ -57,5 +81,5 @@ elegant:
           overlay: Alps
           relstage: unstable
           group_deps:
-            compiler: {gcc: [12.3.0]}
-            mpi: {openmpi: [5.0.5]}
+            compiler: {gcc: [12.4.0]}
+            mpi: {openmpi: [5.0.10]}
