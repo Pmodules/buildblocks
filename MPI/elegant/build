@@ -4,20 +4,83 @@ export LC_ALL=C
 
 export HOST_ARCH=linux-x86_64
 export EPICS_HOST_ARCH=linux-x86_64
-export RPN_DEFNS=${PREFIX}/defns.rpn
+export RPN_DEFNS=${PREFIX}/.defns.rpn
 
 pbuild::pre_prep() {
 	mkdir -p "${PREFIX}/epics"
 }
 
+pbuild::unpack(){
+        local -- fname="$1"
+        local -- dir="$2"
+        local -r strip="${3:-1}"
+        local -- unpacker="${4:-tar}"
+
+        fname=$(envsubst <<<"${fname}")
+        if [[ -z "${dir}" ]]; then
+                dir="${SRC_DIR}"
+        else
+                dir=$(envsubst <<<"${dir}")
+        fi
+        unpacker=$(envsubst <<<"${unpacker}")
+        mkdir -p "${dir}"
+
+        case "${unpacker}" in
+                tar )
+                        tar \
+                                --directory="${dir}" \
+                                -xv \
+                                --strip-components "${strip}" \
+                                -f "${fname}"
+                        ;;
+                7z )
+                        sevenz \
+                                x \
+                                -y \
+                                -o"${dir}" \
+                                "${fname}"
+                        ;;
+                none )
+                        cp "${fname}" "${dir}"
+                        ;;
+                * )
+                        pbcore::err_invalid_unpacker "${unpacker}"
+                        ;;
+        esac
+}
+        
+# We need to source an extra file containing extra configurations
+source files/config/elegant-${V_PKG}.source
+
 pbuild::post_prep() {
+
+        mv ${PREFIX}/defns.rpn ${PREFIX}/.defns.rpn
+
 	cd "${PREFIX}/epics"
-	ln -s base-* base
-	cd extensions
-	git init
-	git remote add origin https://github.com/epics-extensions/extensions
-	git fetch
-	git checkout master
+	ln -fs base-* base
+        git clone https://github.com/epics-extensions/extensions
+
+        curl --location --fail --insecure \
+             --output ${PREFIX}/SDDS-${ELEGANT_SDDS_VERSION}.tar.gz \
+             https://ops.aps.anl.gov/downloads/SDDS.${ELEGANT_SDDS_VERSION}.tar.gz
+        curl --location --fail --insecure \
+             --output ${PREFIX}/SDDSepics.${ELEGANT_SDDS_EPICS_VERSION}.tar.gz \
+             https://ops.aps.anl.gov/downloads/SDDSepics.${ELEGANT_SDDS_EPICS_VERSION}.tar.gz
+        curl --location --fail --insecure \
+             --output ${PREFIX}/oag.apps.configure.tar.gz \
+             https://ops.aps.anl.gov/downloads/oag.apps.configure.tar.gz
+        curl --location --fail --insecure \
+             --output ${PREFIX}/oag.${ELEGANT_OAG_VERSION}.tar.gz \
+             https://ops.aps.anl.gov/downloads/oag.${ELEGANT_OAG_VERSION}.tar.gz
+        curl --location --fail --insecure \
+             --output ${PREFIX}/elegant-${V_PKG}.tar.gz \
+             https://ops.aps.anl.gov/downloads/elegant.${V_PKG}.tar.gz
+
+        pbuild::unpack "${PREFIX}/SDDS-${ELEGANT_SDDS_VERSION}.tar.gz" "${PREFIX}" "0" "tar"
+        pbuild::unpack "${PREFIX}/SDDSepics.${ELEGANT_SDDS_EPICS_VERSION}.tar.gz" "${PREFIX}" "0" "tar"
+        pbuild::unpack "${PREFIX}/oag.apps.configure.tar.gz" "${PREFIX}" "0" "tar"
+        pbuild::unpack "${PREFIX}/oag.${ELEGANT_OAG_VERSION}.tar.gz" "${PREFIX}" "0" "tar"
+        pbuild::unpack "${PREFIX}/elegant-${V_PKG}.tar.gz" "${PREFIX}" "0" "tar"
 }
 
 pbuild::configure() {
@@ -28,10 +91,15 @@ pbuild::configure() {
 }
 
 pbuild::compile() {
-	C_INCLUDE_PATH+=:"${PREFIX}/epics/extensions/src/SDDS/hdf5/src"
+        # Required for HDF5 support
+        C_INCLUDE_PATH+=:"${PREFIX}/epics/extensions/src/SDDS/hdf5/src"
 	C_INCLUDE_PATH+=:"${PREFIX}/epics/extensions/src/SDDS/hdf5/src/H5FDsubfiling"
-	export C_INCLUDE_PATH
 
+        # This should be fixed in the module, C_INCLUDE_PATH is wrong in OpenBLAS
+	C_INCLUDE_PATH+=:"${OPENBLAS_INCLUDE_DIR}/openblas"
+
+        export C_INCLUDE_PATH
+ 
 	cd "${PREFIX}/epics/base"
 	make -j 5 || exit 42
 
@@ -40,21 +108,21 @@ pbuild::compile() {
 
 	cd "${PREFIX}/epics/extensions/src/SDDS"
 	make clean
-	make || exit 42
-	make || exit 42
-	make || exit 42
-
-	cd "${PREFIX}/epics/extensions/src/SDDSaps"
+	make -j || exit 42
+	make -j || exit 42
 	make || exit 42
 
-	cd "${PREFIX}/epics/extensions/src/SDDSaps/sddsplot"
-	make || exit 42
+	# cd "${PREFIX}/epics/extensions/src/SDDSaps"
+	# make || exit 42
 
-	cd "${PREFIX}/epics/extensions/src/SDDSaps/sddsplot/qtDriver"
-	make || exit 42
+	# cd "${PREFIX}/epics/extensions/src/SDDSaps/sddsplot"
+	# make || exit 42
 
-	cd "${PREFIX}/epics/extensions/src/SDDS/java
-	make || exit 42
+	# cd "${PREFIX}/epics/extensions/src/SDDSaps/sddsplot/qtDriver"
+	# make || exit 42
+
+	# cd "${PREFIX}/epics/extensions/src/SDDS/java"
+	# make || exit 42
 
 	cd "${PREFIX}/epics/extensions/src/oagca"
 	make clean
@@ -80,19 +148,14 @@ pbuild::compile() {
 	make -j || exit 42
 
 	# build the parallel version of Elegant
-	mpicc="${OPENMPI_DIR}/bin/mpicc"
-	mpicxx="${OPENMPI_DIR}/bin/mpic++"
-	fortran="${GCC_DIR}/bin/gfortran -m64 -ffixed-line-length-132"
-
 	cd "${PREFIX}/epics/extensions/src/SDDS/SDDSlib"
 	make clean
-	make -e -j F77="${fortran}" MPI_CC="${mpicc}" MPI_CCC="${mpicxx}"
+	make -e -j MPI_CC="${MPICC}" MPI_CCC="${MPICXX}" || exit 42
 
 	cd "${PREFIX}/oag/apps/src/elegant"
 	make clean
-	make -e -j F77="${fortran}" MPI_CC="${mpicc}" MPI_CCC="${mpicxx}"
+	make -e -j MPI_CC="${MPICC}" MPI_CCC="${MPICXX}" || exit 42
 }
-
 pbuild::install() {
 	:
 }

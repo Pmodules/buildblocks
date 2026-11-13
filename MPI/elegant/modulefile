@@ -3,7 +3,7 @@
 module-whatis		"an accelerator modeling code"
 module-url		"http://www.aps.anl.gov/Accelerator_Systems_Division/Accelerator_Operations_Physics/elegant.html"
 module-license		"See: http://www.aps.anl.gov/epics/license/index.php"
-module-maintainer	"Achim Gsell <achim.gsell@psi.ch>"
+module-maintainer	"Software Modules - Org_7905_HPCE <1bbe04ae.psi.ch@ch.teams.ms>"
 
 module-help	"
 elegant is an accelerator modeling code that performs many functions. Its
