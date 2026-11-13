@@ -150,11 +150,11 @@ pbuild::compile() {
 	# build the parallel version of Elegant
 	cd "${PREFIX}/epics/extensions/src/SDDS/SDDSlib"
 	make clean
-	make -e -j MPI_CC="${MPICC}" MPI_CCC="${MPICXX}" || exit 42
+	make -e -j F77="${F77} -m64 -ffixed-line-length-132" MPI_CC="${MPICC}" MPI_CCC="${MPICXX}" || exit 42
 
 	cd "${PREFIX}/oag/apps/src/elegant"
 	make clean
-	make -e -j MPI_CC="${MPICC}" MPI_CCC="${MPICXX}" || exit 42
+	make -e -j F77="${F77} -m64 -ffixed-line-length-132" MPI_CC="${MPICC}" MPI_CCC="${MPICXX}" || exit 42
 }
 pbuild::install() {
 	:
