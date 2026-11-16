@@ -2,13 +2,13 @@
 
 pbuild::prep() {
     # Create bin/ in the installation directory
-    mkdir -p $PREFIX/bin/
+    mkdir -p "$PREFIX/bin"
 
-    # Copy executable script to the installation directory
-    cp -n "$BUILDBLOCK_DIR/rfd4-generate" "$PREFIX/bin/"
+    # Copy all RFD4 executable scripts
+    cp -n "$BUILDBLOCK_DIR"/bin/rfd4-* "$PREFIX/bin/"
 
-    # Add execute permission to the script
-    chmod +x "$PREFIX/bin/rfd4-generate"
+    # Add execute permissions
+    chmod +x "$PREFIX"/bin/rfd4-*
 }
 
 pbuild::configure() {
