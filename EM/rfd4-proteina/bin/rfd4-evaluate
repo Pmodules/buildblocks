@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Validate container image
+if [[ -z "${APPTAINER_IMAGE:-}" ]]; then
+    echo "Error: RFD4-Proteina image is not set."
+    exit 1
+fi
+
+IMAGE=$(eval echo "$APPTAINER_IMAGE")
+
+if [[ ! -f "$IMAGE" ]]; then
+    echo "Error: RFD4-Proteina image not found: $IMAGE"
+    exit 1
+fi
+
+# Execute the corresponding command inside the container
+exec singularity exec \
+    --nv \
+    --bind "/data/scratch/shared:/data/scratch/shared" \
+    --bind "/data/user:/data/user" \
+    --bind "/data/project:/data/project" \
+    --bind "/scratch:/scratch" \
+    --bind "/tmp:/tmp" \
+    --bind "/etc/ssl/ca-bundle.pem:/etc/ssl/ca-bundle.pem" \
+    "$IMAGE" \
+    rfd4-evaluate "$@"
