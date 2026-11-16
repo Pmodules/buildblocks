@@ -1,0 +1,12 @@
+#%Module1.0
+
+module-whatis     "YAML parser and emitter for C++"
+module-url        "https://github.com/jbeder/yaml-cpp"
+module-license    "See: https://github.com/jbeder/yaml-cpp/blob/master/LICENSE"
+module-maintainer "Software Modules - Org_7905_HPCE <1bbe04ae.psi.ch@ch.teams.ms>"
+
+module-help "
+yaml-cpp is a YAML parser and emitter in C++ matching the YAML 1.2 spec.
+"
+
+prepend-path CMAKE_PREFIX_PATH $PREFIX
