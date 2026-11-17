@@ -16,6 +16,7 @@ elegant:
         # Other system requirements
         # - gd-devel
         # - lz2-devel
+        # - tcl-devel
         # Alternetively, we should build the corresponding modules
         sources:
           - url: https://epics.anl.gov/download/base/base-7.0.10.tar.gz
@@ -28,7 +29,7 @@ elegant:
           - OpenBLAS/0.3.28
       variants:
         - target_cpus: [x86_64]
-          systems: [cn.*.merlin7.psi.ch]
+          systems: [cn.*.merlin7.psi.ch,login.*.merlin7.psi.ch]
           overlay: Alps
           relstage: unstable
           group_deps:
@@ -40,6 +41,7 @@ elegant:
         # Other system requirements
         # - gd-devel
         # - lz2-devel
+        # - tcl-devel
         # - libqt5-qtbase-devel
         # Alternetively, we should build the corresponding modules
         sources:
@@ -64,7 +66,7 @@ elegant:
             mpi: {openmpi: [4.1.6_slurm]}
           relstage: unstable
         - target_cpus: [x86_64]
-          systems: [cn.*.merlin7.psi.ch]
+          systems: [cn.*.merlin7.psi.ch,login.*.merlin7.psi.ch]
           overlay: Alps
           relstage: unstable
           group_deps:
