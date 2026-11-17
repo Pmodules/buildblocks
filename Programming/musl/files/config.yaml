@@ -1,0 +1,22 @@
+---
+format: 1
+musl:
+  defaults:
+    group: Programming
+    relstage: stable
+    compile_in_sourcetree: true
+
+  shasums:
+    musl-cross-make-2026-07-03.tar.gz: bb3fc7851088e1e5e1274ee56a0ab6ae176043d160fdf0b71027934b091f208a
+
+  versions:
+    1.2.6:
+      config:
+        urls:
+          - url: https://github.com/richfelker/musl-cross-make/archive/227df8b99103f9c59f6570babf892978e293082f.tar.gz
+            name: musl-cross-make-2026-07-03.tar.gz
+        relstage: unstable
+      variants:
+        - overlay: PSI
+          systems: [.*.merlin7.psi.ch]
+          target_cpus: [x86_64]
