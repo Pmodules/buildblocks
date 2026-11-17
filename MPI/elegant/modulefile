@@ -30,3 +30,6 @@ append-path	LIBRARY_PATH		$PREFIX/epics/extensions/lib/linux-x86_64
 append-path	C_INCLUDE_PATH		$PREFIX/epics/extensions/include
 append-path	CPLUS_INCLUDE_PATH	$PREFIX/epics/extensions/include
 append-path	PKG_CONFIG_PATH		$PREFIX/epics/base/lib
+
+# Needed to get access to TCL libs for oagtclsh
+prepend-path -d " " TCLLIBPATH "$PREFIX/oag/apps/lib/linux-x86_64"
