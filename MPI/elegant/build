@@ -33,13 +33,6 @@ pbuild::unpack(){
                                 --strip-components "${strip}" \
                                 -f "${fname}"
                         ;;
-                7z )
-                        sevenz \
-                                x \
-                                -y \
-                                -o"${dir}" \
-                                "${fname}"
-                        ;;
                 none )
                         cp "${fname}" "${dir}"
                         ;;
@@ -81,6 +74,14 @@ pbuild::post_prep() {
         pbuild::unpack "${PREFIX}/oag.apps.configure.tar.gz" "${PREFIX}" "0" "tar"
         pbuild::unpack "${PREFIX}/oag.${ELEGANT_OAG_VERSION}.tar.gz" "${PREFIX}" "0" "tar"
         pbuild::unpack "${PREFIX}/elegant-${V_PKG}.tar.gz" "${PREFIX}" "0" "tar"
+
+        # Apply patches recursively built for the ${V_PKG} release.
+        # This was mainly useful for older Elegant releases.
+        cd "${BUILDBLOCK_DIR}"
+	for patch_file in "files/patch/${V_PKG}"/*.patch; do
+	    [[ -f "$patch_file" ]] || continue
+	    patch -d "${PREFIX}" -p0 --batch --forward < "$patch_file" || exit 1
+	done
 }
 
 pbuild::configure() {
