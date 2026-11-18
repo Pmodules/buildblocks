@@ -1,0 +1,73 @@
+--- oag/apps/src/tcltkinterp/extensions/sdds/Makefile
++++ oag/apps/src/tcltkinterp/extensions/sdds/Makefile
+@@ -24,62 +24,21 @@
+ 
+ LIBSRCS = tclSDDS.c tclSDDSCmd.c
+ 
+-
+-#Look for private version of GSL used here at APS
+-GSL = $(words $(wildcard $(EPICS_EXTENSIONS)/src/SDDS/gsl))
+-ifeq ($(GSL), 1)
+-USR_CFLAGS += -I$(EPICS_EXTENSIONS)/src/SDDS/gsl -DUSE_GSL
+-GSLLIB = rpnlib gsl gslcblas
+-SYS_GSLLIB = 
+-gsl_DIR = $(EPICS_EXTENSIONS_LIB)
+-gslcblas_DIR = $(EPICS_EXTENSIONS_LIB)
+-else
+-
+-#Look for system version of GSL
+-SYSGSL = $(words $(notdir $(wildcard \
+-/usr/lib/libgsl.a \
+-/usr/lib/libgsl.so \
+-/usr/lib64/libgsl.a \
+-/usr/lib64/libgsl.so \
+-/usr/lib/i386-linux-gnu/libgsl.so \
+-/usr/lib/i386-linux-gnu/libgsl.a \
+-/usr/lib/x86_64-linux-gnu/libgsl.so \
+-/usr/lib/x86_64-linux-gnu/libgsl.a \
+-/lib/i386-linux-gnu/libgsl.so \
+-/lib/i386-linux-gnu/libgsl.a \
+-/lib/x86_64-linux-gnu/libgsl.so \
+-/lib/x86_64-linux-gnu/libgsl.a \
+-/lib/libgsl.a \
+-/lib/libgsl.so \
+-/lib64/libgsl.a \
+-/lib64/libgsl.so \
+-/sw/lib/libgsl.a \
+-/sw/lib/libgsl.dylib \
+-/opt/local/lib/libgsl.a \
+-/opt/local/lib/libgsl.dylib \
+-/usr/sfw/lib/libgsl.a \
+-/usr/sfw/lib/libgsl.so )))
+-
+-ifneq ($(SYSGSL), 0)
+-USR_CFLAGS += -DUSE_GSL
+-GSLLIB = 
+ SYS_GSLLIB = gsl gslcblas
+-STATIC_BUILD=NO
+-else
+-
+-#No GSL library found. Build without it.
+-GSLLIB = 
+-SYS_GSLLIB = 
++ifeq ($(OS_CLASS),Linux)
++  GSL = $(words $(wildcard $(EPICS_EXTENSIONS)/src/SDDS/gsl))
++  ifeq ($(GSL), 1)
++    GSLLIB = gsl gslcblas
++    SYS_GSLLIB = 
++  endif
+ endif
+-endif
+-
+ 
+ ifdef WIN32
+ USR_LIBS = mdbcommon SDDS1 rpnlib mdbmth mdblib lzma $(GSLLIB) tclstub86 z
+ z_DIR = $(EPICS_EXTENSIONS_LIB)
+ else
+-USR_LIBS = mdbcommon SDDS1 rpnlib mdbmth mdblib lzma $(GSLLIB)
+-LIB_SYS_LIBS += z
++USR_LIBS = mdbcommon SDDS1 rpnlib mdbmth mdblib $(GSLLIB)
++LIB_SYS_LIBS += $(SYS_GSLLIB) lzma z
+ 
+ ifeq ($(EPICS_HOST_ARCH),linux-x86_64)
+ OAGTCL = $(notdir $(wildcard /usr/local/oag/ActiveTcl/linux-x86_64.ActiveTcl8.6.13/include/tcl.h))
