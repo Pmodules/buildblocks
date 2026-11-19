@@ -31,7 +31,7 @@ elegant:
         - target_cpus: [x86_64]
           systems: [cn.*.merlin7.psi.ch,login.*.merlin7.psi.ch]
           overlay: Alps
-          relstage: unstable
+          relstage: stable
           group_deps:
             compiler: {gcc: [12.3.0]}
             mpi: {mpich: [4.3.1]}
@@ -51,12 +51,6 @@ elegant:
           - url: https://ops.aps.anl.gov/downloads/defns.rpn
             unpack_dir: ${PREFIX}
             unpacker: none
-          # - patch_file: elegant.diff
-          #   patch_strip: 1
-          #   unpack_dir: ${PREFIX}
-          # - patch_file: MPI.diff
-          #   patch_strip: 1
-          #   unpack_dir: ${PREFIX}
         build_requires:
           - OpenBLAS/0.3.28
       variants:
@@ -64,11 +58,11 @@ elegant:
           group_deps:
             compiler: {gcc: [12.3.0]}
             mpi: {openmpi: [4.1.6_slurm]}
-          relstage: unstable
+          relstage: deprecated
         - target_cpus: [x86_64]
           systems: [cn.*.merlin7.psi.ch,login.*.merlin7.psi.ch]
           overlay: Alps
-          relstage: unstable
+          relstage: deprecated
           group_deps:
             compiler: {gcc: [12.3.0]}
             mpi: {mpich: [4.3.1]}
