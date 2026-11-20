@@ -20,8 +20,6 @@ NAMD:
             - gcc/12.3.0
             - libfabric/2.5.1-oss
           runtime_deps:
-            - PrgEnv-gnu/8.5.0
-            - cray-pmi/6.1.13
             - gcc/12.3.0
             - libfabric/2.5.1-oss
         - overlay: Alps_A100
@@ -35,8 +33,6 @@ NAMD:
             - cuda/12.9.1
             - libfabric/2.5.1-oss
           runtime_deps:
-            - PrgEnv-gnu/8.5.0
-            - cray-pmi/6.1.13
             - gcc/12.3.0
             - cuda/12.9.1
             - libfabric/2.5.1-oss
@@ -50,7 +46,5 @@ NAMD:
             - gcc/12.3.0
             - cuda/12.9.1
           runtime_deps:
-            - PrgEnv-gnu/8.5.0
-            - cray-pmi/6.1.13
             - gcc/12.3.0
             - cuda/12.9.1
