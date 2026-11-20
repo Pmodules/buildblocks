@@ -21,6 +21,6 @@ exec singularity exec \
     --bind "/data/project:/data/project" \
     --bind "/scratch:/scratch" \
     --bind "/tmp:/tmp" \
-    --bind "/etc/ssl/ca-bundle.pem:/etc/ssl/ca-bundle.pem" \
+    --bind "/etc/ssl/ca-bundle.pem:/usr/local/share/ca-certificates/ca-bundle.crt" \
     "$IMAGE" \
     rfd4-train "$@"
