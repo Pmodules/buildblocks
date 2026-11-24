@@ -1,13 +1,28 @@
 ---
+# yamllint disable rule:line-length
 format: 1
 DeepEMhancer:
   defaults:
     group: EM
     overlay: base
-    relstage: unstable
+    relstage: stable
+    urls:
+      - url: https://github.com/rsanchezgarc/${P}/archive/refs/tags/${V_PKG}.tar.gz
+  shasums:
+    0.18.tar.gz: d679bff02fd2b0da4e9dcd0e0a1d673896d763f61e5fe975de96673b39c1fa38
+
   versions:
-    0.16:
+    0.18:
       variants:
-        - overlay: Alps 
+        - overlay: Alps
+          target_cpus: [x86_64]
           systems: [.*.merlin7.psi.ch]
-          relstage: unstable
+          relstage: stable
+          build_requires:
+            - Python/3.12.9
+        - overlay: Alps
+          target_cpus: [aarch64]
+          systems: [gpu0.*.merlin7.psi.ch]
+          relstage: stable
+          build_requires:
+            - Python/3.12.9
