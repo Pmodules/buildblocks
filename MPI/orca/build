@@ -1,20 +1,58 @@
 #!/usr/bin/env modbuild
 
-pbuild::add_to_group 'MPI'
-
-pbuild::prep() {
-	:
-}
-
 pbuild::configure() {
-	:
+    :
 }
 
 pbuild::compile() {
-	:
+    :
 }
 
 pbuild::install() {
-	:
-}
+    # The installation file for each version needs to be downloaded from
+    # https://www.faccts.de/orca/. This script needs to be updated to adapt to
+    # the file name
 
+    # Only support ORCA 6.1.1
+    if [ "${V_PKG}" != "6.1.1" ]; then
+        echo "ERROR: This installer only supports ORCA 6.1.1 (got ${V_PKG})"
+        exit 1
+    fi
+
+    INSTALL_DIR="${BUILDBLOCK_DIR}/install/${V_PKG}"
+
+    # Select archive based on architecture
+    case "$(uname -m)" in
+        x86_64)
+            ARCHIVE="orca_6_1_1_linux_x86-64_shared_openmpi418_nodmrg.tar.xz"
+            ;;
+        aarch64|arm64)
+            ARCHIVE="orca_6_1_1_linux_arm64_shared_openmpi418.tar.xz"
+            ;;
+        *)
+            echo "ERROR: Unsupported architecture: $(uname -m)"
+            exit 1
+            ;;
+    esac
+
+    ARCHIVE_PATH="${INSTALL_DIR}/${ARCHIVE}"
+
+    if [ ! -f "${ARCHIVE_PATH}" ]; then
+        echo "ERROR: ORCA archive not found: ${ARCHIVE_PATH}"
+        exit 1
+    fi
+
+    # Extract archive contents directly into PREFIX, without the top-level folder
+    tar -xJf "${ARCHIVE_PATH}" \
+        -C "${PREFIX}" \
+        --strip-components=1
+
+    # Create bin directory
+    mkdir -p "${PREFIX}/bin"
+
+    # Move only top-level executable files into PREFIX/bin
+    find "${PREFIX}" -maxdepth 1 -type f -perm /111 \
+        -exec mv -t "${PREFIX}/bin" {} +
+
+    echo "ORCA ${V_PKG} installed successfully for $(uname -m)"
+}
