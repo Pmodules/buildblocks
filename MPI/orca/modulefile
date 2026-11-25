@@ -1,24 +1,13 @@
 #%Module1.0
 
-module-whatis           "ORCA"
-module-url              "https://www.kofo.mpg.de/en/research/services/orca"
-module-license          "See $PREFIX/bin/EULA_ORCA_2021.pdf"
-module-maintainer       "Marc Caubet Serrabou <marc.caubet@psi.ch>"
-module-help             "
-ORCA is a flexible, efficient and easy-to-use general purpose tool for
-quantum chemistry with specific emphasis on spectroscopic properties of
-open-shell molecules. It features a wide variety of standard quantum 
-chemical methods ranging from semiempirical methods to DFT to single- 
-and multireference correlated ab initio methods. It can also treat 
-environmental and relativistic effects.
-
-Due to the user-friendly style, ORCA is considered to be a helpful tool
-not only for computational chemists, but also for chemists, physicists 
-and biologists that are interested in developing the full information 
-content of their experimental data with help of calculations.
+module-whatis       "ORCA is a powerful and versatile quantum chemistry software package"
+module-url          "https://www.faccts.de/orca/"
+module-license      "Academic & Personal License"
+module-maintainer   "João Pedro Agostinho de Sousa <joao.agostinho-de-sousa@psi.ch>"
+module-help "
+ORCA is a general-purpose quantum chemistry software package used to calculate
+the electronic structure, energetics, and spectroscopic properties of
+molecules. Developed primarily by Frank Neese's group at the
+Max-Planck-Institut für Kohlenforschung and distributed commercially via
+FACCTs, it runs on Linux, macOS, and Windows and is free for academic use.
 "
-
-setenv          ORCA_PATH       $PREFIX/bin
-
-prepend-path    PATH            $PREFIX/bin
-prepend-path    LD_LIBRARY_PATH $PREFIX/bin
