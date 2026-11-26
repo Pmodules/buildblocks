@@ -53,19 +53,19 @@ pbuild::post_prep() {
 	ln -fs base-* base
         git clone https://github.com/epics-extensions/extensions
 
-        curl --location --fail --insecure \
+        curl --location --fail \
              --output ${PREFIX}/SDDS-${ELEGANT_SDDS_VERSION}.tar.gz \
              https://ops.aps.anl.gov/downloads/SDDS.${ELEGANT_SDDS_VERSION}.tar.gz
-        curl --location --fail --insecure \
+        curl --location --fail \
              --output ${PREFIX}/SDDSepics.${ELEGANT_SDDS_EPICS_VERSION}.tar.gz \
              https://ops.aps.anl.gov/downloads/SDDSepics.${ELEGANT_SDDS_EPICS_VERSION}.tar.gz
-        curl --location --fail --insecure \
+        curl --location --fail \
              --output ${PREFIX}/oag.apps.configure.tar.gz \
              https://ops.aps.anl.gov/downloads/oag.apps.configure.tar.gz
-        curl --location --fail --insecure \
+        curl --location --fail \
              --output ${PREFIX}/oag.${ELEGANT_OAG_VERSION}.tar.gz \
              https://ops.aps.anl.gov/downloads/oag.${ELEGANT_OAG_VERSION}.tar.gz
-        curl --location --fail --insecure \
+        curl --location --fail \
              --output ${PREFIX}/elegant-${V_PKG}.tar.gz \
              https://ops.aps.anl.gov/downloads/elegant.${V_PKG}.tar.gz
 
@@ -113,6 +113,11 @@ pbuild::compile() {
 	make -C "${PREFIX}/epics/extensions/src/SDDS" -j || true
 	make -C "${PREFIX}/epics/extensions/src/SDDS"    || exit 42
 
+        # Necessary for having qtDriver support
+	make -C "${PREFIX}/epics/extensions/src/SDDS/SDDSaps" || exit 42
+	make -C "${PREFIX}/epics/extensions/src/SDDS/SDDSaps/sddsplots" || exit 42
+	make -C "${PREFIX}/epics/extensions/src/SDDS/SDDSaps/sddsplots/qtDriver" || exit 42
+
 	make -C "${PREFIX}/epics/extensions/src/oagca" clean
 	make -C "${PREFIX}/epics/extensions/src/oagca" -j || exit 42
 
@@ -146,7 +151,7 @@ pbuild::compile() {
 		F77="${F77} -m64 -ffixed-line-length-132" \
 		MPI_CC="${MPICC}" \
 		MPI_CCC="${MPICXX}" \
-		"${ELEGANT_CUSTOM_EXTRA_PARAMS}" || exit 42
+		${ELEGANT_CUSTOM_EXTRA_PARAMS:-} || exit 42
 }
 pbuild::install() {
         # Needed to get oagtclsh installed
