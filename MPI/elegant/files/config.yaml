@@ -27,10 +27,11 @@ elegant:
             unpacker: none
         build_requires:
           - OpenBLAS/0.3.28
+          - Qt/5.12.10
       variants:
         - target_cpus: [x86_64]
           systems: [cn.*.merlin7.psi.ch,login.*.merlin7.psi.ch]
-          overlay: Alps
+          overlay: testing
           relstage: stable
           group_deps:
             compiler: {gcc: [12.3.0]}
@@ -53,6 +54,7 @@ elegant:
             unpacker: none
         build_requires:
           - OpenBLAS/0.3.28
+          - Qt/5.12.10
       variants:
         - systems: [merlin-.*.psi.ch]
           group_deps:
@@ -62,7 +64,7 @@ elegant:
         - target_cpus: [x86_64]
           systems: [cn.*.merlin7.psi.ch,login.*.merlin7.psi.ch]
           overlay: Alps
-          relstage: deprecated
+          relstage: unstable
           group_deps:
             compiler: {gcc: [12.3.0]}
             mpi: {mpich: [4.3.1]}

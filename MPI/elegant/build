@@ -47,7 +47,7 @@ source ${BUILDBLOCK_DIR}/files/config/elegant-${V_PKG}.source
 
 pbuild::post_prep() {
 
-        ln -sf ${PREFIX}/.defns.rpn ${PREFIX}/defns.rpn
+        ln -sf ${PREFIX}/defns.rpn ${RPN_DEFNS}
 
 	cd "${PREFIX}/epics"
 	ln -fs base-* base
@@ -114,9 +114,9 @@ pbuild::compile() {
 	make -C "${PREFIX}/epics/extensions/src/SDDS"    || exit 42
 
         # Necessary for having qtDriver support
-	make -C "${PREFIX}/epics/extensions/src/SDDS/SDDSaps" || exit 42
-	make -C "${PREFIX}/epics/extensions/src/SDDS/SDDSaps/sddsplots" || exit 42
-	make -C "${PREFIX}/epics/extensions/src/SDDS/SDDSaps/sddsplots/qtDriver" || exit 42
+	# make -C "${PREFIX}/epics/extensions/src/SDDS/SDDSaps" || exit 42
+	# make -C "${PREFIX}/epics/extensions/src/SDDS/SDDSaps/sddsplots" || exit 42
+	# make -C "${PREFIX}/epics/extensions/src/SDDS/SDDSaps/sddsplots/qtDriver" || exit 42
 
 	make -C "${PREFIX}/epics/extensions/src/oagca" clean
 	make -C "${PREFIX}/epics/extensions/src/oagca" -j || exit 42
@@ -144,7 +144,7 @@ pbuild::compile() {
 		F77="${F77} -m64 -ffixed-line-length-132" \
 		MPI_CC="${MPICC}" \
 		MPI_CCC="${MPICXX}" \
-		"${ELEGANT_CUSTOM_EXTRA_PARAMS}" || exit 42
+		${ELEGANT_CUSTOM_EXTRA_PARAMS:-} || exit 42
 
 	make -C "${PREFIX}/oag/apps/src/elegant" clean
 	make -C "${PREFIX}/oag/apps/src/elegant" -e -j \

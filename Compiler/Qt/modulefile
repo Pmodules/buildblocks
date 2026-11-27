@@ -1,0 +1,45 @@
+#%Module1.0
+
+module-whatis      "A cross-platform application and UI development framework"
+module-url         "https://www.qt.io/"
+module-license     "LGPLv3/GPLv3 (depending on module); see: https://doc.qt.io/qt-6.8/licensing.html"
+module-maintainer  "Software Modules - Org_7905_HPCE <1bbe04ae.psi.ch@ch.teams.ms>"
+
+module-help "
+Qt is a cross-platform software development framework for creating
+graphical user interfaces, desktop applications, and embedded systems.
+
+Qt provides a comprehensive collection of C++ libraries and development
+tools for building modern, portable applications.
+
+This installation includes the open-source Qt 6 framework and its
+available submodules, including:
+
+  - Qt Core, GUI, Widgets, Network and Concurrent
+  - Qt Quick, QML and Declarative
+  - Qt OpenGL and 3D
+  - Qt Data Visualization, Charts and Graphs
+  - Qt Multimedia, SVG and Image Formats
+  - Qt WebEngine and WebChannel
+  - Qt SQL, XML and other development components
+
+Qt includes development tools such as moc, rcc, uic, qmake and
+Qt CMake integration.
+
+The framework is compiled using GCC 12.3.0 and is intended for
+applications requiring a modern C++ development environment,
+including scientific visualization and accelerator simulation tools.
+
+Qt is available under open-source licenses, primarily LGPLv3 and
+GPLv3, depending on the specific module. Additional third-party
+licenses may apply.
+
+Not all Qt components are necessarily available if optional build
+dependencies were not satisfied.
+
+Documentation:
+  https://doc.qt.io/qt-6.8/
+
+Licensing:
+  https://doc.qt.io/qt-6.8/licensing.html
+"
