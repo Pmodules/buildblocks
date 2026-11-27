@@ -113,11 +113,6 @@ pbuild::compile() {
 	make -C "${PREFIX}/epics/extensions/src/SDDS" -j || true
 	make -C "${PREFIX}/epics/extensions/src/SDDS"    || exit 42
 
-        # Necessary for having qtDriver support
-	# make -C "${PREFIX}/epics/extensions/src/SDDS/SDDSaps" || exit 42
-	# make -C "${PREFIX}/epics/extensions/src/SDDS/SDDSaps/sddsplots" || exit 42
-	# make -C "${PREFIX}/epics/extensions/src/SDDS/SDDSaps/sddsplots/qtDriver" || exit 42
-
 	make -C "${PREFIX}/epics/extensions/src/oagca" clean
 	make -C "${PREFIX}/epics/extensions/src/oagca" -j || exit 42
 
