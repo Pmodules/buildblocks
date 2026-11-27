@@ -1,0 +1,69 @@
+---
+format: 1
+Qt:
+  defaults:
+    group: Compiler
+    overlay: base
+    relstage: unstable
+    build_requires:
+      - gcc/12.3.0
+    runtime_deps:
+      - gcc/12.3.0
+    group_deps:
+      compiler: {gcc: [12.3.0]}
+    urls:
+      - url: https://download.qt.io/archive/qt/${V_MAJOR}.${V_MINOR}/${V_PKG}/single/qt-everywhere-src-${V_PKG}.tar.xz
+        name: qt-everywhere-src-${V_PKG}.tar.xz
+        strip_dirs: 1
+    # System dependencies found
+    # SLS15.6:
+    # - nodejs20
+    # - python3-html5lib
+    # - glproto-devel
+    # - libxkbcommon-x11-devel
+    # - libxkbfile-devel
+    # - libxshmfence-devel
+    # - libxcb-ewmh2
+    # - xcb-util-cursor-devel
+    # - xcb-util-devel
+    # - xcb-util-image-devel
+    # - xcb-util-keysyms-devel
+    # - xcb-util-renderutil-devel
+    # - xcb-util-wm-devel
+  shasums:
+    qt-everywhere-src-6.8.3.tar.xz: cdd3a69967208276bb01af7ace7dba0ba53e679f886a4cbe624225c60fb73f2c
+  versions:
+    6.8.3:
+      config:
+        configure_with: cmake
+        build_requires:
+          - gcc/12.3.0
+          - cmake/3.26.3
+        urls:
+          - url: https://download.qt.io/archive/qt/6.8/${V_PKG}/single/qt-everywhere-src-${V_PKG}.tar.xz
+            name: qt-everywhere-src-${V_PKG}.tar.xz
+            strip_dirs: 1
+        configure_args:
+          - -DCMAKE_BUILD_TYPE=Release
+          - -DINSTALL_LIBDIR=lib
+          - -DQT_BUILD_TESTS=OFF
+          - -DQT_BUILD_EXAMPLES=OFF
+          - -DFEATURE_xcb=ON
+          - -DFEATURE_opengl=ON
+    5.15.19:
+      config:
+        urls:
+          - url: https://download.qt.io/archive/qt/5.15/${V_PKG}/single/qt-everywhere-opensource-src-${V_PKG}.tar.xz
+            name: qt-everywhere-opensource-src-${V_PKG}.tar.xz
+            strip_dirs: 1
+        configure_args:
+          - -opensource
+          - -confirm-license
+          - -release
+          - -nomake
+          - tests
+          - -nomake
+          - examples
+          - -xcb
+          - -opengl
+          - desktop

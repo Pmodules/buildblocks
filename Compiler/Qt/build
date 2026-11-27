@@ -1,0 +1,62 @@
+#!/usr/bin/env modbuild
+# Sources and CMake configuration are handled by files/config.yaml.
+
+pbuild::post_prep() {
+    [[ "${V_MAJOR}" == "5" ]] || return 0
+
+    local archive
+
+    for archive in "${PMODULES_DISTFILESDIR}"/qt-everywhere*-src-"${V_PKG}".tar.xz
+    do
+        [[ -f "${archive}" ]] || continue
+
+        # Restore Qt 5 metadata that may have been lost during staging.
+        tar -xJf "${archive}" \
+            -C "${SRC_DIR}" \
+            --strip-components=1 \
+            --wildcards \
+            --no-anchored \
+            '.gitmodules' '.qmake.conf' || return 42
+        break
+    done
+
+    [[ -s "${SRC_DIR}/.gitmodules" ]] || {
+        echo "ERROR: Missing Qt 5 .gitmodules" >&2
+        return 42
+    }
+
+    [[ -f "${SRC_DIR}/configure.json" ]] || {
+        echo "ERROR: Missing Qt 5 configure.json" >&2
+        return 42
+    }
+}
+
+pbuild::pre_configure() {
+    [[ "${V_MAJOR}" == "5" ]] || return 0
+
+    local original="${SRC_DIR}/configure.pmodules-original"
+
+    if [[ ! -f "${original}" ]]; then
+        mv "${SRC_DIR}/configure" "${original}" || return 42
+    fi
+
+    install -m 755 \
+        "${BUILDBLOCK_DIR}/files/scripts/qt5-configure-wrapper" \
+        "${SRC_DIR}/configure" || return 42
+}
+
+pbuild::compile() {
+    case "${V_MAJOR}" in
+        5) make -C "${BUILD_DIR}" -j "${JOBS:-8}" || return 42 ;;
+        6) cmake --build "${BUILD_DIR}" --parallel "${JOBS:-8}" || return 42 ;;
+        *) return 42 ;;
+    esac
+}
+
+pbuild::install() {
+    case "${V_MAJOR}" in
+        5) make -C "${BUILD_DIR}" install || return 42 ;;
+        6) cmake --install "${BUILD_DIR}" || return 42 ;;
+        *) return 42 ;;
+    esac
+}
