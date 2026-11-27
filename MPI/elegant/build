@@ -47,7 +47,7 @@ source ${BUILDBLOCK_DIR}/files/config/elegant-${V_PKG}.source
 
 pbuild::post_prep() {
 
-        ln -sf ${PREFIX}/defns.rpn ${RPN_DEFNS}
+        ln -sf ${PREFIX}/defns.rpn ${PREFIX}/.defns.rpn
 
 	cd "${PREFIX}/epics"
 	ln -fs base-* base
